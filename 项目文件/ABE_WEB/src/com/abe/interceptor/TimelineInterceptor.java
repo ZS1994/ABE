@@ -12,7 +12,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.abe.service.IService;
+import com.abe.service.iBaseService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -20,7 +20,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 public class TimelineInterceptor extends AbstractInterceptor{
 
 	
-	IService ser;
+	iBaseService ser;
 	HttpServletRequest request;
 	HttpServletResponse response;
 	Map session;
@@ -32,10 +32,10 @@ public class TimelineInterceptor extends AbstractInterceptor{
 	
 	
 	
-	public IService getSer() {
+	public iBaseService getSer() {
 		return ser;
 	}
-	public void setSer(IService ser) {
+	public void setSer(iBaseService ser) {
 		this.ser = ser;
 	}
 

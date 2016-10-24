@@ -3,7 +3,7 @@ package com.abe.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IBaseDaoOfSpring {
+public interface iBaseDao {
 	
 	public List find(String hql,Object[] ss);
 	

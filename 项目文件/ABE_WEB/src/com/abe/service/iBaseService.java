@@ -8,7 +8,7 @@ import com.abe.tools.Page;
 
 
 
-public interface IService {
+public interface iBaseService {
 	
 	/**
 	 * 张顺 
@@ -64,7 +64,7 @@ public interface IService {
 	 * @param ser 传一个service类，ser用action的
 	 * @return 结果集
 	 */
-	public List query(String hql1,Object ss[],String hql2,Page page,IService ser);
+	public List query(String hql1,Object ss[],String hql2,Page page,iBaseService ser);
 	
 	/**
 	 * 时间轴

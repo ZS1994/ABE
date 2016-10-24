@@ -1,4 +1,4 @@
-package com.abe.dao;
+package com.abe.dao.impl;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -10,7 +10,9 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class BaseDaoOfSpring implements IBaseDaoOfSpring{
+import com.abe.dao.iBaseDao;
+
+public class BaseDaoImpl implements iBaseDao{
 	
 	HibernateTemplate ht;
 

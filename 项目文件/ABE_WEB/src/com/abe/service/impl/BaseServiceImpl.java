@@ -1,22 +1,23 @@
-package com.abe.service;
+package com.abe.service.impl;
 
 
 import java.io.Serializable;
 import java.util.List;
-import com.abe.dao.IBaseDaoOfSpring;
+import com.abe.dao.iBaseDao;
+import com.abe.service.iBaseService;
 import com.abe.tools.Page;
 
 
 
-public class BaseService implements IService{
+public class BaseServiceImpl implements iBaseService{
 
-	IBaseDaoOfSpring dao;
+	iBaseDao dao;
 	
 	//-----------------------
-	public IBaseDaoOfSpring getDao() {
+	public iBaseDao getDao() {
 		return dao;
 	}
-	public void setDao(IBaseDaoOfSpring dao) {
+	public void setDao(iBaseDao dao) {
 		this.dao = dao;
 	}
 	//------------------------------
@@ -41,7 +42,7 @@ public class BaseService implements IService{
 		dao.update(obj);
 	}
 	public List query(String hql1, Object[] ss, String hql2, Page page,
-			IService ser) {
+			iBaseService ser) {
 		return null;
 	}
 	public void timeLine(String state, String tableName, String id) {
