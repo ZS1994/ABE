@@ -1,0 +1,159 @@
+a{ text-decoration:none;}
+body{
+	margin:0px;
+	padding: 10px;
+}
+table{
+	border: #224466;
+	border-collapse:collapse;
+	width: 100%;
+	table-layout:fixed;
+}
+table tr th{
+	background-color: #C0C0C0;
+	color: black;
+	font-weight: bold;
+	padding: 7px;
+	font-size: 12px;
+}
+td{
+	text-align:center;
+	padding:1px;
+	font-size: 12px;
+	word-wrap:break-word;
+}
+.table1{
+	width: 100%;
+}
+.table1 tr td{
+	text-align:left;
+	padding: 5px;
+}
+form{
+	padding: 0xp;
+	margin: 0px;
+	display: inline;
+}
+#eidtASubjectWindow1 {display:none;}
+#eidtASubjectWindow2 {display:none;}
+#eidtASubjectWindow3 {display:none;}
+#eidtASubjectWindow4 {display:none;}
+.table2{
+	border: #C1C1C1;
+	border-collapse:collapse;
+	width: 100%;
+}
+.table2 tr td{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+<!--定义样式--> 
+.my_table{
+	border:1px;
+	border-color:red;
+	border-style:solid;
+	border-collapse:collapse;
+}
+
+.tr_even{
+	background-color: #EEE;
+}
+.tr_odd{
+	background-color: #DADADA;
+}
+
+
+.login_div{
+	width:400px;
+	height:300px;
+	position: absolute;
+	left: 50%;
+	top:50%;
+	margin-left: -200px;
+	margin-top: -150px;
+	background-color: gray;
+}
+.login_div1{
+	width:100%;
+	height:50px;
+	background-color: #282828;
+}
+.login_div1_a{
+	width:100%;
+	height:auto;
+	color: white;
+	text-align: center;
+	font-size: 22px;
+	font-weight: bold;
+}
+.login_div1_b{
+	width:100%;
+	height:auto;
+	margin-top:10px;
+	text-align: center;
+}
+.login_input_div{
+	width:250px;
+	height:40px;
+	border-radius:6px;
+	border: 1px solid black;
+	background-color: white;
+}
+.login_man{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: 100px;
+	margin-top: -60px;
+}
+.login_lock{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: 100px;
+	margin-top: -7px;
+}
+.login_input{
+	width: 220px;
+	height: 100%;
+	border-radius:6px;
+	margin-top: 0px;
+	margin-left: 0px;
+	background-color: white;
+	border: 0px white none; 
+	float: left;
+	outline:none;
+}
+.login_logo{
+	position:absolute;
+	left:50%;
+	top: 50%;
+	margin-top: -80px;
+	margin-left: -80px;
+	width: 150px;
+}
+.login_text{
+	position:absolute;
+	left:50%;
+	top: 50%;
+	margin-top: -0px;
+	margin-left: -220px;
+	font-size: 50px;
+	color: #282828;
+	font-weight: bolder;
+	font-family: Microsoft YaHei;
+}
+.input_focus{
+	color: #282828;
+}
+.input_blur{
+	color: #8A8A8A;
+}
+.login_hint{
+	position:absolute;
+	top: 50%;
+	width:100%;
+	margin-top: 122px;
+	color:red;
+	text-align: center;
+}
