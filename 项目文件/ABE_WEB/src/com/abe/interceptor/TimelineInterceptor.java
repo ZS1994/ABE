@@ -72,7 +72,6 @@ public class TimelineInterceptor extends AbstractInterceptor{
 	public String intercept(ActionInvocation arg0) throws Exception {
 		String result=arg0.invoke();
 		allInit(arg0);
-		
 		//以下是时间轴的核心代码
 		if (user==null) {//将登录的url排除在外
 			if ((PRO_NAME+"/login!login").equals(path)) {

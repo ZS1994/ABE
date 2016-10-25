@@ -1,0 +1,29 @@
+
+短信接口（卢江林-阿里云账号 QQ账号相同）
+
+连接App数： 3942
+AppKey： 4819b920396a48e88ca8cda04faecff9
+
+
+接口地址：http://v1.avatardata.cn/Sms/Send
+返回格式：JSON/XML
+请求方式：GET/POST
+请求示例： http://v1.avatardata.cn/Sms/Send?key=[您申请的APPKEY]&mobile=XXXXXX&templateId=XXXXXX&param=XXXXX
+接口备注：同1个号码同1个签名的内容30秒内只能发1条，1分钟内只能发2条，30分钟内只能发3条
+请求参数：
+ 	 名称	 类型	 必填	 说明
+ 	 key	 String	 是	 应用APPKEY
+ 	 mobile	 String	 是	 发送手机号
+ 	 templateId	 String	 是	 短信模板ID，请到”用户中心-我的数据-短信模板“申请
+ 	 param	 String	 否	 用于替换模板标志位的参数，例如：我{1}爱{2}祖{3}国，替换a,b,c,后得到我a爱b祖c国
+ 	 dtype	 String	 否	 返回结果格式：可选JSON/XML，默认为JSON
+ 	 format	 Boolean	 否	 当返回结果格式为JSON时，是否对其进行格式化，为了节省流量默认为false，测试时您可以传入true来熟悉返回内容
+ 	 名称	 类型	 说明
+ 	 请参考JSON返回示例	 -	 -
+JSON返回示例：
+    {
+        "reason": "Success",
+        "success": true/*发送成功*/
+        "success": false/*发送失败*/
+        "error_code": 0 
+    }

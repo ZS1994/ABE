@@ -14,8 +14,11 @@
 	
 	
 	<!-- **************************ACTION******************************************** -->
+	<bean id="zs_test" class="com.abe.action.TestAction"/>
 	
-	
+	<bean id="zs_sign" class="com.abe.action.SignAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	
 	<!-- **************拦截器************* -->
 	<bean id="zs_interceptor_role" class="com.abe.interceptor.RoleInterceptor">

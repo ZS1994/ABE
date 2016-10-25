@@ -22,25 +22,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 
-<%session.setAttribute("user","张顺"); %>
-
-<form action="http://v1.avatardata.cn/Sms/Send?key=4819b920396a48e88ca8cda04faecff9&templateId=7f50d840e00c4c31858e3d7c6314791b" method="post">
-	手机号:<input type="text" name="mobile"/>验证码将通过短信发送到该手机号，请填写常用号码
-	<br/>
-	验证码:<input type="text" name="param"/>
-	
-	<input type="submit" value="发送手机验证码"/>同一号码  一天最多能接收五次验证码
+<form action="<%=path %>/sign!login" method="post">
+账号：<input type="text" name="user.UNum"/>
+<br/>
+密码：<input type="password" name="user.UPass"/>
+<br/>
+<input type="submit" value="登录"/>
 </form>
-
-<hr/>
-<a href="<%=path %>/test!test">TestAction</a>
-${AAA }
-
-<hr/>
-<a href="<%=path %>/component/login.jsp">跳转登录</a>
-
-<hr/>
-<a href="<%=path %>/test!test2">测试能否查询数据库</a>
+<font color="red">${hint }</font>
 
 </body>
+
 </html>

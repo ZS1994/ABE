@@ -2,6 +2,7 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 <constant name="struts.devMode" value="true"></constant>
+
 <constant name="struts.multipart.maxSize" value="209715200"></constant>
 <package name="a" extends="struts-default" namespace="/">
   <!-- 定义一个拦截器 -->  
@@ -18,10 +19,18 @@
       </interceptor-stack>  
   </interceptors>  
   
-  <action name="section" class="zs_section_yjz">	   
+  <!-- 测试用 -->
+  <action name="test" class="zs_test">	   
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
   </action>
+  
+  <action name="sign" class="zs_sign">	   
+  	 <interceptor-ref name="mydefault" />
+     <result name="login">component/login.jsp</result>
+     <result name="index">/index.jsp</result>
+  </action>
+  
   
 </package>
 </struts>    

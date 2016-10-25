@@ -2,7 +2,7 @@
 <something-else-entirely>
   <proxool>
     <alias>DBPool</alias>
-    <driver-url>jdbc:mysql://localhost:3306/it_bdm?user=root&amp;password=123456</driver-url>
+    <driver-url>jdbc:mysql://localhost:3306/abe?user=root&amp;password=123456</driver-url>
     <driver-class>com.mysql.jdbc.Driver</driver-class>
     <driver-properties>
       <property name="user" value="root"/>
