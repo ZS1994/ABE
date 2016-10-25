@@ -29,7 +29,7 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
 	<!-- ****************dao层********************* -->
-	<bean id="zs_dao" class="com.abe.dao.impl.BaseDaoImpl">
+	<bean id="zs_dao" class="com.abe.dao.BaseDaoImpl">
 		<property name="ht" ref="hibtemp"></property>
 	</bean>	
 	<!-- ************************************* -->
