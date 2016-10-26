@@ -10,6 +10,7 @@ public class Users implements java.io.Serializable {
 
 	// Fields
 
+	private String UId;
 	private String UNum;
 	private String UName;
 	private String UPass;
@@ -24,13 +25,15 @@ public class Users implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Users(String UNum) {
+	public Users(String UId, String UNum) {
+		this.UId = UId;
 		this.UNum = UNum;
 	}
 
 	/** full constructor */
-	public Users(String UNum, String UName, String UPass, String UType,
-			Timestamp UCreateTime, String UNote) {
+	public Users(String UId, String UNum, String UName, String UPass,
+			String UType, Timestamp UCreateTime, String UNote) {
+		this.UId = UId;
 		this.UNum = UNum;
 		this.UName = UName;
 		this.UPass = UPass;
@@ -40,6 +43,14 @@ public class Users implements java.io.Serializable {
 	}
 
 	// Property accessors
+
+	public String getUId() {
+		return this.UId;
+	}
+
+	public void setUId(String UId) {
+		this.UId = UId;
+	}
 
 	public String getUNum() {
 		return this.UNum;
@@ -89,4 +100,13 @@ public class Users implements java.io.Serializable {
 		this.UNote = UNote;
 	}
 
+	@Override
+	public String toString() {
+		return "Users [UCreateTime=" + UCreateTime + ", UId=" + UId
+				+ ", UName=" + UName + ", UNote=" + UNote + ", UNum=" + UNum
+				+ ", UPass=" + UPass + ", UType=" + UType + "]";
+	}
+
+	
+	
 }

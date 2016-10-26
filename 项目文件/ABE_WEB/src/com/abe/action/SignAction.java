@@ -1,6 +1,7 @@
 package com.abe.action;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -60,7 +61,12 @@ public class SignAction extends BaseAction{
 	public String signIn() {
 		hint="";
 //		logger.debug(user.getUNum()+" "+user.getUPass());
-		Users u=(Users) ser.get(Users.class, user.getUNum());
+		List list=ser.find("from Users where UNum=?", new Object[]{user.getUNum()});
+		Users u=null;
+		if (list.size()>0) {
+			u=(Users) list.get(0);
+		}
+		logger.debug(u.toString());
 		if (u==null) {
 			hint=HINT_NO_USER;
 			return result_fail;

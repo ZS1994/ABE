@@ -28,21 +28,11 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jarjar-0.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/javassist-3.9.0.GA.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdbc/mysql-connector-java-5.1.7-bin.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdbc/sqljdbc4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsf-api.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsf-impl.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-lang-2.3.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-logging-api-1.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/ezmorph-1.0.6.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/json-lib-2.1-jdk15.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jta-1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jxl.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/logger/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ognl-3.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.aop-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.asm-3.0.5.RELEASE.jar"/>
@@ -70,9 +60,19 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-json-plugin-2.2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-spring-plugin-2.2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xwork-core-2.2.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/proxool/proxool-0.9.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/proxool/proxool-cglib.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdbc/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdbc/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/commons-logging-api-1.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/json-lib-2.1-jdk15.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/logger/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/logger/slf4j-api-1.5.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/logger/slf4j-log4j12-1.5.8.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/proxool/proxool-0.9.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/proxool/proxool-cglib.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
