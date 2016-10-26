@@ -64,7 +64,7 @@ public interface iBaseService {
 	 * @param ser 传一个service类，ser用action的
 	 * @return 结果集
 	 */
-	public List query(String hql1,Object ss[],String hql2,Page page,iBaseService ser);
+	public List query(String hql1, Object[] ss, String hql2, Page page) ;
 	
 	/**
 	 * 时间轴

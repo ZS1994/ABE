@@ -1,9 +1,15 @@
 package com.abe.action;
 
+import java.sql.Timestamp;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+
 import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
 import com.abe.service.iBaseService;
+import com.abe.tools.JsonDateValueProcessor;
 
 /**
  * 登录、登出、注册管理acion
@@ -22,6 +28,7 @@ public class SignAction extends BaseAction{
 	
 	private iBaseService ser;
 	private Users user;
+	private String isApp;//是否传输给App的标志位
 	private String result="index";
 	private String result_fail="login";
 	private String hint;//提示信息
@@ -50,20 +57,27 @@ public class SignAction extends BaseAction{
 	/**
 	 * 登录
 	 */
-	public String login() {
+	public String signIn() {
 		hint="";
-		logger.debug("---进入signaction--");
-		System.out.println("00000000000000000000000000");
+//		logger.debug(user.getUNum()+" "+user.getUPass());
 		Users u=(Users) ser.get(Users.class, user.getUNum());
 		if (u==null) {
 			hint=HINT_NO_USER;
 			return result_fail;
 		}else {
-			if (u.getUPass().equals(user.getUPass())) {
+			if (!u.getUPass().equals(user.getUPass())) {
 				hint=HINT_NO_PASS;
 				return result_fail;
 			}else {
 				getSession().setAttribute("user", u);
+				
+				/*测试转换json数据
+				 */
+				JsonConfig jsonConfig=new JsonConfig();
+				jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor("yyyy-MM-dd HH:mm:ss"));
+				JSONObject object=JSONObject.fromObject(u,jsonConfig);
+				System.out.println(object);
+				
 				return result;
 			}
 		}
@@ -72,15 +86,15 @@ public class SignAction extends BaseAction{
 	/**
 	 *登出 
 	 */
-	public String logout() {
+	public String signOut() {
 		
 		return null;
 	}
 	
 	/**
-	 * 注册
+	 * 创建账号
 	 */
-	public String join() {
+	public String signUp() {
 		
 		return null;
 	}

@@ -14,7 +14,9 @@
 	
 	
 	<!-- **************************ACTION******************************************** -->
-	<bean id="zs_test" class="com.abe.action.TestAction"/>
+	<bean id="zs_test" class="com.abe.action.TestAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	
 	<bean id="zs_sign" class="com.abe.action.SignAction">
 		<property name="ser" ref="zs_ser"></property>
