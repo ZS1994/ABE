@@ -1,5 +1,6 @@
 package com.abe.action;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import net.sf.json.JsonConfig;
 import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
+import com.abe.entity.app.RespSignIn;
 import com.abe.service.iBaseService;
 import com.abe.tools.JsonDateValueProcessor;
 
@@ -29,7 +31,6 @@ public class SignAction extends BaseAction{
 	
 	private iBaseService ser;
 	private Users user;
-	private String isApp;//是否传输给App的标志位
 	private String result="index";
 	private String result_fail="login";
 	private String hint;//提示信息
@@ -60,13 +61,11 @@ public class SignAction extends BaseAction{
 	 */
 	public String signIn() {
 		hint="";
-//		logger.debug(user.getUNum()+" "+user.getUPass());
 		List list=ser.find("from Users where UNum=?", new Object[]{user.getUNum()});
 		Users u=null;
 		if (list.size()>0) {
 			u=(Users) list.get(0);
 		}
-		logger.debug(u.toString());
 		if (u==null) {
 			hint=HINT_NO_USER;
 			return result_fail;
@@ -76,19 +75,37 @@ public class SignAction extends BaseAction{
 				return result_fail;
 			}else {
 				getSession().setAttribute("user", u);
-				
-				/*测试转换json数据
-				 */
-				JsonConfig jsonConfig=new JsonConfig();
-				jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor("yyyy-MM-dd HH:mm:ss"));
-				JSONObject object=JSONObject.fromObject(u,jsonConfig);
-				System.out.println(object);
-				
 				return result;
 			}
 		}
 	}
 
+	
+	public String signInFromApp() throws IOException {
+		logger.debug("-------进入signInFromApp--------");
+		String uNum=(String) getRequest().getParameter("UNum");
+		String uPass=(String) getRequest().getParameter("UPass");
+		List list=ser.find("from Users where UNum=?", new Object[]{uNum});
+		Users u=null;
+		if (list.size()>0) {
+			u=(Users) list.get(0);
+		}
+		RespSignIn respSignIn=new RespSignIn();
+		if (u==null) {
+			respSignIn.setResult("002");
+		}else {
+			if (!u.getUPass().equals(uPass)) {
+				respSignIn.setResult("003");
+			}else {
+				respSignIn.setResult("001");
+				respSignIn.setData(u);
+			}
+		}
+		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		return null;
+	}
+	
 	/**
 	 *登出 
 	 */
