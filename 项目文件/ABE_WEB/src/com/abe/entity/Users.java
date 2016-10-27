@@ -16,6 +16,7 @@ public class Users implements java.io.Serializable {
 	private String UPass;
 	private String UType;
 	private Timestamp UCreateTime;
+	private String UPhotoPath;
 	private String UNote;
 
 	// Constructors
@@ -32,13 +33,14 @@ public class Users implements java.io.Serializable {
 
 	/** full constructor */
 	public Users(String UId, String UNum, String UName, String UPass,
-			String UType, Timestamp UCreateTime, String UNote) {
+			String UType, Timestamp UCreateTime, String UPhotoPath, String UNote) {
 		this.UId = UId;
 		this.UNum = UNum;
 		this.UName = UName;
 		this.UPass = UPass;
 		this.UType = UType;
 		this.UCreateTime = UCreateTime;
+		this.UPhotoPath = UPhotoPath;
 		this.UNote = UNote;
 	}
 
@@ -92,6 +94,14 @@ public class Users implements java.io.Serializable {
 		this.UCreateTime = UCreateTime;
 	}
 
+	public String getUPhotoPath() {
+		return this.UPhotoPath;
+	}
+
+	public void setUPhotoPath(String UPhotoPath) {
+		this.UPhotoPath = UPhotoPath;
+	}
+
 	public String getUNote() {
 		return this.UNote;
 	}
@@ -100,13 +110,4 @@ public class Users implements java.io.Serializable {
 		this.UNote = UNote;
 	}
 
-	@Override
-	public String toString() {
-		return "Users [UCreateTime=" + UCreateTime + ", UId=" + UId
-				+ ", UName=" + UName + ", UNote=" + UNote + ", UNum=" + UNum
-				+ ", UPass=" + UPass + ", UType=" + UType + "]";
-	}
-
-	
-	
 }

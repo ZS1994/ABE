@@ -44,6 +44,11 @@ ${AAA }
 
 <a href="<%=path %>/test.jsp">跳转模拟APP登录界面</a>
 
-
+<hr/>
+登录者信息:
+<br/>
+${user.UNum }
+<br/>
+${user.UPass }  
 </body>
 </html>
