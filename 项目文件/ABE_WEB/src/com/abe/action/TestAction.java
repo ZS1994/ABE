@@ -10,6 +10,10 @@ import com.abe.service.iBaseService;
 
 public class TestAction extends BaseAction{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
 	private Logger logger=Logger.getLogger(TestAction.class);
 	

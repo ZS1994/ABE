@@ -1,0 +1,31 @@
+1，首先是命名规则
+	类命名全部首字母大写
+	action：单词+Action    比如：SignAction
+	service: 单词+ServiceImpl   
+	
+	接口命名简单说就是价格前缀“i”
+	action: i+单词+Action  比如：iSignAction
+	service:i+单词  iSignService
+	
+	变量命名
+		一般的变量统统首字母小写吧
+		respUsers
+		
+	常亮命名：
+		全大写，下划线连接
+		KEY_NO
+	
+	包命名这个不说了，不要搞出一个奇怪的东西就行
+	
+	
+	注意的几点：action中的service的变量名风格统一下
+		BaseServiceImpl：ser不变
+		其他的service：单词+Ser     signSer
+		
+		
+2，几点写代码的约定
+	2.1，每写一个action都至多有一个对应得service，比如SignAction——》iSignService
+		但不是说必须要，一般情况一个action会有一个iBaseService和一个自己的service
+	2.2,com.abe.entity是用来放数据库表的实体类的，自己写的封装类放在com.abe.entity.app(当然如果是App的话，不是的话我们到时候再想想)
+	
+3,界面暂时还没有，以后再讨论有关界面的目录结构、命名等等

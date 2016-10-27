@@ -1,5 +1,6 @@
 package com.abe.service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.abe.entity.Users;
@@ -23,4 +24,15 @@ public interface iSignService {
 	 * @return
 	 */
 	public RespSignIn signInFromApp(String uNum,String uPass);
+	
+	
+	
+	/**
+	 * 注册
+	 * @param request request用来取app传送的数据
+	 */
+	public void signUp(HttpServletRequest request) ;
+	
+	
+	
 }
