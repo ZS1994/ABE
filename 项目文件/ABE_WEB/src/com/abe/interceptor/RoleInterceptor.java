@@ -25,6 +25,10 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 public class RoleInterceptor extends AbstractInterceptor{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	iBaseService ser;
 	HttpServletRequest request;
 	HttpServletResponse response;
@@ -85,12 +89,12 @@ public class RoleInterceptor extends AbstractInterceptor{
 		allInit(arg0);
 		//以下是权限控制的核心代码
 		if (user==null) {//将登录的url排除在外
-			if ((PRO_NAME+"/login!login").equals(path)) {
-				close();
+			if ((PRO_NAME+"/sign!signIn").equals(path) ||
+				(PRO_NAME+"/sign!signInFromApp").equals(path)
+				) {
 				return arg0.invoke();
 			}else {
 				response.sendRedirect("component/error1.jsp");
-				close();
 				return null;
 			}
 		}else{ 

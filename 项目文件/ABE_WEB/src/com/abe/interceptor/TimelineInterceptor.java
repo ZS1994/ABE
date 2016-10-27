@@ -17,9 +17,19 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
+/**
+ * 时间轴拦截器
+ * @author 张顺
+ * 2016-10-26 15:23:19
+ * <br>后拦截器
+ */
 public class TimelineInterceptor extends AbstractInterceptor{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	iBaseService ser;
 	HttpServletRequest request;
 	HttpServletResponse response;
@@ -74,12 +84,12 @@ public class TimelineInterceptor extends AbstractInterceptor{
 		allInit(arg0);
 		//以下是时间轴的核心代码
 		if (user==null) {//将登录的url排除在外
-			if ((PRO_NAME+"/login!login").equals(path)) {
-				close();
+			if ((PRO_NAME+"/sign!signIn").equals(path) ||
+				(PRO_NAME+"/sign!signInFromApp").equals(path)
+				) {
 				return arg0.invoke();
 			}else {
 				response.sendRedirect("component/error1.jsp");
-				close();
 				return null;
 			}
 		}else{ 

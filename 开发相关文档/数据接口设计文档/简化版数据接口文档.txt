@@ -1,0 +1,36 @@
+
+登录
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/sign!signInFromApp
+请求参数：
+{
+	UNum:用户账号
+	UPass:用户密码
+}
+应答参数：
+{
+	result:登录状态，001成功，002用户不存在，003密码错误，004其他错误。
+	data:{
+		UId:用户编号
+		UNum:账号
+		UPass:密码
+		UName:姓名
+		UType:用户类型，001家长，002教职员工
+		UCreateTime:创建时间
+		UPhotoPath:头像的路径
+		UNote:备注
+	}
+}
+
+
+上传头像
+
+
+
+
+注册
+
+
+修改个人资料
+
+
+修改密码

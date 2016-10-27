@@ -3,11 +3,16 @@ package com.abe.service;
 import java.io.Serializable;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 
 import com.abe.tools.Page;
 
 
-
+/**
+ * 公共方法放在这里
+ * @author 张顺
+ */
 public interface iBaseService {
 	
 	/**
@@ -64,7 +69,7 @@ public interface iBaseService {
 	 * @param ser 传一个service类，ser用action的
 	 * @return 结果集
 	 */
-	public List query(String hql1,Object ss[],String hql2,Page page,iBaseService ser);
+	public List query(String hql1, Object[] ss, String hql2, Page page) ;
 	
 	/**
 	 * 时间轴
@@ -75,7 +80,12 @@ public interface iBaseService {
 	public void timeLine(String state,String tableName,String id);
 
 	
-	
-		
+	/**
+	 * 按照给定的时间格式进行对象转json
+	 * @param obj 需要转的对象
+	 * @param datePatten 时间格式
+	 * @return JSONObject
+	 */
+	public JSONObject objToJson(Object obj,String datePatten);
 	
 }
