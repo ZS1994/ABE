@@ -98,11 +98,14 @@ public class SignAction extends BaseAction{
 				respSignIn.setResult("003");
 			}else {
 				respSignIn.setResult("001");
+				u.setUPass(null);//去掉密码信息
 				respSignIn.setData(u);
 			}
 		}
 		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
 		return null;
 	}
 	

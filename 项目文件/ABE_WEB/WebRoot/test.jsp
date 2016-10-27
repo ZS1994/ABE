@@ -43,7 +43,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </script>
 <body>
 
-<%session.setAttribute("user","aaa"); %>
 模拟手机登录的情况(请进入开发者模式Console查看测试情况)
 <br/>
 <input id="UNum" type="text"/>
