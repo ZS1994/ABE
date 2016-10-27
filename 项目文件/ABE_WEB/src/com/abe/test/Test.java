@@ -27,17 +27,19 @@ public class Test {
 		System.out.println(NameOfDate.getNum());
 		 */
 		
-		/*
-		 * 测试Base64编解码
-		 */
-		//测试网络文件编码
+		/*测试网络文件编码
 		String filesString=Base64.getBASE64FromUrl("http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png");
-//		System.out.println(filesString);
-		//解码成文件--失败
-		Base64.getFromBASE64byte(filesString, "F://a.png");
-		//测试字符串的编解码
-		filesString=Base64.getBASE64("同一个世界");
-//		String tmpString=
+		System.out.println(filesString);
+		//解码成文件--成功
+		Base64.getFromBASE64byte(filesString, "E://a.png");
+		 */
+		
+		/*测试字符串的编解码---成功---
+		String filesString=Base64.getBASE64("同一个世界");
+		System.out.println(filesString);
+		String tmpString=Base64.getFromBASE64(filesString);
+		System.out.println(tmpString);
+		 */
 		
 		
 		
