@@ -10,14 +10,14 @@
 
 		<!--
 		-->
-		<property name="proxool.pool_alias">DBPool</property>
-		<property name="proxool.xml">proxool.xml</property>
-		<property name="connection.provider_class">
-		org.hibernate.connection.ProxoolConnectionProvider
-		</property>
-		<property name="dialect">
-		org.hibernate.dialect.MySQLDialect
-		</property>
+			<property name="proxool.pool_alias">DBPool</property>
+			<property name="proxool.xml">proxool.xml</property>
+			<property name="connection.provider_class">
+			org.hibernate.connection.ProxoolConnectionProvider
+			</property>
+			<property name="dialect">
+			org.hibernate.dialect.MySQLDialect
+			</property>
 
 
 		<!--
@@ -36,6 +36,9 @@
 			org.hibernate.dialect.MySQLDialect
 		</property>
 		-->
+
+
+
 		<mapping resource="com/abe/entity/Users.hbm.xml" />
 
 

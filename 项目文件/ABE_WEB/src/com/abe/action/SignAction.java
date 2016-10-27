@@ -1,6 +1,8 @@
 package com.abe.action;
 
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -8,7 +10,9 @@ import net.sf.json.JsonConfig;
 import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
+import com.abe.entity.app.RespSignIn;
 import com.abe.service.iBaseService;
+import com.abe.service.iSignService;
 import com.abe.tools.JsonDateValueProcessor;
 
 /**
@@ -22,13 +26,10 @@ public class SignAction extends BaseAction{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String HINT_NO_USER="用户不存在";//用户不存在
-	private static final String HINT_NO_PASS="密码错误";//密码错误
-
 	
 	private iBaseService ser;
+	private iSignService signSer;
 	private Users user;
-	private String isApp;//是否传输给App的标志位
 	private String result="index";
 	private String result_fail="login";
 	private String hint;//提示信息
@@ -53,36 +54,40 @@ public class SignAction extends BaseAction{
 	public void setHint(String hint) {
 		this.hint = hint;
 	}
-	
+	public iSignService getSignSer() {
+		return signSer;
+	}
+	public void setSignSer(iSignService signSer) {
+		this.signSer = signSer;
+	}
 	/**
 	 * 登录
 	 */
 	public String signIn() {
 		hint="";
-//		logger.debug(user.getUNum()+" "+user.getUPass());
-		Users u=(Users) ser.get(Users.class, user.getUNum());
-		if (u==null) {
-			hint=HINT_NO_USER;
-			return result_fail;
-		}else {
-			if (!u.getUPass().equals(user.getUPass())) {
-				hint=HINT_NO_PASS;
-				return result_fail;
-			}else {
-				getSession().setAttribute("user", u);
-				
-				/*测试转换json数据
-				 */
-				JsonConfig jsonConfig=new JsonConfig();
-				jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor("yyyy-MM-dd HH:mm:ss"));
-				JSONObject object=JSONObject.fromObject(u,jsonConfig);
-				System.out.println(object);
-				
-				return result;
-			}
-		}
+		String str[]=signSer.signIn(getSession(), hint, user);
+		hint=str[0];
+		logger.debug(hint);
+		return str[1];
 	}
 
+	/**
+	 * APP端登录
+	 * @return
+	 * @throws IOException
+	 */
+	public String signInFromApp() throws IOException {
+		logger.debug("-------进入signInFromApp--------");
+		String uNum=(String) getRequest().getParameter("UNum");
+		String uPass=(String) getRequest().getParameter("UPass");
+		RespSignIn respSignIn=signSer.signInFromApp(uNum, uPass);
+		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	
 	/**
 	 *登出 
 	 */

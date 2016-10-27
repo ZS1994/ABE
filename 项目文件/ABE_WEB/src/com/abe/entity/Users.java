@@ -10,11 +10,13 @@ public class Users implements java.io.Serializable {
 
 	// Fields
 
+	private String UId;
 	private String UNum;
 	private String UName;
 	private String UPass;
 	private String UType;
 	private Timestamp UCreateTime;
+	private String UPhotoPath;
 	private String UNote;
 
 	// Constructors
@@ -24,22 +26,33 @@ public class Users implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Users(String UNum) {
+	public Users(String UId, String UNum) {
+		this.UId = UId;
 		this.UNum = UNum;
 	}
 
 	/** full constructor */
-	public Users(String UNum, String UName, String UPass, String UType,
-			Timestamp UCreateTime, String UNote) {
+	public Users(String UId, String UNum, String UName, String UPass,
+			String UType, Timestamp UCreateTime, String UPhotoPath, String UNote) {
+		this.UId = UId;
 		this.UNum = UNum;
 		this.UName = UName;
 		this.UPass = UPass;
 		this.UType = UType;
 		this.UCreateTime = UCreateTime;
+		this.UPhotoPath = UPhotoPath;
 		this.UNote = UNote;
 	}
 
 	// Property accessors
+
+	public String getUId() {
+		return this.UId;
+	}
+
+	public void setUId(String UId) {
+		this.UId = UId;
+	}
 
 	public String getUNum() {
 		return this.UNum;
@@ -79,6 +92,14 @@ public class Users implements java.io.Serializable {
 
 	public void setUCreateTime(Timestamp UCreateTime) {
 		this.UCreateTime = UCreateTime;
+	}
+
+	public String getUPhotoPath() {
+		return this.UPhotoPath;
+	}
+
+	public void setUPhotoPath(String UPhotoPath) {
+		this.UPhotoPath = UPhotoPath;
 	}
 
 	public String getUNote() {

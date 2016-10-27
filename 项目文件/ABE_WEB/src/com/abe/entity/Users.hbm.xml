@@ -6,10 +6,13 @@
 -->
 <hibernate-mapping>
     <class name="com.abe.entity.Users" table="users" catalog="abe">
-        <id name="UNum" type="java.lang.String">
-            <column name="u_num" />
+        <id name="UId" type="java.lang.String">
+            <column name="u_id" />
             <generator class="assigned" />
         </id>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" not-null="true" unique="true" />
+        </property>
         <property name="UName" type="java.lang.String">
             <column name="u_name" />
         </property>
@@ -21,6 +24,9 @@
         </property>
         <property name="UCreateTime" type="java.sql.Timestamp">
             <column name="u_create_time" length="19" />
+        </property>
+        <property name="UPhotoPath" type="java.lang.String">
+            <column name="u_photo_path" />
         </property>
         <property name="UNote" type="java.lang.String">
             <column name="u_note" />
