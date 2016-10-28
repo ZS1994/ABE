@@ -28,6 +28,6 @@ public class JsonDateValueProcessor implements JsonValueProcessor {
         return process(value);
     }
     private Object process(Object value){
-        return dateFormat.format((Date)value);
+        return value==null?"":dateFormat.format((Date)value);
     }
 }
