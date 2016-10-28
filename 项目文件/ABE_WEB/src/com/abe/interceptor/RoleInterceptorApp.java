@@ -91,6 +91,7 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 	@Override
 	public String intercept(ActionInvocation arg0) throws Exception {
 		allInit(arg0);
+		/*
 		//以下是权限控制的核心代码
 		String result=null;
 		if (user==null) {//将登录的url排除在外
@@ -105,7 +106,6 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 				result=null;
 			}
 		}else{ 
-			/*
 			Users u=(Users)user;
 			Role r=u.getR();
 			
@@ -122,10 +122,11 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 			else {
 				
 			}
-			 */
 		}
 		close(); 
-		return result; 
+		 */
+//		return result;
+		return arg0.invoke();
 	}
 	
 	private void close() {

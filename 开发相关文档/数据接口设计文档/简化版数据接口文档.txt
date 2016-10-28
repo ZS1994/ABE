@@ -8,7 +8,7 @@
 
 //---------------------------------------------------------------------------
 登录
-接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/sign!signInFromApp
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signInFromApp
 请求参数：
 {
 	UNum:用户账号
@@ -30,7 +30,7 @@
 }
 //---------------------------------------------------------------------------
 上传头像
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/sign!signUpFromApp
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signUpFromApp
 请求参数：
 {
 	UId:用户编号
