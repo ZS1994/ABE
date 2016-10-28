@@ -4,7 +4,32 @@
 <constant name="struts.devMode" value="true"></constant>
 
 <constant name="struts.multipart.maxSize" value="209715200"></constant>
-<package name="a" extends="struts-default" namespace="/">
+
+<!-- **********APP************ -->
+<package name="a" extends="struts-default" namespace="/app">
+<!-- 定义一个拦截器 -->  
+  <interceptors>  
+      <interceptor name="role_inter_app" class="zs_interceptor_role_app">
+      </interceptor>
+      <interceptor name="timeline_inter_app" class="zs_interceptor_timeline_app">
+      </interceptor>
+      <!-- 拦截器栈 -->  
+      <interceptor-stack name="mydefault">  
+          <interceptor-ref name="defaultStack" />  
+          <interceptor-ref name="role_inter_app" />  
+          <interceptor-ref name="timeline_inter_app" />  
+      </interceptor-stack>  
+  </interceptors>
+  <action name="sign" class="zs_sign">	   
+  	 <interceptor-ref name="mydefault" />
+     <result name="login">/component/login.jsp</result>
+     <result name="index">/index.jsp</result>
+  </action>
+    
+</package> 
+
+<!-- *************WEB********************* -->
+<package name="b" extends="struts-default" namespace="/web">
   <!-- 定义一个拦截器 -->  
   <interceptors>  
       <interceptor name="role_inter" class="zs_interceptor_role">  
@@ -14,7 +39,7 @@
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
           <interceptor-ref name="defaultStack" />  
-          <interceptor-ref name="role_inter" />  
+          <interceptor-ref name="role_inter" />    
           <interceptor-ref name="timeline_inter" />  
       </interceptor-stack>  
   </interceptors>  
@@ -27,11 +52,12 @@
   
   <action name="sign" class="zs_sign">	   
   	 <interceptor-ref name="mydefault" />
-     <result name="login">component/login.jsp</result>
+     <result name="login">/component/login.jsp</result>
      <result name="index">/index.jsp</result>
   </action>
   
-  
 </package>
+
+
 </struts>    
   

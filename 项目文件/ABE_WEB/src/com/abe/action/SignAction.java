@@ -1,5 +1,6 @@
 package com.abe.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -11,9 +12,13 @@ import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
+import com.abe.entity.app.RespSignUp;
 import com.abe.service.iBaseService;
 import com.abe.service.iSignService;
+import com.abe.tools.Base64;
+import com.abe.tools.Constant;
 import com.abe.tools.JsonDateValueProcessor;
+import com.abe.tools.NameOfDate;
 
 /**
  * 登录、登出、注册管理acion
@@ -101,6 +106,23 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 */
 	public String signUp() {
 		
+		return null;
+	}
+	/**
+	 * APP创建账号
+	 * @throws IOException 
+	 */
+	public String signUpFromApp() throws IOException {
+		String uid=getRequest().getParameter("UId");
+		String photo=getRequest().getParameter("UPhoto");
+		String format=getRequest().getParameter("format");
+		//项目物理路径
+		String abePath=getRequest().getRealPath("/");
+		RespSignUp respSignUp=signSer.signUpFromAPP(uid, photo, format, abePath);
+		JSONObject json=ser.objToJson(respSignUp, null);
+		getPrintWriter().print(json);
+		getPrintWriter().flush();
+		getPrintWriter().close();
 		return null;
 	}
 	@Override

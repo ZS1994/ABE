@@ -76,9 +76,14 @@ public class BaseServiceImpl implements iBaseService{
 	
 	@Override
 	public JSONObject objToJson(Object obj, String datePatten) {
-		JsonConfig jsonConfig=new JsonConfig();
-		jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor(datePatten));
-		JSONObject object=JSONObject.fromObject(obj,jsonConfig);
+		JSONObject object=null;
+		if (datePatten==null) {
+			object=JSONObject.fromObject(obj);
+		}else {
+			JsonConfig jsonConfig=new JsonConfig();
+			jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor(datePatten));
+			object=JSONObject.fromObject(obj,jsonConfig);
+		}
 		return object;
 	}
 	

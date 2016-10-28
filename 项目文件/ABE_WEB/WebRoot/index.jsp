@@ -26,19 +26,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	手机号:<input type="text" name="mobile"/>验证码将通过短信发送到该手机号，请填写常用号码
 	<br/>
 	验证码:<input type="text" name="param"/>
-	
 	<input type="submit" value="发送手机验证码"/>同一号码  一天最多能接收五次验证码
 </form>
 
 <hr/>
-<a href="<%=path %>/test!test">TestAction</a>
+<a href="<%=path %>/web/test!test">TestAction</a>
 ${AAA }
 
 <hr/>
 <a href="<%=path %>/component/login.jsp">跳转登录</a>
 
 <hr/>
-<a href="<%=path %>/test!test2">测试能否查询数据库</a>
+<a href="<%=path %>/web/test!test2">测试能否查询数据库</a>
 
 <hr/>
 
