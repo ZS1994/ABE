@@ -29,12 +29,12 @@ public interface iSignService {
 	
 	
 	/**
-	 *  APP注册
+	 * 上传头像
 	 * @param UId 用户编号
 	 * @param photo 图片base64码
 	 * @return 封装好的RespSignUp
 	 */
-	public RespSignUp signUpFromAPP(String UId,String photo,String format,String abePath) ;
+	public RespSignUp uploadPhoto(String UId,String photo,String format,String abePath) ;
 	
 	
 	

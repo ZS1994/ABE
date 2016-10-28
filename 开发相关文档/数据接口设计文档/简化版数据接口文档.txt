@@ -30,7 +30,7 @@
 }
 //---------------------------------------------------------------------------
 上传头像
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signUpFromApp
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 请求参数：
 {
 	UId:用户编号
