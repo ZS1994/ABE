@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 
-<form action="<%=path %>/sign!signIn" method="post">
+<form action="<%=path %>/web/sign!signIn" method="post">
 账号：<input type="text" name="user.UNum"/>
 <br/>
 密码：<input type="password" name="user.UPass"/>

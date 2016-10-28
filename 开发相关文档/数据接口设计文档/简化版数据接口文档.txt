@@ -1,6 +1,14 @@
+//---------------------------------------------------------------------------
+错误信息
+应答参数：
+{
+	errorCode:错误代码
+}
+待定
 
+//---------------------------------------------------------------------------
 登录
-接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/sign!signInFromApp
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signInFromApp
 请求参数：
 {
 	UNum:用户账号
@@ -20,9 +28,20 @@
 		UNote:备注
 	}
 }
-
-
+//---------------------------------------------------------------------------
 上传头像
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signUpFromApp
+请求参数：
+{
+	UId:用户编号
+	photo：图片Base64编码
+	format:图片的格式，图片的后缀   比如：png
+}
+应答参数：
+{
+	result：001成功，002失败，003该uid不存在
+	UPhotoPath:头像的路径
+}
 
 
 
