@@ -34,7 +34,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 请求参数：
 {
 	UId:用户编号
-	photo：图片Base64编码
+	UPhoto：图片Base64编码
 	format:图片的格式，图片的后缀   比如：png
 }
 应答参数：
