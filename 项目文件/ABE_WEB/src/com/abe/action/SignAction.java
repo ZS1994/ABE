@@ -112,19 +112,30 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 * APP创建账号
 	 * @throws IOException 
 	 */
-	public String signUpFromApp() throws IOException {
+	public String signUpFromApp() {
+		return null;
+	}
+	
+	/**
+	 * 上传图片
+	 * @return
+	 * @throws IOException 
+	 */
+	public String uploadPhoto() throws IOException {
 		String uid=getRequest().getParameter("UId");
 		String photo=getRequest().getParameter("UPhoto");
 		String format=getRequest().getParameter("format");
 		//项目物理路径
 		String abePath=getRequest().getRealPath("/");
-		RespSignUp respSignUp=signSer.signUpFromAPP(uid, photo, format, abePath);
+		RespSignUp respSignUp=signSer.uploadPhoto(uid, photo, format, abePath);
 		JSONObject json=ser.objToJson(respSignUp, null);
 		getPrintWriter().print(json);
 		getPrintWriter().flush();
 		getPrintWriter().close();
 		return null;
 	}
+	
+	
 	@Override
 	public String add() {
 		// TODO Auto-generated method stub

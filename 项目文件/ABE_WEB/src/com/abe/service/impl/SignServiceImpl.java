@@ -72,7 +72,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 
 
 	@Override
-	public RespSignUp signUpFromAPP(String UId, String photo,String format,String abePath) {
+	public RespSignUp uploadPhoto(String UId, String photo,String format,String abePath) {
 		//清空格
 		if (UId!=null) {
 			UId=UId.trim();
@@ -103,7 +103,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 					}
 					logger.debug(abePath);
 					String photoPath=abePath+"\\"+NameOfDate.getFileName()+"."+format;
-					String uPhotoPath=Constant.ABE_WEB_URL+"/"+UId+"/"+NameOfDate.getFileName()+"."+format;
+					String uPhotoPath=Constant.ABE_WEB_URL+"/photo/"+UId+"/"+NameOfDate.getFileName()+"."+format;
 					Base64.getFromBASE64byte(photo, photoPath);
 					respSignUp=new RespSignUp("001", uPhotoPath);
 					user.setUPhotoPath(uPhotoPath);

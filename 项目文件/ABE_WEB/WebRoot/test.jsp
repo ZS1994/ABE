@@ -39,9 +39,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		);
 	}
 	function cs2(){
-		console.log("-----进入注册----");
+		console.log("-----上传图片----");
 		$.post(
-			"<%=path %>/app/sign!signUpFromApp",
+			"<%=path %>/app/sign!uploadPhoto",
 			{UId:$("#UId2").val(),UPhoto:$("#UPhoto2").val(),format:$("#format2").val()},
 			function(data){
 				console.log(data);
