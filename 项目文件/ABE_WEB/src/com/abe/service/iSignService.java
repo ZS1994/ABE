@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
+import com.abe.entity.app.RespSignUp;
 
 public interface iSignService {
 	
@@ -28,10 +29,12 @@ public interface iSignService {
 	
 	
 	/**
-	 * 注册
-	 * @param request request用来取app传送的数据
+	 * 上传头像
+	 * @param UId 用户编号
+	 * @param photo 图片base64码
+	 * @return 封装好的RespSignUp
 	 */
-	public void signUp(HttpServletRequest request) ;
+	public RespSignUp uploadPhoto(String UId,String photo,String format,String abePath) ;
 	
 	
 	

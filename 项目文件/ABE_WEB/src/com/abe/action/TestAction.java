@@ -42,4 +42,21 @@ public class TestAction extends BaseAction{
 		
 		return SUCCESS;
 	}
+	
+	/**
+	 * 模拟APP以base64传输图片到web
+	 * @return
+	 */
+	public String test3() {
+		logger.debug("模拟APP以base64传输图片到web");
+		List<Users> users=ser.find("from Users", null);
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println(users.get(i).getUNum()+" "+users.get(i).getUPass());
+		}
+		Users users2=(Users) ser.get(Users.class, "qwe");
+		logger.debug(users2==null);
+		
+		return SUCCESS;
+	}
+	
 }

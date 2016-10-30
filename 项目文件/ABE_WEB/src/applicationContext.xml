@@ -23,10 +23,16 @@
 	</bean>
 	
 	<!-- **************拦截器************* -->
-	<bean id="zs_interceptor_role" class="com.abe.interceptor.RoleInterceptor">
+	<bean id="zs_interceptor_role" class="com.abe.interceptor.RoleInterceptorWeb">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
-	<bean id="zs_interceptor_timeline" class="com.abe.interceptor.TimelineInterceptor">
+	<bean id="zs_interceptor_timeline" class="com.abe.interceptor.TimelineInterceptorWeb">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_interceptor_role_app" class="com.abe.interceptor.RoleInterceptorApp">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_interceptor_timeline_app" class="com.abe.interceptor.TimelineInterceptorApp">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	<!-- ***************service层********************** -->

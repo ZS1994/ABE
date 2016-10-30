@@ -31,15 +31,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function cs(){
 		console.log("-----进入cs----");
 		$.post(
-			"<%=path %>/sign!signInFromApp",
+			"<%=path %>/app/sign!signInFromApp",
 			{UNum:$("#UNum").val(),UPass:$("#UPass").val()},
 			function(data){
 				console.log(data);
 			}
-			
-			
 		);
-	}  
+	}
+	function cs2(){
+		console.log("-----上传图片----");
+		$.post(
+			"<%=path %>/app/sign!uploadPhoto",
+			{UId:$("#UId2").val(),UPhoto:$("#UPhoto2").val(),format:$("#format2").val()},
+			function(data){
+				console.log(data);
+			}
+		);
+	}
   </script>
 <body>
 
@@ -50,6 +58,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input id="UPass" type="text"/>
 <br/>
 <input type="button" value="测试" onclick="cs()"/>
+
+
+<hr/>
+模拟手机注册
+<br/>ID
+<input id="UId2" type="text"/>
+<br/>后缀
+<input id="format2" type="text"/>
+<br/>头像
+<textarea id="UPhoto2" rows="5" cols="20"></textarea>
+<br/>
+<input type="button" value="注册" onclick="cs2()"/>
+
+
 
 
 </body>
