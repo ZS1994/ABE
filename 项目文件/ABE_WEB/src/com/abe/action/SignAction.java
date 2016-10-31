@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
-import com.abe.entity.app.RespSignUp;
+import com.abe.entity.app.RespUploadPhoto;
 import com.abe.service.iBaseService;
 import com.abe.service.iSignService;
 import com.abe.tools.Base64;
@@ -127,8 +127,8 @@ public class SignAction extends BaseAction implements iBaseAction{
 		String format=getRequest().getParameter("format");
 		//项目物理路径
 		String abePath=getRequest().getRealPath("/");
-		RespSignUp respSignUp=signSer.uploadPhoto(uid, photo, format, abePath);
-		JSONObject json=ser.objToJson(respSignUp, null);
+		RespUploadPhoto respSignUp=signSer.uploadPhoto(uid, photo, format, abePath);
+		JSONObject json=ser.objToJson(respSignUp, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(json);
 		getPrintWriter().flush();
 		getPrintWriter().close();

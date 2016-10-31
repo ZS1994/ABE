@@ -28,6 +28,7 @@ public class TestAction extends BaseAction{
 	
 	public String test() {
 		getRequest().setAttribute("AAA", "这是AAA");
+		logger.debug("---------public String test() {--------");
 		return SUCCESS;
 	}
 	
