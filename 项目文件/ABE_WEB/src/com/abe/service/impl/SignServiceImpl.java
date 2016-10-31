@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
-import com.abe.entity.app.RespSignUp;
+import com.abe.entity.app.RespUploadPhoto;
 import com.abe.service.iSignService;
 import com.abe.tools.Base64;
 import com.abe.tools.Constant;
@@ -72,7 +72,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 
 
 	@Override
-	public RespSignUp uploadPhoto(String UId, String photo,String format,String abePath) {
+	public RespUploadPhoto uploadPhoto(String UId, String photo,String format,String abePath) {
 		//清空格
 		if (UId!=null) {
 			UId=UId.trim();
@@ -83,13 +83,13 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		if (format!=null) {
 			format=format.trim();
 		}
-		RespSignUp respSignUp=null;
+		RespUploadPhoto uploadPhoto=null;
 		if (UId!=null && !UId.equals("") && 
 				photo!=null && !photo.equals("") &&
 				format!=null && !format.equals("")) {
 			Users user=(Users) get(Users.class, UId);
  			if (user==null) {
- 				respSignUp=new RespSignUp("003", null);
+ 				uploadPhoto=new RespUploadPhoto("003", null);
 			}else {
 				try {
 					abePath=abePath+"\\photo\\"+UId;
@@ -105,17 +105,17 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 					String photoPath=abePath+"\\"+NameOfDate.getFileName()+"."+format;
 					String uPhotoPath=Constant.ABE_WEB_URL+"/photo/"+UId+"/"+NameOfDate.getFileName()+"."+format;
 					Base64.getFromBASE64byte(photo, photoPath);
-					respSignUp=new RespSignUp("001", uPhotoPath);
 					user.setUPhotoPath(uPhotoPath);
 					update(user);
+					uploadPhoto=new RespUploadPhoto("001", user);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}else {
-			respSignUp=new RespSignUp("002", null);
+			uploadPhoto=new RespUploadPhoto("002", null);
 		}
-		return respSignUp;
+		return uploadPhoto;
 	}
 
 
