@@ -1,0 +1,65 @@
+-------------------------密码加密------------------------
+1、用的是MD5工具类
+2、
+
+//账号密码验证
+		public void accountCode() throws Exception{
+			HttpServletRequest request = ServletActionContext.getRequest();
+			HttpServletResponse response = ServletActionContext.getResponse();
+			HttpSession session=ServletActionContext.getRequest().getSession();
+			response.setCharacterEncoding("UTF-8");
+			PrintWriter out = response.getWriter();
+                       
+			MD5Util md=new MD5Util();
+			String name = request.getParameter("name");
+			String password = request.getParameter("password");
+                        //密码解密，调用MD5接口
+			user = UService.login(name,md.md5Encode(password+Math.PI));
+			boolean bl = false;
+			//判断用户名密码是否正确
+			if(user!=null&&!user.equals("")){
+				session.setAttribute("user", user);//保存用户信息
+					bl = true;
+					
+			}else{
+				bl = false;
+			}
+			out.print(bl);
+		}
+
+/**
+	 * 注册Action
+	 * @throws Exception 
+	 * 用户注册
+	 * **/
+	public String saveregister() throws Exception{
+		MD5Util md=new MD5Util();
+		String[] str=upload(user);
+		user.setLicense(str[0]);
+		user.setPhoto(str[1]);
+		user.setRoleId(2); //注册为普通会员
+		user.setScore(0);
+		try {
+			String strs = "";
+			for (int i = 0; i < choosedBroads.length; i++) {
+				strs += choosedBroads[i];
+				if(i != choosedBroads.length - 1){
+					strs +=  ",";
+				}
+			}
+			user.setBusinessCategory(strs);
+			String passwordMd5 =user.getPassword(); 
+                       //MD5Util.md5Encode(user.getPassword());		
+                       //定义一个变量接收MD5加密后返回的值
+			user.setPassword(md.md5Encode(passwordMd5+Math.PI));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int i = UService.register(user);
+		if(i > 0){
+			return "register-ok";
+		}else{
+			return "registerFail";
+		}
+	}
