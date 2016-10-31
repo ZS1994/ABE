@@ -118,6 +118,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		}
 		return uploadPhoto;
 	}
+	
 	/**
 	 * 修改个人资料
 	 * @param UId
@@ -133,6 +134,9 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		//测试提交
 		return RespUpdateUser;
 	}
+
+
+
 
 
 
