@@ -40,7 +40,16 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 应答参数：
 {
 	result：001成功，002失败，003该uid不存在
-	UPhotoPath:头像的路径
+	data:{
+		UId:用户编号 null
+		UNum:账号 null
+		UPass:密码 null
+		UName:姓名 null
+		UType:用户类型，001家长，002教职员工 null
+		UCreateTime:创建时间 null 
+		UPhotoPath:头像的路径
+		UNote:备注 null
+	}
 }
 
 
