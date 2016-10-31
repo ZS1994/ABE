@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
+import com.abe.entity.app.RespUpdateUser;
 import com.abe.entity.app.RespUploadPhoto;
 import com.abe.service.iSignService;
 import com.abe.tools.Base64;
@@ -117,10 +118,21 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		}
 		return uploadPhoto;
 	}
-
-
-
-
+	/**
+	 * 修改个人资料
+	 * @param UId
+	 * @param UNum
+	 * @param UName
+	 * @param UPass
+	 * @param UPhotopath
+	 * @param UNote
+	 * @param RespUpdateUser 
+	 * @return
+	 */
+	public RespUpdateUser updateUser(String UId,String UNum,String UName,String UPass,String UPhotopath,String UNote, RespUpdateUser RespUpdateUser){
+		//测试提交
+		return RespUpdateUser;
+	}
 
 
 
