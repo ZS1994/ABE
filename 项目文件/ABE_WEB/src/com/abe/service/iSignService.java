@@ -26,6 +26,15 @@ public interface iSignService {
 	 */
 	public RespSignIn signInFromApp(String uNum,String uPass);
 	
+	/**
+	 * app注册
+	 * @param uNum
+	 * @param uPass
+	 * @param uName
+	 * @param uType
+	 * @return
+	 */
+	public RespSignIn signUpFromApp(String uNum,String uPass,String uName,String uType);
 	
 	
 	/**
