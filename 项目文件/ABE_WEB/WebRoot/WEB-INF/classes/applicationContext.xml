@@ -71,7 +71,7 @@
 	</tx:advice>
 	<!-- 添加事务 -->
 		<aop:config>
-		<aop:pointcut expression="execution(* com.zs.dao.*.*(..))" id="dao"/>
+		<aop:pointcut expression="execution(* com.abe.dao.*.*(..))" id="dao"/>
 		<aop:advisor advice-ref="txadvice" pointcut-ref="dao"/>
 		</aop:config>
 	</beans>
