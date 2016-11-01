@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.omg.CORBA.Request;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
@@ -121,7 +122,6 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	
 	/**
 	 * 修改个人资料
-	 * @param UId
 	 * @param UNum
 	 * @param UName
 	 * @param UPass
@@ -130,9 +130,17 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	 * @param RespUpdateUser 
 	 * @return
 	 */
-	public RespUpdateUser updateUser(String UId,String UNum,String UName,String UPass,String UPhotopath,String UNote, RespUpdateUser RespUpdateUser){
-		//测试提交
-		return RespUpdateUser;
+	public RespUpdateUser updateUser(String UName,String UPass,String UPhotoPath,String UNote,String UNum) {
+		List list=find(" update Users set UName=?,UPass=?,UPhotoPath=?,UNote=? where UNum = ?", new Object[]{UName,UPass,UPhotoPath,UNote,UNum});
+		Users user=(Users) get(Users.class, UNum);
+		RespUpdateUser updateUser=null;
+		user.setUName(UName);
+		user.setUPass(UPass);
+		user.setUPhotoPath(UPhotoPath);
+		user.setUNote(UNote);
+		update(user);
+		updateUser = new RespUpdateUser(null, user); 
+		return updateUser;
 	}
 
 
