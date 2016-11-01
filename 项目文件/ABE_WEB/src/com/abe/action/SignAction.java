@@ -3,6 +3,8 @@ package com.abe.action;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONObject;
@@ -105,6 +107,7 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 * 创建账号
 	 */
 	public String signUp() {
+	
 		
 		return null;
 	}
@@ -112,10 +115,19 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 * APP创建账号
 	 * @throws IOException 
 	 */
-	public String signUpFromApp() {
+	public String signUpFromApp() throws IOException{
+		String uNum=(String) getRequest().getParameter("UNum");
+		String uPass=(String) getRequest().getParameter("UPass");
+		String uName=(String) getRequest().getParameter("uName");
+		String uType=(String) getRequest().getParameter("uType");
+		RespSignIn respSignIn=signSer.signUpFromApp(uNum, uPass,uName ,uType);
+		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
 		return null;
 	}
-	
+
 	/**
 	 * 上传图片
 	 * @return

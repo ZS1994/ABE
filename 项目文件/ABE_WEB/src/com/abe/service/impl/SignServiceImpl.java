@@ -2,12 +2,16 @@ package com.abe.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
@@ -27,6 +31,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		final String HINT_NO_PASS="密码错误";//密码错误
 		final String result="index";
 		final String result_fail="login";
+
 		
 		List list=find("from Users where UNum=?", new Object[]{user.getUNum()});
 		Users u=null;
@@ -116,6 +121,33 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			respSignUp=new RespSignUp("002", null);
 		}
 		return respSignUp;
+	}
+
+
+	@Override
+	public RespSignIn signUpFromApp(String uNum, String uPass, String uName,
+			String uType) {
+		final String HINT_EXISTS_USER="005";//用户名已存在
+		final String HINT_SUCCESS_USER="006";//注册成功
+		RespSignIn respSignIn=new RespSignIn();
+		Timestamp time = new Timestamp(new Date().getTime());
+		Users users = null;
+		NameOfDate nameOfData = null;
+		List list=find("from Users where UNum=?", new Object[]{uNum});
+		if(list.size()>0){
+			respSignIn.setResult("HINT_EXISTS_USER");
+		}else {
+			users.setUCreateTime(time);
+			users.setUName(uName);
+			users.setUNum(uNum);
+			users.setUPass(uPass);
+			users.setUType("1");
+			users.setUId(nameOfData.getNum());
+		save(users);
+		respSignIn.setResult("HINT_SUCCESS_USER");
+		respSignIn.setData(users);
+		}
+		return respSignIn;
 	}
 
 
