@@ -94,7 +94,7 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
 			if ( (PRO_NAME+"/sign!signIn").equals(path) ) {
 				result=arg0.invoke();
 			}else {
-				response.sendRedirect("component/error1.jsp");
+				response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error1.jsp");
 				result=null;
 			}
 		}else{ 
@@ -112,8 +112,8 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
 				return roleControl(arg0, r, "4");
 			}
 			*/
+			result=arg0.invoke();
 		}
-		
 		close(); 
 		return result; 
 	}
