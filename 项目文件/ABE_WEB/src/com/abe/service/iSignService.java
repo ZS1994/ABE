@@ -41,5 +41,6 @@ public interface iSignService {
 	 * app端修改个人信息，密码
 	 * @param User
 	 */
-	public RespUpdateUser updateUser(String UName,String UPass,String UPhotoPath,String UNote,String UNum);
+	public RespUpdateUser updateUser1(String UNum);
+	public RespUpdateUser updateUser2(String UName,String UPass,String UPhotoPath,String UNote,String UNum,String UId);
 }

@@ -97,14 +97,25 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 * APP端修改个人信息，密码
 	 * @return
 	 */
-	public String updateUserFromApp() throws IOException{
-		logger.debug("-------进入uopdateUsersFromApp--------");
+	public String updateUserFromApp1() throws IOException{
+		logger.debug("-------进入updateUsersFromApp--------");
+		String UNum = getRequest().getParameter("UNum");
+		RespUpdateUser respupdateUser = signSer.updateUser1(UNum);
+		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	public String updateUserFromApp2() throws IOException{
+		logger.debug("-------进入updateUsersFromApp--------");
 		String UNum = getRequest().getParameter("UNum");
 		String UPass = getRequest().getParameter("UPass");
 		String UName = getRequest().getParameter("UName");
 		String UPhotoPath = getRequest().getParameter("UPhotoPath");
 		String UNote = getRequest().getParameter("UNote");
-		RespUpdateUser respupdateUser = signSer.updateUser(UName,UPass,UPhotoPath,UNote,UNum);
+		String UId = getRequest().getParameter("UId");
+		RespUpdateUser respupdateUser = signSer.updateUser2(UName,UPass,UPhotoPath,UNote,UNum,UId);
 		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
