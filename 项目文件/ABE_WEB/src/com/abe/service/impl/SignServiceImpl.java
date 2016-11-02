@@ -153,11 +153,11 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		final String HINT_SUCCESS_USER="006";//注册成功
 		RespSignIn respSignIn=new RespSignIn();
 		Timestamp time = new Timestamp(new Date().getTime());
-		Users users = null;
-		NameOfDate nameOfData = null;
+		Users users = new Users();
+		NameOfDate nameOfData = new NameOfDate();
 		List list=find("from Users where UNum=?", new Object[]{uNum});
 		if(list.size()>0){
-			respSignIn.setResult("HINT_EXISTS_USER");
+			respSignIn.setResult(HINT_EXISTS_USER);
 		}else {
 			users.setUCreateTime(time);
 			users.setUName(uName);
@@ -166,7 +166,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			users.setUType("1");
 			users.setUId(nameOfData.getNum());
 		save(users);
-		respSignIn.setResult("HINT_SUCCESS_USER");
+		respSignIn.setResult(HINT_SUCCESS_USER);
 		respSignIn.setData(users);
 		}
 		return respSignIn;

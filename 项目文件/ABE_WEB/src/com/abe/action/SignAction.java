@@ -115,8 +115,8 @@ public class SignAction extends BaseAction implements iBaseAction{
 	public String signUpFromApp() throws IOException{
 		String uNum=(String) getRequest().getParameter("UNum");
 		String uPass=(String) getRequest().getParameter("UPass");
-		String uName=(String) getRequest().getParameter("uName");
-		String uType=(String) getRequest().getParameter("uType");
+		String uName=(String) getRequest().getParameter("UName");
+		String uType=(String) getRequest().getParameter("UType");
 		RespSignIn respSignIn=signSer.signUpFromApp(uNum, uPass,uName ,uType);
 		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
