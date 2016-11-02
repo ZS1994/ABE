@@ -88,4 +88,6 @@ public interface iBaseService {
 	 */
 	public JSONObject objToJson(Object obj,String datePatten);
 	
+	
+	
 }

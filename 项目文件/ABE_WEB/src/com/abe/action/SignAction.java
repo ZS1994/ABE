@@ -99,7 +99,7 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 */
 	public String updateUserFromApp1() throws IOException{
 		logger.debug("-------进入updateUsersFromApp--------");
-		String UNum = getRequest().getParameter("UNum");
+		String UNum=getRequest().getParameter("UNum");
 		RespUpdateUser respupdateUser = signSer.updateUser1(UNum);
 		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
@@ -123,8 +123,6 @@ public class SignAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 	
-	
-	
 	/**
 	 *登出 
 	 */
@@ -144,7 +142,16 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 * APP创建账号
 	 * @throws IOException 
 	 */
-	public String signUpFromApp() {
+	public String signUpFromApp() throws IOException{
+		String uNum=(String) getRequest().getParameter("UNum");
+		String uPass=(String) getRequest().getParameter("UPass");
+		String uName=(String) getRequest().getParameter("UName");
+		String uType=(String) getRequest().getParameter("UType");
+		RespSignIn respSignIn=signSer.signUpFromApp(uNum, uPass,uName ,uType);
+		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
 		return null;
 	}
 	
@@ -166,12 +173,6 @@ public class SignAction extends BaseAction implements iBaseAction{
 		getPrintWriter().close();
 		return null;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	@Override

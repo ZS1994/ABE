@@ -27,6 +27,15 @@ public interface iSignService {
 	 */
 	public RespSignIn signInFromApp(String uNum,String uPass);
 	
+	/**
+	 * app注册
+	 * @param uNum
+	 * @param uPass
+	 * @param uName
+	 * @param uType
+	 * @return
+	 */
+	public RespSignIn signUpFromApp(String uNum,String uPass,String uName,String uType);
 	
 	
 	/**
@@ -43,4 +52,5 @@ public interface iSignService {
 	 */
 	public RespUpdateUser updateUser1(String UNum);
 	public RespUpdateUser updateUser2(String UName,String UPass,String UPhotoPath,String UNote,String UNum,String UId);
+	
 }

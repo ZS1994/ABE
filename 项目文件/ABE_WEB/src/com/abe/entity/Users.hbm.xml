@@ -31,5 +31,8 @@
         <property name="UNote" type="java.lang.String">
             <column name="u_note" />
         </property>
+        <property name="trpId" type="java.lang.String">
+            <column name="trp_id" />
+        </property>
     </class>
 </hibernate-mapping>

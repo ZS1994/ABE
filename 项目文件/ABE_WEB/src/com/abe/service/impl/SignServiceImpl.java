@@ -2,13 +2,14 @@ package com.abe.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.omg.CORBA.Request;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
@@ -122,6 +123,56 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	
 	/**
 	 * 修改个人资料
+	 * @param UId
+	 * @param UNum
+	 * @param UName
+	 * @param UPass
+	 * @param UPhotopath
+	 * @param UNote
+	 * @param RespUpdateUser 
+	 * @return
+	 */
+	public RespUpdateUser updateUser(String UId,String UNum,String UName,String UPass,String UPhotopath,String UNote, RespUpdateUser RespUpdateUser){
+		//测试提交
+		return RespUpdateUser;
+	}
+
+
+	/**
+	 * 李钊
+	 * @param uNum
+	 * @param uPass
+	 * @param uName
+	 * @param uType
+	 * @return
+	 */
+	@Override
+	public RespSignIn signUpFromApp(String uNum, String uPass, String uName,
+			String uType) {
+		final String HINT_EXISTS_USER="005";//用户名已存在
+		final String HINT_SUCCESS_USER="006";//注册成功
+		RespSignIn respSignIn=new RespSignIn();
+		Timestamp time = new Timestamp(new Date().getTime());
+		Users users = new Users();
+		NameOfDate nameOfData = new NameOfDate();
+		List list=find("from Users where UNum=?", new Object[]{uNum});
+		if(list.size()>0){
+			respSignIn.setResult(HINT_EXISTS_USER);
+		}else {
+			users.setUCreateTime(time);
+			users.setUName(uName);
+			users.setUNum(uNum);
+			users.setUPass(uPass);
+			users.setUType("1");
+			users.setUId(nameOfData.getNum());
+		save(users);
+		respSignIn.setResult(HINT_SUCCESS_USER);
+		respSignIn.setData(users);
+		}
+		return respSignIn;
+	}
+	/**
+	 * 修改个人资料
 	 * @param UNum
 	 * @param UName
 	 * @param UPass
@@ -159,10 +210,6 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		updateUser = new RespUpdateUser(null, u); 
 		return updateUser;
 	}
-
-
-
-
 
 
 }
