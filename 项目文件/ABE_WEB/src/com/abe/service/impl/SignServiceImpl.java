@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.omg.CORBA.Request;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
@@ -121,7 +122,6 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	
 	/**
 	 * 修改个人资料
-	 * @param UId
 	 * @param UNum
 	 * @param UName
 	 * @param UPass
@@ -130,9 +130,34 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	 * @param RespUpdateUser 
 	 * @return
 	 */
-	public RespUpdateUser updateUser(String UId,String UNum,String UName,String UPass,String UPhotopath,String UNote, RespUpdateUser RespUpdateUser){
-		//测试提交
-		return RespUpdateUser;
+	public RespUpdateUser updateUser1(String UNum) {
+		//List list=find(" update Users set UName=?,UPass=?,UPhotoPath=?,UNote=? where UNum =?", new Object[]{UName,UPass,UPhotoPath,UNote,UNum});
+		List list=find(" from Users where UNum =?", new Object[]{UNum});
+		Users u = new Users();
+		RespUpdateUser updateUser= new RespUpdateUser();
+		if (list.size()>0) {
+			u=(Users) list.get(0);
+		
+		updateUser.setData(u);
+		updateUser.setResult("007");//
+		}else{
+			updateUser.setResult("008");//
+		}
+		return updateUser;
+	}
+	
+	public RespUpdateUser updateUser2(String UName,String UPass,String UPhotoPath,String UNote,String UNum,String UId){
+		Users u = new Users();
+		RespUpdateUser updateUser=null;
+		u.setUName(UName);
+		u.setUPass(UPass);
+		u.setUPhotoPath(UPhotoPath);
+		u.setUNote(UNote);
+		u.setUNum(UNum);
+		u.setUId(UId);
+		update(u);
+		updateUser = new RespUpdateUser(null, u); 
+		return updateUser;
 	}
 
 
