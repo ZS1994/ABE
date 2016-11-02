@@ -12,9 +12,18 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * 基础action类，自己写的action都必须继承他，他有一些常用的基本方法供调用
+ * @author 张顺
+ *
+ */
 public class BaseAction extends ActionSupport{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private PrintWriter printWriter;

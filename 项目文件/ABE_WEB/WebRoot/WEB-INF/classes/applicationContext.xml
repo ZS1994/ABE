@@ -12,25 +12,34 @@
      					http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 	">
 	
-	
-	<!-- **************************ACTION******************************************** -->
+	<!-- ***********测试的，已作废*************** -->	
 	<bean id="zs_test" class="com.abe.action.TestAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
-	
+	<!-- **************************ACTION******************************************** -->
 	<bean id="zs_sign" class="com.abe.action.SignAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="signSer" ref="zs_sign_ser"></property>
 	</bean>
 	
 	<!-- **************拦截器************* -->
-	<bean id="zs_interceptor_role" class="com.abe.interceptor.RoleInterceptor">
+	<bean id="zs_interceptor_role" class="com.abe.interceptor.RoleInterceptorWeb">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
-	<bean id="zs_interceptor_timeline" class="com.abe.interceptor.TimelineInterceptor">
+	<bean id="zs_interceptor_timeline" class="com.abe.interceptor.TimelineInterceptorWeb">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_interceptor_role_app" class="com.abe.interceptor.RoleInterceptorApp">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_interceptor_timeline_app" class="com.abe.interceptor.TimelineInterceptorApp">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	<!-- ***************service层********************** -->
 	<bean id="zs_ser" class="com.abe.service.impl.BaseServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>	
+	<bean id="zs_sign_ser" class="com.abe.service.impl.SignServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
 	<!-- ****************dao层********************* -->
@@ -62,7 +71,7 @@
 	</tx:advice>
 	<!-- 添加事务 -->
 		<aop:config>
-		<aop:pointcut expression="execution(* com.zs.dao.*.*(..))" id="dao"/>
+		<aop:pointcut expression="execution(* com.abe.dao.*.*(..))" id="dao"/>
 		<aop:advisor advice-ref="txadvice" pointcut-ref="dao"/>
 		</aop:config>
 	</beans>

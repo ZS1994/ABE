@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.abe.service.iBaseService;
+import com.abe.tools.Constant;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -23,7 +24,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
  * 2016-10-26 15:23:19
  * <br>后拦截器
  */
-public class TimelineInterceptor extends AbstractInterceptor{
+public class TimelineInterceptorWeb extends AbstractInterceptor{
 
 	
 	/**
@@ -37,8 +38,8 @@ public class TimelineInterceptor extends AbstractInterceptor{
 	String path;
 	String reqPamrs;
 	Object user;
-	private static final String PRO_NAME="/ABE_WEB";
-	private Logger logger=Logger.getLogger(TimelineInterceptor.class);
+	private static final String PRO_NAME="/"+Constant.ABE_WEB_NAME+"/web";
+	private Logger logger=Logger.getLogger(TimelineInterceptorWeb.class);
 	
 	
 	
@@ -82,18 +83,18 @@ public class TimelineInterceptor extends AbstractInterceptor{
 	public String intercept(ActionInvocation arg0) throws Exception {
 		String result=arg0.invoke();
 		allInit(arg0);
+		/*
 		//以下是时间轴的核心代码
 		if (user==null) {//将登录的url排除在外
-			if ((PRO_NAME+"/sign!signIn").equals(path)) {
-				close();
+			if ((PRO_NAME+"/sign!signIn").equals(path) ||
+				(PRO_NAME+"/sign!signInFromApp").equals(path)
+				) {
 				return arg0.invoke();
 			}else {
 				response.sendRedirect("component/error1.jsp");
-				close();
 				return null;
 			}
 		}else{ 
-			/*
 			Users u=(Users)user;
 			Role r=u.getR();
 			if ((PRO_NAME+"/fbd_asdl!queryOfFenyeAsdl").equals(path)) {//硬件组-ASDL-分页
@@ -107,9 +108,9 @@ public class TimelineInterceptor extends AbstractInterceptor{
 				FbdAsdl asdl=(FbdAsdl) request.getAttribute("asdl");
 				addTimeline(u, "修改", "硬件组-ASDL", asdl.getAsdlId());
 			}
-			*/
 		}
 		close(); 
+		 */
 		return result; 
 	}
 	
