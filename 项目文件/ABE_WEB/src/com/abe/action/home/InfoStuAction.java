@@ -64,9 +64,7 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	 */
 	public String addFromApp() throws IOException {
 		logger.debug("-------进入addFromApp()---------");
-		
-		studentSer.csReq(getRequest());
-		
+//		studentSer.csReq(getRequest());
 		RespStudent respStudent=studentSer.addFromApp(getRequest());
 		JSONObject jsonObject=ser.objToJson(respStudent, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
