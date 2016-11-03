@@ -40,17 +40,19 @@ ${AAA }
 <a href="<%=path %>/web/test!test2">测试能否查询数据库TestAction的test2</a>
 
 <hr/>
-
-<a href="<%=path %>/test.jsp">跳转模拟APP登录界面</a>
+<strong>可以使用</strong>
+<a href="<%=path %>/test.jsp">跳转模拟APP发送请求界面</a>
 <hr/>
 
-<input type="button" value="保存" id="btn" onclick="document.execCommand('SaveAs')"/>
-<hr/>
 
 登录者信息:
 <br/>
 ${user.UNum }
 <br/>
-${user.UPass }  
+${user.UPass }
+
+<hr/>
+<a href="<%=path %>/backstage/student/studentManager.jsp">后台页面结构示例</a>
+  
 </body>
 </html>

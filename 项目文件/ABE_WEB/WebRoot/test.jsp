@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>本地测试接口（模拟APP访问）</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -70,6 +70,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <textarea id="UPhoto2" rows="5" cols="20"></textarea>
 <br/>
 <input type="button" value="注册" onclick="cs2()"/>
+
+<hr/>
+本地测试接口<br/>
+URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后面的部分)
+<input type="button" value="添加宝贝" onclick="$('#urltmp').val('student!addFromApp');"/>
+
+<br/>
+<input type="button" value="添加参数" onclick="addBody()"/>
+<script type="text/javascript">
+	function addBody(){
+		var par=$('#http_body');
+		var first=$('#div1');
+		var len=par.children().length;
+		first.after("<div id='div"+(len+1)+"'>Key:<input type=\"text\"/>Value:<input type=\"text\"/><input type=\"button\" value=\"删除参数\" onclick=\"removeChildren('div"+(len+1)+"')\"/></div>");  
+	}
+	function removeChildren(id){
+		//console.log("----进入removeChildren()-----");
+		//console.log($("#"+id).html());
+		$("#"+id).remove();
+	}
+	function sendHttpPost(){
+		var arr = new Object(); 						
+		$('#http_body').children().each(function(i,n){
+			var obj = $(n);
+			var key=obj.children().eq(0).val();
+			var value=obj.children().eq(1).val();
+			//console.log(key+"   "+value);
+			arr[key+""]=value+"";
+	    });
+        console.log(JSON.stringify(arr));
+        var urltmp=$('#urltmp').val();//后面的url
+		$.post(
+			"<%=path %>/app/"+urltmp,
+			arr,
+			function(data){
+				console.log(data);
+			}
+		);
+	}
+</script>
+<div id="http_body" style="border: 1px solid black;padding: 5px;">
+	<div id="div1">Key:<input type="text"/>Value:<input type="text"/></div>
+</div>
+<input type="button" value="发送请求" onclick="sendHttpPost()"/>请在开发者模式的console中查看结果
+
 
 
 

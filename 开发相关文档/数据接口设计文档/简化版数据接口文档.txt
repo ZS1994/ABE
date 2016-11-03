@@ -10,10 +10,8 @@
 登录
 接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signInFromApp
 请求参数：
-{
 	UNum:用户账号
 	UPass:用户密码
-}
 应答参数：
 {
 	result:登录状态，001成功，002用户不存在，003密码错误，004其他错误。
@@ -32,11 +30,9 @@
 上传头像
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 请求参数：
-{
 	UId:用户编号
 	UPhoto：图片Base64编码
 	format:图片的格式，图片的后缀   比如：png
-}
 应答参数：
 {
 	result：001成功，002失败，003该uid不存在
@@ -62,3 +58,69 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 
 
 修改密码
+
+//------------------
+添加宝贝
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
+请求参数：
+	isNum:学号【必须】
+	isName:名字
+	isSex:男/女
+	isBirthday:生日   yyyy-MM-dd
+	isAge:年龄  月数  因为页面显示的格式是：X年X月
+	isLocal:是否本地生  0：否/1：是
+	isTeacherChildren:是否是教职工子弟   0：否/1：是
+	isSchool:学校名字
+	isGrade:年级
+	isClass:班级
+	isIntoYear:入学年份    比如：2014/2015等等
+	isParentName:父母名字  父亲或母亲
+	isParentPhone:父母手机号
+	isParentRelation:与父母的关系   父子/母子/父女/母女
+	isIntoDate:入校日期    yyyy-MM-dd
+	isLeaveDate:离校日期   没有就为空
+	isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
+	UId:家长id   注意用户必须为家长类型【必须】
+	scId:班级id
+应答参数：
+{
+	result:返回码   001:成功，002：学号已存在,003:接收到的学号为空
+	data:{
+		isId:学生id
+		isNum:学号
+		isName:名字
+		isSex:男/女
+		isBirthday:生日   yyyy-MM-dd
+		isAge:年龄  月数  因为页面显示的格式是：X年X月
+		isLocal:是否本地生  0：否/1：是
+		isTeacherChildren:是否是教职工子弟   0：否/1：是
+		isSchool:学校名字
+		isGrade:年级
+		isClass:班级
+		isIntoYear:入学年份    比如：2014/2015等等
+		isParentName:父母名字  父亲或母亲
+		isParentPhone:父母手机号
+		isParentRelation:与父母的关系   父子/母子/父女/母女
+		isIntoDate:入校日期    yyyy-MM-dd
+		isLeaveDate:离校日期   没有就为空
+		isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
+		UId:家长id   注意用户必须为家长类型（UType：1） 比如：2
+		scId:班级id
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+

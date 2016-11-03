@@ -1,0 +1,43 @@
+html,
+body,
+.parent {
+width: 100%;
+  margin: 0;
+  height: 100%;
+  /*用于隐藏滚动条*/
+  overflow: hidden;
+}
+.top {
+  /*相对于 body 定位*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+}
+.left {
+  position: absolute;
+  left: 0;
+  top: 100px;
+  bottom: 50px;
+  width: 200px;
+}
+.right {
+  position: absolute;
+  left: 200px;
+  right: 0;
+  top: 100px;
+  bottom: 50px;
+  overflow: auto;
+}
+.right .inner {
+  /*此样式为演示所有*/
+  min-height: 1000px;
+}
+.bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+}
