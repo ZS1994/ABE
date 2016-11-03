@@ -172,6 +172,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		return respSignIn;
 	}
 	/**
+	 * 卢江林
 	 * 修改个人资料
 	 * @param UNum
 	 * @param UName
@@ -182,34 +183,36 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	 * @return
 	 */
 	public RespUpdateUser updateUser1(String UNum) {
-		//List list=find(" update Users set UName=?,UPass=?,UPhotoPath=?,UNote=? where UNum =?", new Object[]{UName,UPass,UPhotoPath,UNote,UNum});
 		List list=find(" from Users where UNum =?", new Object[]{UNum});
 		Users u = new Users();
 		RespUpdateUser updateUser= new RespUpdateUser();
 		if (list.size()>0) {
 			u=(Users) list.get(0);
-		
 		updateUser.setData(u);
-		updateUser.setResult("007");//
+		updateUser.setResult("007");//查到该用户
 		}else{
-			updateUser.setResult("008");//
+			updateUser.setResult("008");//未查到该用户
 		}
 		return updateUser;
 	}
 	
-	public RespUpdateUser updateUser2(String UName,String UPass,String UPhotoPath,String UNote,String UNum,String UId){
+	public RespUpdateUser updateUser2(String UName,String UPass,String UType,Timestamp UCreateTime,String UPhotoPath,String UNote,String trpId,String UNum,String UId){
 		Users u = new Users();
 		RespUpdateUser updateUser=null;
 		u.setUName(UName);
 		u.setUPass(UPass);
+		u.setUType(UType);
+		u.setUCreateTime(UCreateTime);
 		u.setUPhotoPath(UPhotoPath);
 		u.setUNote(UNote);
+		u.setTrpId(trpId);
 		u.setUNum(UNum);
 		u.setUId(UId);
 		update(u);
 		updateUser = new RespUpdateUser(null, u); 
 		return updateUser;
 	}
+
 
 
 }

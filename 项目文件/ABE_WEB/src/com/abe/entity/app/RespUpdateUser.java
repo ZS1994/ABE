@@ -24,15 +24,15 @@ public class RespUpdateUser {
 		this.result = result;
 		this.data = data;
 		//去掉不显示的字段
-		if (this.data!=null) {
-			this.data.setUId(null);
-			this.data.setUName(null);
-			this.data.setUNote(null);
-			this.data.setUNum(null);
-			this.data.setUPass(null);
-			this.data.setUType(null);
-			this.data.setUCreateTime(null);
-		}
+//		if (this.data!=null) {
+//			this.data.setUId(null);
+//			this.data.setUName(null);
+//			this.data.setUNote(null);
+//			this.data.setUNum(null);
+//			this.data.setUPass(null);
+//			this.data.setUType(null);
+//			this.data.setUCreateTime(null);
+//		}
 	}
 
 

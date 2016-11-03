@@ -1,5 +1,7 @@
 package com.abe.service;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -48,9 +50,11 @@ public interface iSignService {
 	
 	/**
 	 * app端修改个人信息，密码
-	 * @param User
+	 * @param 卢江林
 	 */
 	public RespUpdateUser updateUser1(String UNum);
-	public RespUpdateUser updateUser2(String UName,String UPass,String UPhotoPath,String UNote,String UNum,String UId);
+	public RespUpdateUser updateUser2(String uName, String uPass, String uType,
+			Timestamp valueOf, String uPhotoPath, String uNote, String trpId,
+			String uNum, String uId);
 	
 }
