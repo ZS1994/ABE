@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
 import com.abe.entity.app.RespSignIn;
+import com.abe.entity.app.RespUpdateUser;
 import com.abe.entity.app.RespUploadPhoto;
 import com.abe.service.iBaseService;
 import com.abe.service.iSignService;
@@ -92,6 +93,35 @@ public class SignAction extends BaseAction implements iBaseAction{
 		getPrintWriter().close();
 		return null;
 	}
+	/**
+	 * APP端修改个人信息，密码
+	 * @return
+	 */
+	public String updateUserFromApp1() throws IOException{
+		logger.debug("-------进入updateUsersFromApp--------");
+		String UNum=getRequest().getParameter("UNum");
+		RespUpdateUser respupdateUser = signSer.updateUser1(UNum);
+		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	public String updateUserFromApp2() throws IOException{
+		logger.debug("-------进入updateUsersFromApp--------");
+		String UNum = getRequest().getParameter("UNum");
+		String UPass = getRequest().getParameter("UPass");
+		String UName = getRequest().getParameter("UName");
+		String UPhotoPath = getRequest().getParameter("UPhotoPath");
+		String UNote = getRequest().getParameter("UNote");
+		String UId = getRequest().getParameter("UId");
+		RespUpdateUser respupdateUser = signSer.updateUser2(UName,UPass,UPhotoPath,UNote,UNum,UId);
+		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
 	
 	/**
 	 *登出 
@@ -112,7 +142,16 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 * APP创建账号
 	 * @throws IOException 
 	 */
-	public String signUpFromApp() {
+	public String signUpFromApp() throws IOException{
+		String uNum=(String) getRequest().getParameter("UNum");
+		String uPass=(String) getRequest().getParameter("UPass");
+		String uName=(String) getRequest().getParameter("UName");
+		String uType=(String) getRequest().getParameter("UType");
+		RespSignIn respSignIn=signSer.signUpFromApp(uNum, uPass,uName ,uType);
+		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
 		return null;
 	}
 	

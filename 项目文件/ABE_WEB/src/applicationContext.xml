@@ -21,6 +21,11 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="signSer" ref="zs_sign_ser"></property>
 	</bean>
+	<!-- ****************首页**************** -->
+	<bean id="zs_student" class="com.abe.action.home.InfoStuAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="studentSer" ref="zs_student_ser"></property>
+	</bean>
 	
 	<!-- **************拦截器************* -->
 	<bean id="zs_interceptor_role" class="com.abe.interceptor.RoleInterceptorWeb">
@@ -42,6 +47,11 @@
 	<bean id="zs_sign_ser" class="com.abe.service.impl.SignServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
+	<bean id="zs_student_ser" class="com.abe.service.impl.home.StudentServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>	
+	
+	
 	<!-- ****************dao层********************* -->
 	<bean id="zs_dao" class="com.abe.dao.BaseDaoImpl">
 		<property name="ht" ref="hibtemp"></property>

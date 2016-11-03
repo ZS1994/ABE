@@ -1,6 +1,7 @@
 package com.abe.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Users entity. @author MyEclipse Persistence Tools
@@ -18,6 +19,7 @@ public class Users implements java.io.Serializable {
 	private Timestamp UCreateTime;
 	private String UPhotoPath;
 	private String UNote;
+	private String trpId;
 
 	// Constructors
 
@@ -33,7 +35,8 @@ public class Users implements java.io.Serializable {
 
 	/** full constructor */
 	public Users(String UId, String UNum, String UName, String UPass,
-			String UType, Timestamp UCreateTime, String UPhotoPath, String UNote) {
+			String UType, Timestamp UCreateTime, String UPhotoPath,
+			String UNote, String trpId) {
 		this.UId = UId;
 		this.UNum = UNum;
 		this.UName = UName;
@@ -42,6 +45,7 @@ public class Users implements java.io.Serializable {
 		this.UCreateTime = UCreateTime;
 		this.UPhotoPath = UPhotoPath;
 		this.UNote = UNote;
+		this.trpId = trpId;
 	}
 
 	// Property accessors
@@ -108,6 +112,14 @@ public class Users implements java.io.Serializable {
 
 	public void setUNote(String UNote) {
 		this.UNote = UNote;
+	}
+
+	public String getTrpId() {
+		return this.trpId;
+	}
+
+	public void setTrpId(String trpId) {
+		this.trpId = trpId;
 	}
 
 }
