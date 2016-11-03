@@ -52,7 +52,27 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 
 
 注册
-
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signUpFromApp
+请求参数：
+	UNum:用户账号
+	UPass:用户密码
+	UName:用户名称
+应答参数：
+{
+	result:注册状态，001成功，002用户账号已存在。
+	data:{
+		UId:用户编号
+		UNum:账号
+		UPass:密码
+		UName:姓名
+		UType:用户类型，1家长，2教职员工
+		UCreateTime:创建时间
+		UPhotoPath:头像的路径
+		UNote:备注
+	}
+}
+成功json实例
+{"result":"001","data":{"UPass":"123456","UId":"032330587745169","trpId":"","UPhotoPath":"","UType":"1","UNote":"","UName":"王麻子","UNum":"wew","UCreateTime":"2016-11-03 23:30:57"}}
 
 修改个人资料
 
