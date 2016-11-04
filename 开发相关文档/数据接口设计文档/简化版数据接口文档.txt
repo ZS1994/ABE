@@ -84,7 +84,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 
 修改密码
 
-//------------------
+//---------------------------------------------------------------------------------------
 添加宝贝
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 请求参数：
@@ -133,9 +133,87 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 		scId:班级id
 	}
 }
-//---------------------------
+//-------------------------------------------------------------------------
 班级圈
-1,分享
+1,查看所有分享(看不到评论)
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!queryOfFenYeForumFromApp
+请求参数：
+	pageNo:当前页码，从1开始算
+	size：每页大小
+应答参数：
+{
+	result：001成功，002传过来的当前页码<=0或者为空,003size<=0或者为空
+	data:[
+		{
+			FId:分享编号
+			FContent：分享的内容
+			FLike:被赞次数
+			FCreateTime : 发表时间  yyyy-MM-dd HH:mm:ss.SSS
+			UId:用户编号
+			user:{			//发表人信息
+				UId:用户编号
+				UNum:账号
+				UPass:密码【null】
+				UName:姓名
+				UType:用户类型，001家长，002教职员工
+				UCreateTime:创建时间
+				UPhotoPath:头像的路径
+				UNote:备注
+				trpId : 教师档案或者家长档案编号（根据用户类型判断）
+			}
+			comment:null
+		}
+	]
+}
+2,查看一个分享的评论
+URL：
+请求参数：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!queryOfFenYeCommentFromApp
+	pageNo:当前页码
+	size：每页大小
+	FId：分享id
+应答参数：
+{
+	result：001成功，002传过来的当前页码<=0或者为空,003size<=0或者为空，004该fid不存在，005接收的fid为空
+	data:{
+		FId:分享编号
+		FContent：分享的内容
+		FLike:被赞次数
+		FCreateTime : 发表时间  yyyy-MM-dd HH:mm:ss.SSS
+		UId:用户编号
+		user:{			//发表人信息
+			UId:用户编号
+			UNum:账号
+			UPass:密码【null】
+			UName:姓名
+			UType:用户类型，001家长，002教职员工
+			UCreateTime:创建时间
+			UPhotoPath:头像的路径
+			UNote:备注
+			trpId : 教师档案或者家长档案编号（根据用户类型判断）
+		}
+		comment:[            //评论数组
+			{
+				fcId:评论编号
+				fcContent:评论内容
+				fcCreateTime :评论时间  yyyy-MM-dd HH:mm:ss.SSS
+				UId:评论人id
+				FId：分享id
+				user:{			//评论人信息
+					UId:用户编号
+					UNum:账号
+					UPass:密码【null】
+					UName:姓名
+					UType:用户类型，001家长，002教职员工
+					UCreateTime:创建时间
+					UPhotoPath:头像的路径
+					UNote:备注
+					trpId : 教师档案或者家长档案编号（根据用户类型判断）
+				}
+			}
+		]
+	}
+}
+1,发表分享
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addFromApp
 请求参数：
 	UId:发送人id【必须】
@@ -143,46 +221,9 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addFromApp
 应答参数：
 {
 	result:001:成功，002：用户id不存在,003:接收到的用户id为空
-	data:{
-		FId:分享编号
-		FContent：分享的内容
-		FLike:被赞次数
-		FCreateTime : 发表时间  yyyy-MM-dd HH:mm:ss.SSS
-		UId:用户编号
-		user:{			//发表人信息
-			UId:用户编号
-			UNum:账号
-			UPass:密码【null】
-			UName:姓名
-			UType:用户类型，001家长，002教职员工
-			UCreateTime:创建时间
-			UPhotoPath:头像的路径
-			UNote:备注
-			trpId : 教师档案或者家长档案编号（根据用户类型判断）
-		}
-		comment:[            //评论数组
-			{
-				fcId:评论编号
-				fcContent:评论内容
-				fcCreateTime :评论时间  yyyy-MM-dd HH:mm:ss.SSS
-				UId:评论人id
-				FId：分享id
-				user:{			//评论人信息
-					UId:用户编号
-					UNum:账号
-					UPass:密码【null】
-					UName:姓名
-					UType:用户类型，001家长，002教职员工
-					UCreateTime:创建时间
-					UPhotoPath:头像的路径
-					UNote:备注
-					trpId : 教师档案或者家长档案编号（根据用户类型判断）
-				}
-			}
-		]
-	}
+	data:null	
 }
-2，评论
+2，发表评论
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addCommentFromApp
 请求参数：
 	UId:评论人id【必须】
@@ -190,50 +231,21 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addCommentFromApp
 	FId:评论的分享id【必须】
 应答参数：
 {
-	result：001成功，002失败，003该uid不存在
-	data:{
-		FId:分享编号
-		FContent：分享的内容
-		FLike:被赞次数
-		FCreateTime : 发表时间  yyyy-MM-dd HH:mm:ss.SSS
-		UId:用户编号
-		user:{			//发表人信息
-			UId:用户编号
-			UNum:账号
-			UPass:密码【null】
-			UName:姓名
-			UType:用户类型，001家长，002教职员工
-			UCreateTime:创建时间
-			UPhotoPath:头像的路径
-			UNote:备注
-			trpId : 教师档案或者家长档案编号（根据用户类型判断）
-		}
-		comment:[            //评论数组
-			{
-				fcId:评论编号
-				fcContent:评论内容
-				fcCreateTime :评论时间  yyyy-MM-dd HH:mm:ss.SSS
-				UId:评论人id
-				FId：分享id
-				user:{			//评论人信息
-					UId:用户编号
-					UNum:账号
-					UPass:密码【null】
-					UName:姓名
-					UType:用户类型，001家长，002教职员工
-					UCreateTime:创建时间
-					UPhotoPath:头像的路径
-					UNote:备注
-					trpId : 教师档案或者家长档案编号（根据用户类型判断）
-				}
-			}
-		]
-	}
+	result：001成功，002该uid不存在，003该fid不存在,004接收的uid为空，005接收的fid为空
+	data:null
 }
-
 3，点赞
-	
-	
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!updateLikeFromApp
+请求参数：
+	FId：分享id
+	like:点赞（只要不为空代表赞一次，这里可以约定为：1）
+应答参数：
+{
+	result：001成功，002该fid不存在，003接收的fid为空,004like为空
+	data:null
+}	
+
+//------------------------------------------------------------------------------
 	
 	
 	
