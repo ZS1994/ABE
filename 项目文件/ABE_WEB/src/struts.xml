@@ -26,8 +26,9 @@
   <action name="student" class="zs_student">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
-  
-  
+  <action name="forum" class="zs_forum">	   
+  	 <interceptor-ref name="mydefault" />
+  </action> 
   
 </package> 
 
