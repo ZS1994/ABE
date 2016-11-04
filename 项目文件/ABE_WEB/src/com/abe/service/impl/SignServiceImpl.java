@@ -163,7 +163,8 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			users.setUName(uName);
 			users.setUNum(uNum);
 			users.setUPass(uPass);
-			users.setUType("1");
+			users.setUType(uType);
+			//users.setUType("1");
 			users.setUId(nameOfData.getNum());
 		save(users);
 		respSignIn.setResult(HINT_SUCCESS_USER);
