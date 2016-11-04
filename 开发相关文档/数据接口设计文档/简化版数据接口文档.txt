@@ -24,6 +24,7 @@
 		UCreateTime:创建时间
 		UPhotoPath:头像的路径
 		UNote:备注
+		trpId : 教师档案或者家长档案编号（根据用户类型判断）
 	}
 }
 //---------------------------------------------------------------------------
@@ -45,6 +46,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 		UCreateTime:创建时间 null 
 		UPhotoPath:头像的路径
 		UNote:备注 null
+		trpId : 教师档案或者家长档案编号（根据用户类型判断）
 	}
 }
 
@@ -52,6 +54,28 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 
 
 注册
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signUpFromApp
+请求参数：
+	UNum:用户账号
+	UPass:用户密码
+	UName:用户名称
+应答参数：
+{
+	result:注册状态，001成功，002用户账号已存在。
+	data:{
+		UId:用户编号
+		UNum:账号
+		UPass:密码
+		UName:姓名
+		UType:用户类型，1家长，2教职员工
+		UCreateTime:创建时间
+		UPhotoPath:头像的路径
+		UNote:备注
+	}
+}
+成功json实例
+{"result":"001","data":{"UPass":"123456","UId":"032330587745169","trpId":"","UPhotoPath":"","UType":"1","UNote":"","UName":"王麻子","UNum":"wew","UCreateTime":"2016-11-03 23:30:57"}}
+
 
 
 修改个人资料
@@ -108,6 +132,105 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 		scId:班级id
 	}
 }
+//---------------------------
+班级圈
+1,分享
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addFromApp
+请求参数：
+	UId:发送人id【必须】
+	FContent：分享的内容【必须，即不能为空】
+应答参数：
+{
+	result:001:成功，002：用户id不存在,003:接收到的用户id为空
+	data:{
+		FId:分享编号
+		FContent：分享的内容
+		FLike:被赞次数
+		FCreateTime : 发表时间  yyyy-MM-dd HH:mm:ss.SSS
+		UId:用户编号
+		user:{			//发表人信息
+			UId:用户编号
+			UNum:账号
+			UPass:密码【null】
+			UName:姓名
+			UType:用户类型，001家长，002教职员工
+			UCreateTime:创建时间
+			UPhotoPath:头像的路径
+			UNote:备注
+			trpId : 教师档案或者家长档案编号（根据用户类型判断）
+		}
+		comment:[            //评论数组
+			{
+				fcId:评论编号
+				fcContent:评论内容
+				fcCreateTime :评论时间  yyyy-MM-dd HH:mm:ss.SSS
+				UId:评论人id
+				FId：分享id
+				user:{			//评论人信息
+					UId:用户编号
+					UNum:账号
+					UPass:密码【null】
+					UName:姓名
+					UType:用户类型，001家长，002教职员工
+					UCreateTime:创建时间
+					UPhotoPath:头像的路径
+					UNote:备注
+					trpId : 教师档案或者家长档案编号（根据用户类型判断）
+				}
+			}
+		]
+	}
+}
+2，评论
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addCommentFromApp
+请求参数：
+	UId:评论人id【必须】
+	fcContent：评论内容【必须】
+	FId:评论的分享id【必须】
+应答参数：
+{
+	result：001成功，002失败，003该uid不存在
+	data:{
+		FId:分享编号
+		FContent：分享的内容
+		FLike:被赞次数
+		FCreateTime : 发表时间  yyyy-MM-dd HH:mm:ss.SSS
+		UId:用户编号
+		user:{			//发表人信息
+			UId:用户编号
+			UNum:账号
+			UPass:密码【null】
+			UName:姓名
+			UType:用户类型，001家长，002教职员工
+			UCreateTime:创建时间
+			UPhotoPath:头像的路径
+			UNote:备注
+			trpId : 教师档案或者家长档案编号（根据用户类型判断）
+		}
+		comment:[            //评论数组
+			{
+				fcId:评论编号
+				fcContent:评论内容
+				fcCreateTime :评论时间  yyyy-MM-dd HH:mm:ss.SSS
+				UId:评论人id
+				FId：分享id
+				user:{			//评论人信息
+					UId:用户编号
+					UNum:账号
+					UPass:密码【null】
+					UName:姓名
+					UType:用户类型，001家长，002教职员工
+					UCreateTime:创建时间
+					UPhotoPath:头像的路径
+					UNote:备注
+					trpId : 教师档案或者家长档案编号（根据用户类型判断）
+				}
+			}
+		]
+	}
+}
+
+3，点赞
 	
 	
 	

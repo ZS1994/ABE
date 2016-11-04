@@ -82,7 +82,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 				student.setScId(reqObject.getToString("scId"));
 				save(student);
 				InfoStudent studenttmp=(InfoStudent) get(InfoStudent.class, student.getIsId());
-				respStudent.setResult("001");//该学号已存在
+				respStudent.setResult("001");//成功
 				respStudent.setData(studenttmp);
 			}
 		}

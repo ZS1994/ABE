@@ -41,6 +41,8 @@
 
 		<mapping resource="com/abe/entity/Users.hbm.xml" />
 		<mapping resource="com/abe/entity/InfoStudent.hbm.xml" />
+		<mapping resource="com/abe/entity/ForumComment.hbm.xml" />
+		<mapping resource="com/abe/entity/Forum.hbm.xml" />
 
 
 	</session-factory>
