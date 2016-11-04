@@ -59,6 +59,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 	UNum:用户账号
 	UPass:用户密码
 	UName:用户名称
+	UType:用户类型（考虑到接口的共用性且客户端有不同类型建议隐式固定提供为1或2）
 应答参数：
 {
 	result:注册状态，001成功，002用户账号已存在。
