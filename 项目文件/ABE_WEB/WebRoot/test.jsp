@@ -75,7 +75,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 本地测试接口<br/>
 URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后面的部分)
 <input type="button" value="添加宝贝" onclick="$('#urltmp').val('student!addFromApp');"/>
-
+<input type="button" value="发表分享" onclick="$('#urltmp').val('forum!addFromApp');"/>
+<input type="button" value="发表评论" onclick="$('#urltmp').val('forum!addCommentFromApp');"/>
+<input type="button" value="查看分享" onclick="$('#urltmp').val('forum!queryOfFenYeForumFromApp');"/>
+<input type="button" value="查看评论" onclick="$('#urltmp').val('forum!queryOfFenYeCommentFromApp');"/>
+<input type="button" value="点赞" onclick="$('#urltmp').val('forum!updateLikeFromApp');"/>
 <br/>
 <input type="button" value="添加参数" onclick="addBody()"/>
 <script type="text/javascript">
