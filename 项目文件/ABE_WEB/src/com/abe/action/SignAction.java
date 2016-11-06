@@ -112,10 +112,13 @@ public class SignAction extends BaseAction implements iBaseAction{
 		String UNum = getRequest().getParameter("UNum");
 		String UPass = getRequest().getParameter("UPass");
 		String UName = getRequest().getParameter("UName");
+		String UType = getRequest().getParameter("UType");
+		String UCreateTime = getRequest().getParameter("UCreateTime");
 		String UPhotoPath = getRequest().getParameter("UPhotoPath");
 		String UNote = getRequest().getParameter("UNote");
 		String UId = getRequest().getParameter("UId");
-		RespUpdateUser respupdateUser = signSer.updateUser2(UName,UPass,UPhotoPath,UNote,UNum,UId);
+		String trpId = getRequest().getParameter("trpId");
+		RespUpdateUser respupdateUser = signSer.updateUser2(UName, UPass, UType, Timestamp.valueOf(UCreateTime), UPhotoPath, UNote, UNum, UId, trpId);
 		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
