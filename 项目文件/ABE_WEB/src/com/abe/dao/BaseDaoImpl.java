@@ -27,8 +27,9 @@ public class BaseDaoImpl implements iBaseDao{
 	public List find(String hql,Object[] ss) {
 		if (ss==null) {
 			return ht.find(hql);
+		}else {
+			return ht.find(hql, ss);
 		}
-		return ht.find(hql, ss);
 	}
 	
 	//分页查询

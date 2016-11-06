@@ -14,9 +14,11 @@ import com.abe.entity.ForumComment;
 import com.abe.entity.Users;
 import com.abe.entity.app.ReqObject;
 import com.abe.entity.app.RespForum;
+import com.abe.entity.app.RespForumAll;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iForumService;
 import com.abe.tools.NameOfDate;
+import com.abe.tools.Page;
 
 /**
  * 班级圈
@@ -47,36 +49,14 @@ public class ForumAction extends BaseAction implements iBaseAction{
 	}
 
 	
-	/**
+	/**张顺 2016-11-3<br>
 	 * 从APP发送分享（班级圈内容，暂称为分享、评论）
 	 * @return
 	 * @throws IOException 
 	 */
 	public String addFromApp() throws IOException {
 		ReqObject reqObject=new ReqObject(getRequest());
-		reqObject.add("UId");
-		reqObject.add("FContent");
-		String uid=reqObject.getToString("UId");
-		RespForum respForum=new RespForum();
-		if (uid==null) {
-			respForum.setResult("003");
-		}else {
-			Users user=(Users) ser.get(Users.class, uid);
-			if (user==null) {
-				respForum.setResult("002");
-			}else {
-				Forum forum=new Forum(NameOfDate.getNum(), reqObject.getToString("FContent"), (Integer)0,new Timestamp(new Date().getTime()), uid);
-				forum.setUser(user);
-				List<ForumComment> comments=ser.find("from ForumComment where FId=? order by fcCreateTime desc", new String[]{forum.getFId()});
-				for (int i = 0; i < comments.size(); i++) {
-					Users user2=(Users) ser.get(Users.class, comments.get(i).getUId());
-					comments.get(i).setUser(user2);
-				}
-				forum.setComment(comments);
-				respForum.setResult("001");
-				respForum.setData(forum);
-			}
-		}
+		RespForum respForum=forumSer.addFromApp(reqObject);
 		JSONObject jsonObject=ser.objToJson(respForum, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
@@ -84,13 +64,18 @@ public class ForumAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 		
-	/**
+	/**张顺 2016-11-3<br>
 	 * APP发表评论
 	 * @return
 	 * @throws IOException
 	 */
-	public String addCommentFromApp() {
-		
+	public String addCommentFromApp() throws IOException {
+		ReqObject reqObject=new ReqObject(getRequest());
+		RespForum respForum=forumSer.addCommentFromApp(reqObject);
+		JSONObject jsonObject=ser.objToJson(respForum, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
 		return null;
 	}
 	@Override
@@ -123,12 +108,55 @@ public class ForumAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 
+	/**
+	 * 张顺 2016-11-4<br>
+	 * 分页查看所有分享(看不到评论)
+	 * @throws IOException 
+	 */
+	public String queryOfFenYeForumFromApp() throws IOException {
+		ReqObject reqObject=new ReqObject(getRequest());
+		RespForumAll respForumAll=forumSer.queryOfFenYeForumFromApp(reqObject);
+		JSONObject jsonObject=ser.objToJson(respForumAll, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	/**
+	 * 张顺 2016-11-4<br>
+	 * 分页查看一个分享的评论
+	 * @throws IOException 
+	 */
+	public String queryOfFenYeCommentFromApp() throws IOException {
+		ReqObject reqObject=new ReqObject(getRequest());
+		RespForum respForum=forumSer.queryOfFenYeCommentFromApp(reqObject);
+		JSONObject jsonObject=ser.objToJson(respForum, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
 	@Override
 	public String queryOfFenYe() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**张顺 2016-11-4<br>
+	 * 点赞(+1)
+	 * @return
+	 * @throws IOException 
+	 */
+	public String updateLikeFromApp() throws IOException {
+		ReqObject reqObject=new ReqObject(getRequest());
+		RespForum respForum=forumSer.updateLikeFromApp(reqObject);
+		JSONObject jsonObject=ser.objToJson(respForum, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	
 	@Override
 	public String update() {
 		// TODO Auto-generated method stub

@@ -43,6 +43,13 @@
 		<mapping resource="com/abe/entity/InfoStudent.hbm.xml" />
 		<mapping resource="com/abe/entity/ForumComment.hbm.xml" />
 		<mapping resource="com/abe/entity/Forum.hbm.xml" />
+		<mapping resource="com/abe/entity/SchoolClass.hbm.xml" />
+		<mapping resource="com/abe/entity/SchoolSection.hbm.xml" />
+		<mapping resource="com/abe/entity/PlaceCity.hbm.xml" />
+		<mapping resource="com/abe/entity/SchoolGrade.hbm.xml" />
+		<mapping resource="com/abe/entity/PlaceProvince.hbm.xml" />
+		<mapping resource="com/abe/entity/School.hbm.xml" />
+		<mapping resource="com/abe/entity/PlaceArea.hbm.xml" />
 
 
 	</session-factory>
