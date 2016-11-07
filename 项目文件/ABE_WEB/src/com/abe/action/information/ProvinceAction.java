@@ -95,18 +95,17 @@ public class ProvinceAction extends BaseAction implements iBaseAction{
 	 * @return
 	 */
 	public String updateFromApp() {
-		
 		/*
 		 * 也没什么要改的，就那么几个省，为了改还写个方法？先放着，需要的话以后再写
 		 * 张顺
 		 * 2016-11-6 22:07:34
 		 */
-		
 		return null;
 	}
 	
 	@Override
 	public String update() {
+		
 		
 		return null;
 	}

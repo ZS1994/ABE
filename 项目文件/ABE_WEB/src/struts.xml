@@ -39,7 +39,9 @@
   <action name="province" class="zs_province">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
-  
+  <action name="city" class="zs_city">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
   
   
 </package> 
