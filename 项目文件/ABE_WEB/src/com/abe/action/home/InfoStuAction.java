@@ -72,8 +72,6 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 		getPrintWriter().close();
 		return null;
 	}
-	
-	
 	@Override
 	public String add() {
 		// TODO Auto-generated method stub

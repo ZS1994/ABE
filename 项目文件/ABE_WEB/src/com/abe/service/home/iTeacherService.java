@@ -3,7 +3,6 @@ package com.abe.service.home;
 import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoTeacher;
-import com.abe.entity.app.RespTeacher;
 
 
 public interface iTeacherService{
@@ -15,16 +14,8 @@ public interface iTeacherService{
 	 */
 	public InfoTeacher get(String isNum);
 	
-	
-	/**
-	 * app端添加学生【添加宝贝】
-	 * @param req
-	 * @return
-	 */
 	/*
 	public RespTeacher addFromApp(HttpServletRequest req);*/
-	
-	
 	
 	/**
 	 * 测试request传过来是否可以取值
