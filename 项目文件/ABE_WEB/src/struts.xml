@@ -30,7 +30,7 @@
   </action> 
   <action name="teacher" class="ljl_teacher">	   
   	 <interceptor-ref name="mydefault" />
-  </action> 
+  </action>
   <action name="forum" class="zs_forum">	   
   	 <interceptor-ref name="mydefault" />
   </action> 

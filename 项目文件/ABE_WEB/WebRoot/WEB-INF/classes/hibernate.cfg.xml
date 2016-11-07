@@ -52,7 +52,6 @@
 		<mapping resource="com/abe/entity/PlaceArea.hbm.xml" />
 		<mapping resource="com/abe/entity/InfoTeacher.hbm.xml" />
 
-
 	</session-factory>
 
 </hibernate-configuration>
