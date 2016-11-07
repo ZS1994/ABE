@@ -80,7 +80,57 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 
 
 修改个人资料
+---------------------修改个人资料------------
+第一步：查出该用户所有信息
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!updateUserFromApp1
+请求参数：
+      UNum:用户账号
+应答参数：
+{
+   result：001成功，002失败
+   data:{
+        UId:用户编号
+	UNum:账号
+	UPass:密码
+	UName:姓名
+	UType:用户类型，1家长，2教职员工
+	UCreateTime:创建时间
+	UPhotoPath:头像的路径
+	UNote:备注
+        trpId:用户档案ID
+    }
 
+}
+
+第二步：修改该用户个人信息
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!updateUserFromApp2
+请求参数：
+        UId:用户编号
+	UNum:账号
+	UPass:密码
+	UName:姓名
+	UType:用户类型，1家长，2教职员工
+	UCreateTime:创建时间
+	UPhotoPath:头像的路径
+	UNote:备注
+        trpId:用户档案ID
+应答参数：
+{
+   result：001成功，002失败
+   data:{
+        UId:用户编号
+	UNum:账号
+	UPass:密码
+	UName:姓名
+	UType:用户类型，1家长，2教职员工
+	UCreateTime:创建时间
+	UPhotoPath:头像的路径
+	UNote:备注
+        trpId:用户档案ID
+    }
+}
+
+----------------------------------------------------
 
 修改密码
 
