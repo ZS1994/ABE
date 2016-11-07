@@ -3,6 +3,8 @@ package com.abe.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONObject;
 
 
@@ -88,6 +90,11 @@ public interface iBaseService {
 	 */
 	public JSONObject objToJson(Object obj,String datePatten);
 	
-	
-	
+	/**张顺 2016-11-7 22:13:15<br>
+	 * 去空格方法，并自带是否为空判断
+	 * @param req
+	 * @param key
+	 * @return
+	 */
+	public String clearSpace(HttpServletRequest req,String key);
 }

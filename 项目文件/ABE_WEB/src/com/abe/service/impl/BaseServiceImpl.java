@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
@@ -85,6 +87,14 @@ public class BaseServiceImpl implements iBaseService{
 			object=JSONObject.fromObject(obj,jsonConfig);
 		}
 		return object;
+	}
+	
+	
+	
+	@Override
+	public String clearSpace(HttpServletRequest req, String key) {
+		String str=req.getParameter(key);
+		return str==null?null:str.trim();
 	}
 	
 	

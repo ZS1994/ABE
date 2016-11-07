@@ -35,12 +35,15 @@
 		<property name="forumSer" ref="zs_forum_ser"></property>
 	</bean>
 	
-	<!-- ****************首页**************** -->
+	<!-- ****************消息中心**************** -->
 	<bean id="zs_province" class="com.abe.action.information.ProvinceAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="provinceSer" ref="zs_province_ser"></property>
 	</bean>
-	
+	<bean id="zs_city" class="com.abe.action.information.CityAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="citySer" ref="zs_city_ser"></property>
+	</bean>
 	
 	<!-- **************拦截器************* -->
 	<bean id="zs_interceptor_role" class="com.abe.interceptor.RoleInterceptorWeb">
@@ -74,7 +77,9 @@
 	<bean id="zs_province_ser" class="com.abe.service.information.impl.ProvinceServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
-	
+	<bean id="zs_city_ser" class="com.abe.service.information.impl.CityServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
 	
 	
 	<!-- ****************dao层********************* -->

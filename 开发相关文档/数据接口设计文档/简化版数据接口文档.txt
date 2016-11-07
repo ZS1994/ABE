@@ -296,11 +296,28 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!updateLikeFromApp
 }	
 
 //------------------------------------------------------------------------------
-	
-	
-	
-	
-	
+组织架构（班级架构）	
+1，市管理
+添加市
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!addFromApp
+请求参数：
+	pcName:市名字
+	ppId:省id
+应答参数：
+{
+	result：001成功，002该ppid不存在，003接收的ppid为空，004接收的pcName为空
+	data:null
+}	
+修改市
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!updateFromApp	
+请求参数：
+	pcId:市id
+	pcName:市名字
+应答参数：	
+{
+	result：001成功，002该pcId不存在，003接收的pcId为空，004接收的pcName为空
+	data:null
+}	
 	
 	
 	
