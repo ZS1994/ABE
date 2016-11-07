@@ -1,20 +1,18 @@
 package com.abe.action.home;
 
+
 import org.apache.log4j.Logger;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
-import com.abe.entity.InfoStudent;
 import com.abe.entity.InfoTeacher;
 import com.abe.service.iBaseService;
-import com.abe.service.home.iStudentService;
 import com.abe.service.home.iTeacherService;
 
 public class InfoTeaAction extends BaseAction implements iBaseAction {
-
-	/**
-	 * 
-	 */
+    
+	
+	
 	private static final long serialVersionUID = 1L;
 	//service们
 	private iBaseService ser;
@@ -28,7 +26,8 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	private Logger logger=Logger.getLogger(InfoTeaAction.class);
 	
 	@Override
-	public String add() {
+	public String gotoQuery() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -74,11 +73,6 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 		return null;
 	}
 
-	@Override
-	public String gotoQuery() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String queryOfFenYe() {
@@ -88,6 +82,12 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 
 	@Override
 	public String update() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String add() {
 		// TODO Auto-generated method stub
 		return null;
 	}
