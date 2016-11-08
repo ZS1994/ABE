@@ -1,9 +1,12 @@
 package com.abe.service.home.impl;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoTeacher;
+import com.abe.entity.app.RespTeacher;
 import com.abe.service.home.iTeacherService;
 import com.abe.service.impl.BaseServiceImpl;
 
@@ -11,14 +14,25 @@ public class TeacherServiceImpl extends BaseServiceImpl implements iTeacherServi
 	
 	@Override
 	public InfoTeacher get(String isNum) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void csReq(HttpServletRequest req) {
-		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String queryTeacher(String uId) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(" select * from users u,infoTeacher t where u.trpId = t.Id ");
+		sb.append(" u.uId ="+uId+"");
+//		InfoTeacher teacher=new InfoTeacher();
+//		List<InfoTeacher> teac=find("from InfoTeacher t,Users u where u.trpId = t.Id and u.unum", new String[]{uNum,trpId});
+//		if (teac.size()>0) {
+//			teacher=teac.get(0);
+//		}
+		return sb.toString();
 	}
 
 
