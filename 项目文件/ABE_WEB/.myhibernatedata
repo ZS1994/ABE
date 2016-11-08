@@ -1,7 +1,7 @@
 #MyEclipse Hibernate Properties
-#Fri Nov 04 16:30:16 CST 2016
+#Tue Nov 08 22:35:59 GMT+08:00 2016
 sessionFactoryName=
-genBasicCompId=false
+genBasicCompId=true
 profile=
 daoSFId=
 version=3.3
@@ -14,7 +14,7 @@ useJavaTypes=true
 keyGenerator=
 libInstallFolder=<no jars/zips in selected libraries>
 addLibs2Project=true
-genVersionTag=false
+genVersionTag=true
 sessionFactoryId=
 basePersistenceClass=
 genAnnotations=false

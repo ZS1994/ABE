@@ -146,6 +146,7 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 * @throws IOException 
 	 */
 	public String signUpFromApp() throws IOException{
+		logger.debug("-------进入signUpFromApp--------");
 		String uNum=(String) getRequest().getParameter("UNum");
 		String uPass=(String) getRequest().getParameter("UPass");
 		String uName=(String) getRequest().getParameter("UName");
