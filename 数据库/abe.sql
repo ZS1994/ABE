@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : zs
+Source Server         : lz
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : abe
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-02 14:46:18
+Date: 2016-11-08 23:58:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -183,6 +183,30 @@ CREATE TABLE `info_teacher` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `news`
+-- ----------------------------
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE `news` (
+  `n_id` varchar(255) NOT NULL,
+  `n_title` varchar(255) NOT NULL,
+  `n_content` varchar(255) DEFAULT NULL,
+  `n_imgs` varchar(255) DEFAULT NULL,
+  `n_url` varchar(255) DEFAULT NULL,
+  `n_origin` varchar(255) DEFAULT NULL,
+  `n_type` varchar(255) DEFAULT NULL,
+  `n_creat_time` varchar(255) DEFAULT NULL,
+  `n_final_time` varchar(255) DEFAULT NULL,
+  `n_istop` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  `n_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`n_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of news
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `place_area`
 -- ----------------------------
 DROP TABLE IF EXISTS `place_area`;
@@ -224,6 +248,29 @@ CREATE TABLE `place_province` (
 
 -- ----------------------------
 -- Records of place_province
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `recipe`
+-- ----------------------------
+DROP TABLE IF EXISTS `recipe`;
+CREATE TABLE `recipe` (
+  `r_id` varchar(255) NOT NULL,
+  `sc_id` varchar(255) DEFAULT NULL,
+  `r_type` varchar(255) DEFAULT NULL,
+  `r_time` varchar(255) DEFAULT NULL,
+  `r_state` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  `r_creat_time` varchar(255) DEFAULT NULL,
+  `r_status` varchar(255) DEFAULT NULL,
+  `r_images` varchar(255) DEFAULT NULL,
+  `is_id_accept` varchar(255) DEFAULT NULL,
+  `is_id_all` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`r_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of recipe
 -- ----------------------------
 
 -- ----------------------------

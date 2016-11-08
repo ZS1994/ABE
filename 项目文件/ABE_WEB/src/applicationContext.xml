@@ -30,6 +30,10 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="teacherSer" ref="ljl_teacher_ser"></property>
 	</bean>
+	<bean id="lz_recipe" class="com.abe.action.RecipeAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="recipe" ref="lz_recipe_ser"></property>
+	</bean>
 	<bean id="zs_forum" class="com.abe.action.home.ForumAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="forumSer" ref="zs_forum_ser"></property>
@@ -69,6 +73,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="ljl_teacher_ser" class="com.abe.service.home.impl.TeacherServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>	
+	<bean id="lz_recipe_ser" class="com.abe.service.impl.RecipeServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
 	<bean id="zs_forum_ser" class="com.abe.service.home.impl.ForumServiceImpl">
