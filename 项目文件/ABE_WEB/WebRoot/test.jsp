@@ -74,12 +74,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <hr/>
 本地测试接口<br/>
 URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后面的部分)
+<br/>
 <input type="button" value="添加宝贝" onclick="$('#urltmp').val('student!addFromApp');"/>
 <input type="button" value="发表分享" onclick="$('#urltmp').val('forum!addFromApp');"/>
 <input type="button" value="发表评论" onclick="$('#urltmp').val('forum!addCommentFromApp');"/>
 <input type="button" value="查看分享" onclick="$('#urltmp').val('forum!queryOfFenYeForumFromApp');"/>
 <input type="button" value="查看评论" onclick="$('#urltmp').val('forum!queryOfFenYeCommentFromApp');"/>
 <input type="button" value="点赞" onclick="$('#urltmp').val('forum!updateLikeFromApp');"/>
+<input type="button" value="添加市" onclick="$('#urltmp').val('city!addFromApp');"/>
+<input type="button" value="修改市" onclick="$('#urltmp').val('city!updateFromApp');"/>
+<input type="button" value="查看市" onclick="$('#urltmp').val('city!queryFromApp');"/>
+<input type="button" value="添加区" onclick="$('#urltmp').val('area!addFromApp');"/>
+<input type="button" value="修改区" onclick="$('#urltmp').val('area!updateFromApp');"/>
+<input type="button" value="查看区" onclick="$('#urltmp').val('area!queryFromApp');"/>
+<input type="button" value="添加学校" onclick="$('#urltmp').val('school!addFromApp');"/>
+<input type="button" value="修改学校" onclick="$('#urltmp').val('school!updateFromApp');"/>
+<input type="button" value="查看学校" onclick="$('#urltmp').val('school!queryFromApp');"/>
+<input type="button" value="添加年级" onclick="$('#urltmp').val('grade!addFromApp');"/>
+<input type="button" value="修改年级" onclick="$('#urltmp').val('grade!updateFromApp');"/>
+<input type="button" value="查看年级" onclick="$('#urltmp').val('grade!queryFromApp');"/>
+<input type="button" value="添加班级" onclick="$('#urltmp').val('class!addFromApp');"/>
+<input type="button" value="修改班级" onclick="$('#urltmp').val('class!updateFromApp');"/>
+<input type="button" value="查看班级" onclick="$('#urltmp').val('class!queryFromApp');"/>
+
+
+<br/>
+<br/>
 <br/>
 <input type="button" value="添加参数" onclick="addBody()"/>
 <script type="text/javascript">

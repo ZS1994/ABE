@@ -9,7 +9,7 @@ public class SchoolClass implements java.io.Serializable {
 	// Fields
 
 	private String scId;
-	private String scNaem;
+	private String scName;
 	private String sgId;
 	private String itId;
 
@@ -25,9 +25,9 @@ public class SchoolClass implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public SchoolClass(String scId, String scNaem, String sgId, String itId) {
+	public SchoolClass(String scId, String scName, String sgId, String itId) {
 		this.scId = scId;
-		this.scNaem = scNaem;
+		this.scName = scName;
 		this.sgId = sgId;
 		this.itId = itId;
 	}
@@ -42,12 +42,12 @@ public class SchoolClass implements java.io.Serializable {
 		this.scId = scId;
 	}
 
-	public String getScNaem() {
-		return this.scNaem;
+	public String getScName() {
+		return this.scName;
 	}
 
-	public void setScNaem(String scNaem) {
-		this.scNaem = scNaem;
+	public void setScName(String scName) {
+		this.scName = scName;
 	}
 
 	public String getSgId() {

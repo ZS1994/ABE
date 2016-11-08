@@ -16,8 +16,8 @@
         <property name="SAddress" type="java.lang.String">
             <column name="s_address" />
         </property>
-        <property name="pcId" type="java.lang.String">
-            <column name="pc_id" />
+        <property name="paId" type="java.lang.String">
+            <column name="pa_id" />
         </property>
     </class>
 </hibernate-mapping>
