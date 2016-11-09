@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.abe.entity.Forum;
 import com.abe.entity.ForumComment;
+import com.abe.entity.ForumLike;
 import com.abe.entity.Users;
 import com.abe.entity.app.ReqObject;
 import com.abe.entity.app.RespForum;
@@ -40,6 +41,7 @@ public class ForumServiceImpl extends BaseServiceImpl implements iForumService{
 		List<ForumComment> comments=query(hql1, new String[]{forum.getFId()}, hql2, page);
 		for (int i = 0; i < comments.size(); i++) {
 			Users user2=(Users) get(Users.class, comments.get(i).getUId());
+			user2.setUPass(null);//去掉密码信息
 			comments.get(i).setUser(user2);
 		}
 		forum.setComment(comments);
@@ -112,24 +114,41 @@ public class ForumServiceImpl extends BaseServiceImpl implements iForumService{
 		RespForum respForum=new RespForum();
 		reqObject.add("FId");
 		reqObject.add("like");
+		reqObject.add("UId");
 		String fid=reqObject.getToString("FId");
 		String like=reqObject.getToString("like");
+		String uid=reqObject.getToString("UId");
 		if (fid==null) {
 			respForum.setResult("003");
 			respForum.setData(null);
 		}else if (like==null) {
 			respForum.setResult("004");
 			respForum.setData(null);
+		}else if (uid==null) {
+			respForum.setResult("006");
+			respForum.setData(null);
 		}else {
 			Forum forum=(Forum) get(Forum.class, fid);
+			Users user=(Users) get(Users.class, uid);
 			if (forum==null) {
 				respForum.setResult("002");
 				respForum.setData(null);
-			}else {
-				forum.setFLike(forum.getFLike()+1);
-				update(forum);
-				respForum.setResult("001");
+			}else if (user==null) {
+				respForum.setResult("005");
 				respForum.setData(null);
+			}else {
+				List<ForumLike> likes=find("from ForumLike where UId=? and FId=?", new String[]{uid,fid});
+				if (likes.size()>0) {
+					respForum.setResult("007");
+					respForum.setData(null);
+				}else {
+					forum.setFLike(forum.getFLike()+1);
+					update(forum);
+					ForumLike like2=new ForumLike(NameOfDate.getNum(), fid, uid);
+					save(like2);
+					respForum.setResult("001");
+					respForum.setData(null);
+				}
 			}
 		}
 		return respForum;
