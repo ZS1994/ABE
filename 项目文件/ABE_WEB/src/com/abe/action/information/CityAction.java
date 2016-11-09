@@ -1,18 +1,14 @@
 package com.abe.action.information;
 
 import java.io.IOException;
-
 import net.sf.json.JSONObject;
-
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.PlaceCity;
 import com.abe.entity.PlaceProvince;
-import com.abe.entity.app.ReqObject;
 import com.abe.entity.app.RespCity;
 import com.abe.service.iBaseService;
 import com.abe.service.information.iCityService;
-import com.abe.service.information.iProvinceService;
 import com.abe.tools.NameOfDate;
 
 /**
@@ -28,7 +24,6 @@ public class CityAction extends BaseAction implements iBaseAction{
 	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
 	private iCityService citySer;
-	
 	
 	
 	public iBaseService getSer() {
@@ -111,6 +106,32 @@ public class CityAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 
+	/**
+	 * 张顺 2016-11-8
+	 * <br>从APP查看市详情
+	 * @return
+	 * @throws IOException 
+	 */
+	public String queryFromApp() throws IOException {
+		String pcId=ser.clearSpace(getRequest(), "pcId");
+		RespCity city=new RespCity();
+		if (pcId==null) {
+			city.setResult("003");
+			city.setData(null);
+		}else {
+			PlaceCity placeCity=(PlaceCity) ser.get(PlaceCity.class, pcId);
+			if (placeCity==null) {
+				city.setResult("002");
+				city.setData(null);
+			}else {
+				city.setResult("001");
+				city.setData(placeCity);
+			}
+		}
+		sendToApp(city, ser);
+		return null;
+	}
+	
 	@Override
 	public String queryOfFenYe() {
 		// TODO Auto-generated method stub
@@ -145,10 +166,7 @@ public class CityAction extends BaseAction implements iBaseAction{
 				city.setData(null);
 			}
 		}
-		JSONObject jsonObject=ser.objToJson(city, "yyyy-MM-dd");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(city,ser);
 		return null;
 	}
 	
@@ -159,4 +177,5 @@ public class CityAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 
+	
 }

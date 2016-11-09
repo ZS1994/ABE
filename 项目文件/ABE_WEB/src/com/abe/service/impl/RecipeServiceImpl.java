@@ -3,7 +3,7 @@ package com.abe.service.impl;
 import com.abe.entity.app.RespRecipe;
 import com.abe.service.iRecipeService;
 
-public class RecipeServiceImpl implements iRecipeService {
+public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService {
 
 	@Override
 	public RespRecipe releaseRecipe(String scId, String rType, String rTime,

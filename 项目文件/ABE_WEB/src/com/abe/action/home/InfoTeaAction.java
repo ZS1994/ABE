@@ -1,11 +1,17 @@
 package com.abe.action.home;
 
 
+import java.io.IOException;
+
+import net.sf.json.JSONObject;
+
 import org.apache.log4j.Logger;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.InfoTeacher;
+import com.abe.entity.app.RespTeacher;
+import com.abe.entity.app.RespUpdateUser;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iTeacherService;
 
@@ -24,6 +30,33 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	private InfoTeacher teacher;
 	
 	private Logger logger=Logger.getLogger(InfoTeaAction.class);
+	
+	/**
+	 * @author lujianglin
+	 * 查询老师的个人信息资料
+	 * @param UId
+	 * @throws IOException 
+	 */
+	public String queryTeacherFromApp(String uId) throws IOException{
+		logger.debug("-------进入queryTeacherFromApp--------");
+		String respTeacher = teacherSer.queryTeacher(uId);
+		JSONObject jsonObject = ser.objToJson(respTeacher, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public String gotoQuery() {

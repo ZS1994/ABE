@@ -9,8 +9,14 @@ import java.util.Date;
 
 public class InfoTeacher implements java.io.Serializable {
 
-	// Fields
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 
+	 */
 	private String itId;
 	private String itNum;
 	private String itName;

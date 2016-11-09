@@ -10,8 +10,8 @@
             <column name="sc_id" />
             <generator class="assigned" />
         </id>
-        <property name="scNaem" type="java.lang.String">
-            <column name="sc_naem" />
+        <property name="scName" type="java.lang.String">
+            <column name="sc_name" />
         </property>
         <property name="sgId" type="java.lang.String">
             <column name="sg_id" />

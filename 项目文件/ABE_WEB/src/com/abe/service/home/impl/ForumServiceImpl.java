@@ -63,6 +63,11 @@ public class ForumServiceImpl extends BaseServiceImpl implements iForumService{
 			Page page=new Page(pano, 0, size);
 			String hql="from Forum order by FCreateTime desc";
 			List<Forum> forums=query(hql, null, hql, page); 
+			for (int i = 0; i < forums.size(); i++) {
+				Users user=(Users) get(Users.class, forums.get(i).getUId());
+				user.setUPass(null);
+				forums.get(i).setUser(user);
+			}
 			respForumAll.setResult("001");
 			respForumAll.setData(forums);
 		}

@@ -318,12 +318,159 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!updateFromApp
 	result：001成功，002该pcId不存在，003接收的pcId为空，004接收的pcName为空
 	data:null
 }	
-	
-	
-	
-	
-	
-	
-	
-	
+查看市详情
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!queryFromApp
+请求参数：
+	pcId:市id
+应答参数：
+{
+	result：001成功，002该pcid不存在，003接收的pcid为空
+	data:{
+		pcId:市id
+		pcName:市名字
+		pcId:省id
+	}
+}	
+2,区管理
+添加区
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!addFromApp
+请求参数：
+	paName:区名字
+	pcId:市id
+应答参数：
+{
+	result：001成功，002该pcid不存在，003接收的pcid为空,004paName为空
+	data:null
+}	
+修改区
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!updateFromApp
+请求参数：
+	paId:区id
+	paName:区名字
+应答参数：	
+{
+	result：001成功，002该paId不存在，003接收的paId为空，004接收的paName为空
+	data:null
+}
+查看区详情
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!queryFromApp
+请求参数：
+	paId:区id
+应答参数：		
+{
+	result：001成功，002该paId不存在，003接收的paId为空
+	data:{
+		paId:区id
+		paName:区名字
+		pcId:市id
+	}
+}	
+3,学校管理
+添加学校
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!addFromApp
+请求参数：
+	SName:学校名字
+	SAddress:学校的详细地址
+	paId:区id
+应答参数：	
+{
+	result：001成功，002该paId不存在，003接收的paId为空，004接收的sName为空，005接收的sAddress为空
+	data:null
+}	
+修改学校基本信息
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!updateFromApp
+请求参数：
+	SId:学校id
+	SName:新学校名字
+	SAddress:新学校地址
+应答参数：
+{
+	result：001成功，002该SId不存在，003接收的SId为空，004接收的SName为空，005接收的SAddress为空
+	data:null
+}
+查看学校信息
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!queryFromApp
+请求参数：
+	SId:学校id
+应答参数：
+{
+	result：001成功，002该SId不存在，003接收的SId为空
+	data:{//学校信息
+		SId:学校id
+		SName:学校名字
+		SAddress:学校的详细地址
+		paId:区id
+	}
+}
+4,年级管理
+添加年级
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!addFromApp
+请求参数：
+	sgName:年级名字
+	SId:学校id
+应答参数：	
+{
+	result：001成功，002该SId不存在，003接收的SId为空，004接收的sgName为空
+	data:null
+}
+修改年级
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!updateFromApp
+请求参数：
+	sgId:年级id
+	sgName:学校名字
+应答参数：	
+{
+	result：001成功，002该sgId不存在，003接收的sgId为空，004接收的sgName为空
+	data:null
+}
+查看年级信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!queryFromApp
+请求参数：
+	sgId:年级id
+应答参数：
+{
+	result：001成功，002sgid不存在，003接收到的sgid为空
+	data:{//年级信息
+		sgId:年级id
+		sgName:年级名字
+		SId:学校id
+	}
+}
+5,班级管理
+添加班级
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!addFromApp
+请求参数：
+	scName:班级名字
+	sgId:年级id
+	itId:班主任id
+应答参数：
+{
+	result：001成功，002该sgId不存在，003接收的sgId为空，004接收的scName为空，005itId不存在，006接收的itId为空
+	data:null	
+}
+修改班级信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!updateFromApp
+请求参数：
+	scId:班级id
+	scName:班级名字
+	itId:班主任id
+应答参数：
+{
+	result：001成功，002该scId不存在，003接收的scId为空，004接收的scName为空,005itId不存在，006接收的itId为空
+	data:null	
+}
+查看班级信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!queryFromApp
+请求参数：
+	scId:班级id
+应答参数：
+{
+	result：001成功，002该scId不存在，003接收的scId为空
+	data:{//班级信息
+		scId:班级id
+		scName:班级名字
+		sgId:年级id
+		itId:班主任id
+	}
+}
 

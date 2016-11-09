@@ -11,7 +11,7 @@ public class School implements java.io.Serializable {
 	private String SId;
 	private String SName;
 	private String SAddress;
-	private String pcId;
+	private String paId;
 
 	// Constructors
 
@@ -25,11 +25,11 @@ public class School implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public School(String SId, String SName, String SAddress, String pcId) {
+	public School(String SId, String SName, String SAddress, String paId) {
 		this.SId = SId;
 		this.SName = SName;
 		this.SAddress = SAddress;
-		this.pcId = pcId;
+		this.paId = paId;
 	}
 
 	// Property accessors
@@ -58,12 +58,12 @@ public class School implements java.io.Serializable {
 		this.SAddress = SAddress;
 	}
 
-	public String getPcId() {
-		return this.pcId;
+	public String getPaId() {
+		return this.paId;
 	}
 
-	public void setPcId(String pcId) {
-		this.pcId = pcId;
+	public void setPaId(String paId) {
+		this.paId = paId;
 	}
 
 }
