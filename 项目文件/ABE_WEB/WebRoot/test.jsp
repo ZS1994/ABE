@@ -140,6 +140,51 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="发送请求" onclick="sendHttpPost()"/>请在开发者模式的console中查看结果
 
 
+<hr/>
+<script type="text/javascript">
+	/*
+	function sendGet(){
+		$.ajax(
+			url:"",
+			type:"get",
+			success:function(){
+				
+			}
+		);
+	}
+	*/
+	function sendPost(){
+		$.ajax({
+			url:"https://a1.easemob.com/1149161109115389/abeweb/token",
+			type:"post",
+			data:'{"grant_type":"client_credentials","client_id":"YXA6bT3_gKZGEeako5-7Fr2uYA","client_secret":"YXA6t2dRDJBE4mygBoMMkYLpkpA9yyE"}',
+			success:function(str){
+				console.log(str);
+			}
+		});
+	}
+	function sendPost2(){
+		$.ajax({
+			url:"https://a1.easemob.com/1149161109115389/abeweb/users",
+			type:"post",
+			headers:{'Authorization':'Bearer YWMtbgY8rKZGEearZsnUazr-ywAAAAAAAAAAAAAAAAAAAAFtPf-ApkYR5qSjn7sWva5gAgMAAAFYR8qcmABPGgBZtHWSsPRtszcvIFxdYj85tbIvZyVEQMx7Tu26LEs6ZA'},
+			data:'{"username":"zs1","password":"123456"}',
+			success:function(str){
+				console.log(str);
+			}
+		});
+	}
+	
+	function sendPut(){
+		
+	}
+	function sendDelete(){
+		
+	}
+</script>
+<input type="button" value="测试环信sendPost" onclick="sendPost()"/>
+<input type="button" value="测试环信sendPost2" onclick="sendPost2()"/>
+
 
 
 </body>
