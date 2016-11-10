@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
 import org.apache.struts2.ServletActionContext;
 
+import com.abe.service.iBaseService;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -60,8 +63,19 @@ public class BaseAction extends ActionSupport{
 		this.session = session;
 	}
 	
-	
-	
+	/**
+	 * 张顺 2016-11-8
+	 * <br>发送json数据
+	 * @param obj
+	 * @param ser
+	 * @throws IOException
+	 */
+	public void sendToApp(Object obj,iBaseService ser) throws IOException {
+		JSONObject json=ser.objToJson(obj, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(json);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+	}
 	
 	
 }

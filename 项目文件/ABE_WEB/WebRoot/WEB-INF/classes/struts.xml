@@ -42,6 +42,18 @@
   <action name="city" class="zs_city">	   
   	 <interceptor-ref name="mydefault" />
   </action>
+  <action name="area" class="zs_area">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
+  <action name="school" class="zs_school">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
+  <action name="grade" class="zs_school_grade">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
+  <action name="class" class="zs_school_class">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
   
   
 </package> 
