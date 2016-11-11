@@ -2,6 +2,10 @@ package com.abe.service;
 
 import com.abe.entity.app.RespRecipe;
 
+/**
+ * 食谱模块
+ * @author 李钊
+ */
 public interface iRecipeService {
 
 	/*
@@ -10,7 +14,7 @@ public interface iRecipeService {
 	 * 
 	 */
 	public RespRecipe creatRecipe(String scId, String rType, String rTime,
-			String rState, String uId, String rImages, String isIdAccept,
+			String rState, String uId, String rImages,
 			String isIdAll);
 	/**
 	 * 发布食谱

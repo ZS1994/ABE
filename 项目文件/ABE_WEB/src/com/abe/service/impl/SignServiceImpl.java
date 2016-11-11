@@ -131,9 +131,9 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	@Override
 	public RespSignIn signUpFromApp(String uNum, String uPass, String uName,
 			String uType) {
-		final String HINT_EXISTS_USER="002";//用户名已存在
-		final String HINT_SUCCESS_USER="001";//注册成功
-		RespSignIn respSignIn=new RespSignIn();
+		final String HINT_EXISTS_USER = "002";//用户名已存在
+		final String HINT_SUCCESS_USER = "001";//注册成功
+		RespSignIn respSignIn = new RespSignIn();
 		Timestamp time = new Timestamp(new Date().getTime());
 		Users users = new Users();
 		NameOfDate nameOfData = new NameOfDate();
