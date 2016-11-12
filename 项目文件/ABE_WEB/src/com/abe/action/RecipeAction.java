@@ -29,12 +29,11 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String rType=(String) getRequest().getParameter("RType");
 		String rTime=(String) getRequest().getParameter("RTime");
 		String rState=(String) getRequest().getParameter("RState");
-		String isIdAccept=(String) getRequest().getParameter("IsIdAccept");
 		String uId=(String) getRequest().getParameter("UId");
 		String rImages=(String) getRequest().getParameter("RImages");
 		String isIdAll=(String) getRequest().getParameter("IsIdAll");
 		RespRecipe respRecipe=recipeSer.creatRecipe
-		(scId, rType, rTime, rState, uId, rImages, isIdAccept, isIdAll);
+		(scId, rType, rTime, rState, uId, rImages,isIdAll);
 		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();

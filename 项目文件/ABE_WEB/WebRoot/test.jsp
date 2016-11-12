@@ -168,23 +168,51 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 			url:"https://a1.easemob.com/1149161109115389/abeweb/users",
 			type:"post",
 			headers:{'Authorization':'Bearer YWMtbgY8rKZGEearZsnUazr-ywAAAAAAAAAAAAAAAAAAAAFtPf-ApkYR5qSjn7sWva5gAgMAAAFYR8qcmABPGgBZtHWSsPRtszcvIFxdYj85tbIvZyVEQMx7Tu26LEs6ZA'},
-			data:'{"username":"zs1","password":"123456"}',
+			data:'{"username":\"'+$('#name').val()+'\","password":"'+$('#pass').val()+'"}',
 			success:function(str){
 				console.log(str);
 			}
 		});
 	}
-	
 	function sendPut(){
-		
+		$.ajax({
+			url:"https://a1.easemob.com/1149161109115389/abeweb/users/"+$('#name_put').val()+"/password",
+			type:"put",
+			headers:{'Authorization':'Bearer YWMtbgY8rKZGEearZsnUazr-ywAAAAAAAAAAAAAAAAAAAAFtPf-ApkYR5qSjn7sWva5gAgMAAAFYR8qcmABPGgBZtHWSsPRtszcvIFxdYj85tbIvZyVEQMx7Tu26LEs6ZA'},
+			data:'{"newpassword":\"'+$('#pass_put_new').val()+'\"}',
+			success:function(str){
+				console.log(str);
+			}
+		});
 	}
 	function sendDelete(){
-		
+		$.ajax({
+			url:"https://a1.easemob.com/1149161109115389/abeweb/users/"+$('#name_delete').val(),
+			type:"delete",
+			headers:{'Authorization':'Bearer YWMtbgY8rKZGEearZsnUazr-ywAAAAAAAAAAAAAAAAAAAAFtPf-ApkYR5qSjn7sWva5gAgMAAAFYR8qcmABPGgBZtHWSsPRtszcvIFxdYj85tbIvZyVEQMx7Tu26LEs6ZA'},
+			success:function(str){
+				console.log(str);
+			}
+		});
 	}
 </script>
-<input type="button" value="测试环信sendPost" onclick="sendPost()"/>
-<input type="button" value="测试环信sendPost2" onclick="sendPost2()"/>
-
+<br/>
+<input type="button" value="测试-获取token" onclick="sendPost()"/>
+<br/><br/>
+username<input type="text" id="name"/>password<input type="text" id="pass"/>
+<br/>
+<input type="button" value="测试-创建账号" onclick="sendPost2()"/>
+<br/><br/>
+username<input type="text" id="name_delete"/>
+<br/>
+<input type="button" value="测试-删除单个用户" onclick="sendDelete()"/>
+<br/><br/>
+username<input type="text" id="name_put"/>
+<br/>
+新password<input type="text" id="pass_put_new"/>
+<br/>
+<input type="button" value="测试-重置用户密码" onclick="sendPut()"/>
+<br/><br/>
 
 
 </body>
