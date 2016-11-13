@@ -9,6 +9,10 @@ import com.abe.entity.app.RespRecipe;
 public interface iRecipeService {
 
 	/*
+	 * 查询所有食谱
+	 */
+	public RespRecipe findAllRecipe();
+	/*
 	 * 创建食谱
 	 * @param Recipe
 	 * 
@@ -21,6 +25,6 @@ public interface iRecipeService {
 	 * @param Recipe
 	 */
 	public RespRecipe releaseRecipe(String scId, String rType, String rTime,
-			String rState, String uId, String rImages, String isIdAccept,
+			String rState, String uId, String rImages, 
 			String isIdAll);
 }

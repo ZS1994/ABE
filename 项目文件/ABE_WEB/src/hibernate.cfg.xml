@@ -53,6 +53,9 @@
 		<mapping resource="com/abe/entity/InfoTeacher.hbm.xml" />
 		<mapping resource="com/abe/entity/Recipe.hbm.xml" />
 		<mapping resource="com/abe/entity/ForumLike.hbm.xml" />
+		<mapping resource="com/abe/entity/Score.hbm.xml" />
+		<mapping resource="com/abe/entity/Timetables.hbm.xml" />
+		<mapping resource="com/abe/entity/Course.hbm.xml" />
 
 	</session-factory>
 

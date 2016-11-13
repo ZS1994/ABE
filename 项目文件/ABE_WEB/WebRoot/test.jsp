@@ -76,6 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后面的部分)
 <br/>
 <input type="button" value="添加宝贝" onclick="$('#urltmp').val('student!addFromApp');"/>
+<input type="button" value="查看学生信息" onclick="$('#urltmp').val('student!queryFromApp');"/>
 <input type="button" value="发表分享" onclick="$('#urltmp').val('forum!addFromApp');"/>
 <input type="button" value="发表评论" onclick="$('#urltmp').val('forum!addCommentFromApp');"/>
 <input type="button" value="查看分享" onclick="$('#urltmp').val('forum!queryOfFenYeForumFromApp');"/>

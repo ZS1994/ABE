@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-09 00:19:12
+Date: 2016-11-12 15:41:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,6 +67,20 @@ CREATE TABLE `ceshi` (
 INSERT INTO `ceshi` VALUES ('2001', '1');
 
 -- ----------------------------
+-- Table structure for `course`
+-- ----------------------------
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course` (
+  `c_id` varchar(255) NOT NULL DEFAULT '',
+  `c_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`c_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of course
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `forum`
 -- ----------------------------
 DROP TABLE IF EXISTS `forum`;
@@ -84,6 +98,7 @@ CREATE TABLE `forum` (
 -- ----------------------------
 INSERT INTO `forum` VALUES ('041349048402255', '今天是暗暗地的晴天，心情好。', '2', '2016-11-04 13:49:04', '2');
 INSERT INTO `forum` VALUES ('041514597569159', '再补充一句', '0', '2016-11-04 15:14:59', '2');
+INSERT INTO `forum` VALUES ('091025067281683', '天晴了', '2', '2016-11-09 10:25:06', '2');
 
 -- ----------------------------
 -- Table structure for `forum_comment`
@@ -104,6 +119,27 @@ CREATE TABLE `forum_comment` (
 INSERT INTO `forum_comment` VALUES ('041350419518100', '你说的不对，今天是下雨天，心情不好。', '2016-11-04 13:50:41', '2', '041349048402255');
 INSERT INTO `forum_comment` VALUES ('041402093441169', '再补充一句', '2016-11-04 14:02:09', '2', '041349048402255');
 INSERT INTO `forum_comment` VALUES ('041514182604408', '再补充一句', '2016-11-04 15:14:18', '2', '041349048402255');
+INSERT INTO `forum_comment` VALUES ('091026383452692', '天很蓝', '2016-11-09 10:26:38', '1', '091025067281683');
+INSERT INTO `forum_comment` VALUES ('091030502201674', '你在哪里', '2016-11-09 10:30:50', '2', '091025067281683');
+INSERT INTO `forum_comment` VALUES ('091030594214051', '你好吗', '2016-11-09 10:30:59', '2', '091025067281683');
+INSERT INTO `forum_comment` VALUES ('091031050305243', '下雨了', '2016-11-09 10:31:05', '2', '091025067281683');
+
+-- ----------------------------
+-- Table structure for `forum_like`
+-- ----------------------------
+DROP TABLE IF EXISTS `forum_like`;
+CREATE TABLE `forum_like` (
+  `fl_id` varchar(255) NOT NULL DEFAULT '',
+  `f_id` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`fl_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of forum_like
+-- ----------------------------
+INSERT INTO `forum_like` VALUES ('091103268266335', '091025067281683', '1');
+INSERT INTO `forum_like` VALUES ('091103480463287', '091025067281683', '2');
 
 -- ----------------------------
 -- Table structure for `info_parents`
@@ -160,6 +196,8 @@ INSERT INTO `info_student` VALUES ('021801067533512', '3', null, null, null, '21
 INSERT INTO `info_student` VALUES ('021801341931046', '4', null, null, null, '21', null, null, null, null, null, null, '范冰冰', null, null, null, null, null, null, null);
 INSERT INTO `info_student` VALUES ('031038565676712', '12', '丸子', '男', '2012-10-10', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `info_student` VALUES ('1', '1', null, null, null, null, null, null, null, null, null, '2016', null, null, null, null, null, null, null, null);
+INSERT INTO `info_student` VALUES ('121424258992377', '123566', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `info_student` VALUES ('121424533788916', '1235661', null, null, '2016-10-12', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `info_teacher`
@@ -352,6 +390,43 @@ CREATE TABLE `school_section` (
 
 -- ----------------------------
 -- Records of school_section
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `score`
+-- ----------------------------
+DROP TABLE IF EXISTS `score`;
+CREATE TABLE `score` (
+  `s_id` varchar(255) NOT NULL DEFAULT '',
+  `s_score` int(11) DEFAULT NULL,
+  `c_id` varchar(255) DEFAULT NULL,
+  `is_id` varchar(255) DEFAULT NULL,
+  `s_create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`s_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of score
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `timetables`
+-- ----------------------------
+DROP TABLE IF EXISTS `timetables`;
+CREATE TABLE `timetables` (
+  `t_id` varchar(255) NOT NULL DEFAULT '',
+  `c_id` varchar(255) DEFAULT NULL,
+  `sc_id` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `t_start_time` time DEFAULT NULL,
+  `t_end_time` time DEFAULT NULL,
+  `t_date` date DEFAULT NULL,
+  `t_order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`t_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of timetables
 -- ----------------------------
 
 -- ----------------------------

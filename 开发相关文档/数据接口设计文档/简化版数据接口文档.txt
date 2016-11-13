@@ -183,7 +183,79 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 		scId:班级id
 	}
 }
-//-------------------------------------------------------------------------
+查看学生信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
+请求参数：
+	isId:学生id
+应答参数：
+{
+	result：001成功，002isId不存在，003接收到的isId为空
+	data:{
+		isId:学生id
+		isNum:学号
+		isName:名字
+		isSex:男/女
+		isBirthday:生日   yyyy-MM-dd
+		isAge:年龄  月数  因为页面显示的格式是：X年X月
+		isLocal:是否本地生  0：否/1：是
+		isTeacherChildren:是否是教职工子弟   0：否/1：是
+		isSchool:学校名字
+		isGrade:年级
+		isClass:班级
+		isIntoYear:入学年份    比如：2014/2015等等
+		isParentName:父母名字  父亲或母亲
+		isParentPhone:父母手机号
+		isParentRelation:与父母的关系   父子/母子/父女/母女
+		isIntoDate:入校日期    yyyy-MM-dd
+		isLeaveDate:离校日期   没有就为空
+		isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
+		UId:家长id   注意用户必须为家长类型（UType：1） 比如：2
+		scId:班级id
+	}
+}
+//--------------------------课程表-----------------------------------------------
+课程表
+1,查本周的课程表
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryFromApp
+请求参数：
+	（无，没有请求参数）
+应答参数：
+{
+	result：001成功
+	data:[//一周的课程表信息
+		{
+			TId:编号
+			CId：科目编号
+			scId:班级编号
+			itId：教师编号
+			TStartTime:开始时间  HH:mm:ss
+			TEndTime:结束时间  HH:mm:ss
+			TDate:日期  yyyy-MM-dd
+			TOrder:序号（1,2,3,4...）一天中的第几节课
+			week:周几      (int)1,2,3,4,5,6,7
+			course:{//科目信息
+				CId：科目编号
+				CName:科目名称
+			}
+			school_class:{//班级信息
+				scId:班级id
+				scName:班级名称
+				sgId:年级id
+				itId：班主任编号
+			}
+			info_teacher：{//教师信息
+				itId：教师编号
+				itNum:工号
+				itName:教师名字
+				itSex:性别
+				itBirthday:生日
+				itAge:年龄
+				。。。
+			}
+		}
+	]
+}
+//---------------------------班级圈----------------------------------------------
 班级圈
 1,查看所有分享(看不到评论)
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!queryOfFenYeForumFromApp
@@ -295,7 +367,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!updateLikeFromApp
 	data:null
 }	
 
-//------------------------------------------------------------------------------
+//--------------------------组织架构（班级架构）----------------------------------------------------
 组织架构（班级架构）	
 1，市管理
 添加市

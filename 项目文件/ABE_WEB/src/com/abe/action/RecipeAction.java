@@ -22,7 +22,10 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 	private String hint;//提示信息
 	
 	private Logger logger=Logger.getLogger(SignAction.class);
-	
+/**
+ * 创建食谱
+ * @author 李钊
+ */
 	public String creatRecipe() throws IOException {
 		logger.debug("-------进入creatRecipe--------");
 		String scId=(String) getRequest().getParameter("ScId");
@@ -40,6 +43,39 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	/*
+	 * 发布食谱(固定修改状态为已发布)
+	 * 
+	 */
+	public String releaseRecipe() throws IOException{
+		logger.debug("-------进入releaseRecipe--------");
+		String scId=(String) getRequest().getParameter("ScId");
+		String rType=(String) getRequest().getParameter("RType");
+		String rTime=(String) getRequest().getParameter("RTime");
+		String rState=(String) getRequest().getParameter("RState");
+		String uId=(String) getRequest().getParameter("UId");
+		String rImages=(String) getRequest().getParameter("RImages");
+		String isIdAll=(String) getRequest().getParameter("IsIdAll");
+		RespRecipe respRecipe=recipeSer.releaseRecipe(scId, rType, rTime, rState, uId, rImages, isIdAll);
+		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	/*
+	 * 查询所有食谱
+	 */
+	public String findAllRecipe() throws IOException{
+		logger.debug("-------进入findRecipe--------");
+		RespRecipe respRecipe=recipeSer.findAllRecipe();
+		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	
 	public iBaseService getSer() {
 		return ser;
 	}
@@ -71,15 +107,6 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 	public void setHint(String hint) {
 		this.hint = hint;
 	}
-	/*
-	 * 发布食谱
-	 * 
-	 */
-	public String releaseRecipe() throws IOException{
-		
-		return null;
-	}
-	
 	@Override
 	public String add() {
 		// TODO Auto-generated method stub
