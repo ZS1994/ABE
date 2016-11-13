@@ -38,6 +38,10 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="forumSer" ref="zs_forum_ser"></property>
 	</bean>
+	<bean id="zs_timetables" class="com.abe.action.home.TimetablesAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="timetablesSer" ref="zs_timetables_ser"></property>
+	</bean>
 	
 	
 	
@@ -116,6 +120,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_school_class_ser" class="com.abe.service.information.impl.SchoolClassServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_timetables_ser" class="com.abe.service.home.impl.TimetablesServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	

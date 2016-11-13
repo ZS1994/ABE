@@ -65,13 +65,29 @@ public class BaseAction extends ActionSupport{
 	
 	/**
 	 * 张顺 2016-11-8
-	 * <br>发送json数据
+	 * <br>发送json数据，该方法只能支持发送包含Timestamp的对象
 	 * @param obj
 	 * @param ser
 	 * @throws IOException
 	 */
 	public void sendToApp(Object obj,iBaseService ser) throws IOException {
-		JSONObject json=ser.objToJson(obj, "yyyy-MM-dd HH:mm:ss");
+		JSONObject json=null;
+		json=ser.objToJson(obj, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(json);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+	}
+	
+	/**
+	 * 张顺 2016-11-12
+	 * <br>对之前方法的补充与完善，该方法发送包含date的对象
+	 * @param obj
+	 * @param ser
+	 * @throws IOException
+	 */
+	public void sendToApp2(Object obj,iBaseService ser) throws IOException {
+		JSONObject json=null;
+		json=ser.objToJson2(obj, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(json);
 		getPrintWriter().flush();
 		getPrintWriter().close();

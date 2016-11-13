@@ -84,11 +84,21 @@ public interface iBaseService {
 	
 	/**
 	 * 按照给定的时间格式进行对象转json
-	 * @param obj 需要转的对象
+	 * @param obj 需要转的对象（为Timestamp）
 	 * @param datePatten 时间格式
 	 * @return JSONObject
 	 */
 	public JSONObject objToJson(Object obj,String datePatten);
+	
+	/**张顺 2016-11-12
+	 * 按照给定的时间格式进行对象转json
+	 * @param obj 需要转的对象（为Date类型）
+	 * @param datePatten 时间格式
+	 * @return JSONObject
+	 */
+	public JSONObject objToJson2(Object obj,String datePatten);
+	
+	
 	
 	/**张顺 2016-11-7 22:13:15<br>
 	 * 去空格方法，并自带是否为空判断

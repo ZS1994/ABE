@@ -34,6 +34,10 @@
   <action name="forum" class="zs_forum">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
+  <action name="timetables" class="zs_timetables">	   
+  	 <interceptor-ref name="mydefault" />
+  </action> 
+  
   
   <!-- ******消息中心******* -->
   <action name="province" class="zs_province">	   

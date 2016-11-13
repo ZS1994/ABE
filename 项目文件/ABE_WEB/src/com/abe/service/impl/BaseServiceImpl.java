@@ -3,6 +3,7 @@ package com.abe.service.impl;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,6 +85,19 @@ public class BaseServiceImpl implements iBaseService{
 		}else {
 			JsonConfig jsonConfig=new JsonConfig();
 			jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor(datePatten));
+			object=JSONObject.fromObject(obj,jsonConfig);
+		}
+		return object;
+	}
+	
+	@Override
+	public JSONObject objToJson2(Object obj, String datePatten) {
+		JSONObject object=null;
+		if (datePatten==null) {
+			object=JSONObject.fromObject(obj);
+		}else {
+			JsonConfig jsonConfig=new JsonConfig();
+			jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor(datePatten));
 			object=JSONObject.fromObject(obj,jsonConfig);
 		}
 		return object;
