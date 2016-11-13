@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-12 15:41:33
+Date: 2016-11-13 18:23:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -79,6 +79,10 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
+INSERT INTO `course` VALUES ('131514271687852', '画画');
+INSERT INTO `course` VALUES ('131514574764413', '英语');
+INSERT INTO `course` VALUES ('131515004038597', '语文');
+INSERT INTO `course` VALUES ('131515032186975', '数学');
 
 -- ----------------------------
 -- Table structure for `forum`
@@ -428,6 +432,7 @@ CREATE TABLE `timetables` (
 -- ----------------------------
 -- Records of timetables
 -- ----------------------------
+INSERT INTO `timetables` VALUES ('131528134365034', '131514271687852', '081430070197575', '1', '11:30:00', '11:00:00', '2016-11-13', '1');
 
 -- ----------------------------
 -- Table structure for `users`

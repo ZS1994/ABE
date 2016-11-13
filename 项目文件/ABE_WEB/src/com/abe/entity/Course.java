@@ -46,4 +46,9 @@ public class Course implements java.io.Serializable {
 		this.CName = CName;
 	}
 
+	@Override
+	public String toString() {
+		return "Course [CId=" + CId + ", CName=" + CName + "]";
+	}
+
 }

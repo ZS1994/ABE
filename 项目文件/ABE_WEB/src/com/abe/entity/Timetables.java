@@ -20,7 +20,38 @@ public class Timetables implements java.io.Serializable {
 	private Date TDate;
 	private Integer TOrder;
 
+	
+	private Course course;
+	private SchoolClass schoolClass;
+	private InfoTeacher infoTeacher;
+	
+	
+	
 	// Constructors
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public SchoolClass getSchoolClass() {
+		return schoolClass;
+	}
+
+	public void setSchoolClass(SchoolClass schoolClass) {
+		this.schoolClass = schoolClass;
+	}
+
+	public InfoTeacher getInfoTeacher() {
+		return infoTeacher;
+	}
+
+	public void setInfoTeacher(InfoTeacher infoTeacher) {
+		this.infoTeacher = infoTeacher;
+	}
 
 	/** default constructor */
 	public Timetables() {
@@ -78,27 +109,27 @@ public class Timetables implements java.io.Serializable {
 		this.itId = itId;
 	}
 
-	public Time getTStartTime() {
+	public java.sql.Time getTStartTime() {
 		return this.TStartTime;
 	}
 
-	public void setTStartTime(Time TStartTime) {
+	public void setTStartTime(java.sql.Time TStartTime) {
 		this.TStartTime = TStartTime;
 	}
 
-	public Time getTEndTime() {
+	public java.sql.Time getTEndTime() {
 		return this.TEndTime;
 	}
 
-	public void setTEndTime(Time TEndTime) {
+	public void setTEndTime(java.sql.Time TEndTime) {
 		this.TEndTime = TEndTime;
 	}
 
-	public Date getTDate() {
+	public java.util.Date getTDate() {
 		return this.TDate;
 	}
 
-	public void setTDate(Date TDate) {
+	public void setTDate(java.util.Date TDate) {
 		this.TDate = TDate;
 	}
 
@@ -109,5 +140,16 @@ public class Timetables implements java.io.Serializable {
 	public void setTOrder(Integer TOrder) {
 		this.TOrder = TOrder;
 	}
+
+	@Override
+	public String toString() {
+		return "Timetables [CId=" + CId + ", TDate=" + TDate + ", TEndTime="
+				+ TEndTime + ", TId=" + TId + ", TOrder=" + TOrder
+				+ ", TStartTime=" + TStartTime + ", course=" + course
+				+ ", infoTeacher=" + infoTeacher + ", itId=" + itId + ", scId="
+				+ scId + ", schoolClass=" + schoolClass + "]";
+	}
+
+	
 
 }

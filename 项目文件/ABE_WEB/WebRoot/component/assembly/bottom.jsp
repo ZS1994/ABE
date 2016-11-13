@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body>
   	
-	<div class="bottom" style="background-color: gray;">
+	<div class="bottom" style="background-color: #D8D8D8;">
   	
   	
 	</div>
