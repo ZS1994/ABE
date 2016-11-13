@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.abe.entity.Recipe;
 import com.abe.entity.app.RespRecipe;
+import com.abe.entity.app.RespRecipeAll;
 import com.abe.service.iRecipeService;
 import com.abe.tools.NameOfDate;
 
@@ -69,16 +70,33 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 		return time;
 	}
 	@Override
-	public RespRecipe findAllRecipe() {
-		RespRecipe respRecipe = new RespRecipe();
+	public RespRecipeAll findPageAllRecipe() {
+		RespRecipeAll respRecipeAll = new RespRecipeAll();
 		Recipe recipe = new Recipe();
 		
 		List<Recipe> list = find("from Recipe",null);
 		if (list.size()>0){
-			for (int i = 0; i < list.size(); i++){
-				respRecipe.setData(list.get(i));
-			}
+//			for (int i = 0; i < list.size(); i++){
+//				respRecipeAll.setData(list);
+//			}
+			respRecipeAll.setData(list);
 		}
+		return null;
+	}
+	@Override
+	public RespRecipe upDateRecipe(String scId, String rType, String rTime,
+			String rState, String uId, String rImages, String isIdAll) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public RespRecipe deleteRecipe(String rId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public RespRecipeAll findPageCreaterRecipe(String uid) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
