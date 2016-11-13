@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.abe.entity.Recipe;
 import com.abe.entity.app.RespRecipe;
+import com.abe.entity.app.RespRecipeAll;
 import com.abe.service.iBaseService;
 import com.abe.service.iRecipeService;
 
@@ -64,11 +65,11 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		return null;
 	}
 	/*
-	 * 查询所有食谱
+	 * 分页查询所有食谱
 	 */
 	public String findAllRecipe() throws IOException{
 		logger.debug("-------进入findRecipe--------");
-		RespRecipe respRecipe=recipeSer.findAllRecipe();
+		RespRecipeAll respRecipe=recipeSer.findPageAllRecipe();
 		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
