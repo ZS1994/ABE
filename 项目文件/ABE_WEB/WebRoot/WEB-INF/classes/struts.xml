@@ -87,11 +87,23 @@
      <result name="login">/component/login.jsp</result>
      <result name="index">/index.jsp</result>
   </action>
+  <!-- ********首页*********** -->
   <action name="student" class="zs_student">	   
   	 <interceptor-ref name="mydefault" />
      <result name="studentManager">/backstage/student/studentManager.jsp</result>
      <result name="index">/index.jsp</result>
   </action>
+  <action name="timetables" class="zs_timetables">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="timetablesManager">/backstage/timetables/timetablesManager.jsp</result>
+  	 <result name="index">/index.jsp</result>
+  </action>
+  <action name="course" class="zs_course">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="courseManager">/backstage/timetables/courseManager.jsp</result>
+  	 <result name="index">/index.jsp</result>
+  </action>
+  
   
   
 </package>

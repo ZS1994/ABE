@@ -93,5 +93,17 @@ public class BaseAction extends ActionSupport{
 		getPrintWriter().close();
 	}
 	
+	/**
+	 * 张顺 2016-11-13
+	 * <br>对之前方法的完善，由于之前的方法不能对json作单独处理，故写了这个只负责发送的方法，旨在适应各种json的情况
+	 * @param json
+	 * @param ser
+	 * @throws IOException
+	 */
+	public void sendToApp(JSONObject json,iBaseService ser) throws IOException {
+		getPrintWriter().print(json);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+	}
 	
 }

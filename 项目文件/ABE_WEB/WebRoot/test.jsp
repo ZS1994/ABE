@@ -97,6 +97,8 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="添加班级" onclick="$('#urltmp').val('class!addFromApp');"/>
 <input type="button" value="修改班级" onclick="$('#urltmp').val('class!updateFromApp');"/>
 <input type="button" value="查看班级" onclick="$('#urltmp').val('class!queryFromApp');"/>
+<input type="button" value="查看本周课程表" onclick="$('#urltmp').val('timetables!queryFromApp');"/>
+
 
 
 <br/>
