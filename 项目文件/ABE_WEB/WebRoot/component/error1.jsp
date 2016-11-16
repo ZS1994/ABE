@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -16,10 +17,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/token.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
   </head>
   	
   <body>
@@ -28,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  		<img src="<%=path %>/FRAMEWORK/image/man_error.png" style="display:block; width:320px;height:350px;float:left;">
  		<img src="<%=path %>/FRAMEWORK/image/option_error.png" style="display:block; width:480px;height:160px;float:left;">
  		<span style="display:block; width:680px;height:160px;float:left;font-size:45px;font-family:宋体;font-weight:900;">您当前未登录账号，请先登录!</span>
- 		<a href="<%=path %>/component/login.jsp" target="_parent" style="display:block; width:300px;height:80px;float:left;margin-left:80px;background:url(<%=path %>/FRAMEWORK/image/btn_error.png);">
+ 		<a href="<%=path %>/web/sign!gotoQuery" target="_parent" style="display:block; width:300px;height:80px;float:left;margin-left:80px;background:url(<%=path %>/FRAMEWORK/image/btn_error.png);">
  			<span style="font-size:40px;color:black;margin:17px 100px;display:block;">登&nbsp;&nbsp;录</span>
  		</a>
  	</div>

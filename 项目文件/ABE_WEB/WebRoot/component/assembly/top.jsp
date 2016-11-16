@@ -22,17 +22,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
-
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/token.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
   </head>
   
 <body>
-  	
 	<div class="top" style="background-color: #616161;display: table;width: 100%;text-align: center;">
-  		
   		<span style="color: white;font-family: Baskerville Old Face;font-size: 36px;font-weight: bold;display: table-cell;vertical-align: middle;">ABE_WEB</span>
   		
+	    <jsp:include page="/component/assembly/token.jsp"></jsp:include>
 	</div>
-  
 </body>
 </html>

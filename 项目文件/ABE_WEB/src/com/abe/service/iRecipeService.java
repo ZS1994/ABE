@@ -15,14 +15,8 @@ public interface iRecipeService {
 	public RespRecipeAll findPageAllRecipe();
 	/*
 	 * 根据创建者查询食谱
-	 * @param uId
 	 */
-	public RespRecipeAll findPageCreaterRecipe(String uId,String pageNo,String pageSize);
-	/*
-	 * 查询单个食谱
-	 * @param rId
-	 */
-	public RespRecipe findSingleRecipe(String rId);
+	public RespRecipeAll findPageCreaterRecipe(String uid);
 	/*
 	 * 创建食谱
 	 * @param Recipe
@@ -35,16 +29,16 @@ public interface iRecipeService {
 	 * 发布食谱
 	 * @param Recipe
 	 */
-	public RespRecipe releaseRecipe(String rId,String scId, String rType, String rTime,
+	public RespRecipe releaseRecipe(String scId, String rType, String rTime,
 			String rState, String uId, String rImages, 
-			String isIdAll,String rCreatTime,String rImagesUrl);
+			String isIdAll);
 	/*
 	 * 修改食谱
 	 * @param Recipe
 	 */
-	public RespRecipe updateRecipe(String rId,String scId, String rType, String rTime,
+	public RespRecipe upDateRecipe(String scId, String rType, String rTime,
 			String rState, String uId, String rImages, 
-			String isIdAll,String rStatus,String rCreatTime);
+			String isIdAll);
 	/*
 	 * 删除食谱
 	 * @param Recipe

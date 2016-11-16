@@ -1,12 +1,10 @@
 package com.abe.entity.app;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.abe.entity.Recipe;
 
-public class RespRecipeAll implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class RespRecipeAll {
 	private String result;
 	private List<Recipe> data;
 	

@@ -90,8 +90,12 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
 		allInit(arg0);
 		//以下是权限控制的核心代码
 		String result=null;
-		if (user==null) {//将登录的url排除在外
-			if ( (PRO_NAME+"/sign!signIn").equals(path) ) {
+		if (user==null) {//例外列表
+			if ( 
+					(PRO_NAME+"/sign!signIn").equals(path)||
+					(PRO_NAME+"/sign!gotoQuery").equals(path)||
+					(PRO_NAME+"/sign!queryOfFenYe").equals(path)
+			) {
 				result=arg0.invoke();
 			}else {
 				response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error1.jsp");

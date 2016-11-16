@@ -10,11 +10,14 @@
             <column name="t_id" />
             <generator class="assigned" />
         </id>
+        <property name="TWeek" type="java.lang.Integer">
+            <column name="t_week" />
+        </property>
+        <property name="TOrder" type="java.lang.Integer">
+            <column name="t_order" />
+        </property>
         <property name="CId" type="java.lang.String">
             <column name="c_id" />
-        </property>
-        <property name="scId" type="java.lang.String">
-            <column name="sc_id" />
         </property>
         <property name="itId" type="java.lang.String">
             <column name="it_id" />
@@ -25,11 +28,8 @@
         <property name="TEndTime" type="java.sql.Time">
             <column name="t_end_time" length="8" />
         </property>
-        <property name="TDate" type="java.util.Date">
-            <column name="t_date" length="10" />
-        </property>
-        <property name="TOrder" type="java.lang.Integer">
-            <column name="t_order" />
+        <property name="scId" type="java.lang.String">
+            <column name="sc_id" />
         </property>
     </class>
 </hibernate-mapping>

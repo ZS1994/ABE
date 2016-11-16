@@ -48,8 +48,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input class="easyui-textbox" type="time" name="time2" />
 		    </div>
 		    <div>
-				日期:
-				<input class="easyui-textbox" type="date" name="timetables.TDate" />
+				星期:
+				<input class="easyui-textbox" type="number" name="timetables.TWeek" />
 		    </div>
 		    <div>
 				序号:
@@ -61,38 +61,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 		
 		<hr/>
-		<a href="<%=path %>/web/timetables!gotoQuery">查看本周课程表</a>
-		<table id="tt" class="easyui-datagrid" style="width:600px;height:auto;">
+		<form action="<%=path %>/web/timetables!queryOfFenYe" method="post">
+			<input type="text" name="scId"/>
+			<input type="submit" value="查看本周课程表"/>
+		</form>
+		<table id="tt" class="easyui-datagrid" style="width:800px;height:auto;">
 		<thead>
 			<tr>
-				<th rowspan="2" field="name1" width="50">日期</th>
-				<th rowspan="2" field="name2" width="50">班级</th>
+				<th rowspan="2" field="name1" width="">周数</th>
+				<th rowspan="2" field="name2" width="">班级</th>
 				<th colspan="4">课表</th>
 			</tr>	
 			<tr>
-				<th field="name3" width="50">第一节课</th>
-				<th field="name4" width="50">第二节课</th>
-				<th field="name5" width="50">第三节课</th>
-				<th field="name6" width="50">第四节课</th>
+				<th field="name3" width="">第一节课</th>
+				<th field="name4" width="">第二节课</th>
+				<th field="name5" width="">第三节课</th>
+				<th field="name6" width="">第四节课</th>
 			</tr>                          
 		</thead>                           
 		<tbody>  
-			<tr>                           
-				<td>Data 1</td>            
-				<td>Data 2</td>            
-				<td>Data 3</td>            
-				<td>Data 4</td>            
-				<td>Data 5</td>            
-				<td>Data 6</td>            
-			</tr>    
 			<c:forEach items="${ttlist}" var="tt">
 			<tr>                           
-				<td>${tt[0].TDate }</td>            
-				<td>${tt[0].scId }</td>            
-				<td>${tt[0].course.CName }</td>            
-				<td>${tt[1].course.CName }</td>            
-				<td>${tt[2].course.CName }</td>            
-				<td>${tt[3].course.CName }</td>            
+				<td>${tt[0].TWeek }</td>            
+				<td>${tt[0].scId }<br/>${tt[0].schoolClass.scName }</td>            
+				<td>${tt[0].CId }${tt[0].course.CName }(${tt[0].infoTeacher.itName })<br/>${tt[0].TStartTime }~${tt[0].TEndTime }</td>            
+				<td>${tt[1].CId }${tt[1].course.CName }(${tt[1].infoTeacher.itName })<br/>${tt[1].TStartTime }~${tt[1].TEndTime }</td>            
+				<td>${tt[2].CId }${tt[2].course.CName }(${tt[2].infoTeacher.itName })<br/>${tt[2].TStartTime }~${tt[2].TEndTime }</td>            
+				<td>${tt[3].CId }${tt[3].course.CName }(${tt[3].infoTeacher.itName })<br/>${tt[3].TStartTime }~${tt[3].TEndTime }</td>            
 			</tr>                          
 			</c:forEach>                        
 		</tbody>                           
