@@ -1,11 +1,22 @@
 package com.abe.entity.app;
 
+import java.io.Serializable;
+
 import com.abe.entity.Recipe;
 
-public class RespRecipe {
+public class RespRecipe implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String result;
 	private Recipe data;
 	
+	
+	public RespRecipe(String result, Recipe data) {
+		this.result = result;
+		this.data = data;
+	}
+	public RespRecipe() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getResult() {
 		return result;
 	}

@@ -46,10 +46,12 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 	}
 	/*
 	 * 发布食谱(固定修改状态为已发布)
-	 * 
+	 * @param Recipe
 	 */
 	public String releaseRecipe() throws IOException{
 		logger.debug("-------进入releaseRecipe--------");
+		String rId=(String) getRequest().getParameter("RId");
+		String rCreatTime=(String) getRequest().getParameter("RCreatTime");
 		String scId=(String) getRequest().getParameter("ScId");
 		String rType=(String) getRequest().getParameter("RType");
 		String rTime=(String) getRequest().getParameter("RTime");
@@ -57,7 +59,8 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String uId=(String) getRequest().getParameter("UId");
 		String rImages=(String) getRequest().getParameter("RImages");
 		String isIdAll=(String) getRequest().getParameter("IsIdAll");
-		RespRecipe respRecipe=recipeSer.releaseRecipe(scId, rType, rTime, rState, uId, rImages, isIdAll);
+		String rImagesUrl=(String) getRequest().getParameter("RImagesUrl");
+		RespRecipe respRecipe=recipeSer.releaseRecipe(rId,scId, rType, rTime, rState, uId, rImages, isIdAll,rCreatTime,rImagesUrl);
 		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
@@ -65,11 +68,77 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		return null;
 	}
 	/*
-	 * 分页查询所有食谱
+	 * 查询所有食谱(暂时不使用)
 	 */
 	public String findAllRecipe() throws IOException{
-		logger.debug("-------进入findRecipe--------");
-		RespRecipeAll respRecipe=recipeSer.findPageAllRecipe();
+		logger.debug("-------进入findAllRecipe--------");
+		RespRecipeAll respRecipe = recipeSer.findPageAllRecipe();
+		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	/*
+	 * 分页查询当前用户创建的食谱
+	 */
+	public String findCreaterRecipe() throws IOException{
+		logger.debug("-------进入findCreaterRecipe--------");
+		String uId = (String) getRequest().getParameter("UId");
+		String pageNo = (String) getRequest().getParameter("pageNo");
+		String pageSize = (String) getRequest().getParameter("Size");
+		RespRecipeAll respRecipe = recipeSer.findPageCreaterRecipe(uId,pageNo,pageSize);
+		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	/*
+	 * 删除食谱
+	 * @param rId
+	 */
+	public String deleteRecipe() throws IOException{
+		logger.debug("-------进入deleteRecipe--------");
+		String rId=(String) getRequest().getParameter("RId");
+		RespRecipe respRecipe =  recipeSer.deleteRecipe(rId);
+		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+	return null;	
+	}
+	/*
+	 * 修改食谱
+	 * @param Recipe
+	 */
+	public String updateRecipe() throws IOException{
+		logger.debug("-------进入upDateRecipe--------");
+		String rId=(String) getRequest().getParameter("RId");
+		String rCreatTime=(String) getRequest().getParameter("RCreatTime");
+		String scId = (String) getRequest().getParameter("ScId");
+		String rType = (String) getRequest().getParameter("RType");
+		String rTime = (String) getRequest().getParameter("RTime");
+		String rState = (String) getRequest().getParameter("RState");
+		String uId = (String) getRequest().getParameter("UId");
+		String rImages = (String) getRequest().getParameter("RImages");
+		String isIdAll = (String) getRequest().getParameter("IsIdAll");
+		String rStatus = (String) getRequest().getParameter("RStatus");
+		RespRecipe respRecipe=recipeSer.updateRecipe(rId,scId, rType, rTime, rState, uId, rImages, isIdAll,rStatus,rCreatTime);
+		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
+	/*
+	 * 查看单条食谱信息
+	 * @param RID
+	 */
+	public String findSingleRecipe() throws IOException{
+		logger.debug("-------进入findSingleRecipe--------");
+		String rId = (String) getRequest().getParameter("RId");
+		RespRecipe respRecipe=recipeSer.findSingleRecipe(rId);
 		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
