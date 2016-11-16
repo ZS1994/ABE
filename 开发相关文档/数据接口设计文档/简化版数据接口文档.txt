@@ -554,4 +554,250 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!queryFromApp
 		itId:班主任id
 	}
 }
+//------------------------------------------------每日食谱------------------------
+创建食谱
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!creatRecipe
+请求参数：
+	scId:使用该食谱的班级id
+	&RTime：食谱使用日期 
+	RState：食谱内容说明
+	UId：创建该食谱用户（教师）id
+	IsIdAll：拟接收该食谱信息的学生id
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+发布食谱
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!releaseRecipe
+请求参数：
+	scId:使用该食谱的班级id
+	RTime：食谱使用日期 
+	RState：食谱内容说明
+	UId：创建该食谱用户（教师）id
+	IsIdAll：拟接收该食谱信息的学生id
+	"RCreatTime":食谱创建时间
+	"RId":食谱id
+	"RImages":食谱图片
+	"RType":食谱类型
+	"RImagesUrl":食谱图片url
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+查看所有食谱
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findAllRecipe
+请求参数：
+	
+应答参数：
+{
+	result：001成功
+	data:[{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}//下一条食谱。。。//下一条食谱。。。//下一条]
+	}
+}
+分页查询当前用户创建的食谱
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findCreaterRecipe
+请求参数：
+	UId：创建该食谱用户（教师）id
+	pageNo：当前页数
+	Size：每页展示食谱数量
+应答参数：
+{
+	result：001成功002当前页数为负003每页食谱数量为负数004当前用户（教师）未查询到有创建成功的食谱
+	data:{//食谱信息
+		[{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}//下一条食谱。。。//下一条食谱。。。//下一条]
+		}
+	}
+}
+查询单条食谱信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findSingleRecipe
+请求参数：
+	RId：食谱id
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+删除单条食谱信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!deleteRecipe
+请求参数：
+	RId：食谱id
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+修改食谱信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!releaseRecipe
+请求参数：
+	scId:使用该食谱的班级id
+	RTime：食谱使用日期 
+	RState：食谱内容说明
+	RStatus: 食谱状态（已发布和未发布两种）
+	UId：创建该食谱用户（教师）id
+	IsIdAll：拟接收该食谱信息的学生id
+	"RCreatTime":食谱创建时间
+	"RId":食谱id
+	"RImages":食谱图片
+	"RType":食谱类型
+	"RImagesUrl":食谱图片url
+	
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
