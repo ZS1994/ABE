@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-16 22:14:42
+Date: 2016-11-17 20:18:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -410,7 +410,7 @@ CREATE TABLE `timetables` (
   `it_id` varchar(255) DEFAULT NULL,
   `t_start_time` time DEFAULT NULL,
   `t_end_time` time DEFAULT NULL,
-  `t_eek` int(11) DEFAULT NULL,
+  `t_week` int(11) DEFAULT NULL,
   `t_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`t_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
