@@ -29,7 +29,7 @@
 }
 //---------------------------------------------------------------------------
 上传头像
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 请求参数：
 	UId:用户编号
 	UPhoto：图片Base64编码
@@ -82,7 +82,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 修改个人资料
 ---------------------修改个人资料------------
 第一步：查出该用户所有信息
-接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!updateUserFromApp1
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updateUserFromApp1
 请求参数：
       UNum:用户账号
 应答参数：
@@ -103,7 +103,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
 }
 
 第二步：修改该用户个人信息
-接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!updateUserFromApp2
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updateUserFromApp2
 请求参数：
         UId:用户编号
 	UNum:账号
@@ -129,8 +129,6 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!uploadPhoto
         trpId:用户档案ID
     }
 }
-
-----------------------------------------------------
 
 修改密码
 
@@ -213,15 +211,18 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 		scId:班级id
 	}
 }
+
+
+
 //--------------------------课程表-----------------------------------------------
 课程表
 1,查本周的课程表
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryFromApp
 请求参数：
-	（无，没有请求参数）
+	scId:班级编号
 应答参数：
 {
-	result：001成功
+	result：001成功,002scId不存在，003接收到scId为空
 	data:[//一周的课程表信息
 		[{
 			TId:编号
@@ -230,9 +231,8 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryFromApp
 			itId：教师编号
 			TStartTime:开始时间  HH:mm:ss
 			TEndTime:结束时间  HH:mm:ss
-			TDate:日期  yyyy-MM-dd
+			TWeek:星期  （int）1,2,3..7<--->星期1，星期2，星期3...星期日
 			TOrder:序号（1,2,3,4...）一天中的第几节课
-			//week:周几      (int)1,2,3,4,5,6,7
 			course:{//科目信息
 				CId：科目编号
 				CName:科目名称
@@ -264,6 +264,11 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryFromApp
 		}]
 	]
 }
+
+
+
+
+
 //---------------------------班级圈----------------------------------------------
 班级圈
 1,查看所有分享(看不到评论)
@@ -763,41 +768,3 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!releaseRecipe
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

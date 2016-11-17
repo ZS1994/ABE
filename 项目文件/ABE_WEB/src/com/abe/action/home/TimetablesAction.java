@@ -22,6 +22,7 @@ import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespTimetables;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iTimetablesService;
+import com.abe.tools.JsonDateValueProcessor;
 import com.abe.tools.NameOfDate;
 import com.abe.tools.Page;
 
@@ -81,7 +82,6 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 	//张顺 2016-11-13
 	@Override
 	public String add() {
-		System.out.println("--------public String add() {---------");
 		//装载Time字段
 		String stime=ser.clearSpace(getRequest(), "time1");
 		String etime=ser.clearSpace(getRequest(), "time2");
@@ -93,7 +93,6 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 			String ss[]=etime.split(":");
 			timetables.setTEndTime(new Time(Integer.valueOf(ss[0]), Integer.valueOf(ss[1]), 0));
 		}
-		System.out.println(timetables.toString());
 		timetables.setTId(NameOfDate.getNum());
 		ser.save(timetables);
 		return null;
@@ -119,10 +118,8 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String gotoQuery() {
-		List<List<Timetables>> list=timetablesSer.getAllOfWeek(new Date());
-		getRequest().setAttribute("ttlist", list);
 		return result;
-	}
+	} 
 
 	/**
 	 * 张顺 2016-11-12
@@ -131,15 +128,23 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 	 * @throws IOException 
 	 */
 	public String queryFromApp() throws IOException {
-		/* 1，找到这周的第一天:周顺序：周一、周二。。。周日
-		 * 2，循环得到这一周的课程表并保存在封装中
-		 * 3，转json，发送
-		 */
 		RespTimetables timetable=new RespTimetables();
-		List<List<Timetables>> list=timetablesSer.getAllOfWeek(new Date());
-        timetable.setResult("001");
-        timetable.setData(list);
-        JSONObject jsonObject=ser.objToJson(timetable, null);
+		String scId=ser.clearSpace(getRequest(), "scId");
+		if (scId==null) {
+			timetable.setResult("003");
+	        timetable.setData(null);
+		}else {
+			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, scId);
+			if (schoolClass==null) {
+				timetable.setResult("002");
+		        timetable.setData(null);
+			}else {
+				List<List<Timetables>> list=timetablesSer.getAllOfWeek(scId);
+				timetable.setResult("001");
+				timetable.setData(list);
+			}
+		}
+        JSONObject jsonObject=ser.objToJson(timetable);
         sendToApp(jsonObject, ser);
 		return null;
 	}
@@ -147,8 +152,16 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String queryOfFenYe() {
-		// TODO Auto-generated method stub
-		return null;
+		String scId=ser.clearSpace(getRequest(), "scId");
+		List<List<Timetables>> list=null;
+		if (scId!=null) {
+			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, scId);
+			if (schoolClass!=null) {
+				list=timetablesSer.getAllOfWeek(scId);
+			}
+		}
+		getRequest().setAttribute("ttlist", list);
+		return result;
 	}
 
 	@Override

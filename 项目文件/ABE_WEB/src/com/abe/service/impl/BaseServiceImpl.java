@@ -2,15 +2,13 @@ package com.abe.service.impl;
 
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-
 import com.abe.dao.iBaseDao;
 import com.abe.service.iBaseService;
 import com.abe.tools.JsonDateValueProcessor;
@@ -103,15 +101,21 @@ public class BaseServiceImpl implements iBaseService{
 		return object;
 	}
 	
-	
+	@Override
+	public JSONObject objToJson(Object obj) {
+		JsonConfig jsonConfig=new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Time.class, new JsonDateValueProcessor("HH:mm:ss"));
+		JSONObject object=JSONObject.fromObject(obj,jsonConfig);
+		return object;
+	}
 	
 	@Override
 	public String clearSpace(HttpServletRequest req, String key) {
 		String str=req.getParameter(key);
 		return str==null?null:str.trim();
 	}
-	
-	
 	
 	
 	

@@ -70,6 +70,7 @@ public class BaseAction extends ActionSupport{
 	 * @param ser
 	 * @throws IOException
 	 */
+	@Deprecated
 	public void sendToApp(Object obj,iBaseService ser) throws IOException {
 		JSONObject json=null;
 		json=ser.objToJson(obj, "yyyy-MM-dd HH:mm:ss");
@@ -85,6 +86,7 @@ public class BaseAction extends ActionSupport{
 	 * @param ser
 	 * @throws IOException
 	 */
+	@Deprecated
 	public void sendToApp2(Object obj,iBaseService ser) throws IOException {
 		JSONObject json=null;
 		json=ser.objToJson2(obj, "yyyy-MM-dd HH:mm:ss");

@@ -34,9 +34,6 @@
         <property name="RImages" type="java.lang.String">
             <column name="r_images" />
         </property>
-        <property name="RImagesUrl" type="java.lang.String">
-            <column name="r_images_url" />
-        </property>
         <property name="isIdAccept" type="java.lang.String">
             <column name="is_id_accept" />
         </property>

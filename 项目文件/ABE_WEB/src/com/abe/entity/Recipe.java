@@ -1,14 +1,11 @@
 package com.abe.entity;
 
-import java.io.Serializable;
-import java.util.List;
-
 /**
  * Recipe entity. @author MyEclipse Persistence Tools
  */
 
-public class Recipe implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Recipe implements java.io.Serializable {
+
 	// Fields
 
 	private String RId;
@@ -20,45 +17,9 @@ public class Recipe implements Serializable {
 	private String RCreatTime;
 	private String RStatus;
 	private String RImages;
-	private String RImagesUrl;
 	private String isIdAccept;
 	private String isIdAll;
-//--------------------------------
-	private SchoolClass schoolClass;
-	private Users users;
-	private List<InfoStudent> students;
-	
-	public String getRImagesUrl() {
-		return RImagesUrl;
-	}
-	
-	public void setRImagesUrl(String rImagesUrl) {
-		RImagesUrl = rImagesUrl;
-	}
-	
-	public SchoolClass getSchoolClass() {
-		return schoolClass;
-	}
-	
-	public void setSchoolClass(SchoolClass schoolClass) {
-		this.schoolClass = schoolClass;
-	}
-	
-	public Users getUsers() {
-		return users;
-	}
-	
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-	
-	public List<InfoStudent> getStudents() {
-		return students;
-	}
-	
-	public void setStudents(List<InfoStudent> students) {
-		this.students = students;
-	}
+
 	// Constructors
 
 	/** default constructor */

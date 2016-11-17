@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function cs2(){
 		console.log("-----上传图片----");
 		$.post(
-			"<%=path %>/app/sign!uploadPhoto",
+			"<%=path %>/app/one!uploadPhoto",
 			{UId:$("#UId2").val(),UPhoto:$("#UPhoto2").val(),format:$("#format2").val()},
 			function(data){
 				console.log(data);

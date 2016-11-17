@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : lz
+Source Server         : zs
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : abe
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-16 20:36:45
+Date: 2016-11-16 22:14:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,6 +67,24 @@ CREATE TABLE `ceshi` (
 INSERT INTO `ceshi` VALUES ('2001', '1');
 
 -- ----------------------------
+-- Table structure for `course`
+-- ----------------------------
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course` (
+  `c_id` varchar(255) NOT NULL DEFAULT '',
+  `c_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`c_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of course
+-- ----------------------------
+INSERT INTO `course` VALUES ('131514271687852', '画画');
+INSERT INTO `course` VALUES ('131514574764413', '英语');
+INSERT INTO `course` VALUES ('131515004038597', '语文');
+INSERT INTO `course` VALUES ('131515032186975', '数学');
+
+-- ----------------------------
 -- Table structure for `forum`
 -- ----------------------------
 DROP TABLE IF EXISTS `forum`;
@@ -100,6 +118,23 @@ CREATE TABLE `forum_comment` (
 -- ----------------------------
 -- Records of forum_comment
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `forum_like`
+-- ----------------------------
+DROP TABLE IF EXISTS `forum_like`;
+CREATE TABLE `forum_like` (
+  `fl_id` varchar(255) NOT NULL DEFAULT '',
+  `f_id` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`fl_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of forum_like
+-- ----------------------------
+INSERT INTO `forum_like` VALUES ('091103268266335', '091025067281683', '1');
+INSERT INTO `forum_like` VALUES ('091103480463287', '091025067281683', '2');
 
 -- ----------------------------
 -- Table structure for `info_parents`
@@ -345,6 +380,43 @@ CREATE TABLE `school_section` (
 
 -- ----------------------------
 -- Records of school_section
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `score`
+-- ----------------------------
+DROP TABLE IF EXISTS `score`;
+CREATE TABLE `score` (
+  `s_id` varchar(255) NOT NULL DEFAULT '',
+  `s_score` int(11) DEFAULT NULL,
+  `c_id` varchar(255) DEFAULT NULL,
+  `is_id` varchar(255) DEFAULT NULL,
+  `s_create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`s_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of score
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `timetables`
+-- ----------------------------
+DROP TABLE IF EXISTS `timetables`;
+CREATE TABLE `timetables` (
+  `t_id` varchar(255) NOT NULL DEFAULT '',
+  `c_id` varchar(255) DEFAULT NULL,
+  `sc_id` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `t_start_time` time DEFAULT NULL,
+  `t_end_time` time DEFAULT NULL,
+  `t_eek` int(11) DEFAULT NULL,
+  `t_order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`t_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of timetables
 -- ----------------------------
 
 -- ----------------------------

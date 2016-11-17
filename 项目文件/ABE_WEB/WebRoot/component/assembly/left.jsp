@@ -42,10 +42,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<li>课程表管理</li>
   		<ul>
   			<li>
-  				<a href="<%=path %>/backstage/timetables/timetablesManager.jsp">课程表管理</a>
+  				<a href="<%=path %>/web/timetables!gotoQuery">课程表管理</a>
   			</li>
   			<li>
-  				<a href="<%=path %>/backstage/timetables/courseManager.jsp">科目管理</a>
+  				<a href="<%=path %>/web/course!gotoQuery">科目管理</a>
   			</li>
   		</ul>
   		<li>组织架构管理</li>
