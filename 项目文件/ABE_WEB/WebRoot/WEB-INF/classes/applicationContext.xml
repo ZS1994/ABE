@@ -34,6 +34,10 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="recipeSer" ref="lz_recipe_ser"></property>
 	</bean>
+	<bean id="lz_vacate" class="com.abe.action.VacateAction">
+ 		<property name="ser" ref="zs_ser"></property>
+ 		<property name="vacateSer" ref="lz_vacate_ser"></property>	
+ 	</bean>
 	<bean id="zs_forum" class="com.abe.action.home.ForumAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="forumSer" ref="zs_forum_ser"></property>
@@ -114,6 +118,9 @@
 	<bean id="lz_recipe_ser" class="com.abe.service.impl.RecipeServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
+	<bean id="lz_vacate_ser" class="com.abe.service.impl.VacateServiceImpl">
+ 		<property name="dao" ref="zs_dao"></property>
+ 	</bean>
 	<bean id="zs_forum_ser" class="com.abe.service.home.impl.ForumServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>

@@ -70,7 +70,7 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
 			logger.info("在TokenInterceptorWeb中生成的token："+token);
 			request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
 		} else {
-			Thread.sleep(3000);
+//			Thread.sleep(3000);
 			boolean b = isRepeatSubmit(request);//判断用户是否是重复提交
             if(b==true){
                 logger.error("请不要重复提交");

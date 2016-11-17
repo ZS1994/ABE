@@ -24,7 +24,7 @@
 			com.mysql.jdbc.Driver2
 		</property>
 		<property name="connection.url">
-			jdbc:mysql://localhost:3306/abe
+			jdbc:mysql://localhost:3306/abe?useUnicode=true&amp;characterEncoding=utf-8
 		</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">123456</property>
@@ -56,7 +56,8 @@
 		<mapping resource="com/abe/entity/Score.hbm.xml" />
 		<mapping resource="com/abe/entity/Timetables.hbm.xml" />
 		<mapping resource="com/abe/entity/Course.hbm.xml" />
-
+		<mapping resource="com/abe/entity/Vacate.hbm.xml" />
+		
 	</session-factory>
 
 </hibernate-configuration>
