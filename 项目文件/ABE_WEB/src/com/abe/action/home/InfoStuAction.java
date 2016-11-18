@@ -2,6 +2,8 @@ package com.abe.action.home;
 
 import java.io.IOException;
 
+import javax.management.Query;
+
 import org.apache.log4j.Logger;
 
 import net.sf.json.JSONObject;
@@ -10,6 +12,7 @@ import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.InfoStudent;
 import com.abe.entity.app.ReqObject;
+import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespStudent;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iStudentService;
@@ -66,7 +69,7 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 		logger.debug("-------进入addFromApp()---------");
 //		studentSer.csReq(getRequest());
 		RespStudent respStudent=studentSer.addFromApp(getRequest());
-		JSONObject jsonObject=ser.objToJson(respStudent, "yyyy-MM-dd HH:mm:ss");
+		JSONObject jsonObject=ser.objToJson2(respStudent, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
 		getPrintWriter().close();
@@ -102,6 +105,32 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 
+	/**
+	 * 张顺 2016-11-12
+	 * <br>从APP获取学生信息
+	 * @return
+	 * @throws IOException 
+	 */
+	public String queryFromApp() throws IOException {
+		String isId=ser.clearSpace(getRequest(), "isId");
+		RespCommon respStudent=new RespCommon();
+		if (isId==null) {
+			respStudent.setResult("003");
+			respStudent.setData(null);
+		}else {
+			InfoStudent student=(InfoStudent) ser.get(InfoStudent.class, isId);
+			if (student==null) {
+				respStudent.setResult("002");
+				respStudent.setData(null);
+			}else {
+				respStudent.setResult("001");
+				respStudent.setData(student);
+			}
+		} 
+		sendToApp2(respStudent, ser);
+		return null;
+	}
+	
 	@Override
 	public String queryOfFenYe() {
 		// TODO Auto-generated method stub

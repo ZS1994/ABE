@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function cs2(){
 		console.log("-----上传图片----");
 		$.post(
-			"<%=path %>/app/sign!uploadPhoto",
+			"<%=path %>/app/one!uploadPhoto",
 			{UId:$("#UId2").val(),UPhoto:$("#UPhoto2").val(),format:$("#format2").val()},
 			function(data){
 				console.log(data);
@@ -76,6 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后面的部分)
 <br/>
 <input type="button" value="添加宝贝" onclick="$('#urltmp').val('student!addFromApp');"/>
+<input type="button" value="查看学生信息" onclick="$('#urltmp').val('student!queryFromApp');"/>
 <input type="button" value="发表分享" onclick="$('#urltmp').val('forum!addFromApp');"/>
 <input type="button" value="发表评论" onclick="$('#urltmp').val('forum!addCommentFromApp');"/>
 <input type="button" value="查看分享" onclick="$('#urltmp').val('forum!queryOfFenYeForumFromApp');"/>
@@ -96,6 +97,8 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="添加班级" onclick="$('#urltmp').val('class!addFromApp');"/>
 <input type="button" value="修改班级" onclick="$('#urltmp').val('class!updateFromApp');"/>
 <input type="button" value="查看班级" onclick="$('#urltmp').val('class!queryFromApp');"/>
+<input type="button" value="查看本周课程表" onclick="$('#urltmp').val('timetables!queryFromApp');"/>
+
 
 
 <br/>

@@ -65,17 +65,47 @@ public class BaseAction extends ActionSupport{
 	
 	/**
 	 * 张顺 2016-11-8
-	 * <br>发送json数据
+	 * <br>发送json数据，该方法只能支持发送包含Timestamp的对象
 	 * @param obj
 	 * @param ser
 	 * @throws IOException
 	 */
+	@Deprecated
 	public void sendToApp(Object obj,iBaseService ser) throws IOException {
-		JSONObject json=ser.objToJson(obj, "yyyy-MM-dd HH:mm:ss");
+		JSONObject json=null;
+		json=ser.objToJson(obj, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(json);
 		getPrintWriter().flush();
 		getPrintWriter().close();
 	}
 	
+	/**
+	 * 张顺 2016-11-12
+	 * <br>对之前方法的补充与完善，该方法发送包含date的对象
+	 * @param obj
+	 * @param ser
+	 * @throws IOException
+	 */
+	@Deprecated
+	public void sendToApp2(Object obj,iBaseService ser) throws IOException {
+		JSONObject json=null;
+		json=ser.objToJson2(obj, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(json);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+	}
+	
+	/**
+	 * 张顺 2016-11-13
+	 * <br>对之前方法的完善，由于之前的方法不能对json作单独处理，故写了这个只负责发送的方法，旨在适应各种json的情况
+	 * @param json
+	 * @param ser
+	 * @throws IOException
+	 */
+	public void sendToApp(JSONObject json,iBaseService ser) throws IOException {
+		getPrintWriter().print(json);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+	}
 	
 }

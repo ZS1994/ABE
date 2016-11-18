@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
  * @author 张顺
  *
  */
+@Deprecated
 public class ReqObject {
 
 	private HashMap<String,String> strs;

@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 ${AAA }
 
 <hr/>
-<a href="<%=path %>/component/login.jsp">跳转登录</a>
+<a href="<%=path %>/web/sign!gotoQuery">跳转登录</a>
 
 <hr/>
 <a href="<%=path %>/web/test!test2">测试能否查询数据库TestAction的test2</a>
