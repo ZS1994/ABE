@@ -8,21 +8,15 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.abe.entity.Licence;
 import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespError;
 import com.abe.service.iBaseService;
+import com.abe.service.iSignService;
 import com.abe.tools.Constant;
 import com.abe.tools.MachineCode;
-import com.abe.tools.TokenProccessor;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -40,6 +34,7 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 	 */
 	private static final long serialVersionUID = 1L;
 	iBaseService ser;
+	iSignService signSer;
 	HttpServletRequest request;
 	HttpServletResponse response;
 	PrintWriter pw;
@@ -52,6 +47,12 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 	
 	
 	
+	public iSignService getSignSer() {
+		return signSer;
+	}
+	public void setSignSer(iSignService signSer) {
+		this.signSer = signSer;
+	}
 	public iBaseService getSer() {
 		return ser;
 	}
@@ -128,7 +129,7 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 				}else {
 					//执照验证通过
 					logger.info("执照验证通过:"+licence);
-					
+					checkLicenceDate(licenceObj);
 					
 					
 					result=arg0.invoke();
@@ -172,5 +173,17 @@ public class RoleInterceptorApp extends AbstractInterceptor{
     	response.getWriter().print(json);
 		response.getWriter().flush();
 		response.getWriter().close();
+	}
+    
+    /**
+     * 张顺 2016-11-18
+     * <br>检查执照，每次操作就更新最后失效时间
+     * @param licence
+     */
+    public void checkLicenceDate(Licence licence) {
+    	if (licence!=null) {
+    		licence.setLDateEnd(new Timestamp(signSer.getEndDate(null).getTime()));
+    		ser.update(licence);
+		}
 	}
 }
