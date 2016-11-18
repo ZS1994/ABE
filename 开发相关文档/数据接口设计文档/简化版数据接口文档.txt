@@ -1,10 +1,10 @@
 //---------------------------------------------------------------------------
-错误信息
-应答参数：
+公共错误代码
 {
-	errorCode:错误代码
+	result:1000该执照不存在（假执照），1001该执照已过期，1002ip发生改变 
+	data:null
 }
-待定
+
 
 //---------------------------------------------------------------------------
 登录
@@ -31,6 +31,7 @@
 上传头像
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 请求参数：
+	licence:数字执照
 	UId:用户编号
 	UPhoto：图片Base64编码
 	format:图片的格式，图片的后缀   比如：png
@@ -84,6 +85,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 第一步：查出该用户所有信息
 接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updateUserFromApp1
 请求参数：
+      licence:数字执照
       UNum:用户账号
 应答参数：
 {
@@ -105,6 +107,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 第二步：修改该用户个人信息
 接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updateUserFromApp2
 请求参数：
+	licence:数字执照
         UId:用户编号
 	UNum:账号
 	UPass:密码
@@ -136,6 +139,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 添加宝贝
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 请求参数：
+	licence:数字执照
 	isNum:学号【必须】
 	isName:名字
 	isSex:男/女
@@ -184,6 +188,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 查看学生信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 请求参数：
+	licence:数字执照
 	isId:学生id
 应答参数：
 {
@@ -219,6 +224,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 1,查本周的课程表
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryFromApp
 请求参数：
+	licence:数字执照
 	scId:班级编号
 应答参数：
 {
@@ -274,6 +280,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryFromApp
 1,查看所有分享(看不到评论)
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!queryOfFenYeForumFromApp
 请求参数：
+	licence:数字执照
 	pageNo:当前页码，从1开始算
 	size：每页大小
 应答参数：
@@ -304,6 +311,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!queryOfFenYeForumF
 2,查看一个分享的评论
 URL：
 请求参数：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!queryOfFenYeCommentFromApp
+	licence:数字执照
 	pageNo:当前页码
 	size：每页大小
 	FId：分享id
@@ -352,6 +360,7 @@ URL：
 1,发表分享
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addFromApp
 请求参数：
+	licence:数字执照
 	UId:发送人id【必须】
 	FContent：分享的内容【必须，即不能为空】
 应答参数：
@@ -362,6 +371,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addFromApp
 2，发表评论
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addCommentFromApp
 请求参数：
+	licence:数字执照
 	UId:评论人id【必须】
 	fcContent：评论内容【必须】
 	FId:评论的分享id【必须】
@@ -373,6 +383,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addCommentFromApp
 3，点赞
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!updateLikeFromApp
 请求参数：
+	licence:数字执照
 	FId：分享id
 	like:点赞（只要不为空代表赞一次，这里可以约定为：1）
 应答参数：
@@ -387,6 +398,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!updateLikeFromApp
 添加市
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!addFromApp
 请求参数：
+	licence:数字执照
 	pcName:市名字
 	ppId:省id
 应答参数：
@@ -397,6 +409,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!addFromApp
 修改市
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!updateFromApp	
 请求参数：
+	licence:数字执照
 	pcId:市id
 	pcName:市名字
 应答参数：	
@@ -407,6 +420,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!updateFromApp
 查看市详情
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!queryFromApp
 请求参数：
+	licence:数字执照
 	pcId:市id
 应答参数：
 {
@@ -421,6 +435,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!queryFromApp
 添加区
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!addFromApp
 请求参数：
+	licence:数字执照
 	paName:区名字
 	pcId:市id
 应答参数：
@@ -431,6 +446,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!addFromApp
 修改区
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!updateFromApp
 请求参数：
+	licence:数字执照
 	paId:区id
 	paName:区名字
 应答参数：	
@@ -440,7 +456,8 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!updateFromApp
 }
 查看区详情
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!queryFromApp
-请求参数：
+请求参数：	
+	licence:数字执照
 	paId:区id
 应答参数：		
 {
@@ -455,6 +472,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!queryFromApp
 添加学校
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!addFromApp
 请求参数：
+	licence:数字执照
 	SName:学校名字
 	SAddress:学校的详细地址
 	paId:区id
@@ -466,6 +484,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!addFromApp
 修改学校基本信息
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!updateFromApp
 请求参数：
+	licence:数字执照
 	SId:学校id
 	SName:新学校名字
 	SAddress:新学校地址
@@ -477,6 +496,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!updateFromApp
 查看学校信息
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!queryFromApp
 请求参数：
+	licence:数字执照
 	SId:学校id
 应答参数：
 {
@@ -492,6 +512,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!queryFromApp
 添加年级
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!addFromApp
 请求参数：
+	licence:数字执照
 	sgName:年级名字
 	SId:学校id
 应答参数：	
@@ -502,6 +523,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!addFromApp
 修改年级
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!updateFromApp
 请求参数：
+	licence:数字执照
 	sgId:年级id
 	sgName:学校名字
 应答参数：	
@@ -512,6 +534,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!updateFromApp
 查看年级信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!queryFromApp
 请求参数：
+	licence:数字执照
 	sgId:年级id
 应答参数：
 {
@@ -526,6 +549,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!queryFromApp
 添加班级
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!addFromApp
 请求参数：
+	licence:数字执照
 	scName:班级名字
 	sgId:年级id
 	itId:班主任id
@@ -537,6 +561,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!addFromApp
 修改班级信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!updateFromApp
 请求参数：
+	licence:数字执照
 	scId:班级id
 	scName:班级名字
 	itId:班主任id
@@ -548,6 +573,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!updateFromApp
 查看班级信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!queryFromApp
 请求参数：
+	licence:数字执照
 	scId:班级id
 应答参数：
 {
@@ -563,6 +589,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!queryFromApp
 创建食谱
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!creatRecipe
 请求参数：
+	licence:数字执照
 	scId:使用该食谱的班级id
 	&RTime：食谱使用日期 
 	RState：食谱内容说明
@@ -593,6 +620,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!creatRecipe
 发布食谱
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!releaseRecipe
 请求参数：
+	licence:数字执照
 	scId:使用该食谱的班级id
 	RTime：食谱使用日期 
 	RState：食谱内容说明
@@ -628,7 +656,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!releaseRecipe
 查看所有食谱
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findAllRecipe
 请求参数：
-	
+	licence:数字执照
 应答参数：
 {
 	result：001成功
@@ -654,6 +682,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findAllRecipe
 分页查询当前用户创建的食谱
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findCreaterRecipe
 请求参数：
+	licence:数字执照
 	UId：创建该食谱用户（教师）id
 	pageNo：当前页数
 	Size：每页展示食谱数量
@@ -682,6 +711,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findCreaterRecipe
 查询单条食谱信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findSingleRecipe
 请求参数：
+	licence:数字执照
 	RId：食谱id
 应答参数：
 {
@@ -708,6 +738,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findSingleRecipe
 删除单条食谱信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!deleteRecipe
 请求参数：
+	licence:数字执照
 	RId：食谱id
 应答参数：
 {
@@ -734,6 +765,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!deleteRecipe
 修改食谱信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!releaseRecipe
 请求参数：
+	licence:数字执照
 	scId:使用该食谱的班级id
 	RTime：食谱使用日期 
 	RState：食谱内容说明

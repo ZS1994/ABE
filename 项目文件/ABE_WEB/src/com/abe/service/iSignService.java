@@ -1,11 +1,13 @@
 package com.abe.service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.abe.entity.Users;
+import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespSignIn;
 import com.abe.entity.app.RespUpdateUser;
 import com.abe.entity.app.RespUploadPhoto;
@@ -27,7 +29,23 @@ public interface iSignService {
 	 * @param uPass
 	 * @return
 	 */
+	@Deprecated
 	public RespSignIn signInFromApp(String uNum,String uPass);
+	
+	/**张顺 2016-11-18
+	 * 新版app登录，加入安全访问、权限控制
+	 * @param uNum
+	 * @param uPass
+	 * @return
+	 */
+	public RespCommon signInFromApp(String uNum,String uPass,HttpServletRequest request)throws Exception;
+	
+	/**
+	 * 张顺 2016-11-18
+	 * <br>得到失效时间
+	 * @return
+	 */
+	public Date getEndDate(Date date) ;
 	
 	/**
 	 * app注册

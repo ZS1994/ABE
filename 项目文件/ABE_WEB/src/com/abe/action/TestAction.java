@@ -70,12 +70,11 @@ public class TestAction extends BaseAction{
 	public String mc() throws Exception {
 		
 		String ip=MachineCode.getIpAddr(getRequest());
-		String mac=MachineCode.getMACAddress(ip);
+//		String mac=MachineCode.getMACAddress(ip);
 		logger.debug(ip);
-		logger.debug(mac);
+//		logger.debug(mac);
 		
-		
-		return SUCCESS;
+		return null;
 	}
 	
 }

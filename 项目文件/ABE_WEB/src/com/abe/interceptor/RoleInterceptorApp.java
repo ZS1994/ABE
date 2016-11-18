@@ -1,5 +1,7 @@
 package com.abe.interceptor;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +16,13 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.abe.entity.Licence;
+import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespError;
 import com.abe.service.iBaseService;
 import com.abe.tools.Constant;
+import com.abe.tools.MachineCode;
+import com.abe.tools.TokenProccessor;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -36,6 +42,7 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 	iBaseService ser;
 	HttpServletRequest request;
 	HttpServletResponse response;
+	PrintWriter pw;
 	Map session;
 	String path;
 	String reqPamrs;
@@ -52,10 +59,11 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 		this.ser = ser;
 	}
 
-	private void allInit(ActionInvocation arg0) {
+	private void allInit(ActionInvocation arg0) throws IOException {
 		// 取得请求相关的ActionContext实例  
 		request = ServletActionContext.getRequest();
 		response = ServletActionContext.getResponse();
+		pw=response.getWriter();
     	//获取其他信息
 		ActionContext ctx = arg0.getInvocationContext();  
         session = ctx.getSession();  
@@ -91,45 +99,78 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 	@Override
 	public String intercept(ActionInvocation arg0) throws Exception {
 		allInit(arg0);
-		/*
 		//以下是权限控制的核心代码
 		String result=null;
-		if (user==null) {//将登录的url排除在外
-			if ( (PRO_NAME+"/sign!signInFromApp").equals(path) ) {
-				result=arg0.invoke();
+		//声明一个返回封装备用
+		RespCommon respc=new RespCommon();
+		//登录、注册除外
+		if ( (PRO_NAME+"/sign!signInFromApp").equals(path) || (PRO_NAME+"/sign!signUpFromApp").equals(path)) {
+			result=arg0.invoke();
+		}else {
+			String licence=request.getParameter("licence");//数字执照id
+			Licence licenceObj=getLicence(licence);//得到数字执照详细信息
+			if (licenceObj==null) {//如果为空，即该执照不存在
+				respc.setResult("1000");
+				respc.setData(null);
+				sendJson(respc);
+				return null;
 			}else {
-				RespError error=new RespError("001");
-				JSONObject json=ser.objToJson(error, null);
-				response.getWriter().print(json);
-				response.getWriter().flush();
-				response.getWriter().close();
-				result=null;
-			}
-		}else{ 
-			Users u=(Users)user;
-			Role r=u.getR();
-			
-			if ((PRO_NAME+"/fbd_asdl!queryOfFenyeAsdl").equals(path)) {//硬件组-ASDL-分页
-				return roleControl(arg0, r, "1");
-			}else if ((PRO_NAME+"/fbd_asdl!deleteAsdl").equals(path)) {//硬件组-ASDL-删除
-				return roleControl(arg0, r, "3");
-			}else if ((PRO_NAME+"/fbd_asdl!addAsdl").equals(path)) {//硬件组-ASDL-添加
-				return roleControl(arg0, r, "2");
-			}else if ((PRO_NAME+"/fbd_asdl!updateAsdl").equals(path)) {//硬件组-ASDL-修改
-				return roleControl(arg0, r, "4");
-			}
-			
-			else {
-				
+				if (new Date().after(licenceObj.getLDateEnd())) {//执照过期
+					respc.setResult("1001");
+					respc.setData(null);
+					sendJson(respc);
+					return null;
+				}else if(!MachineCode.getIpAddr(request).equals(licenceObj.getLIp())){//ip变动
+					respc.setResult("1002");
+					respc.setData(null);
+					sendJson(respc);
+					return null;
+				}else {
+					//执照验证通过
+					logger.info("执照验证通过:"+licence);
+					
+					
+					
+					result=arg0.invoke();
+				}
 			}
 		}
 		close(); 
-		 */
-//		return result;
-		return arg0.invoke();
+		return result;
 	}
 	
 	private void close() {
 
+	}
+	
+	/**
+     * 张顺 2016-11-14
+     * 得到方法名
+     * @return
+     */
+    public String getMethod(String path) {
+    	String ss[]=path.split("!");
+    	return ss[ss.length-1];
+	}
+    
+    /**
+     * 通过证书得到证书这个对象
+     * @param licence
+     * @return
+     */
+    public Licence getLicence(String licence) {
+		List<Licence> list=ser.find("from Licence where LLicence=?", new String[]{licence});
+		if (list.size()>0) {
+			return list.get(0);
+		}else {
+			return null;
+		}
+	}
+    
+    public void sendJson(Object obj) throws IOException {
+    	JSONObject json=ser.objToJson(obj);
+    	response.getWriter().print(json);
+		response.getWriter().flush();
+		response.getWriter().close();
 	}
 }

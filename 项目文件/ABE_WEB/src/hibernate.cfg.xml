@@ -57,7 +57,8 @@
 		<mapping resource="com/abe/entity/Timetables.hbm.xml" />
 		<mapping resource="com/abe/entity/Course.hbm.xml" />
 		<mapping resource="com/abe/entity/Vacate.hbm.xml" />
-		
+		<mapping resource="com/abe/entity/Licence.hbm.xml" />
+
 	</session-factory>
 
 </hibernate-configuration>

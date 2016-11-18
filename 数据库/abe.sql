@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-17 20:18:59
+Date: 2016-11-18 15:18:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -217,6 +217,24 @@ CREATE TABLE `info_teacher` (
 -- ----------------------------
 -- Records of info_teacher
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `licence`
+-- ----------------------------
+DROP TABLE IF EXISTS `licence`;
+CREATE TABLE `licence` (
+  `u_id` varchar(255) NOT NULL DEFAULT '',
+  `l_licence` varchar(255) DEFAULT NULL,
+  `l_ip` varchar(255) DEFAULT NULL,
+  `l_date_start` datetime DEFAULT NULL,
+  `l_date_end` datetime DEFAULT NULL,
+  PRIMARY KEY (`u_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of licence
+-- ----------------------------
+INSERT INTO `licence` VALUES ('271634032221266', 'wXWS7Yg4j7qJ7a/Dm2TmCg==', '127.0.0.1', '2016-11-18 14:14:47', '2016-11-18 15:14:47');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -441,11 +459,6 @@ CREATE TABLE `users` (
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES ('123213141', 'qqq', '测试修改', '123', '002', null, 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/123213141/31223058436.png', null, null);
-INSERT INTO `users` VALUES ('161704076174550', 'wew', '???', '123456', '1', '2016-11-16 17:04:06', null, null, null);
-INSERT INTO `users` VALUES ('161707309697975', 'weew', '???', '123456', '1', '2016-11-16 17:07:30', null, null, null);
-INSERT INTO `users` VALUES ('161721187423660', 'weeew', '\"???\"', '123456', '1', '2016-11-16 17:21:18', null, null, null);
-INSERT INTO `users` VALUES ('161721576028014', 'weeeew', '\"?2??\"', '123456', '1', '2016-11-16 17:21:57', null, null, null);
-INSERT INTO `users` VALUES ('161740390104321', 'wwwww', '\"王2a麻子\"', '123456', null, '2016-11-16 17:40:38', null, null, null);
 INSERT INTO `users` VALUES ('271634032221266', 'qwe', '张顺', '123', '001', '2016-10-26 23:08:14', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png', null, null);
 
 -- ----------------------------
