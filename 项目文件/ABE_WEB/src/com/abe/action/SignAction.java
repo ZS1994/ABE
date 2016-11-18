@@ -11,6 +11,7 @@ import net.sf.json.JsonConfig;
 import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
+import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespSignIn;
 import com.abe.entity.app.RespUpdateUser;
 import com.abe.entity.app.RespUploadPhoto;
@@ -80,14 +81,15 @@ public class SignAction extends BaseAction implements iBaseAction{
 	/**
 	 * APP端登录
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	public String signInFromApp() throws IOException {
+	public String signInFromApp() throws Exception {
 		logger.debug("-------进入signInFromApp--------");
 		String uNum=(String) getRequest().getParameter("UNum");
 		String uPass=(String) getRequest().getParameter("UPass");
-		RespSignIn respSignIn=signSer.signInFromApp(uNum, uPass);
+		RespCommon respSignIn=signSer.signInFromApp(uNum, uPass,getRequest());
 		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
+		logger.debug(jsonObject);
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
 		getPrintWriter().close();
@@ -115,7 +117,7 @@ public class SignAction extends BaseAction implements iBaseAction{
 	 * @throws IOException 
 	 */
 	public String signUpFromApp() throws IOException{
-		logger.debug("-------进入signUpFromApp--------");
+		logger.info("-------进入signUpFromApp--------");
 		String uNum=(String) getRequest().getParameter("UNum");
 		String uPass=(String) getRequest().getParameter("UPass");
 		String uName=(String) getRequest().getParameter("UName");
