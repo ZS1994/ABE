@@ -73,7 +73,7 @@ public class Recipe implements Serializable {
 	/** full constructor */
 	public Recipe(String RId, String scId, String RType, String RTime,
 			String RState, String UId, String RCreatTime, String RStatus,
-			String RImages, String isIdAccept, String isIdAll) {
+			String RImages,String RImagesUrl, String isIdAccept, String isIdAll) {
 		this.RId = RId;
 		this.scId = scId;
 		this.RType = RType;
@@ -83,6 +83,7 @@ public class Recipe implements Serializable {
 		this.RCreatTime = RCreatTime;
 		this.RStatus = RStatus;
 		this.RImages = RImages;
+		this.RImagesUrl = RImagesUrl;
 		this.isIdAccept = isIdAccept;
 		this.isIdAll = isIdAll;
 	}

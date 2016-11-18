@@ -5,7 +5,7 @@ package com.abe.entity;
  */
 
 public class Vacate implements java.io.Serializable {
-
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private String VId;
@@ -51,14 +51,16 @@ public class Vacate implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Vacate(String isId, String UId, String itId, String VContent,
-			String VDate, String VTime) {
+	public Vacate(String VId,String isId, String UId, String itId, String VContent,
+			String VDate, String VTime,String VResp) {
+		this.VId = VId;
 		this.isId = isId;
 		this.UId = UId;
 		this.itId = itId;
 		this.VContent = VContent;
 		this.VDate = VDate;
 		this.VTime = VTime;
+		this.VResp = VResp;
 	}
 
 	// Property accessors

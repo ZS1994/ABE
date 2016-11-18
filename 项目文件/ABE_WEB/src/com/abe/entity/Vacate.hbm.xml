@@ -8,7 +8,7 @@
     <class name="com.abe.entity.Vacate" table="vacate" catalog="abe">
         <id name="VId" type="java.lang.String">
             <column name="v_id" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <property name="isId" type="java.lang.String">
             <column name="is_id" />
