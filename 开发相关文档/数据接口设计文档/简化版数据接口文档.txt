@@ -188,7 +188,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 		scId:班级id
 	}
 }
-查看学生信息
+通过学生id查看学生信息(用来查唯一学生)
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 请求参数：
 	licence:数字执照
@@ -219,7 +219,39 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 		scId:班级id
 	}
 }
-
+通过用户id查看学生信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp2
+请求参数：
+	licence:数字执照
+	UId:用户id
+应答参数：
+{
+	result：001成功，002UId不存在，003接收到的UId为空,004该用户不是家长
+	data:{
+		[
+			isId:学生id
+			isNum:学号
+			isName:名字
+			isSex:男/女
+			isBirthday:生日   yyyy-MM-dd
+			isAge:年龄  月数  因为页面显示的格式是：X年X月
+			isLocal:是否本地生  0：否/1：是
+			isTeacherChildren:是否是教职工子弟   0：否/1：是
+			isSchool:学校名字
+			isGrade:年级
+			isClass:班级
+			isIntoYear:入学年份    比如：2014/2015等等
+			isParentName:父母名字  父亲或母亲
+			isParentPhone:父母手机号
+			isParentRelation:与父母的关系   父子/母子/父女/母女
+			isIntoDate:入校日期    yyyy-MM-dd
+			isLeaveDate:离校日期   没有就为空
+			isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
+			UId:家长id   注意用户必须为家长类型（UType：1） 比如：2
+			scId:班级id
+		]		
+	}
+}
 
 
 //--------------------------课程表-----------------------------------------------

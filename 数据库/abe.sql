@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-18 15:18:33
+Date: 2016-11-18 18:38:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -186,6 +186,7 @@ CREATE TABLE `info_student` (
 -- ----------------------------
 -- Records of info_student
 -- ----------------------------
+INSERT INTO `info_student` VALUES ('181825574576645', '1001', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '271634032221266', null);
 
 -- ----------------------------
 -- Table structure for `info_teacher`
@@ -234,7 +235,7 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
-INSERT INTO `licence` VALUES ('271634032221266', 'wXWS7Yg4j7qJ7a/Dm2TmCg==', '127.0.0.1', '2016-11-18 14:14:47', '2016-11-18 15:14:47');
+INSERT INTO `licence` VALUES ('271634032221266', 'ZGX3a6CbpJAMwSv0VtCuBQ==', '127.0.0.1', '2016-11-18 18:21:09', '2016-11-18 19:30:32');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -458,8 +459,8 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('123213141', 'qqq', '测试修改', '123', '002', null, 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/123213141/31223058436.png', null, null);
-INSERT INTO `users` VALUES ('271634032221266', 'qwe', '张顺', '123', '001', '2016-10-26 23:08:14', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png', null, null);
+INSERT INTO `users` VALUES ('123213141', 'qqq', '测试修改', '123', '2', null, 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/123213141/31223058436.png', null, null);
+INSERT INTO `users` VALUES ('271634032221266', 'qwe', '张顺', '123', '1', '2016-10-26 23:08:14', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png', null, null);
 
 -- ----------------------------
 -- Table structure for `vacate`
