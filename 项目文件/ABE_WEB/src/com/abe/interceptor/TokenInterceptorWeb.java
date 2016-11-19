@@ -1,5 +1,6 @@
 package com.abe.interceptor;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,10 +44,13 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
 		this.ser = ser;
 	}
 
-	private void allInit(ActionInvocation arg0) {
+	private void allInit(ActionInvocation arg0) throws UnsupportedEncodingException {
 		// 取得请求相关的ActionContext实例  
 		request = ServletActionContext.getRequest();
 		response = ServletActionContext.getResponse();
+		//设置编码
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
     	//获取其他信息
 		ActionContext ctx = arg0.getInvocationContext();  
         session = ctx.getSession();  

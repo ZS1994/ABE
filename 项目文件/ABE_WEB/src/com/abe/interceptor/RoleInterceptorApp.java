@@ -64,6 +64,9 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 		// 取得请求相关的ActionContext实例  
 		request = ServletActionContext.getRequest();
 		response = ServletActionContext.getResponse();
+		//设置编码
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		pw=response.getWriter();
     	//获取其他信息
 		ActionContext ctx = arg0.getInvocationContext();  
