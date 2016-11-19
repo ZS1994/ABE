@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-12 15:41:33
+Date: 2016-11-18 18:38:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -79,6 +79,10 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
+INSERT INTO `course` VALUES ('131514271687852', '画画');
+INSERT INTO `course` VALUES ('131514574764413', '英语');
+INSERT INTO `course` VALUES ('131515004038597', '语文');
+INSERT INTO `course` VALUES ('131515032186975', '数学');
 
 -- ----------------------------
 -- Table structure for `forum`
@@ -96,9 +100,7 @@ CREATE TABLE `forum` (
 -- ----------------------------
 -- Records of forum
 -- ----------------------------
-INSERT INTO `forum` VALUES ('041349048402255', '今天是暗暗地的晴天，心情好。', '2', '2016-11-04 13:49:04', '2');
-INSERT INTO `forum` VALUES ('041514597569159', '再补充一句', '0', '2016-11-04 15:14:59', '2');
-INSERT INTO `forum` VALUES ('091025067281683', '天晴了', '2', '2016-11-09 10:25:06', '2');
+INSERT INTO `forum` VALUES ('23', '33', '33', '2016-11-16 19:04:06', '123213141');
 
 -- ----------------------------
 -- Table structure for `forum_comment`
@@ -116,13 +118,6 @@ CREATE TABLE `forum_comment` (
 -- ----------------------------
 -- Records of forum_comment
 -- ----------------------------
-INSERT INTO `forum_comment` VALUES ('041350419518100', '你说的不对，今天是下雨天，心情不好。', '2016-11-04 13:50:41', '2', '041349048402255');
-INSERT INTO `forum_comment` VALUES ('041402093441169', '再补充一句', '2016-11-04 14:02:09', '2', '041349048402255');
-INSERT INTO `forum_comment` VALUES ('041514182604408', '再补充一句', '2016-11-04 15:14:18', '2', '041349048402255');
-INSERT INTO `forum_comment` VALUES ('091026383452692', '天很蓝', '2016-11-09 10:26:38', '1', '091025067281683');
-INSERT INTO `forum_comment` VALUES ('091030502201674', '你在哪里', '2016-11-09 10:30:50', '2', '091025067281683');
-INSERT INTO `forum_comment` VALUES ('091030594214051', '你好吗', '2016-11-09 10:30:59', '2', '091025067281683');
-INSERT INTO `forum_comment` VALUES ('091031050305243', '下雨了', '2016-11-09 10:31:05', '2', '091025067281683');
 
 -- ----------------------------
 -- Table structure for `forum_like`
@@ -191,13 +186,7 @@ CREATE TABLE `info_student` (
 -- ----------------------------
 -- Records of info_student
 -- ----------------------------
-INSERT INTO `info_student` VALUES ('021800143615870', '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `info_student` VALUES ('021801067533512', '3', null, null, null, '21', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `info_student` VALUES ('021801341931046', '4', null, null, null, '21', null, null, null, null, null, null, '范冰冰', null, null, null, null, null, null, null);
-INSERT INTO `info_student` VALUES ('031038565676712', '12', '丸子', '男', '2012-10-10', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `info_student` VALUES ('1', '1', null, null, null, null, null, null, null, null, null, '2016', null, null, null, null, null, null, null, null);
-INSERT INTO `info_student` VALUES ('121424258992377', '123566', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `info_student` VALUES ('121424533788916', '1235661', null, null, '2016-10-12', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `info_student` VALUES ('181825574576645', '1001', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '271634032221266', null);
 
 -- ----------------------------
 -- Table structure for `info_teacher`
@@ -229,7 +218,24 @@ CREATE TABLE `info_teacher` (
 -- ----------------------------
 -- Records of info_teacher
 -- ----------------------------
-INSERT INTO `info_teacher` VALUES ('1', '1', '李老师', '女', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for `licence`
+-- ----------------------------
+DROP TABLE IF EXISTS `licence`;
+CREATE TABLE `licence` (
+  `u_id` varchar(255) NOT NULL DEFAULT '',
+  `l_licence` varchar(255) DEFAULT NULL,
+  `l_ip` varchar(255) DEFAULT NULL,
+  `l_date_start` datetime DEFAULT NULL,
+  `l_date_end` datetime DEFAULT NULL,
+  PRIMARY KEY (`u_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of licence
+-- ----------------------------
+INSERT INTO `licence` VALUES ('271634032221266', 'ZGX3a6CbpJAMwSv0VtCuBQ==', '127.0.0.1', '2016-11-18 18:21:09', '2016-11-18 19:30:32');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -269,7 +275,6 @@ CREATE TABLE `place_area` (
 -- ----------------------------
 -- Records of place_area
 -- ----------------------------
-INSERT INTO `place_area` VALUES ('081048178317015', '龙华新区', '081015244834643');
 
 -- ----------------------------
 -- Table structure for `place_city`
@@ -285,7 +290,6 @@ CREATE TABLE `place_city` (
 -- ----------------------------
 -- Records of place_city
 -- ----------------------------
-INSERT INTO `place_city` VALUES ('081015244834643', '深圳', '1');
 
 -- ----------------------------
 -- Table structure for `place_province`
@@ -300,8 +304,6 @@ CREATE TABLE `place_province` (
 -- ----------------------------
 -- Records of place_province
 -- ----------------------------
-INSERT INTO `place_province` VALUES ('1', '广东');
-INSERT INTO `place_province` VALUES ('2', '湖北');
 
 -- ----------------------------
 -- Table structure for `recipe`
@@ -317,6 +319,7 @@ CREATE TABLE `recipe` (
   `r_creat_time` varchar(255) DEFAULT NULL,
   `r_status` varchar(255) DEFAULT NULL,
   `r_images` varchar(255) DEFAULT NULL,
+  `r_images_url` varchar(255) DEFAULT NULL,
   `is_id_accept` varchar(255) DEFAULT NULL,
   `is_id_all` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`r_id`)
@@ -325,6 +328,15 @@ CREATE TABLE `recipe` (
 -- ----------------------------
 -- Records of recipe
 -- ----------------------------
+INSERT INTO `recipe` VALUES ('161803372075104', '333', '晚餐', '2016.11.10', '排骨面', '123213141', null, '已发布', null, null, null, '001，002，003');
+INSERT INTO `recipe` VALUES ('161811049305351', '333', '晚餐', '2016.11.10', '排骨面', '123213141', null, '已发布', null, null, null, '001，002，003');
+INSERT INTO `recipe` VALUES ('161828195898924', '323', '晚餐', '2016.11.10', '排骨面', '123213141', '2016-11-16 18:28:19', '未发布', null, null, null, '001，002，003');
+INSERT INTO `recipe` VALUES ('161828253067843', '113', '晚餐', '2016.11.10', '排骨面', '123213141', '2016-11-16 18:28:25', '未发布', null, null, null, '001，002，003');
+INSERT INTO `recipe` VALUES ('161828293586222', '123', '晚餐', '2016.11.10', '排骨面', '123213141', '2016-11-16 18:28:29', '未发布', null, null, null, '001，002，003');
+INSERT INTO `recipe` VALUES ('161828360798426', '1234', '晚餐', '2016.11.10', '排骨面', '123213141', '2016-11-16 18:28:36', '未发布', null, null, null, '001，002，003');
+INSERT INTO `recipe` VALUES ('161828405903858', '12345', '晚餐', '2016.11.10', '排骨面', '123213141', '2016-11-16 18:28:40', '未发布', null, null, null, '001，002，003');
+INSERT INTO `recipe` VALUES ('161828530372140', '12345', '晚餐', '2016.11.10', 'da面', '123213141', '2016-11-16 18:28:53', '未发布', null, null, null, '001，002，003');
+INSERT INTO `recipe` VALUES ('161828581576339', '123245', '晚餐', '2016.11.10', '骨面', '123213141', '2016-11-16 18:28:58', '未发布', null, null, null, '001，002，003');
 
 -- ----------------------------
 -- Table structure for `school`
@@ -334,14 +346,13 @@ CREATE TABLE `school` (
   `s_id` varchar(255) NOT NULL DEFAULT '',
   `s_name` varchar(255) DEFAULT NULL,
   `s_address` varchar(255) DEFAULT NULL,
-  `pa_id` varchar(255) DEFAULT NULL,
+  `pc_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of school
 -- ----------------------------
-INSERT INTO `school` VALUES ('081127533142283', '深圳市观澜第二小学', '深圳市观澜大道500号', '081048178317015');
 
 -- ----------------------------
 -- Table structure for `school_class`
@@ -349,7 +360,7 @@ INSERT INTO `school` VALUES ('081127533142283', '深圳市观澜第二小学', '
 DROP TABLE IF EXISTS `school_class`;
 CREATE TABLE `school_class` (
   `sc_id` varchar(255) NOT NULL DEFAULT '',
-  `sc_name` varchar(255) DEFAULT NULL,
+  `sc_naem` varchar(255) DEFAULT NULL,
   `sg_id` varchar(255) DEFAULT NULL,
   `it_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`sc_id`)
@@ -358,7 +369,6 @@ CREATE TABLE `school_class` (
 -- ----------------------------
 -- Records of school_class
 -- ----------------------------
-INSERT INTO `school_class` VALUES ('081430070197575', '1-1班', '081350572999692', '1');
 
 -- ----------------------------
 -- Table structure for `school_grade`
@@ -374,7 +384,6 @@ CREATE TABLE `school_grade` (
 -- ----------------------------
 -- Records of school_grade
 -- ----------------------------
-INSERT INTO `school_grade` VALUES ('081350572999692', '一年级', '081127533142283');
 
 -- ----------------------------
 -- Table structure for `school_section`
@@ -420,7 +429,7 @@ CREATE TABLE `timetables` (
   `it_id` varchar(255) DEFAULT NULL,
   `t_start_time` time DEFAULT NULL,
   `t_end_time` time DEFAULT NULL,
-  `t_date` date DEFAULT NULL,
+  `t_week` int(11) DEFAULT NULL,
   `t_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`t_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -450,5 +459,25 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'qqq', '测试修改', '123', '2', null, 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/123213141/31223058436.png', null, null);
-INSERT INTO `users` VALUES ('2', 'qwe', '张顺', '123', '1', '2016-10-26 23:08:14', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png', null, null);
+INSERT INTO `users` VALUES ('123213141', 'qqq', '测试修改', '123', '2', null, 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/123213141/31223058436.png', null, null);
+INSERT INTO `users` VALUES ('271634032221266', 'qwe', '张顺', '123', '1', '2016-10-26 23:08:14', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png', null, null);
+
+-- ----------------------------
+-- Table structure for `vacate`
+-- ----------------------------
+DROP TABLE IF EXISTS `vacate`;
+CREATE TABLE `vacate` (
+  `v_id` varchar(255) NOT NULL,
+  `is_id` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `v_content` varchar(255) DEFAULT NULL,
+  `v_date` varchar(255) DEFAULT NULL,
+  `v_time` varchar(255) DEFAULT NULL,
+  `v_resp` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`v_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of vacate
+-- ----------------------------

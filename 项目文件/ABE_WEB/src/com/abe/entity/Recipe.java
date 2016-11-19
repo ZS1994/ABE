@@ -1,11 +1,14 @@
 package com.abe.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Recipe entity. @author MyEclipse Persistence Tools
  */
 
-public class Recipe implements java.io.Serializable {
-
+public class Recipe implements Serializable {
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private String RId;
@@ -17,9 +20,45 @@ public class Recipe implements java.io.Serializable {
 	private String RCreatTime;
 	private String RStatus;
 	private String RImages;
+	private String RImagesUrl;
 	private String isIdAccept;
 	private String isIdAll;
-
+//--------------------------------
+	private SchoolClass schoolClass;
+	private Users users;
+	private List<InfoStudent> students;
+	
+	public String getRImagesUrl() {
+		return RImagesUrl;
+	}
+	
+	public void setRImagesUrl(String rImagesUrl) {
+		RImagesUrl = rImagesUrl;
+	}
+	
+	public SchoolClass getSchoolClass() {
+		return schoolClass;
+	}
+	
+	public void setSchoolClass(SchoolClass schoolClass) {
+		this.schoolClass = schoolClass;
+	}
+	
+	public Users getUsers() {
+		return users;
+	}
+	
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+	
+	public List<InfoStudent> getStudents() {
+		return students;
+	}
+	
+	public void setStudents(List<InfoStudent> students) {
+		this.students = students;
+	}
 	// Constructors
 
 	/** default constructor */
@@ -34,7 +73,7 @@ public class Recipe implements java.io.Serializable {
 	/** full constructor */
 	public Recipe(String RId, String scId, String RType, String RTime,
 			String RState, String UId, String RCreatTime, String RStatus,
-			String RImages, String isIdAccept, String isIdAll) {
+			String RImages,String RImagesUrl, String isIdAccept, String isIdAll) {
 		this.RId = RId;
 		this.scId = scId;
 		this.RType = RType;
@@ -44,6 +83,7 @@ public class Recipe implements java.io.Serializable {
 		this.RCreatTime = RCreatTime;
 		this.RStatus = RStatus;
 		this.RImages = RImages;
+		this.RImagesUrl = RImagesUrl;
 		this.isIdAccept = isIdAccept;
 		this.isIdAll = isIdAll;
 	}

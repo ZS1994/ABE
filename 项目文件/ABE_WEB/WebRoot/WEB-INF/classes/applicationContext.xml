@@ -34,6 +34,10 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="recipeSer" ref="lz_recipe_ser"></property>
 	</bean>
+	<bean id="lz_vacate" class="com.abe.action.VacateAction">
+ 		<property name="ser" ref="zs_ser"></property>
+ 		<property name="vacateSer" ref="lz_vacate_ser"></property>	
+ 	</bean>
 	<bean id="zs_forum" class="com.abe.action.home.ForumAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="forumSer" ref="zs_forum_ser"></property>
@@ -42,8 +46,10 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="timetablesSer" ref="zs_timetables_ser"></property>
 	</bean>
-	
-	
+	<bean id="zs_course" class="com.abe.action.home.CourseAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="courseSer" ref="zs_course_ser"></property>
+	</bean>
 	
 	<!-- ****************消息中心**************** -->
 	<bean id="zs_province" class="com.abe.action.information.ProvinceAction">
@@ -71,6 +77,12 @@
 		<property name="classSer" ref="zs_school_class_ser"></property>
 	</bean>
 	
+	<!-- ****************个人中心**************** -->
+	<bean id="zs_one" class="com.abe.action.one.OneAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="signSer" ref="zs_sign_ser"></property>
+	</bean>
+	
 	
 	<!-- **************拦截器************* -->
 	<bean id="zs_interceptor_role" class="com.abe.interceptor.RoleInterceptorWeb">
@@ -79,12 +91,18 @@
 	<bean id="zs_interceptor_timeline" class="com.abe.interceptor.TimelineInterceptorWeb">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="zs_interceptor_token" class="com.abe.interceptor.TokenInterceptorWeb">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<bean id="zs_interceptor_role_app" class="com.abe.interceptor.RoleInterceptorApp">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="signSer" ref="zs_sign_ser"></property>
 	</bean>
 	<bean id="zs_interceptor_timeline_app" class="com.abe.interceptor.TimelineInterceptorApp">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	
+	
 	<!-- ***************service层********************** -->
 	<bean id="zs_ser" class="com.abe.service.impl.BaseServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
@@ -101,6 +119,9 @@
 	<bean id="lz_recipe_ser" class="com.abe.service.impl.RecipeServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
+	<bean id="lz_vacate_ser" class="com.abe.service.impl.VacateServiceImpl">
+ 		<property name="dao" ref="zs_dao"></property>
+ 	</bean>
 	<bean id="zs_forum_ser" class="com.abe.service.home.impl.ForumServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
@@ -123,6 +144,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_timetables_ser" class="com.abe.service.home.impl.TimetablesServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_course_ser" class="com.abe.service.home.impl.CourseServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	

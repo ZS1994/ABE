@@ -5,9 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.abe.entity.Recipe;
+import com.abe.entity.Users;
 import com.abe.entity.app.RespRecipe;
+import com.abe.entity.app.RespRecipeAll;
 import com.abe.service.iRecipeService;
 import com.abe.tools.NameOfDate;
+import com.abe.tools.Page;
 
 
 public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService {
@@ -25,7 +28,6 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 		NameOfDate nameOfData = new NameOfDate();
 		
 		String time = getTime();
-		
 		recipe.setRCreatTime(time);
 		recipe.setRId(nameOfData.getNum());
 		recipe.setScId(scId);
@@ -41,15 +43,16 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 		return respRecipe;
 	}
 	@Override
-	public RespRecipe releaseRecipe(String scId, String rType, String rTime,
+	public RespRecipe releaseRecipe(String rId,String scId, String rType, String rTime,
 			String rState, String uId, String rImages,
-			String isIdAll) {
-		final String HINT_SUCCESS_RECIPE = "003";//发布食谱成功
+			String isIdAll,String rCreatTime,String rImagesUrl) {
+		final String HINT_SUCCESS_RECIPE = "001";//发布食谱成功
 		final String HINT_STATUS_RECIPE = "已发布";
 		
 		RespRecipe respRecipe = new RespRecipe();
 		Recipe recipe = new Recipe();
 		
+		recipe.setRId(rId);
 		recipe.setScId(scId);
 		recipe.setRType(rType);
 		recipe.setRTime(rTime);
@@ -57,6 +60,7 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 		recipe.setUId(uId);
 		recipe.setIsIdAll(isIdAll);
 		recipe.setRStatus(HINT_STATUS_RECIPE);
+		recipe.setRCreatTime(rCreatTime);
 		update(recipe);
 		
 		respRecipe.setResult(HINT_SUCCESS_RECIPE);
@@ -69,17 +73,86 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 		return time;
 	}
 	@Override
-	public RespRecipe findAllRecipe() {
-		RespRecipe respRecipe = new RespRecipe();
+	public RespRecipeAll findPageAllRecipe() {
+		RespRecipeAll respRecipeAll = new RespRecipeAll();
 		Recipe recipe = new Recipe();
 		
 		List<Recipe> list = find("from Recipe",null);
 		if (list.size()>0){
-			for (int i = 0; i < list.size(); i++){
-				respRecipe.setData(list.get(i));
-			}
+//			for (int i = 0; i < list.size(); i++){
+//				respRecipeAll.setData(list);
+//			}
+			respRecipeAll.setData(list);
+			respRecipeAll.setResult("001");
 		}
-		return null;
+		return respRecipeAll;
+	}
+	@Override
+	public RespRecipe updateRecipe(String rId,String scId, String rType, String rTime,
+			String rState, String uId, String rImages, String isIdAll,String rStatus,String rCreatTime) {
+		RespRecipe respRecipe = new RespRecipe();
+		Recipe recipe = new Recipe();
+		recipe.setRId(rId);
+		recipe.setScId(scId);
+		recipe.setRType(rType);
+		recipe.setRTime(rTime);
+		recipe.setRState(rState);
+		recipe.setUId(uId);
+		recipe.setIsIdAll(isIdAll);
+		recipe.setRStatus(rStatus);
+		recipe.setRCreatTime(rCreatTime);
+		update(recipe);
+		
+		respRecipe.setResult("001");
+		respRecipe.setData(recipe);
+		return respRecipe;
+	}
+	@Override
+	public RespRecipe deleteRecipe(String rId) {
+		Recipe recipe = (Recipe) get(Recipe.class,rId);
+		delete(recipe);
+		RespRecipe respRecipe = new RespRecipe("001",recipe);
+		
+		return respRecipe;
+	}
+	@Override
+	public RespRecipeAll findPageCreaterRecipe(String uId,String pageNo,String pageSize) {
+		RespRecipeAll respRecipeAll = new RespRecipeAll();
+		Recipe recipe = new Recipe();		
+		int pano = Integer.valueOf(pageNo);
+		int size = Integer.valueOf(pageSize);
+		if (pano<=0) {
+			respRecipeAll.setResult("002");
+			respRecipeAll.setData(null);
+		}else if (size<=0) {
+			respRecipeAll.setResult("003");
+			respRecipeAll.setData(null);
+		}else {
+			Page page=new Page(pano, 0, size);
+		String hql1="from Recipe where UId = ? order by RCreatTime";
+		String hql2="from Recipe where UId = '"+uId+"' order by RCreatTime";
+	List<Recipe> list = query(hql1, new String[]{uId}, hql2, page);
+//			List<Recipe> list = find("from Recipe",null);
+		for (int i = 0; i < list.size(); i++) {
+			Users user=(Users) get(Users.class, list.get(i).getUId());
+			user.setUPass(null);
+			list.get(i).setUsers(user);
+		}
+		if (list.size()>0){
+			respRecipeAll.setData(list);
+			respRecipeAll.setResult("001");
+		}else {
+			respRecipeAll.setData(null);
+			respRecipeAll.setResult("004");
+		}
+		}
+		return respRecipeAll;
+	}
+	@Override
+	public RespRecipe findSingleRecipe(String rId) {
+		Recipe recipe = (Recipe) get(Recipe.class,rId);
+		RespRecipe respRecipe = new RespRecipe("001",recipe);
+		return respRecipe;
 	}
 
 }

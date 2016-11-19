@@ -66,4 +66,10 @@ public class SchoolClass implements java.io.Serializable {
 		this.itId = itId;
 	}
 
+	@Override
+	public String toString() {
+		return "SchoolClass [itId=" + itId + ", scId=" + scId + ", scName="
+				+ scName + ", sgId=" + sgId + "]";
+	}
+
 }

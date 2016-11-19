@@ -22,8 +22,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body>
   	
-	<div class="left" style="background-color: black;">
-  	
+	<div class="left" style="background-color: #9B9B9B;">
+  		<ul>
+		<li>
+			<a href="<%=path %>/">返回</a>
+  		</li>
+  		<li>学生管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/backstage/student/studentManager.jsp">学生管理</a>
+  			</li>
+  		</ul>
+  		<li>教职员工管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/backstage/student/studentManager.jsp">教职员工管理</a>
+  			</li>
+  		</ul>
+  		<li>课程表管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/web/timetables!gotoQuery">课程表管理</a>
+  			</li>
+  			<li>
+  				<a href="<%=path %>/web/course!gotoQuery">科目管理</a>
+  			</li>
+  		</ul>
+  		<li>组织架构管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/">班级管理</a>
+  			</li>
+  		</ul>
+  		</ul>
   	
 	</div>
   

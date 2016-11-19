@@ -220,4 +220,17 @@ public class InfoTeacher implements java.io.Serializable {
 		this.ssId = ssId;
 	}
 
+	@Override
+	public String toString() {
+		return "InfoTeacher [itAddress=" + itAddress + ", itAge=" + itAge
+				+ ", itBirthday=" + itBirthday + ", itCreateTime="
+				+ itCreateTime + ", itId=" + itId + ", itIntoDate="
+				+ itIntoDate + ", itLastTime=" + itLastTime + ", itLeaveDate="
+				+ itLeaveDate + ", itName=" + itName + ", itNum=" + itNum
+				+ ", itPhone=" + itPhone + ", itPost=" + itPost + ", itQq="
+				+ itQq + ", itSection=" + itSection + ", itSex=" + itSex
+				+ ", itState=" + itState + ", itWechat=" + itWechat + ", ssId="
+				+ ssId + "]";
+	}
+
 }

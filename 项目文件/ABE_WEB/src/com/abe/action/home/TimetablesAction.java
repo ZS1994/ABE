@@ -1,11 +1,30 @@
 package com.abe.action.home;
 
+import java.io.IOException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+
 import org.apache.log4j.Logger;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.Course;
+import com.abe.entity.InfoTeacher;
+import com.abe.entity.SchoolClass;
+import com.abe.entity.Timetables;
+import com.abe.entity.app.RespCommon;
+import com.abe.entity.app.RespTimetables;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iTimetablesService;
+import com.abe.tools.JsonDateValueProcessor;
+import com.abe.tools.NameOfDate;
+import com.abe.tools.Page;
 
 /**
  * 张顺 2016-11-12
@@ -22,7 +41,30 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 	private iTimetablesService timetablesSer;
 	private Logger log=Logger.getLogger(TimetablesAction.class);
 	
+	private Page page;
+	private Course course;
+	private Timetables timetables;
+	private String result="timetablesManager";
 
+	//---------------------------------------------------
+	public Page getPage() {
+		return page;
+	}
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	public Timetables getTimetables() {
+		return timetables;
+	}
+	public void setTimetables(Timetables timetables) {
+		this.timetables = timetables;
+	}
 	public iBaseService getSer() {
 		return ser;
 	}
@@ -35,10 +77,24 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 	public void setTimetablesSer(iTimetablesService timetablesSer) {
 		this.timetablesSer = timetablesSer;
 	}
-
+	//---------------------------------------------------
+	
+	//张顺 2016-11-13
 	@Override
 	public String add() {
-		// TODO Auto-generated method stub
+		//装载Time字段
+		String stime=ser.clearSpace(getRequest(), "time1");
+		String etime=ser.clearSpace(getRequest(), "time2");
+		if (stime!=null) {
+			String ss[]=stime.split(":");
+			timetables.setTStartTime(new Time(Integer.valueOf(ss[0]), Integer.valueOf(ss[1]), 0));
+		}
+		if (etime!=null) {
+			String ss[]=etime.split(":");
+			timetables.setTEndTime(new Time(Integer.valueOf(ss[0]), Integer.valueOf(ss[1]), 0));
+		}
+		timetables.setTId(NameOfDate.getNum());
+		ser.save(timetables);
 		return null;
 	}
 
@@ -62,24 +118,50 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String gotoQuery() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return result;
+	} 
 
 	/**
 	 * 张顺 2016-11-12
 	 * <br>从APP查本周的课程表
 	 * @return
+	 * @throws IOException 
 	 */
-	public String queryFromApp() {
-		
+	public String queryFromApp() throws IOException {
+		RespTimetables timetable=new RespTimetables();
+		String scId=ser.clearSpace(getRequest(), "scId");
+		if (scId==null) {
+			timetable.setResult("003");
+	        timetable.setData(null);
+		}else {
+			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, scId);
+			if (schoolClass==null) {
+				timetable.setResult("002");
+		        timetable.setData(null);
+			}else {
+				List<List<Timetables>> list=timetablesSer.getAllOfWeek(scId);
+				timetable.setResult("001");
+				timetable.setData(list);
+			}
+		}
+        JSONObject jsonObject=ser.objToJson(timetable);
+        sendToApp(jsonObject, ser);
 		return null;
 	}
 	
+	
 	@Override
 	public String queryOfFenYe() {
-		// TODO Auto-generated method stub
-		return null;
+		String scId=ser.clearSpace(getRequest(), "scId");
+		List<List<Timetables>> list=null;
+		if (scId!=null) {
+			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, scId);
+			if (schoolClass!=null) {
+				list=timetablesSer.getAllOfWeek(scId);
+			}
+		}
+		getRequest().setAttribute("ttlist", list);
+		return result;
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package com.abe.entity;
 
 import java.sql.Time;
-import java.util.Date;
 
 /**
  * Timetables entity. @author MyEclipse Persistence Tools
@@ -12,18 +11,47 @@ public class Timetables implements java.io.Serializable {
 	// Fields
 
 	private String TId;
+	private Integer TWeek;
+	private Integer TOrder;
 	private String CId;
-	private String scId;
 	private String itId;
 	private Time TStartTime;
 	private Time TEndTime;
-	private Date TDate;
-	private Integer TOrder;
+	private String scId;
 
+	
+	private Course course;
+	private SchoolClass schoolClass;
+	private InfoTeacher infoTeacher;
+	
 	// Constructors
 
 	/** default constructor */
 	public Timetables() {
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public SchoolClass getSchoolClass() {
+		return schoolClass;
+	}
+
+	public void setSchoolClass(SchoolClass schoolClass) {
+		this.schoolClass = schoolClass;
+	}
+
+	public InfoTeacher getInfoTeacher() {
+		return infoTeacher;
+	}
+
+	public void setInfoTeacher(InfoTeacher infoTeacher) {
+		this.infoTeacher = infoTeacher;
 	}
 
 	/** minimal constructor */
@@ -32,16 +60,16 @@ public class Timetables implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Timetables(String TId, String CId, String scId, String itId,
-			Time TStartTime, Time TEndTime, Date TDate, Integer TOrder) {
+	public Timetables(String TId, Integer TWeek, Integer TOrder, String CId,
+			String itId, Time TStartTime, Time TEndTime, String scId) {
 		this.TId = TId;
+		this.TWeek = TWeek;
+		this.TOrder = TOrder;
 		this.CId = CId;
-		this.scId = scId;
 		this.itId = itId;
 		this.TStartTime = TStartTime;
 		this.TEndTime = TEndTime;
-		this.TDate = TDate;
-		this.TOrder = TOrder;
+		this.scId = scId;
 	}
 
 	// Property accessors
@@ -54,20 +82,28 @@ public class Timetables implements java.io.Serializable {
 		this.TId = TId;
 	}
 
+	public Integer getTWeek() {
+		return this.TWeek;
+	}
+
+	public void setTWeek(Integer TWeek) {
+		this.TWeek = TWeek;
+	}
+
+	public Integer getTOrder() {
+		return this.TOrder;
+	}
+
+	public void setTOrder(Integer TOrder) {
+		this.TOrder = TOrder;
+	}
+
 	public String getCId() {
 		return this.CId;
 	}
 
 	public void setCId(String CId) {
 		this.CId = CId;
-	}
-
-	public String getScId() {
-		return this.scId;
-	}
-
-	public void setScId(String scId) {
-		this.scId = scId;
 	}
 
 	public String getItId() {
@@ -94,20 +130,12 @@ public class Timetables implements java.io.Serializable {
 		this.TEndTime = TEndTime;
 	}
 
-	public Date getTDate() {
-		return this.TDate;
+	public String getScId() {
+		return this.scId;
 	}
 
-	public void setTDate(Date TDate) {
-		this.TDate = TDate;
-	}
-
-	public Integer getTOrder() {
-		return this.TOrder;
-	}
-
-	public void setTOrder(Integer TOrder) {
-		this.TOrder = TOrder;
+	public void setScId(String scId) {
+		this.scId = scId;
 	}
 
 }

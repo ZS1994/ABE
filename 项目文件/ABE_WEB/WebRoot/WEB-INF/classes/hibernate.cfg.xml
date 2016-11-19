@@ -9,6 +9,7 @@
 	<session-factory>
 
 		<!--
+		-->
 			<property name="proxool.pool_alias">DBPool</property>
 			<property name="proxool.xml">proxool.xml</property>
 			<property name="connection.provider_class">
@@ -17,14 +18,14 @@
 			<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 			</property>
-		-->
 
 
+		<!--
 		<property name="myeclipse.connection.profile">
 			com.mysql.jdbc.Driver2
 		</property>
 		<property name="connection.url">
-			jdbc:mysql://localhost:3306/abe
+			jdbc:mysql://localhost:3306/abe?useUnicode=true&amp;characterEncoding=utf-8
 		</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">123456</property>
@@ -34,7 +35,6 @@
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 		</property>
-		<!--
 		-->
 
 
@@ -56,6 +56,8 @@
 		<mapping resource="com/abe/entity/Score.hbm.xml" />
 		<mapping resource="com/abe/entity/Timetables.hbm.xml" />
 		<mapping resource="com/abe/entity/Course.hbm.xml" />
+		<mapping resource="com/abe/entity/Vacate.hbm.xml" />
+		<mapping resource="com/abe/entity/Licence.hbm.xml" />
 
 	</session-factory>
 

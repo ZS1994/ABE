@@ -88,6 +88,7 @@ public interface iBaseService {
 	 * @param datePatten 时间格式
 	 * @return JSONObject
 	 */
+	@Deprecated
 	public JSONObject objToJson(Object obj,String datePatten);
 	
 	/**张顺 2016-11-12
@@ -96,8 +97,17 @@ public interface iBaseService {
 	 * @param datePatten 时间格式
 	 * @return JSONObject
 	 */
+	@Deprecated
 	public JSONObject objToJson2(Object obj,String datePatten);
 	
+	/**
+	 * 张顺 2016-11-14
+	 * <br>object转换成json的封装方法，完美解决时间日期的问题，且可应对各种时间类型
+	 * <br>注意：该方法只适合本系统。（因为对数据库的类型有过约定）
+	 * @param obj
+	 * @return
+	 */
+	public JSONObject objToJson(Object obj);
 	
 	
 	/**张顺 2016-11-7 22:13:15<br>
