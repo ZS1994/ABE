@@ -4,10 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.abe.entity.Recipe;
+import com.abe.entity.Forum;
 import com.abe.entity.Users;
 import com.abe.entity.Vacate;
-import com.abe.entity.app.RespRecipe;
+import com.abe.entity.app.RespRecipeAll;
 import com.abe.entity.app.RespVacate;
 import com.abe.entity.app.RespVacateAll;
 import com.abe.service.iVacateService;
@@ -22,9 +22,7 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 			String vContent, String vDate) {
 		RespVacate respVacate = new RespVacate();
 		Vacate vacate = new Vacate();
-		NameOfDate nameOfData = new NameOfDate();
 		
-		String time = getTime();
 		if (isId==null||"".equals(isId)){
 			respVacate.setData(null);
 			respVacate.setResult("002");
@@ -41,13 +39,18 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 			respVacate.setResult("005");
 			
 		} else{
-		vacate.setVId(nameOfData.getNum());
+		String time = getTime();
+		NameOfDate nameOfData = new NameOfDate();
+		String vId = nameOfData.getNum();
+		
+		vacate.setVId(vId);
 		vacate.setIsId(isId);
 		vacate.setUId(uId);
 		vacate.setItId(itId);
 		vacate.setVContent(vContent);
 		vacate.setVDate(vDate);
 		vacate.setVTime(time);
+		vacate.setVResp("");
 		save(vacate);
 		
 		respVacate.setData(vacate);
@@ -99,18 +102,25 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 		Vacate vacate = new Vacate();
 		int pano = Integer.valueOf(pageNo);
 		int size = Integer.valueOf(pageSize);
+
 		if (pano<=0) {
+
 			respVacateAll.setResult("002");
 			respVacateAll.setData(null);
 		}else if (size<=0) {
+
 			respVacateAll.setResult("003");
 			respVacateAll.setData(null);
 		}else {
+
 			Page page=new Page(pano, 0, size);
 			Users user =(Users) get(Users.class,uId);
-			if(user!=null&&!"".equals(user)){	
+			if(user!=null){	
+
 				String type = user.getUType();
-				if(type=="1"){
+				System.out.println(type);
+				if("1".equals(type)){
+
 					String hql1="from Vacate where UId = ? order by VTime";
 					String hql2="from Vacate where UId = '"+uId+"' order by VTime";
 					List<Vacate> list = query(hql1, new String[]{uId}, hql2, page);
@@ -120,15 +130,18 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 						list.get(i).setUser(user);
 					}
 					if (list.size()>0){
+
 						respVacateAll.setData(list);
 						respVacateAll.setResult("001");
 					}else {
+
 						respVacateAll.setData(null);
-						respVacateAll.setResult("004");
+						respVacateAll.setResult("004");//当前用户下没有请假条或页数超限
 					}
-				}else if(type=="2"){
-					String hql1="from Vacate where ItId = ? order by VTime";
-					String hql2="from Vacate where ItId = '"+user.getTrpId()+"' order by VTime";
+				}else if("2".equals(type)){
+
+					String hql1="from Vacate where itId = ? order by VTime";
+					String hql2="from Vacate where itId = '"+user.getTrpId()+"' order by VTime";
 					List<Vacate> list = query(hql1, new String[]{uId}, hql2, page);
 					for (int i = 0; i < list.size(); i++) {
 						user=(Users) get(Users.class, list.get(i).getUId());
@@ -136,27 +149,57 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 						list.get(i).setUser(user);
 					}
 					if (list.size()>0){
+
 						respVacateAll.setData(list);
 						respVacateAll.setResult("001");
 					}else {
+
 						respVacateAll.setData(null);
-						respVacateAll.setResult("005");
+						respVacateAll.setResult("005");//当前用户下没有请假条或页数超限
 					}	
 				}else{
-					
+					respVacateAll.setData(null);
+					respVacateAll.setResult("007");//有用户但类型不是教师也不是家长
 				}
 			}else{
+
 				respVacateAll.setData(null);
-				respVacateAll.setResult("006");
+				respVacateAll.setResult("006");//用户不存在
 			}
 		}
+
 		return respVacateAll;
 	}
 
 	@Override
 	public RespVacateAll findAllVacate(String pageNo,String pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		RespVacateAll respVacateAll = new RespVacateAll();
+		Vacate Vacate = new Vacate();		
+		
+		int pano = 0;
+		pano=pageNo==null?0:Integer.valueOf(pageNo);
+		int size = 0;
+		size=pageSize==null?0:Integer.valueOf(pageSize);
+		
+		if (pano<=0) {
+			respVacateAll.setResult("002");
+			respVacateAll.setData(null);
+		}else if (size<=0) {
+			respVacateAll.setResult("003");
+			respVacateAll.setData(null);
+		}else {
+			Page page=new Page(pano, 0, size);
+			String hql="from Vacate order by VTime desc";
+			List<Vacate> vacate=query(hql, null, hql, page); 
+			for (int i = 0; i < vacate.size(); i++) {
+				Users user=(Users) get(Users.class, vacate.get(i).getUId());
+				user.setUPass(null);
+				vacate.get(i).setUser(user);
+			}
+			respVacateAll.setResult("001");
+			respVacateAll.setData(vacate);
+		}
+		return respVacateAll;
 	}
 
 

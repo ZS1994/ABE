@@ -44,6 +44,7 @@ public class BaseAction extends ActionSupport{
 	public HttpServletResponse getResponse() {
 		HttpServletResponse resp=ServletActionContext.getResponse();
 		resp.setCharacterEncoding("utf-8");
+//		resp.setContentType("text/plain;charset=UTF-8");
 		return resp;
 	}
 	public void setResponse(HttpServletResponse response) {

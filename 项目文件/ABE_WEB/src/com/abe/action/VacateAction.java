@@ -84,6 +84,19 @@ public class VacateAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	/*
+	 * 分页查看所有请假条（是否分区域看后期需求）
+	 */
+	public String findAllVacate()throws IOException{
+		String pageNo = (String) getRequest().getParameter("pageNo");
+		String pageSize = (String) getRequest().getParameter("Size");
+		RespVacateAll respVacateAll = vacateSer.findAllVacate(pageNo,pageSize);
+		JSONObject jsonObject=ser.objToJson(respVacateAll, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
 	public Vacate getVacate() {
 		return vacate;
 	}

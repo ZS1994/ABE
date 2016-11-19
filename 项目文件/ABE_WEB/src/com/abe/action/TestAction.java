@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
 import com.abe.service.iBaseService;
+import com.abe.tools.MachineCode;
 
 
 public class TestAction extends BaseAction{
@@ -63,6 +64,17 @@ public class TestAction extends BaseAction{
 		logger.debug(users2==null);
 		
 		return SUCCESS;
+	}
+	
+	
+	public String mc() throws Exception {
+		
+		String ip=MachineCode.getIpAddr(getRequest());
+//		String mac=MachineCode.getMACAddress(ip);
+		logger.debug(ip);
+//		logger.debug(mac);
+		
+		return null;
 	}
 	
 }

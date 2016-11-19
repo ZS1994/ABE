@@ -96,6 +96,7 @@
 	</bean>
 	<bean id="zs_interceptor_role_app" class="com.abe.interceptor.RoleInterceptorApp">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="signSer" ref="zs_sign_ser"></property>
 	</bean>
 	<bean id="zs_interceptor_timeline_app" class="com.abe.interceptor.TimelineInterceptorApp">
 		<property name="ser" ref="zs_ser"></property>

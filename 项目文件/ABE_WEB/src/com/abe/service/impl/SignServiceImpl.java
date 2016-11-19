@@ -3,22 +3,30 @@ package com.abe.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
 
 import org.apache.log4j.Logger;
 
+import com.abe.entity.Licence;
 import com.abe.entity.Users;
+import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespSignIn;
 import com.abe.entity.app.RespUpdateUser;
 import com.abe.entity.app.RespUploadPhoto;
 import com.abe.service.iSignService;
 import com.abe.tools.Base64;
 import com.abe.tools.Constant;
+import com.abe.tools.MachineCode;
 import com.abe.tools.NameOfDate;
+import com.abe.tools.TokenProccessor;
 
 public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	
@@ -52,6 +60,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	
 	
 	@Override
+	@Deprecated
 	public RespSignIn signInFromApp(String uNum, String uPass) {
 		List list=find("from Users where UNum=?", new Object[]{uNum});
 		Users u=null;
@@ -73,7 +82,63 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		return respSignIn;
 	}
 
+	
+	@Override
+	public RespCommon signInFromApp(String uNum, String uPass,
+			HttpServletRequest request) throws Exception {
+		List list=find("from Users where UNum=?", new Object[]{uNum});
+		Users u=null;
+		if (list.size()>0) {
+			u=(Users) list.get(0);
+		}
+		RespCommon respSignIn=new RespCommon();
+		if (u==null) {
+			respSignIn.setResult("002");
+		}else {
+			if (!u.getUPass().equals(uPass)) {
+				respSignIn.setResult("003");
+			}else {
+				respSignIn.setResult("001");
+				u.setUPass(null);//去掉密码信息
+				String ip=MachineCode.getIpAddr(request);
+				String licence=TokenProccessor.getInstance().makeToken();
+				Date dateStart=new Date();
+				Date dateEnd=getEndDate(dateStart);
+				Licence licencetmp=(Licence) get(Licence.class, u.getUId());
+				if (licencetmp==null) {
+					Licence licenceObj=new Licence(u.getUId(),licence,ip, new Timestamp(dateStart.getTime()), new Timestamp(dateEnd.getTime()));
+					save(licenceObj);
+				}else {
+					licencetmp.setLLicence(licence);
+					licencetmp.setLIp(ip);
+					licencetmp.setLDateStart(new Timestamp(dateStart.getTime()));
+					licencetmp.setLDateEnd(new Timestamp(dateEnd.getTime()));
+					update(licencetmp);
+				}
+				HashMap map=new HashMap();
+				map.put("user", u);
+				map.put("licence", licence);
+				respSignIn.setData(map);
+			}
+		}
+		return respSignIn;
+	}
 
+	
+	public Date getEndDate(Date date) {
+		Date datetmp=null;
+		if (date==null) {
+			datetmp=new Date();
+		}else {
+			datetmp=date;
+		}
+		Calendar calendar=new GregorianCalendar(); 
+		calendar.setTime(datetmp);
+		calendar.add(Calendar.HOUR, 1);
+		return calendar.getTime();
+	}
+	
+	
 	@Override
 	public RespUploadPhoto uploadPhoto(String UId, String photo,String format,String abePath) {
 		//清空格
@@ -201,6 +266,8 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		return updateUser;
 	}
 
+
+	
 
 
 
