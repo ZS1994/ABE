@@ -1,16 +1,19 @@
 package com.abe.action.home;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.management.Query;
 
 import org.apache.log4j.Logger;
 
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.InfoStudent;
+import com.abe.entity.Users;
 import com.abe.entity.app.ReqObject;
 import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespStudent;
@@ -107,7 +110,7 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 
 	/**
 	 * 张顺 2016-11-12
-	 * <br>从APP获取学生信息
+	 * <br>从APP获取学生信息,通过学生id获取
 	 * @return
 	 * @throws IOException 
 	 */
@@ -128,6 +131,37 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 			}
 		} 
 		sendToApp2(respStudent, ser);
+		return null;
+	}
+	
+	/**
+	 * 张顺 2016-11-18
+	 * app通过uid查学生信息
+	 * @return
+	 * @throws IOException
+	 */
+	public String queryFromApp2() throws IOException {
+		String uid=ser.clearSpace(getRequest(), "UId");
+		RespCommon respStudent=new RespCommon();
+		if (uid==null) {
+			respStudent.setResult("003");
+			respStudent.setData(null);
+		}else {
+			Users user=(Users) ser.get(Users.class, uid);
+			if (user==null) {
+				respStudent.setResult("002");
+				respStudent.setData(null);
+			}else if (user.getUType().equals("1")) {
+				List<InfoStudent> list=ser.find("from InfoStudent where UId=?", new String[]{user.getUId()});
+				respStudent.setResult("001");
+				respStudent.setData(list);
+			}else {
+				respStudent.setResult("004");
+				respStudent.setData(null);
+			}
+		} 
+		JSONObject json=ser.objToJson(respStudent);
+		sendToApp(json, ser);
 		return null;
 	}
 	

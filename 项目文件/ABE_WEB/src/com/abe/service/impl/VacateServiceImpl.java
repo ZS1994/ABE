@@ -176,8 +176,10 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 		RespVacateAll respVacateAll = new RespVacateAll();
 		Vacate Vacate = new Vacate();		
 		
-		int pano = Integer.valueOf(pageNo);
-		int size = Integer.valueOf(pageSize);
+		int pano = 0;
+		pano=pageNo==null?0:Integer.valueOf(pageNo);
+		int size = 0;
+		size=pageSize==null?0:Integer.valueOf(pageSize);
 		
 		if (pano<=0) {
 			respVacateAll.setResult("002");
