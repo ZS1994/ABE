@@ -2,6 +2,7 @@ package com.abe.action.home;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import net.sf.json.JSONObject;
 
@@ -10,6 +11,8 @@ import org.apache.log4j.Logger;
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.InfoTeacher;
+import com.abe.entity.Users;
+import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespTeacher;
 import com.abe.entity.app.RespUpdateUser;
 import com.abe.service.iBaseService;
@@ -30,6 +33,31 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	private InfoTeacher teacher;
 	
 	private Logger logger=Logger.getLogger(InfoTeaAction.class);
+	/**
+	 * 卢江林 2016-11-21
+	 * app通过uid查询教师资料
+	 */
+	public String queryFromAPP()throws IOException{
+		String uid = ser.clearSpace(getRequest(), "UId");
+		RespCommon respTeacher = new RespCommon();
+		if(uid!=null){
+			respTeacher.setResult("003");
+			respTeacher.setData(null);
+		}else{
+			Users user = (Users) ser.get(Users.class, uid);
+			if(user==null){
+				respTeacher.setResult("002");
+				respTeacher.setData(null);
+			}else if(user.getUType().equals("2")){
+				List<InfoTeacher> list = ser.find("from InfoTeacher where Uid=?", new String[]{user.getUId()});
+				respTeacher.setResult("001");
+				respTeacher.setData(null);
+			}
+		}
+		JSONObject json = ser.objToJson(respTeacher);
+		sendToApp(json,ser);
+		return null;
+	}
 	
 	/**
 	 * @author lujianglin

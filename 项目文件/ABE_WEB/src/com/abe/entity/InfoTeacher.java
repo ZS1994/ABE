@@ -34,6 +34,7 @@ public class InfoTeacher implements java.io.Serializable {
 	private Timestamp itLastTime;
 	private Timestamp itCreateTime;
 	private String itAddress;
+	//private String uid;
 	private String ssId;
 
 	// Constructors
@@ -41,6 +42,54 @@ public class InfoTeacher implements java.io.Serializable {
 	/** default constructor */
 	public InfoTeacher() {
 	}
+
+	/**
+	 * @param itId
+	 * @param itNum
+	 * @param itName
+	 * @param itSex
+	 * @param itBirthday
+	 * @param itAge
+	 * @param itPhone
+	 * @param itWechat
+	 * @param itQq
+	 * @param itSection
+	 * @param itPost
+	 * @param itIntoDate
+	 * @param itLeaveDate
+	 * @param itState
+	 * @param itLastTime
+	 * @param itCreateTime
+	 * @param itAddress
+	 * @param uid
+	 * @param ssId
+	 */
+	/*public InfoTeacher(String itId, String itNum, String itName, String itSex,
+			Date itBirthday, Integer itAge, String itPhone, String itWechat,
+			String itQq, String itSection, String itPost, Date itIntoDate,
+			Date itLeaveDate, String itState, Timestamp itLastTime,
+			Timestamp itCreateTime, String itAddress, String uid, String ssId) {
+		super();
+		this.itId = itId;
+		this.itNum = itNum;
+		this.itName = itName;
+		this.itSex = itSex;
+		this.itBirthday = itBirthday;
+		this.itAge = itAge;
+		this.itPhone = itPhone;
+		this.itWechat = itWechat;
+		this.itQq = itQq;
+		this.itSection = itSection;
+		this.itPost = itPost;
+		this.itIntoDate = itIntoDate;
+		this.itLeaveDate = itLeaveDate;
+		this.itState = itState;
+		this.itLastTime = itLastTime;
+		this.itCreateTime = itCreateTime;
+		this.itAddress = itAddress;
+		this.uid = uid;
+		this.ssId = ssId;
+	}*/
 
 	/** minimal constructor */
 	public InfoTeacher(String itId, String itNum) {
@@ -75,10 +124,18 @@ public class InfoTeacher implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+    
 	public String getItId() {
 		return this.itId;
 	}
+
+	/*public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}*/
 
 	public void setItId(String itId) {
 		this.itId = itId;
