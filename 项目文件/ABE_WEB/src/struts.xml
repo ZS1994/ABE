@@ -20,8 +20,14 @@
           <interceptor-ref name="timeline_inter_app" />  
       </interceptor-stack>  
   </interceptors>
+  <!-- ********登录************ -->
   <action name="sign" class="zs_sign">	   
   	 <interceptor-ref name="mydefault" />
+  </action>
+  
+  <!-- *********测试************** -->
+  <action name="test" class="zs_test">	   
+     <result>/index.jsp</result>
   </action>
   
   <!-- ********首页*********** -->
@@ -93,7 +99,6 @@
   </interceptors>  
   <!-- 测试用 -->
   <action name="test" class="zs_test">	   
-  	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
   </action>
   <action name="sign" class="zs_sign">	   
@@ -121,6 +126,8 @@
   
   
 </package>
+
+
 
 
 </struts>    
