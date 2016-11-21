@@ -35,9 +35,10 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String rState=(String) getRequest().getParameter("RState");
 		String uId=(String) getRequest().getParameter("UId");
 		String rImages=(String) getRequest().getParameter("RImages");
+		String rImagesUrl=(String) getRequest().getParameter("RImagesUrl");
 		String isIdAll=(String) getRequest().getParameter("IsIdAll");
 		RespRecipe respRecipe=recipeSer.creatRecipe
-		(scId, rType, rTime, rState, uId, rImages,isIdAll);
+		(scId, rType, rTime, rState, uId, rImages,rImagesUrl,isIdAll);
 		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
@@ -72,7 +73,9 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 	 */
 	public String findAllRecipe() throws IOException{
 		logger.debug("-------进入findAllRecipe--------");
-		RespRecipeAll respRecipe = recipeSer.findPageAllRecipe();
+		String pageNo = (String) getRequest().getParameter("pageNo");
+		String pageSize = (String) getRequest().getParameter("Size");
+		RespRecipeAll respRecipe = recipeSer.findPageAllRecipe(pageNo,pageSize);
 		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
@@ -122,9 +125,10 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String rState = (String) getRequest().getParameter("RState");
 		String uId = (String) getRequest().getParameter("UId");
 		String rImages = (String) getRequest().getParameter("RImages");
+		String rImagesUrl=(String) getRequest().getParameter("RImagesUrl");
 		String isIdAll = (String) getRequest().getParameter("IsIdAll");
 		String rStatus = (String) getRequest().getParameter("RStatus");
-		RespRecipe respRecipe=recipeSer.updateRecipe(rId,scId, rType, rTime, rState, uId, rImages, isIdAll,rStatus,rCreatTime);
+		RespRecipe respRecipe=recipeSer.updateRecipe(rId,scId, rType, rTime, rState, uId, rImages,rImagesUrl, isIdAll,rStatus,rCreatTime);
 		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
 		getPrintWriter().flush();
