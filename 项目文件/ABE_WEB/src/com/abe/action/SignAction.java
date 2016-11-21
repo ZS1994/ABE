@@ -88,11 +88,9 @@ public class SignAction extends BaseAction implements iBaseAction{
 		String uNum=(String) getRequest().getParameter("UNum");
 		String uPass=(String) getRequest().getParameter("UPass");
 		RespCommon respSignIn=signSer.signInFromApp(uNum, uPass,getRequest());
-		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
-		logger.debug(jsonObject);
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		JSONObject jsonObject=ser.objToJson(respSignIn);
+//		logger.debug(jsonObject.toString());
+		sendToApp(jsonObject);
 		return null;
 	}
 	

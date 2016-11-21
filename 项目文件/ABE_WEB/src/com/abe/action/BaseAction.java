@@ -18,7 +18,6 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * 基础action类，自己写的action都必须继承他，他有一些常用的基本方法供调用
  * @author 张顺
- *
  */
 public class BaseAction extends ActionSupport{
 	
@@ -44,7 +43,7 @@ public class BaseAction extends ActionSupport{
 	public HttpServletResponse getResponse() {
 		HttpServletResponse resp=ServletActionContext.getResponse();
 		resp.setCharacterEncoding("utf-8");
-//		resp.setContentType("text/plain;charset=UTF-8");
+		resp.setContentType("text/html;charset=utf-8");
 		return resp;
 	}
 	public void setResponse(HttpServletResponse response) {
@@ -103,7 +102,7 @@ public class BaseAction extends ActionSupport{
 	 * @param ser
 	 * @throws IOException
 	 */
-	public void sendToApp(JSONObject json,iBaseService ser) throws IOException {
+	public void sendToApp(JSONObject json) throws IOException {
 		getPrintWriter().print(json);
 		getPrintWriter().flush();
 		getPrintWriter().close();
