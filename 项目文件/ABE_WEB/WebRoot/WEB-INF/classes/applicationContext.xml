@@ -82,10 +82,6 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="signSer" ref="zs_sign_ser"></property>
 	</bean>
-	<bean id="zs_score" class="com.abe.action.home.ScoreAction">
-		<property name="ser" ref="zs_ser"></property>
-		<property name="scoreSer" ref="zs_score_ser"></property>
-	</bean>
 	
 	
 	<!-- **************拦截器************* -->
@@ -151,9 +147,6 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_course_ser" class="com.abe.service.home.impl.CourseServiceImpl">
-		<property name="dao" ref="zs_dao"></property>
-	</bean>
-	<bean id="zs_score_ser" class="com.abe.service.home.impl.ScoreServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	

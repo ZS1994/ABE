@@ -22,6 +22,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.log4j.Logger;
 
+import com.abe.service.hx.iHttpClientMutator;
+
+
 
 /**
  * 张顺 2016-11-21
@@ -34,6 +37,7 @@ public class HttpClientHelper {
 	private static Logger log=Logger.getLogger(HttpClientHelper.class);
 	private static HttpClientHelper httpClient=null;
 	private static final String CONTENT_TYPE_TEXT_JSON = "text/json";
+	
 	
 	/*禁止从外部实例化*/
 	private HttpClientHelper() {
@@ -60,6 +64,7 @@ public class HttpClientHelper {
 	 * @param request
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	private static String sendRequest(HttpUriRequest request) {
         HttpClient client = new DefaultHttpClient();
         String line = null;
@@ -107,9 +112,10 @@ public class HttpClientHelper {
 	 * @return 字符串
 	 * @throws IOException
 	 */
-	public static String doPut(String url, String json)throws IOException {
+	public static String doPut(String url, String json,String token)throws IOException {
 		HttpPut httpPut = new HttpPut(url);
-		httpPut.setHeader("Content-Type", "application/json;charset=UTF-8");
+		httpPut.addHeader("Content-Type", "application/json;charset=UTF-8");
+		httpPut.addHeader("Authorization", "Bearer "+token);
 		if (json != null) {
 			StringEntity se = new StringEntity(json);
 			se.setContentType(CONTENT_TYPE_TEXT_JSON);
@@ -123,8 +129,9 @@ public class HttpClientHelper {
 	 * @param url
 	 * @return
 	 */
-	public static String doGet(String url) {
+	public static String doGet(String url,String token) {
 		HttpGet httpGet=new HttpGet(url);
+		httpGet.addHeader("Authorization", "Bearer "+token);
 		return sendRequest(httpGet);
 	}
 	
@@ -151,9 +158,12 @@ public class HttpClientHelper {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public static String doPost(String url,String json) throws UnsupportedEncodingException {
+	public static String doPost(String url,String json,String token) throws UnsupportedEncodingException {
 		HttpPost httpPost=new HttpPost(url);
-		httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
+		httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
+		if (token!=null) {
+			httpPost.addHeader("Authorization", "Bearer "+token);
+		}
 		if (json != null) {
 			StringEntity se = new StringEntity(json);
 			se.setContentType(CONTENT_TYPE_TEXT_JSON);
@@ -163,13 +173,42 @@ public class HttpClientHelper {
 	}
 	
 	/**
+	 * 可更改头信息的，以json为参数的，post请求
+	 * <br>不太好用，请在必须使用时使用
+	 * @param url
+	 * @param json
+	 * @param token
+	 * @param mutator
+	 * @return
+	 * @throws UnsupportedEncodingException
+	public static String doPost(String url,String json,String token,iHttpClientMutator mutator) throws UnsupportedEncodingException {
+		HttpPost httpPost=new HttpPost(url);
+		httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
+		if (token!=null) {
+			httpPost.addHeader("Authorization", "Bearer "+token);
+		}
+		if (mutator!=null) {
+			mutator.setHeader(httpPost);
+		}
+		if (json != null) {
+			StringEntity se = new StringEntity(json);
+			se.setContentType(CONTENT_TYPE_TEXT_JSON);
+		    httpPost.setEntity(se);
+		}
+		return sendRequest(httpPost);
+	}
+	 */
+	
+	/**
 	 * delete请求
 	 * @param url
 	 * @return
 	 */
-	public static String doDelete(String url) {
+	public static String doDelete(String url,String token) {
 		HttpDelete httpDelete=new HttpDelete(url);
+		httpDelete.addHeader("Authorization", "Bearer "+token);
 		return sendRequest(httpDelete);
 	}
+	
 	
 }
