@@ -18,7 +18,7 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 	
 	@Override
 	public RespRecipe creatRecipe(String scId, String rType, String rTime,
-			String rState, String uId, String rImages,//images多张上传暂未解决
+			String rState, String uId, String rImages,String rImagesUrl,//images多张上传暂未解决
 			String isIdAll) {
 		final String HINT_SUCCESS_RECIPE = "001";//创建食谱成功
 		final String HINT_STATUS_RECIPE = "未发布";
@@ -59,6 +59,8 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 		recipe.setRState(rState);
 		recipe.setUId(uId);
 		recipe.setIsIdAll(isIdAll);
+		recipe.setRImages(rImages);
+		recipe.setRImagesUrl(rImagesUrl);
 		recipe.setRStatus(HINT_STATUS_RECIPE);
 		recipe.setRCreatTime(rCreatTime);
 		update(recipe);
@@ -73,23 +75,39 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 		return time;
 	}
 	@Override
-	public RespRecipeAll findPageAllRecipe() {
+	public RespRecipeAll findPageAllRecipe(String pageNo,String pageSize) {
 		RespRecipeAll respRecipeAll = new RespRecipeAll();
 		Recipe recipe = new Recipe();
-		
-		List<Recipe> list = find("from Recipe",null);
+		int pano = Integer.valueOf(pageNo);
+		int size = Integer.valueOf(pageSize);
+		if (pano<=0) {
+			respRecipeAll.setResult("002");
+			respRecipeAll.setData(null);
+		}else if (size<=0) {
+			respRecipeAll.setResult("003");
+			respRecipeAll.setData(null);
+		}else {
+			Page page=new Page(pano, 0, size);
+		String hql1="from Recipe  order by RCreatTime";
+		List<Recipe> list = query(hql1, null, hql1, page);
+		for (int i = 0; i < list.size(); i++) {
+			Users user=(Users) get(Users.class, list.get(i).getUId());
+			user.setUPass(null);
+			list.get(i).setUsers(user);
+		}
 		if (list.size()>0){
-//			for (int i = 0; i < list.size(); i++){
-//				respRecipeAll.setData(list);
-//			}
 			respRecipeAll.setData(list);
 			respRecipeAll.setResult("001");
+		}else {
+			respRecipeAll.setData(null);
+			respRecipeAll.setResult("004");
+		}
 		}
 		return respRecipeAll;
 	}
 	@Override
 	public RespRecipe updateRecipe(String rId,String scId, String rType, String rTime,
-			String rState, String uId, String rImages, String isIdAll,String rStatus,String rCreatTime) {
+			String rState, String uId, String rImages,String rImagesUrl, String isIdAll,String rStatus,String rCreatTime) {
 		RespRecipe respRecipe = new RespRecipe();
 		Recipe recipe = new Recipe();
 		recipe.setRId(rId);
@@ -99,6 +117,8 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 		recipe.setRState(rState);
 		recipe.setUId(uId);
 		recipe.setIsIdAll(isIdAll);
+		recipe.setRImages(rImages);
+		recipe.setRImagesUrl(rImagesUrl);
 		recipe.setRStatus(rStatus);
 		recipe.setRCreatTime(rCreatTime);
 		update(recipe);
