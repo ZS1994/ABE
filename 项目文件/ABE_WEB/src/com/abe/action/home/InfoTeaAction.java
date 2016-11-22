@@ -13,8 +13,6 @@ import com.abe.action.iBaseAction;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.Users;
 import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespTeacher;
-import com.abe.entity.app.RespUpdateUser;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iTeacherService;
 
@@ -34,13 +32,14 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	
 	private Logger logger=Logger.getLogger(InfoTeaAction.class);
 	/**
-	 * 卢江林 2016-11-21
-	 * app通过uid查询教师资料
+	 * 卢江林 2016-11-22
+	 * app通过trpId查询教师资料
 	 */
-	public String queryFromAPP()throws IOException{
+	public String queryFromApp()throws IOException{
+		logger.debug("-------进入queryFromAPP--------");
 		String uid = ser.clearSpace(getRequest(), "UId");
 		RespCommon respTeacher = new RespCommon();
-		if(uid!=null){
+		if(uid==null){
 			respTeacher.setResult("003");
 			respTeacher.setData(null);
 		}else{
@@ -49,9 +48,9 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 				respTeacher.setResult("002");
 				respTeacher.setData(null);
 			}else if(user.getUType().equals("2")){
-				List<InfoTeacher> list = ser.find("from InfoTeacher where Uid=?", new String[]{user.getUId()});
+				List<InfoTeacher> list = ser.find("from InfoTeacher where itId=?", new String[]{user.getTrpId()});
 				respTeacher.setResult("001");
-				respTeacher.setData(null);
+				respTeacher.setData(respTeacher);
 			}
 		}
 		JSONObject json = ser.objToJson(respTeacher);
