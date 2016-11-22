@@ -66,31 +66,27 @@ public class ScoreAction extends BaseAction implements iBaseAction{
 	 * @author 张顺  2016年11月21日
 	 * @return
 	 * @throws IOException
+	 * @查询方式  使用uid查询
 	 */
 	public String QueryScoreFromApp() throws IOException{
-		logger.debug("-------------进入分数查询------------");
+		logger.debug("-------------使用UId进行分数查询------------");
 		String UId=ser.clearSpace(getRequest(), "UId");
+		String isId = ser.clearSpace(getRequest(), "isId");
 		RespCommon respScore=new RespCommon();
 		if (UId==null) {
-			respScore.setResult("003");
+			respScore.setResult("003");//接收到的UId为空
 			respScore.setData(null);
 		}else {
 			Users user=(Users) ser.get(Users.class, UId);
 			if (user==null) {
-				respScore.setResult("002");
+				respScore.setResult("002");//用户不存在
 				respScore.setData(null);
 			}else if (user.getUType().equals("1")) {
-				List<InfoStudent> list=ser.find("from InfoStudent where UId=?", new String[]{user.getUId()});
-				Score sc=null;
-				List<Score> lists = new ArrayList<Score>();
-				for (int i = 0; i < list.size(); i++) {
-					 sc= scoreSer.get(list.get(i).getIsId());
-					 lists.add(sc);
-				}
-				respScore.setResult("001");
-				respScore.setData(lists);
-			}else {
-				respScore.setResult("004");
+				List ls1 = scoreSer.get(UId);	
+				respScore.setResult("001");//成功--家长
+				respScore.setData(ls1);
+			}else{
+				respScore.setResult("004");//未知错误
 				respScore.setData(null);
 			}
 		} 
@@ -99,6 +95,32 @@ public class ScoreAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 	
+	/**
+	 * @author 张顺  2016年11月21日
+	 * @return
+	 * @throws IOException 
+	 * @查询方式    使用isId查询
+	 */
+	public String QueryScoreFromAppOfisId() throws IOException{
+		logger.debug("-------------使用isId进行分数查询------------");
+		String isId = ser.clearSpace(getRequest(), "isId");
+		RespCommon respScore=new RespCommon();
+		if(isId==null){
+			respScore.setResult("002"); //接受到的isId为空
+			respScore.setData(null);
+		}else{
+			List<Score> ls = scoreSer.getOfisId(isId);
+				if(ls.size()<0){
+					respScore.setResult("003"); //成功
+					respScore.setData(null);
+				}
+			respScore.setResult("001"); //成功
+			respScore.setData(ls);
+		}
+		JSONObject json=ser.objToJson(respScore);
+		sendToApp(json, ser);
+		return null;
+	}
 	
 	
 	@Override
