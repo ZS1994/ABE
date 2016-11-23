@@ -42,6 +42,7 @@ public class InfoTeacher implements java.io.Serializable {
 	public InfoTeacher() {
 	}
 
+
 	/** minimal constructor */
 	public InfoTeacher(String itId, String itNum) {
 		this.itId = itId;
@@ -75,7 +76,7 @@ public class InfoTeacher implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+    
 	public String getItId() {
 		return this.itId;
 	}
