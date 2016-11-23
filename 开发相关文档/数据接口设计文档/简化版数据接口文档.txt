@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 公共错误代码
 {
-	result:1000该执照不存在（假执照），1001该执照已过期(不操作1个小时会失效)，1002ip发生改变 
+	result:1000该执照不存在（假执照），1001该执照已过期，1002ip发生改变 
 	data:null
 }
 
@@ -16,18 +16,15 @@
 {
 	result:登录状态，001成功，002用户不存在，003密码错误，004其他错误。
 	data:{
-		user:{
-			UId:用户编号
-			UNum:账号
-			UPass:密码
-			UName:姓名
-			UType:用户类型，001家长，002教职员工
-			UCreateTime:创建时间
-			UPhotoPath:头像的路径
-			UNote:备注
-			trpId : 教师档案或者家长档案编号（根据用户类型判断）		
-		},
-		licence:数字执照(不操作1个小时会失效)
+		UId:用户编号
+		UNum:账号
+		UPass:密码
+		UName:姓名
+		UType:用户类型，001家长，002教职员工
+		UCreateTime:创建时间
+		UPhotoPath:头像的路径
+		UNote:备注
+		trpId : 教师档案或者家长档案编号（根据用户类型判断）
 	}
 }
 //---------------------------------------------------------------------------
@@ -188,7 +185,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 		scId:班级id
 	}
 }
-通过学生id查看学生信息(用来查唯一学生)
+查看学生信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 请求参数：
 	licence:数字执照
@@ -219,39 +216,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 		scId:班级id
 	}
 }
-通过用户id查看学生信息
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp2
-请求参数：
-	licence:数字执照
-	UId:用户id
-应答参数：
-{
-	result：001成功，002UId不存在，003接收到的UId为空,004该用户不是家长
-	data:{
-		[
-			isId:学生id
-			isNum:学号
-			isName:名字
-			isSex:男/女
-			isBirthday:生日   yyyy-MM-dd
-			isAge:年龄  月数  因为页面显示的格式是：X年X月
-			isLocal:是否本地生  0：否/1：是
-			isTeacherChildren:是否是教职工子弟   0：否/1：是
-			isSchool:学校名字
-			isGrade:年级
-			isClass:班级
-			isIntoYear:入学年份    比如：2014/2015等等
-			isParentName:父母名字  父亲或母亲
-			isParentPhone:父母手机号
-			isParentRelation:与父母的关系   父子/母子/父女/母女
-			isIntoDate:入校日期    yyyy-MM-dd
-			isLeaveDate:离校日期   没有就为空
-			isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
-			UId:家长id   注意用户必须为家长类型（UType：1） 比如：2
-			scId:班级id
-		]		
-	}
-}
+
 
 
 //--------------------------课程表-----------------------------------------------
@@ -798,7 +763,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!deleteRecipe
 	}
 }
 修改食谱信息
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!updateRecipe
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!releaseRecipe
 请求参数：
 	licence:数字执照
 	scId:使用该食谱的班级id
@@ -835,200 +800,40 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!updateRecipe
 		}
 	}
 }
-----------------------------------------请假条--------------------------
-向教师发送请假条
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!createVacate
-请求参数：
-	IsId:请假学生id
-	UId:请假学生家长客户端id
-	ItId：接收该请假条的班主任APP端trpid（也是教师资料表的id编号）
-	VContent：请假原因
-	VDate：请假时间
-	
-	
-应答参数：
+
+查看成绩 <此方式适用于家长对孩子的成绩进行查询>
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/score!QueryScoreFromApp
+请求参数
+	licence:数字执照
+	UId：家长id【必须】
+应答参数
 {
-	result：001成功，002学生id为空，003班主任id为空，004请假原因为空，005请假时间为空
-	"data":[{"UId":家长的用户id
-			"VTime":请假条的创建时间
-			"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-			"student":{学生信息
-						
-						}
-			"VResp":教师的批复信息(刚创建没有批复的为空)
-			"VContent":请假原因
-			"teacher":{教师信息
-						
-						}
-			"VId":请假条编号
-			"VDate":请假时间
-			"user":{//家长的用户登录信息（已将密码清空）
-					"UId":"271634032221266",
-					"UPass":"",
-					"trpId":"35",
-					"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-					"UNote":"",
-					"UType":"1",
-					"UName":"张顺",
-					"UCreateTime":"2016-10-26 23:08:14",
-					"UNum":"qwe"},
+    "result":001成功，002用户不存在，003接受的UId为空，004未知错误
+    "data"://分数信息
+    [[{//多个孩子，多门成绩
+            "SScore": 科目分数
+            "SCreateTime": 创建时间
+            "SId": 编号
+            "CId": 科目编号
+            "isId": 学生编号
+     }]]
 }
 
 
-查询单条请假条详情
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findSingleVacate
-请求参数：
-	VId：请假条的编号
-	
-	
-应答参数：
+查询成绩<此方法使用学生Id进行查询>
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/score!QueryScoreFromAppOfisId
+请求参数
+	licence:数字执照
+	isId: 学生id【必须】
+应答参数
 {
-	result：001成功，
-	"data":[{"UId":家长的用户id
-			"VTime":请假条的创建时间
-			"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-			"student":{学生信息
-						
-						}
-			"VResp":教师的批复信息(刚创建没有批复的为空)
-			"VContent":请假原因
-			"teacher":{教师信息
-						
-						}
-			"VId":请假条编号
-			"VDate":请假时间
-			"user":{//家长的用户登录信息（已将密码清空）
-					"UId":"271634032221266",
-					"UPass":"",
-					"trpId":"35",
-					"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-					"UNote":"",
-					"UType":"1",
-					"UName":"张顺",
-					"UCreateTime":"2016-10-26 23:08:14",
-					"UNum":"qwe"},
+    "result": "001"表示成功 002接收的isId为空  003 查找不到对应isId
+    "data": 
+    [{
+           "SScore": 科目分数
+            "SCreateTime": 创建时间
+            "SId": 编号
+            "CId": 科目编号
+            "isId": 学生编号
+    }]
 }
-
-
-教师批复请假条
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!respsVacate
-请求参数：
-	VId：请假条的编号
-	IsId:请假学生id
-	UId:请假学生家长客户端id
-	ItId：接收该请假条的班主任APP端trpid（也是教师资料表的id编号）
-	VContent：请假原因
-	VDate：请假时间
-	VResp：批复内容（是否准假）
-	VTime：请假条创建时间
-应答参数：
-{
-	result：001成功，002批复内容为空
-	"data":[{"UId":家长的用户id
-			"VTime":请假条的创建时间
-			"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-			"student":{学生信息
-						
-						}
-			"VResp":教师的批复信息(刚创建没有批复的为空)
-			"VContent":请假原因
-			"teacher":{教师信息
-						
-						}
-			"VId":请假条编号
-			"VDate":请假时间
-			"user":{//家长的用户登录信息（已将密码清空）
-					"UId":"271634032221266",
-					"UPass":"",
-					"trpId":"35",
-					"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-					"UNote":"",
-					"UType":"1",
-					"UName":"张顺",
-					"UCreateTime":"2016-10-26 23:08:14",
-					"UNum":"qwe"},
-}
-
-分页查看给该班主任/学生的请假条
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findOwnerVacate
-请求参数：
-	UId:APP用户id（家长端教师端通用）
-	pageNo：当前页数
-	Size：每页展示请假条数量
-应答参数：
-{
-	result：001成功，002页数为负，003每页数量为负，004/005当前用户（家长用户/教师用户）下没有请假条或页数超限
-			006用户不存在，007有用户但类型不是教师也不是家长
-	"data":[//一个请假条信息
-			{"UId":家长的用户id
-			"VTime":请假条的创建时间
-			"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-			"student":{学生信息
-						
-						}
-			"VResp":教师的批复信息(刚创建没有批复的为空)
-			"VContent":请假原因
-			"teacher":{教师信息
-						
-						}
-			"VId":请假条编号
-			"VDate":请假时间
-			"user":{//家长的用户登录信息（已将密码清空）
-					"UId":"271634032221266",
-					"UPass":"",
-					"trpId":"35",
-					"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-					"UNote":"",
-					"UType":"1",
-					"UName":"张顺",
-					"UCreateTime":"2016-10-26 23:08:14",
-					"UNum":"qwe"},
-			}{一个请假条信息...}{一个请假条信息...}{一个请假条信息...}......]
-			
-}
-
-分页查看所有（是否分区域学校部门等信息待定）请假条
-
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findAllVacate
-请求参数：
-	pageNo：当前页数
-	Size：每页展示请假条数量
-应答参数：
-{
-	result：001成功，002页数为负，003每页数量为负
-	"data":[//一个请假条信息
-			{"UId":家长的用户id
-			"VTime":请假条的创建时间
-			"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-			"student":{学生信息
-						
-						}
-			"VResp":教师的批复信息(刚创建没有批复的为空)
-			"VContent":请假原因
-			"teacher":{教师信息
-						
-						}
-			"VId":请假条编号
-			"VDate":请假时间
-			"user":{//家长的用户登录信息（已将密码清空）
-					"UId":"271634032221266",
-					"UPass":"",
-					"trpId":"35",
-					"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-					"UNote":"",
-					"UType":"1",
-					"UName":"张顺",
-					"UCreateTime":"2016-10-26 23:08:14",
-					"UNum":"qwe"},
-			}{一个请假条信息...}{一个请假条信息...}{一个请假条信息...}......]
-			
-}
-
-
-
-
-
-
-
-
-
