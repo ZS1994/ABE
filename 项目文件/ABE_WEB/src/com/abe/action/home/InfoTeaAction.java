@@ -2,6 +2,7 @@ package com.abe.action.home;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import net.sf.json.JSONObject;
 
@@ -10,8 +11,8 @@ import org.apache.log4j.Logger;
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.InfoTeacher;
-import com.abe.entity.app.RespTeacher;
-import com.abe.entity.app.RespUpdateUser;
+import com.abe.entity.Users;
+import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iTeacherService;
 
@@ -30,6 +31,32 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	private InfoTeacher teacher;
 	
 	private Logger logger=Logger.getLogger(InfoTeaAction.class);
+	/**
+	 * 卢江林 2016-11-22
+	 * app通过trpId查询教师资料
+	 */
+	public String queryFromApp()throws IOException{
+		logger.debug("-------进入queryFromAPP--------");
+		String uid = ser.clearSpace(getRequest(), "UId");
+		RespCommon respTeacher = new RespCommon();
+		if(uid==null){
+			respTeacher.setResult("003");
+			respTeacher.setData(null);
+		}else{
+			Users user = (Users) ser.get(Users.class, uid);
+			if(user==null){
+				respTeacher.setResult("002");
+				respTeacher.setData(null);
+			}else if(user.getUType().equals("2")){
+				List<InfoTeacher> list = ser.find("from InfoTeacher where itId=?", new String[]{user.getTrpId()});
+				respTeacher.setResult("001");
+				respTeacher.setData(respTeacher);
+			}
+		}
+		JSONObject json = ser.objToJson(respTeacher);
+		sendToApp(json,ser);
+		return null;
+	}
 	
 	/**
 	 * @author lujianglin
