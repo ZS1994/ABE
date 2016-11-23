@@ -9,6 +9,12 @@ public class RespNews implements Serializable {
 	private String result;
 	private News data;
 	
+	public RespNews() {
+	}
+	public RespNews(String result, News data) {
+		this.result = result;
+		this.data = data;
+	}
 	public String getResult() {
 		return result;
 	}

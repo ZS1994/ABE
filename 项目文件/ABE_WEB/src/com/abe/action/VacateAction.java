@@ -19,8 +19,6 @@ public class VacateAction extends BaseAction implements iBaseAction {
 	private iBaseService ser;
 	private iVacateService vacateSer;
 	private Vacate vacate;
-
-	private Logger logger=Logger.getLogger(SignAction.class);
 	
 	/**
 	 * 创建请假条

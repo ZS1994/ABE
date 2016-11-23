@@ -43,6 +43,9 @@
   <action name="vacate" class="lz_vacate">	   
 	 <interceptor-ref name="mydefault" />
   </action>
+    <action name="news" class="lz_news">	   
+	 <interceptor-ref name="mydefault" />
+  </action>
   <action name="forum" class="zs_forum">	   
   	 <interceptor-ref name="mydefault" />
   </action> 

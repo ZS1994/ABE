@@ -38,6 +38,10 @@
  		<property name="ser" ref="zs_ser"></property>
  		<property name="vacateSer" ref="lz_vacate_ser"></property>	
  	</bean>
+ 	<bean id="lz_news" class="com.abe.action.home.NewsAction">
+ 		<property name="ser" ref="zs_ser"></property>
+ 		<property name="newsSer" ref="lz_news_ser"></property>	
+ 	</bean>
 	<bean id="zs_forum" class="com.abe.action.home.ForumAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="forumSer" ref="zs_forum_ser"></property>
@@ -124,6 +128,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
 	<bean id="lz_vacate_ser" class="com.abe.service.impl.VacateServiceImpl">
+ 		<property name="dao" ref="zs_dao"></property>
+ 	</bean>
+ 	<bean id="lz_news_ser" class="com.abe.service.home.impl.NewsServiceImpl">
  		<property name="dao" ref="zs_dao"></property>
  	</bean>
 	<bean id="zs_forum_ser" class="com.abe.service.home.impl.ForumServiceImpl">
