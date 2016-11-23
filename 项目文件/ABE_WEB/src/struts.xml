@@ -79,9 +79,6 @@
   <action name="one" class="zs_one">	   
   	 <interceptor-ref name="mydefault" />
   </action>
-  <action name="score" class="zs_score">	   
-  	 <interceptor-ref name="mydefault" />
-  </action>
   
 </package> 
 
