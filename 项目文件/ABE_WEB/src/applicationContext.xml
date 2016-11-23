@@ -113,6 +113,7 @@
 	</bean>	
 	<bean id="zs_sign_ser" class="com.abe.service.impl.SignServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
+		<property name="usersSer" ref="zs_users_ser_hx"></property>
 	</bean>	
 	<bean id="zs_student_ser" class="com.abe.service.home.impl.StudentServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
@@ -156,6 +157,12 @@
 	<bean id="zs_course_ser" class="com.abe.service.home.impl.CourseServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
+	
+	<!-- ************环信的service层******************** -->
+	<bean id="zs_users_ser_hx" class="com.abe.service.hx.impl.UsersServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	
 	
 	
 	<!-- ****************dao层********************* -->
