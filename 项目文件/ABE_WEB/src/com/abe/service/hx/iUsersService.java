@@ -7,12 +7,7 @@ package com.abe.service.hx;
  */
 public interface iUsersService {
 	
-	/*
-	 * 日后如果更换这两个关键数据，可直接在这里改即可，其他地方全部引用于此
-	 */
-	public static final String ORG_NAME="1149161109115389";
-	public static final String APP_NAME="abeweb";
-	public static final String ADDRESS="https://a1.easemob.com/";
+	
 	
 	
 	public static final String ACCESS_TOKEN="access_token";
@@ -21,10 +16,15 @@ public interface iUsersService {
 	public static final String TOKEN_JSON="token_json";
 	
 	/**
-	 * 获取token
+	 * 通过状态标识获取token中得某个信息
 	 * @return
 	 */
 	public String getToken(String status);
+	/**
+	 * 直接获取token字符串
+	 * @return
+	 */
+	public String getToken();
 	
 	/**
 	 * 添加单个用户

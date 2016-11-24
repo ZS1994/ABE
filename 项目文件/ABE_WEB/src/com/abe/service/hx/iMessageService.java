@@ -29,4 +29,13 @@ public interface iMessageService {
 	 */
 	public String messages(String json,String token);
 	
+	
+	/**
+	 * 给一个用户发消息
+	 * @param tageusername
+	 * @param ownusername
+	 * @param msg
+	 * @return
+	 */
+	public String sengMsgOne(String tageusername,String ownusername,String msg);
 }

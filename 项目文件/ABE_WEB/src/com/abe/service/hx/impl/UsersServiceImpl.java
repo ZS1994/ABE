@@ -15,12 +15,12 @@ import net.sf.json.JSONObject;
 import com.abe.service.hx.iHttpClientMutator;
 import com.abe.service.hx.iUsersService;
 import com.abe.service.impl.BaseServiceImpl;
+import com.abe.tools.Constant;
 import com.abe.tools.HttpClientHelper;
 
 public class UsersServiceImpl extends BaseServiceImpl implements iUsersService{
 
 	private Logger log=Logger.getLogger(UsersServiceImpl.class);
-	private static final String ADDRESS_SOME=iUsersService.ADDRESS+iUsersService.ORG_NAME+"/"+iUsersService.APP_NAME+"/";
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -32,7 +32,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements iUsersService{
 		JSONObject json=JSONObject.fromObject(hashMap);
 		String str=null;
 		try {
-			str = HttpClientHelper.getInstance().doPost(this.ADDRESS_SOME+"token", json.toString(), null);
+			str = HttpClientHelper.getInstance().doPost(Constant.ADDRESS_SOME+"token", json.toString(), null);
 		} catch (UnsupportedEncodingException e1) {
 			log.error("【getToken】访问环信获取token接口失败");
 		}
@@ -51,13 +51,18 @@ public class UsersServiceImpl extends BaseServiceImpl implements iUsersService{
 	}
 
 
-
+	@Override
+	public String getToken() {
+		return getToken(iUsersService.ACCESS_TOKEN);
+	}
+	
+	
 
 	@SuppressWarnings("static-access")
 	@Override
 	public String addUser(String name,String pass,String token) {
 		String result=null;
-		String url=this.ADDRESS_SOME+"users";
+		String url=Constant.ADDRESS_SOME+"users";
 		HashMap<String, String> hashMap=new HashMap<String, String>();
 		hashMap.put("username", name);
 		hashMap.put("password", pass);
@@ -90,6 +95,11 @@ public class UsersServiceImpl extends BaseServiceImpl implements iUsersService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+
+	
 
 
 
