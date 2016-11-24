@@ -88,7 +88,7 @@ public class RecipeServiceImpl extends BaseServiceImpl implements iRecipeService
 			respRecipeAll.setData(null);
 		}else {
 			Page page=new Page(pano, 0, size);
-		String hql1="from Recipe  order by RCreatTime";
+		String hql1="from Recipe  order by RCreatTime desc";
 		List<Recipe> list = query(hql1, null, hql1, page);
 		for (int i = 0; i < list.size(); i++) {
 			Users user=(Users) get(Users.class, list.get(i).getUId());
