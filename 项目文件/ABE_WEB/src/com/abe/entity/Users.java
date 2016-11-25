@@ -122,4 +122,12 @@ public class Users implements java.io.Serializable {
 		this.trpId = trpId;
 	}
 
+	@Override
+	public String toString() {
+		return "Users [UCreateTime=" + UCreateTime + ", UId=" + UId
+				+ ", UName=" + UName + ", UNote=" + UNote + ", UNum=" + UNum
+				+ ", UPass=" + UPass + ", UPhotoPath=" + UPhotoPath
+				+ ", UType=" + UType + ", trpId=" + trpId + "]";
+	}
+
 }

@@ -93,10 +93,7 @@ public class OneAction extends BaseAction implements iBaseAction{
 		//项目物理路径
 		String abePath=getRequest().getRealPath("/");
 		RespUploadPhoto respSignUp=signSer.uploadPhoto(uid, photo, format, abePath);
-		JSONObject json=ser.objToJson(respSignUp, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(json);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respSignUp, ser);
 		return null;
 	}
 	
