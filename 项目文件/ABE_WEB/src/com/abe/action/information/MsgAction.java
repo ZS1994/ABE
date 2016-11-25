@@ -1,7 +1,15 @@
 package com.abe.action.information;
 
+import java.io.IOException;
+
+import org.apache.log4j.Logger;
+
+import net.sf.json.JSONObject;
+
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.app.RespCity;
+import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.hx.iMessageService;
 
@@ -11,9 +19,13 @@ import com.abe.service.hx.iMessageService;
  */
 public class MsgAction extends BaseAction implements iBaseAction{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
 	private iMessageService msgSer;
-	
+	private Logger logger=Logger.getLogger(MsgAction.class);
 	
 	public iBaseService getSer() {
 		return ser;
@@ -33,11 +45,28 @@ public class MsgAction extends BaseAction implements iBaseAction{
 	 * @return
 	 */
 	public String addFromApp() {
+		//声明一个返回体备用
+		RespCommon respResult=new RespCommon();
 		//接受消息
 		String target=ser.clearSpace(getRequest(), "target");
 		String from=ser.clearSpace(getRequest(), "from");
 		String msg=ser.clearSpace(getRequest(), "msg");
-		msgSer.sengMsgOne(target, from, msg);
+		String result=msgSer.sengMsgOne(target, from, msg);
+		try {
+			JSONObject jsonObj=ser.objToJson(result);
+			String iSucc=(String) jsonObj.getJSONObject("data").get(target);
+			if (iSucc.equals("success")) {
+				respResult.setResult("001");
+				respResult.setData(null);
+			}else {
+				respResult.setResult("002");
+				respResult.setData(null);
+			}
+			sendToApp(respResult,ser);
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error("发送消息失败-->"+target+"对"+from+"说："+msg);
+		}
 		return null;
 	}
 	

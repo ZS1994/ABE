@@ -57,11 +57,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <br/>
 <input id="UPass" type="text"/>
 <br/>
-<input type="button" value="测试" onclick="cs()"/>
-
-
+<input type="button" value="登录" onclick="cs()"/>
 <hr/>
-模拟手机注册
+模拟手机上传头像
 <br/>ID
 <input id="UId2" type="text"/>
 <br/>后缀
@@ -69,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <br/>头像
 <textarea id="UPhoto2" rows="5" cols="20"></textarea>
 <br/>
-<input type="button" value="注册" onclick="cs2()"/>
+<input type="button" value="上传头像" onclick="cs2()"/>
 
 <hr/>
 本地测试接口<br/>
@@ -98,13 +96,11 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="修改班级" onclick="$('#urltmp').val('class!updateFromApp');"/>
 <input type="button" value="查看班级" onclick="$('#urltmp').val('class!queryFromApp');"/>
 <input type="button" value="查看本周课程表" onclick="$('#urltmp').val('timetables!queryFromApp');"/>
-
+<input type="button" value="注册" onclick="$('#urltmp').val('sign!signUpFromApp');"/>
 
 
 <br/>
-<br/>
-<br/>
-<input type="button" value="添加参数" onclick="addBody()"/>
+<input type="button" value="添加参数" onclick="addBody()" style="background-color: rgba(230, 255, 0, 0.33);"/>
 <script type="text/javascript">
 	function addBody(){
 		var par=$('#http_body');
@@ -137,7 +133,7 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 		);
 	}
 </script>
-<div id="http_body" style="border: 1px solid black;padding: 5px;">
+<div id="http_body" style="border:1px solid rgba(4, 253, 4, 0.43);padding: 5px;">
 	<div id="div1">Key:<input type="text"/>Value:<input type="text"/></div>
 </div>
 <input type="button" value="发送请求" onclick="sendHttpPost()"/>请在开发者模式的console中查看结果
