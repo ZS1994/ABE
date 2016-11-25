@@ -73,6 +73,9 @@
   <action name="class" class="zs_school_class">	   
   	 <interceptor-ref name="mydefault" />
   </action>
+  <action name="hx_msg" class="zs_hx_msg">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
   
   
   <!-- ******个人中心******* -->
