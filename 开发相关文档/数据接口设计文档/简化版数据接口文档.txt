@@ -837,3 +837,20 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/score!QueryScoreFromAppOf
             "isId": 学生编号
     }]
 }
+
+//----------------------环信----------------------------
+1，发送消息
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/hx_msg!addFromApp
+请求参数：
+	licence:数字执照
+	target:接受者用户
+	from:发送者用户
+	msg:消息内容
+应答参数：
+{
+	result：001成功
+	data:null
+}
+
+
+
