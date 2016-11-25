@@ -20,8 +20,14 @@
           <interceptor-ref name="timeline_inter_app" />  
       </interceptor-stack>  
   </interceptors>
+  <!-- ********登录************ -->
   <action name="sign" class="zs_sign">	   
   	 <interceptor-ref name="mydefault" />
+  </action>
+  
+  <!-- *********测试************** -->
+  <action name="test" class="zs_test">	   
+     <result>/index.jsp</result>
   </action>
   
   <!-- ********首页*********** -->
@@ -35,6 +41,9 @@
 	 <interceptor-ref name="mydefault" />
   </action>
   <action name="vacate" class="lz_vacate">	   
+	 <interceptor-ref name="mydefault" />
+  </action>
+    <action name="news" class="lz_news">	   
 	 <interceptor-ref name="mydefault" />
   </action>
   <action name="forum" class="zs_forum">	   
@@ -64,13 +73,13 @@
   <action name="class" class="zs_school_class">	   
   	 <interceptor-ref name="mydefault" />
   </action>
+  <action name="hx_msg" class="zs_hx_msg">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
   
   
   <!-- ******个人中心******* -->
   <action name="one" class="zs_one">	   
-  	 <interceptor-ref name="mydefault" />
-  </action>
-  <action name="score" class="zs_score">	   
   	 <interceptor-ref name="mydefault" />
   </action>
   
@@ -96,7 +105,6 @@
   </interceptors>  
   <!-- 测试用 -->
   <action name="test" class="zs_test">	   
-  	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
   </action>
   <action name="sign" class="zs_sign">	   
@@ -124,6 +132,8 @@
   
   
 </package>
+
+
 
 
 </struts>    

@@ -11,5 +11,15 @@ public class Constant {
 	public static final String ABE_WEB_URL="http://zhangshun-zs1994.oicp.net:15202/ABE_WEB";
 	
 	public static final String ABE_WEB_NAME="ABE_WEB";
+
+	
+	
+	/*环信相关
+	 * 日后如果更换这两个关键数据，可直接在这里改即可，其他地方全部引用于此
+	 */
+	public static final String ORG_NAME="1149161109115389";
+	public static final String APP_NAME="abeweb";
+	public static final String ADDRESS="https://a1.easemob.com/";
+	public static final String ADDRESS_SOME=Constant.ADDRESS+Constant.ORG_NAME+"/"+Constant.APP_NAME+"/";
 	
 }

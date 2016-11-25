@@ -12,9 +12,15 @@ import com.abe.service.impl.BaseServiceImpl;
 
 public class TeacherServiceImpl extends BaseServiceImpl implements iTeacherService{
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public InfoTeacher get(String isNum) {
-		return null;
+	public InfoTeacher get(String itNum) {
+		InfoTeacher teacher=null;
+		List<InfoTeacher> teac=find("from InfoTeacher where itNum=?", new String[]{itNum});
+		if (teac.size()>0) {
+			teacher=teac.get(0);
+		}
+		return teacher;
 	}
 
 	@Override

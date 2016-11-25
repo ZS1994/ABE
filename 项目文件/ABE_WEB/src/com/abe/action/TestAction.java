@@ -1,5 +1,6 @@
 package com.abe.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -68,13 +69,18 @@ public class TestAction extends BaseAction{
 	
 	
 	public String mc() throws Exception {
-		
 		String ip=MachineCode.getIpAddr(getRequest());
 //		String mac=MachineCode.getMACAddress(ip);
 		logger.debug(ip);
 //		logger.debug(mac);
-		
 		return null;
 	}
 	
+	public String chinese() throws IOException {
+		String data="测试中文乱码";
+		getPrintWriter().print(data);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
 }

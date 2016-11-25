@@ -18,7 +18,6 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * 基础action类，自己写的action都必须继承他，他有一些常用的基本方法供调用
  * @author 张顺
- *
  */
 public class BaseAction extends ActionSupport{
 	
@@ -44,7 +43,7 @@ public class BaseAction extends ActionSupport{
 	public HttpServletResponse getResponse() {
 		HttpServletResponse resp=ServletActionContext.getResponse();
 		resp.setCharacterEncoding("utf-8");
-//		resp.setContentType("text/plain;charset=UTF-8");
+		resp.setContentType("text/html;charset=utf-8");
 		return resp;
 	}
 	public void setResponse(HttpServletResponse response) {
@@ -65,16 +64,15 @@ public class BaseAction extends ActionSupport{
 	}
 	
 	/**
-	 * 张顺 2016-11-8
-	 * <br>发送json数据，该方法只能支持发送包含Timestamp的对象
+	 * 张顺 2016-11-25
+	 * <br>发送json，而且可以适应各种json类型转换的问题
 	 * @param obj
 	 * @param ser
 	 * @throws IOException
 	 */
-	@Deprecated
 	public void sendToApp(Object obj,iBaseService ser) throws IOException {
 		JSONObject json=null;
-		json=ser.objToJson(obj, "yyyy-MM-dd HH:mm:ss");
+		json=ser.objToJson(obj);
 		getPrintWriter().print(json);
 		getPrintWriter().flush();
 		getPrintWriter().close();
@@ -103,7 +101,7 @@ public class BaseAction extends ActionSupport{
 	 * @param ser
 	 * @throws IOException
 	 */
-	public void sendToApp(JSONObject json,iBaseService ser) throws IOException {
+	public void sendToApp(JSONObject json) throws IOException {
 		getPrintWriter().print(json);
 		getPrintWriter().flush();
 		getPrintWriter().close();

@@ -12,7 +12,7 @@ public interface iRecipeService {
 	/*
 	 * 查询所有食谱
 	 */
-	public RespRecipeAll findPageAllRecipe();
+	public RespRecipeAll findPageAllRecipe(String pageNo,String pageSize);
 	/*
 	 * 根据创建者查询食谱
 	 * @param uId
@@ -29,7 +29,7 @@ public interface iRecipeService {
 	 * 
 	 */
 	public RespRecipe creatRecipe(String scId, String rType, String rTime,
-			String rState, String uId, String rImages,
+			String rState, String uId, String rImages,String rImagesUrl,
 			String isIdAll);
 	/**
 	 * 发布食谱
@@ -43,7 +43,7 @@ public interface iRecipeService {
 	 * @param Recipe
 	 */
 	public RespRecipe updateRecipe(String rId,String scId, String rType, String rTime,
-			String rState, String uId, String rImages, 
+			String rState, String uId, String rImages, String rImagesUrl,
 			String isIdAll,String rStatus,String rCreatTime);
 	/*
 	 * 删除食谱

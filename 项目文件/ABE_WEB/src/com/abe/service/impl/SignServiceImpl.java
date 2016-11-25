@@ -11,7 +11,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
 
 import org.apache.log4j.Logger;
 
@@ -22,6 +21,7 @@ import com.abe.entity.app.RespSignIn;
 import com.abe.entity.app.RespUpdateUser;
 import com.abe.entity.app.RespUploadPhoto;
 import com.abe.service.iSignService;
+import com.abe.service.hx.iUsersService;
 import com.abe.tools.Base64;
 import com.abe.tools.Constant;
 import com.abe.tools.MachineCode;
@@ -31,7 +31,17 @@ import com.abe.tools.TokenProccessor;
 public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	
 	private Logger logger=Logger.getLogger(SignServiceImpl.class);
+	private iUsersService usersSer;
 	
+	
+	public iUsersService getUsersSer() {
+		return usersSer;
+	}
+	public void setUsersSer(iUsersService usersSer) {
+		this.usersSer = usersSer;
+	}
+
+
 	@Override
 	public String[] signIn(HttpSession session,String hint,Users user) {
 		final String HINT_NO_USER="用户不存在";//用户不存在
@@ -186,7 +196,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		return uploadPhoto;
 	}
 	/**
-	 * 李钊
+	 * 李钊 注册
 	 * @param uNum
 	 * @param uPass
 	 * @param uName
@@ -213,9 +223,12 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			users.setUType(uType);
 			//users.setUType("1");
 			users.setUId(nameOfData.getNum());
-		save(users);
-		respSignIn.setResult(HINT_SUCCESS_USER);
-		respSignIn.setData(users);
+			save(users);
+			respSignIn.setResult(HINT_SUCCESS_USER);
+			respSignIn.setData(users);
+			//在环信系统中注册
+			String token=usersSer.getToken(iUsersService.ACCESS_TOKEN);
+			usersSer.addUser(users.getUId(), users.getUPass(), token);
 		}
 		return respSignIn;
 	}
