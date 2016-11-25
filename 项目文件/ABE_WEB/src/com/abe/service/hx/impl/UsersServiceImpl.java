@@ -27,8 +27,8 @@ public class UsersServiceImpl extends BaseServiceImpl implements iUsersService{
 	public String getToken(String status) {
 		HashMap<String, String> hashMap=new HashMap<String, String>();
 		hashMap.put("grant_type", "client_credentials");
-		hashMap.put("client_id", "YXA6bT3_gKZGEeako5-7Fr2uYA");
-		hashMap.put("client_secret", "YXA6t2dRDJBE4mygBoMMkYLpkpA9yyE");
+		hashMap.put("client_id", Constant.CLIENT_ID);
+		hashMap.put("client_secret", Constant.CLIENT_SECRET);
 		JSONObject json=JSONObject.fromObject(hashMap);
 		String str=null;
 		try {
@@ -88,7 +88,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements iUsersService{
 //		String str2=impl.addUser("qwer1234", "123456", str);
 //		System.out.println(str2);
 	}
-*/
+	 */
 
 	@Override
 	public String queryUser(String name, String token) {

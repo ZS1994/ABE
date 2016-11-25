@@ -221,7 +221,6 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			users.setUNum(uNum);
 			users.setUPass(uPass);
 			users.setUType(uType);
-			//users.setUType("1");
 			users.setUId(nameOfData.getNum());
 			save(users);
 			respSignIn.setResult(HINT_SUCCESS_USER);
@@ -230,6 +229,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			String token=usersSer.getToken(iUsersService.ACCESS_TOKEN);
 			usersSer.addUser(users.getUId(), users.getUPass(), token);
 		}
+		System.out.println(respSignIn.toString());
 		return respSignIn;
 	}
 	/**
