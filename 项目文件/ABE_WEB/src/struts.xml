@@ -43,6 +43,9 @@
   <action name="timetables" class="zs_timetables">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
+  <action name="attendance" class="zs_attendance">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
   
   
   <!-- ******消息中心******* -->

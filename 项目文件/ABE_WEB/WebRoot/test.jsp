@@ -100,6 +100,7 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="查看本周课程表" onclick="$('#urltmp').val('timetables!queryFromApp');"/>
 <input type="button" value="查看成绩" onclick="$('#urltmp').val('score!QueryScoreFromApp');"/>
 <input type="button" value="通过isId查询成绩" onclick="$('#urltmp').val('score!QueryScoreFromAppOfisId');"/>
+<input type="button" value="查看考勤信息" onclick="$('#urltmp').val('attendance!queryOfUid');"/>
 
 
 
