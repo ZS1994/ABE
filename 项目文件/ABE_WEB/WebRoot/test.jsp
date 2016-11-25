@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		console.log("-----上传图片----");
 		$.post(
 			"<%=path %>/app/one!uploadPhoto",
-			{UId:$("#UId2").val(),UPhoto:$("#UPhoto2").val(),format:$("#format2").val()},
+			{UId:$("#UId2").val(),UPhoto:$("#UPhoto2").val(),format:$("#format2").val(),licence:$("#licence").val()},
 			function(data){
 				console.log(data);
 			}
@@ -60,6 +60,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="button" value="登录" onclick="cs()"/>
 <hr/>
 模拟手机上传头像
+<br/>licence
+<input id="licence" type="text"/>
 <br/>ID
 <input id="UId2" type="text"/>
 <br/>后缀

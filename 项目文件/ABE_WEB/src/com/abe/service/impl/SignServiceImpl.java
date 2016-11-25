@@ -184,6 +184,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 					String uPhotoPath=Constant.ABE_WEB_URL+"/photo/"+UId+"/"+NameOfDate.getFileName()+"."+format;
 					Base64.getFromBASE64byte(photo, photoPath);
 					user.setUPhotoPath(uPhotoPath);
+//					logger.debug(uPhotoPath);
 					update(user);
 					uploadPhoto=new RespUploadPhoto("001", user);
 				} catch (IOException e) {
@@ -227,9 +228,10 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			respSignIn.setData(users);
 			//在环信系统中注册
 			String token=usersSer.getToken(iUsersService.ACCESS_TOKEN);
-			usersSer.addUser(users.getUId(), users.getUPass(), token);
+			String result=usersSer.addUser(users.getUId(), users.getUPass(), token);
+			logger.debug("环信注册返回结果："+result);
 		}
-		System.out.println(respSignIn.toString());
+//		System.out.println(respSignIn.toString());
 		return respSignIn;
 	}
 	/**
