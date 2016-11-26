@@ -141,13 +141,13 @@ public class NewsAction extends BaseAction implements iBaseAction {
 	@Override
 	public String gotoQuery() {
 		// TODO Auto-generated method stub
-		return null;
+		return "index";
 	}
 
 	@Override
 	public String queryOfFenYe() {
 		// TODO Auto-generated method stub
-		return null;
+		return "index";
 	}
 
 	@Override

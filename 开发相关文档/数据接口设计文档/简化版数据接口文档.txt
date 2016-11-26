@@ -852,5 +852,89 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/hx_msg!addFromApp
 	data:null
 }
 
+//---------------------新闻----------------------------------
+新建/修改新闻通过网页编辑器
+
+查看单条新闻
+http://localhost:8080/ABE_WEB/app/news!findSingleNews
+请求参数：
+	licence:数字执照
+	NId:新闻编号
+应答参数：
+{
+	result：001成功，002新闻编号为空
+	data:{
+		NId:新闻编号
+		NTitle:新闻标题
+		NContent:新闻内容
+		NImgs：新闻图片
+		NUrl：新闻图片url
+		NOrigin：新闻来源
+		NType：新闻类型
+		NCreatTime：新闻创建时间
+		NFinalTime：新闻最后修改/发布时间
+		NIstop：是否置顶
+		UId：创建该新闻用户id
+		NStatus：新闻状态：1发布中，2过时
+		user{创建新闻者（用户）所有信息（已清空密码）
+		
+				}
+		}
+	
+}
+分页查看所有新闻（发布中）
+http://localhost:8080/ABE_WEB/app/news!findAllNewsOnByPage
+请求参数：
+	licence:数字执照
+	pageNo：当前页数
+	Size：每页展示数量
+	NStatus：新闻状态：1发布中，2过时
+应答参数：
+{
+	result：001成功，002当前页数为负，003每页数量为负，004当前没有查到新闻，005NStatus为空或者不为1
+	data:[{一条新闻
+		NId:新闻编号
+		NTitle:新闻标题
+		NContent:新闻内容
+		NImgs：新闻图片
+		NUrl：新闻图片url
+		NOrigin：新闻来源
+		NType：新闻类型
+		NCreatTime：新闻创建时间
+		NFinalTime：新闻最后修改/发布时间
+		NIstop：是否置顶
+		UId：创建该新闻用户id
+		NStatus：新闻状态：1发布中，2过时
+		user{创建新闻者（用户）所有信息（已清空密码）
+		
+				}
+		}{下一条新闻。。。   }{下一条新闻。。。    }]
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

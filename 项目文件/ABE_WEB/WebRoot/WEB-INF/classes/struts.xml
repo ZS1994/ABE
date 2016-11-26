@@ -123,6 +123,10 @@
   	 <result name="timetablesManager">/backstage/timetables/timetablesManager.jsp</result>
   	 <result name="index">/index.jsp</result>
   </action>
+  <action name="news" class="lz_news">	   
+	 <interceptor-ref name="mydefault" />
+	  <result name="index">/index.jsp</result>
+  </action>
   <action name="course" class="zs_course">	   
   	 <interceptor-ref name="mydefault" />
   	 <result name="courseManager">/backstage/timetables/courseManager.jsp</result>

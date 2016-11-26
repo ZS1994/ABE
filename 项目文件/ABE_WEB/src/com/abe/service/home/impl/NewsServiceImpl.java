@@ -29,7 +29,7 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 			respNewsAll.setData(null);
 		}else {
 			Page page=new Page(pano, 0, size);
-		String hql1="from News  order by NFinalTime desc ";
+		String hql1="from News order by NFinalTime desc ";
 		List<News> list = query(hql1, null, hql1, page);
 		for (int i = 0; i < list.size(); i++) {
 			Users user=(Users) get(Users.class, list.get(i).getUId());
@@ -51,8 +51,18 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 
 	@Override
 	public RespNews findSingleNews(String NId) {
-		News news = (News) get(Vacate.class,NId);
-		RespNews respNews = new RespNews("001",news);
+		RespNews respNews = new RespNews();
+		if(NId==null||"".equals(NId)){
+			respNews.setData(null);
+			respNews.setResult("002");
+		}else{
+			News news = (News) get(Vacate.class,NId);
+			Users user=(Users) get(Users.class,news.getUId());
+			user.setUPass(null);
+			news.setUser(user);
+			respNews.setData(news);
+			respNews.setResult("001");
+		}
 		return respNews;
 	}
 
