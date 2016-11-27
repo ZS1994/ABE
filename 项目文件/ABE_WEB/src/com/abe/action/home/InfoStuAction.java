@@ -1,6 +1,7 @@
 package com.abe.action.home;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.management.Query;
@@ -12,7 +13,9 @@ import net.sf.json.JsonConfig;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
+import com.abe.entity.StudentParentRel;
 import com.abe.entity.Users;
 import com.abe.entity.app.ReqObject;
 import com.abe.entity.app.RespCommon;
@@ -20,6 +23,7 @@ import com.abe.entity.app.RespStudent;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iStudentService;
 import com.abe.tools.NameOfDate;
+import com.opensymphony.xwork2.util.finder.ClassFinder.Info;
 
 
 /**
@@ -70,12 +74,8 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	 */
 	public String addFromApp() throws IOException {
 		logger.debug("-------进入addFromApp()---------");
-//		studentSer.csReq(getRequest());
 		RespStudent respStudent=studentSer.addFromApp(getRequest());
-		JSONObject jsonObject=ser.objToJson2(respStudent, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respStudent, ser);
 		return null;
 	}
 	@Override
@@ -121,7 +121,7 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 			respStudent.setResult("003");
 			respStudent.setData(null);
 		}else {
-			InfoStudent student=(InfoStudent) ser.get(InfoStudent.class, isId);
+			InfoStudent student=studentSer.getFromId(isId);
 			if (student==null) {
 				respStudent.setResult("002");
 				respStudent.setData(null);
@@ -130,7 +130,7 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 				respStudent.setData(student);
 			}
 		} 
-		sendToApp2(respStudent, ser);
+		sendToApp(respStudent, ser);
 		return null;
 	}
 	
@@ -152,7 +152,13 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 				respStudent.setResult("002");
 				respStudent.setData(null);
 			}else if (user.getUType().equals("1")) {
-				List<InfoStudent> list=ser.find("from InfoStudent where UId=?", new String[]{user.getUId()});
+				InfoParents parent=(InfoParents) ser.get(InfoParents.class, user.getTrpId());
+				List<StudentParentRel> rels=ser.find("from StudentParentRel where ipId=?", new String[]{parent.getIpId()});
+				List<InfoStudent> list=new ArrayList<InfoStudent>();
+				for (int i = 0; i < rels.size(); i++) {
+					InfoStudent student=studentSer.getFromId(rels.get(i).getIsId());
+					list.add(student);
+				}
 				respStudent.setResult("001");
 				respStudent.setData(list);
 			}else {

@@ -12,10 +12,19 @@ public class SchoolGrade implements java.io.Serializable {
 	private String sgName;
 	private String SId;
 
+	private School school;//学校信息
 	// Constructors
 
 	/** default constructor */
 	public SchoolGrade() {
+	}
+
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
 	}
 
 	/** minimal constructor */

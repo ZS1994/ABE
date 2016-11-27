@@ -13,7 +13,15 @@ public interface iStudentService {
 	 * @param isNum 学号
 	 * @return
 	 */
-	public InfoStudent get(String isNum);
+	public InfoStudent getFromNum(String isNum);
+	
+	/**
+	 * 张顺 2016-11-26 15:06:48
+	 * 通过id查学生信息，且装填过其他信息
+	 * @param isId
+	 * @return
+	 */
+	public InfoStudent getFromId(String isId);
 	
 	
 	/**
@@ -24,10 +32,5 @@ public interface iStudentService {
 	public RespStudent addFromApp(HttpServletRequest req);
 	
 	
-	
-	/**
-	 * 测试request传过来是否可以取值
-	 */
-	public void csReq(HttpServletRequest req);
 	
 }

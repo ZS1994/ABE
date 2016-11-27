@@ -1,6 +1,5 @@
 package com.abe.entity;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -9,30 +8,18 @@ import java.util.Date;
 
 public class InfoTeacher implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	// Fields
 
-	/**
-	 * 
-	 */
 	private String itId;
 	private String itNum;
 	private String itName;
 	private String itSex;
 	private Date itBirthday;
-	private Integer itAge;
 	private String itPhone;
-	private String itWechat;
-	private String itQq;
-	private String itSection;
 	private String itPost;
 	private Date itIntoDate;
 	private Date itLeaveDate;
 	private String itState;
-	private Timestamp itLastTime;
-	private Timestamp itCreateTime;
 	private String itAddress;
 	private String ssId;
 
@@ -42,7 +29,6 @@ public class InfoTeacher implements java.io.Serializable {
 	public InfoTeacher() {
 	}
 
-
 	/** minimal constructor */
 	public InfoTeacher(String itId, String itNum) {
 		this.itId = itId;
@@ -51,32 +37,24 @@ public class InfoTeacher implements java.io.Serializable {
 
 	/** full constructor */
 	public InfoTeacher(String itId, String itNum, String itName, String itSex,
-			Date itBirthday, Integer itAge, String itPhone, String itWechat,
-			String itQq, String itSection, String itPost, Date itIntoDate,
-			Date itLeaveDate, String itState, Timestamp itLastTime,
-			Timestamp itCreateTime, String itAddress, String ssId) {
+			Date itBirthday, String itPhone, String itPost, Date itIntoDate,
+			Date itLeaveDate, String itState, String itAddress, String ssId) {
 		this.itId = itId;
 		this.itNum = itNum;
 		this.itName = itName;
 		this.itSex = itSex;
 		this.itBirthday = itBirthday;
-		this.itAge = itAge;
 		this.itPhone = itPhone;
-		this.itWechat = itWechat;
-		this.itQq = itQq;
-		this.itSection = itSection;
 		this.itPost = itPost;
 		this.itIntoDate = itIntoDate;
 		this.itLeaveDate = itLeaveDate;
 		this.itState = itState;
-		this.itLastTime = itLastTime;
-		this.itCreateTime = itCreateTime;
 		this.itAddress = itAddress;
 		this.ssId = ssId;
 	}
 
 	// Property accessors
-    
+
 	public String getItId() {
 		return this.itId;
 	}
@@ -117,44 +95,12 @@ public class InfoTeacher implements java.io.Serializable {
 		this.itBirthday = itBirthday;
 	}
 
-	public Integer getItAge() {
-		return this.itAge;
-	}
-
-	public void setItAge(Integer itAge) {
-		this.itAge = itAge;
-	}
-
 	public String getItPhone() {
 		return this.itPhone;
 	}
 
 	public void setItPhone(String itPhone) {
 		this.itPhone = itPhone;
-	}
-
-	public String getItWechat() {
-		return this.itWechat;
-	}
-
-	public void setItWechat(String itWechat) {
-		this.itWechat = itWechat;
-	}
-
-	public String getItQq() {
-		return this.itQq;
-	}
-
-	public void setItQq(String itQq) {
-		this.itQq = itQq;
-	}
-
-	public String getItSection() {
-		return this.itSection;
-	}
-
-	public void setItSection(String itSection) {
-		this.itSection = itSection;
 	}
 
 	public String getItPost() {
@@ -189,22 +135,6 @@ public class InfoTeacher implements java.io.Serializable {
 		this.itState = itState;
 	}
 
-	public Timestamp getItLastTime() {
-		return this.itLastTime;
-	}
-
-	public void setItLastTime(Timestamp itLastTime) {
-		this.itLastTime = itLastTime;
-	}
-
-	public Timestamp getItCreateTime() {
-		return this.itCreateTime;
-	}
-
-	public void setItCreateTime(Timestamp itCreateTime) {
-		this.itCreateTime = itCreateTime;
-	}
-
 	public String getItAddress() {
 		return this.itAddress;
 	}
@@ -219,19 +149,6 @@ public class InfoTeacher implements java.io.Serializable {
 
 	public void setSsId(String ssId) {
 		this.ssId = ssId;
-	}
-
-	@Override
-	public String toString() {
-		return "InfoTeacher [itAddress=" + itAddress + ", itAge=" + itAge
-				+ ", itBirthday=" + itBirthday + ", itCreateTime="
-				+ itCreateTime + ", itId=" + itId + ", itIntoDate="
-				+ itIntoDate + ", itLastTime=" + itLastTime + ", itLeaveDate="
-				+ itLeaveDate + ", itName=" + itName + ", itNum=" + itNum
-				+ ", itPhone=" + itPhone + ", itPost=" + itPost + ", itQq="
-				+ itQq + ", itSection=" + itSection + ", itSex=" + itSex
-				+ ", itState=" + itState + ", itWechat=" + itWechat + ", ssId="
-				+ ssId + "]";
 	}
 
 }
