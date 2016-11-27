@@ -82,7 +82,11 @@
   <action name="one" class="zs_one">	   
   	 <interceptor-ref name="mydefault" />
   </action>
-  
+  <action name="score" class="zs_score">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
+
+
 </package> 
 
 <!-- *************WEB********************* -->
@@ -125,7 +129,7 @@
   </action>
   <action name="news" class="lz_news">	   
 	 <interceptor-ref name="mydefault" />
-	  <result name="index">/index.jsp</result>
+	 <result name="index">/index.jsp</result>
   </action>
   <action name="course" class="zs_course">	   
   	 <interceptor-ref name="mydefault" />

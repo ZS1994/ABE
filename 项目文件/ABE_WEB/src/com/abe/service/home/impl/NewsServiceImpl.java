@@ -56,7 +56,7 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 			respNews.setData(null);
 			respNews.setResult("002");
 		}else{
-			News news = (News) get(Vacate.class,NId);
+			News news = (News) get(News.class,NId);
 			Users user=(Users) get(Users.class,news.getUId());
 			user.setUPass(null);
 			news.setUser(user);

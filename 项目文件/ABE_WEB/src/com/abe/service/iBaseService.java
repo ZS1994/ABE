@@ -1,6 +1,9 @@
 package com.abe.service;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -117,4 +120,17 @@ public interface iBaseService {
 	 * @return
 	 */
 	public String clearSpace(HttpServletRequest req,String key);
+	
+	
+	public Integer toInteger(String str);
+	
+
+	public Date toDate(String str);
+	
+	
+	public Timestamp toTimestamp(String str);
+	
+	
+	public Time toTime(String str);
+	
 }

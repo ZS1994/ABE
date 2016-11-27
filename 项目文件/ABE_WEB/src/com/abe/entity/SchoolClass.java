@@ -13,7 +13,18 @@ public class SchoolClass implements java.io.Serializable {
 	private String sgId;
 	private String itId;
 
+	
+	private SchoolGrade schoolGrade;//年级信息
+	
 	// Constructors
+
+	public SchoolGrade getSchoolGrade() {
+		return schoolGrade;
+	}
+
+	public void setSchoolGrade(SchoolGrade schoolGrade) {
+		this.schoolGrade = schoolGrade;
+	}
 
 	/** default constructor */
 	public SchoolClass() {
