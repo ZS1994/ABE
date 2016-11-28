@@ -73,5 +73,11 @@ public interface iSignService {
 	public RespUpdateUser updateUser1(String UNum);
 	public RespUpdateUser updateUser2(String UName,String UPass,String UType,Timestamp UCreateTime,
 			String UPhotoPath,String UNote,String UNum,String UId,String trpId);
+	/**
+	 *  app查询个人信息资料
+	 *  卢江林
+	 *  2016.11.27
+	 */
+	public RespUpdateUser queryUsers(String UId);
 	
 }

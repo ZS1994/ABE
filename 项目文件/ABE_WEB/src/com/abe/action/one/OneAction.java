@@ -47,7 +47,22 @@ public class OneAction extends BaseAction implements iBaseAction{
 	public void setUser(Users user) {
 		this.user = user;
 	}
-
+	 /**
+     * APP端查看个人信息
+     * @return
+     * @author 卢江林
+    * @throws IOException 
+     */
+	public String getUsersInfor() throws IOException{
+		logger.debug("-------进入个人信息中信getUsersInfor--------");
+		String UId=getRequest().getParameter("UId");
+		RespUpdateUser userInfor = signSer.queryUsers(UId);
+		JSONObject jsonObject = ser.objToJson(userInfor, "yyyy-MM-dd HH:mm:ss");
+		getPrintWriter().print(jsonObject);
+		getPrintWriter().flush();
+		getPrintWriter().close();
+		return null;
+	}
 	/**
 	 * APP端修改个人信息，密码
 	 * @return
