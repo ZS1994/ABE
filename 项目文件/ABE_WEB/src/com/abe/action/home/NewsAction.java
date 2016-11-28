@@ -1,17 +1,21 @@
 package com.abe.action.home;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import net.sf.json.JSONObject;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.News;
+import com.abe.entity.Users;
 import com.abe.entity.app.RespNews;
 import com.abe.entity.app.RespNewsAll;
 import com.abe.entity.app.RespVacate;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iNewsService;
+import com.abe.tools.NameOfDate;
 
 public class NewsAction extends BaseAction implements iBaseAction {
 	private static final long serialVersionUID = 1L;
@@ -116,7 +120,39 @@ public class NewsAction extends BaseAction implements iBaseAction {
 
 	@Override
 	public String add() {
-		// TODO Auto-generated method stub
+		news.setNId(NameOfDate.getNum());
+		news.setNCreatTime(getTime());
+		news.setNFinalTime(getTime());
+		news.setNStatus("1");
+		Users user = (Users)getRequest().getSession().getAttribute("user");
+		news.setUId(user.getUId());
+	/*	
+		String content = news.getNContent();
+		String imgs = "";
+		String hostPath = "";
+		String arr[] = news.getNContent().split("src=\"");
+		String url = "";
+		String saveurl = "";
+		if (arr.length > 1) {
+			for (int i = 1; i < arr.length; i += 2) {
+				int count = arr[i].indexOf("\"");
+				if (count >= 0) {
+					url = arr[i].substring(0, count);
+					// 服务器下载图片
+					saveurl = GetImage.putImage(url, homepath);
+					content = content.replace(url, ippath + saveurl);
+					imgs = imgs + ippath + saveurl + ";";
+					hostPath = hostPath + homepath + saveurl + ";";
+				}
+			}
+			content = content.replace("<img", "<img style=\"height:30%;width:100%;\"");
+			news.setNContent(content);
+		}
+		news.setNImgs(imgs);
+		news.setNUrl(hostPath);
+	*/
+		ser.save(news);
+
 		return null;
 	}
 
@@ -141,7 +177,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 	@Override
 	public String gotoQuery() {
 		// TODO Auto-generated method stub
-		return "index";
+		return "insert";
 	}
 
 	@Override
@@ -154,6 +190,11 @@ public class NewsAction extends BaseAction implements iBaseAction {
 	public String update() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public static String getTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = sdf.format(new Date());
+		return time;
 	}
 
 }
