@@ -74,7 +74,7 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
 			logger.info("在TokenInterceptorWeb中生成的token："+token);
 			request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
 		} else {
-//			Thread.sleep(3000);
+//			Thread.sleep(3000);//模拟网络延迟
 			boolean b = isRepeatSubmit(request);//判断用户是否是重复提交
             if(b==true){
                 logger.error("请不要重复提交");
@@ -83,6 +83,9 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
             }
         	request.getSession().removeAttribute("token");//移除session中的token
         	logger.info("处理用户提交请求！！");
+        	//-----------------------------------------
+        	String token = TokenProccessor.getInstance().makeToken();//创建新令牌
+			request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
 		}
 		result=arg0.invoke();
 		close(); 

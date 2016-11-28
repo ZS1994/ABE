@@ -54,7 +54,15 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="courseSer" ref="zs_course_ser"></property>
 	</bean>
-	
+	<bean id="zs_card" class="com.abe.action.home.CardAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="cardSer" ref="zs_card_ser"></property>
+	</bean>
+	<bean id="zs_attendance" class="com.abe.action.home.AttendanceAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="attendanceSer" ref="zs_attendance_ser"></property>
+	</bean>
+
 	<!-- ****************消息中心**************** -->
 	<bean id="zs_province" class="com.abe.action.information.ProvinceAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -171,6 +179,15 @@
 	<bean id="zs_score_ser" class="com.abe.service.home.impl.ScoreServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
+	<bean id="zs_card_ser" class="com.abe.service.home.impl.CardServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_attendance_ser" class="com.abe.service.home.impl.AttendanceServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	
+	
+	
 	<!-- ************环信的service层******************** -->
 	<bean id="zs_users_ser_hx" class="com.abe.service.hx.impl.UsersServiceImpl">
 		<property name="dao" ref="zs_dao"></property>

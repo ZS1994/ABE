@@ -48,7 +48,6 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		final String HINT_NO_PASS="密码错误";//密码错误
 		final String result="index";
 		final String result_fail="login";
-		
 		List list=find("from Users where UNum=?", new Object[]{user.getUNum()});
 		Users u=null;
 		if (list.size()>0) {
