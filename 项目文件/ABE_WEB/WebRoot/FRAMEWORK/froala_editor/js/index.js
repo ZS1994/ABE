@@ -1,7 +1,7 @@
 $(document).ready(
 		function() {
 			// $("#tables").attr("style","width:80%");
-			$.ajax({
+/*		$.ajax({
 				url : '../service/NewsService/getTops',
 				dataType : "json",
 				success : function(data) {
@@ -16,7 +16,7 @@ $(document).ready(
 
 					})
 				}
-			});
+			}); */
 			$('#edit').editable({
 				inlineMode : false,
 				alwaysBlank : true
@@ -43,7 +43,7 @@ $(document).ready(
 			})
 
 			// 提交事件
-			$("#tijiao").click(
+	/*		$("#tijiao").click(
 					function() {
 						var title = $("#title").val();
 						var type = $("#selectAge").val() + ";";
@@ -54,25 +54,27 @@ $(document).ready(
 							alert("请填写标题和文章来源。");
 							return;
 						}
-						// $("input[name='category']:checked")
+						 $("input[name='category']:checked")
 						var types = $("input[name='category']:checked");
-						$.each(types, function(i, item) {
+							$.each(types, function(i, item) {
 							type += item.value + ";";
-
-						})
+						
+								})
 						var content = $(".froala-element").html();
+						var status = "1";
 						var newvo = {
-							title : title,
-							type : type,
-							content : content,
-							origin : origin,
-							istop : istop,
-							uid:parent.admin_id
+							NTitle : title,
+							NType : type,
+							NContent : content,
+							NOrigin : origin,
+							NIstop : istop,
+							UId:parent.admin_id,
+							NStatus : status
 						};
 						var data = JSON.stringify(newvo);
 						$.ajax({
 							type : 'POST',
-							url : '../service/NewsService/insertNews',
+							url : '../ABE_WEB/web/news!insertNews',
 							data : data,
 							contentType : 'application/json; charset=utf-8',
 							dataType : "json",
@@ -85,10 +87,18 @@ $(document).ready(
 							}
 						});
 
-					});
-			
-			
-			
+					});*/
+			$("#tijiao").click(function() {
+					var content = $(".froala-element").html();
+					$("#Content").val(content);
+					if (!title || !origin || title == "请输入..."
+						|| origin == "请输入...") {
+					alert("请填写标题和文章来源。");
+					return;
+				}
+			})
+			/*
+	
 			//类型修改时多选显示也同时修改
 			$("#selectAge").blur(function(){
 				 $("input[name='category']").show();
@@ -103,5 +113,5 @@ $(document).ready(
 							}
 
 						})
-			})
+			})*/
 		});
