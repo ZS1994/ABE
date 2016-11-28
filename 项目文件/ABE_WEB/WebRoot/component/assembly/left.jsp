@@ -57,7 +57,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<li>新闻管理</li>
   		<ul>
   			<li>
-  				<a href="<%=path %>/backstage/news/edit.jsp">编辑新闻</a>
+  				<a href="<%=path %>/web/news!gotoQuery">编辑新闻</a>
+  			</li>
+  		</ul>
+  		<li>卡片与考勤管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/web/card!gotoQuery">卡片管理</a>
   			</li>
   		</ul>
   		</ul>

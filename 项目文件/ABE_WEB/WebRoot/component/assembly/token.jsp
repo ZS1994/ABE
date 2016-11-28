@@ -23,9 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 $(function(){
 	$('form').each(function (i){
 		console.log(i);
-		//i就是索引值
-		//this 表示获取遍历每一个dom对象
+		/*取消下面代码的注释即可不显示token,正式版时使用*/
 		$(this).prepend("<input name='token' type='hidden' value='${token }'/>");
+		/*取消下面代码的注释可显示token,调试时使用*/
+		//$(this).prepend("<input name='token' type='text' value='${token }' style='width:200px;'/>请在WebRoot/component/assembly/token.jsp中开关token的显示");
 	});
 });
 </script>

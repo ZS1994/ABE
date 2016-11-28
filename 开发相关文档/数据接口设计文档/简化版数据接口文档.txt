@@ -1062,26 +1062,36 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findAllVacate
 }
 
 //-----------------------查看成绩------------------------------------
-查看成绩 <此方式适用于家长对孩子的成绩进行查询>
+1，查看成绩 <此方式适用于家长对孩子的成绩进行查询>（测试通过、2016-11-28、张顺）
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/score!QueryScoreFromApp
 请求参数
 	licence:数字执照
 	UId：家长id【必须】
 应答参数
 {
-    "result":001成功，002用户不存在，003接受的UId为空，004未知错误
-    "data"://分数信息
-    [[{//多个孩子，多门成绩
-		"SScore": 科目分数
-		"SCreateTime": 创建时间
-		"SId": 编号
-		"CId": 科目编号
-		"isId": 学生编号
-     }]]
+    result:001成功，002用户不存在，003接受的UId为空，004未知错误
+    data:[//家长所有孩子的所有科目成绩
+		{
+			isId:学生id
+			isName:学生名字
+			......
+			score:[//不同科目成绩
+				{
+					SScore: 科目分数
+					SCreateTime: 创建时间
+					SId: 编号
+					CId: 科目编号
+					isId: 学生编号
+					course:{//科目信息
+						CId：科目编号
+						CName:科目名称
+					}
+				}	
+			]
+		}
+	]
 }
-
-
-查询成绩<此方法使用学生Id进行查询>
+2，查询成绩<此方法使用学生Id进行精确查询>（测试通过、2016-11-28、张顺）
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/score!QueryScoreFromAppOfisId
 请求参数
 	licence:数字执照
@@ -1098,7 +1108,44 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/score!QueryScoreFromAppOf
 		"isId": 学生编号
     }]
 }
-
+//----------------------------------考勤管理-------------------------------------
+1，通过UId查询对应子女或教职工的考勤信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/attendance!queryOfUid
+请求参数：
+	licence:执照
+	UId:用户id
+应答参数：
+情况1：如果uid是家长账号id
+{
+	result：001成功，002UId不存在，003接收到的UId为空
+	data:[每个子女的考勤
+		{
+			isId:学生id
+			isName:学生名字
+			........
+			cardLog:[//学生的考勤信息
+				{
+					CId:卡号
+					clId:考勤编号
+					clState:状态：上车、下车、上班、下班等等
+					clTime:打卡时间
+				}
+			]
+		}
+	]
+}
+情况2：如果uid是教职工账号id
+{
+	result：001成功，002UId不存在，003接收到的UId为空
+	data:[//教职工的考勤信息
+		{
+			CId:卡号
+			clId:考勤编号
+			clState:状态：上车、下车、上班、下班等等
+			clTime:打卡时间
+		}
+	]
+}
 //----------------------环信----------------------------
 1，发送消息
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/hx_msg!addFromApp
@@ -1151,7 +1198,7 @@ http://localhost:8080/ABE_WEB/app/news!findAllNewsOnByPage
 	licence:数字执照
 	pageNo：当前页数
 	Size：每页展示数量
-	NStatus：新闻状态：1发布中，2过时
+	NStatus：新闻状态：1发布中，0过时
 应答参数：
 {
 	result：001成功，002当前页数为负，003每页数量为负，004当前没有查到新闻，005NStatus为空或者不为1
@@ -1165,9 +1212,9 @@ http://localhost:8080/ABE_WEB/app/news!findAllNewsOnByPage
 		NType：新闻类型
 		NCreatTime：新闻创建时间
 		NFinalTime：新闻最后修改/发布时间
-		NIstop：是否置顶
+		NIstop：是否置顶：1置顶，2不置顶
 		UId：创建该新闻用户id
-		NStatus：新闻状态：1发布中，2过时
+		NStatus：新闻状态：1发布中，0过时
 		user{创建新闻者（用户）所有信息（已清空密码）
 		
 				}
