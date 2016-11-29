@@ -27,7 +27,6 @@
   
   <!-- *********测试************** -->
   <action name="test" class="zs_test">	   
-     <result>/index.jsp</result>
   </action>
   
   <!-- ********首页*********** -->

@@ -15,6 +15,8 @@
 	<!-- ***********测试的，已作废*************** -->	
 	<bean id="zs_test" class="com.abe.action.TestAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="groupSer" ref="zs_group_ser_hx"></property>
+		<property name="userSer" ref="zs_users_ser_hx"></property>
 	</bean>
 	<!-- **************************ACTION******************************************** -->
 	<bean id="zs_sign" class="com.abe.action.SignAction">
@@ -193,6 +195,10 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_message_ser_hx" class="com.abe.service.hx.impl.MessageServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+		<property name="userSer" ref="zs_users_ser_hx"></property>
+	</bean>
+	<bean id="zs_group_ser_hx" class="com.abe.service.hx.impl.ChatGroupServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 		<property name="userSer" ref="zs_users_ser_hx"></property>
 	</bean>

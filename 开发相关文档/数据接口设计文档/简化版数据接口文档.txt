@@ -139,64 +139,19 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 修改密码
 
 //---------------------------------------------------------------------------------------
-添加宝贝并绑定
+1,添加宝贝(家长绑定一个孩子）（测试通过，张顺，2016-11-29）
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 请求参数：
 	licence:数字执照
-	isNum:学号【必须】
-	isName:名字
-	isSex:男/女
-	isBirthday:生日   yyyy-MM-dd
-	isLocal:是否本地生  0：否/1：是
-	isTeacherChildren:是否是教职工子弟   0：否/1：是
-	isIntoDate:入校日期    yyyy-MM-dd
-	isLeaveDate:离校日期   没有就为空
-	isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
-	scId:班级id
+	isId:学生id
 	ipId:家长id
 	spRelation:学生与家长的关系    父女、父子、母女、母子等等
 应答参数：
 {
-	result:返回码   001:成功，002：学号已存在,003:接收到的学号为空，004ipid为空，005ipid不存在
-	data:{
-		isId:学生id
-		isNum:学号
-		isName:名字
-		isSex:男/女
-		isBirthday:生日   yyyy-MM-dd
-		isLocal:是否本地生  0：否/1：是
-		isTeacherChildren:是否是教职工子弟   0：否/1：是
-		isIntoDate:入校日期    yyyy-MM-dd
-		isLeaveDate:离校日期   没有就为空
-		isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
-		scId:班级id
-		schoolClass:{//班级、年级、学校信息
-			scId:班级id
-			scName:班级名字
-			grade:{//年级信息
-				sgId:年级id
-				sgName:年级名字
-				school:{
-					SId:学校id
-					SName:学校名字
-					SAddress:学校地址
-				}
-			}
-		}
-		parents:[//家长信息
-			{
-				ipId:家长id
-				ipName:家长姓名
-				ipBirthday:家长生日
-				ipAddress:地址
-				ipPhone:家长电话
-				ipSex:家长性别
-				spRelation:与家长的关系
-			}
-		]
-	}
+	result:返回码   001:成功，002:isid不存在,003:ipid不存在
+	data:null
 }
-通过学生id查看学生信息(用来查唯一学生)
+2,通过学生id查看学生信息(用来查唯一学生)（测试通过，张顺，2016-11-29）
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 请求参数：
 	licence:数字执照
@@ -242,7 +197,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
 		]
 	}
 }
-通过用户uid查看学生信息
+3,通过用户uid查看学生信息（测试通过，张顺，2016-11-29）
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp2
 请求参数：
 	licence:数字执照
@@ -288,8 +243,25 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp2
 		]
 	}]	
 }
+4,分页查看所有学生（测试通过，张顺，2016-11-29）
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryOfFenYeFromApp
+请求参数：
+	licence:执照
+	pageNo:当前页码，从1开始算
+	size：每页大小
+应答参数：
+{
+	result：001成功，002传过来的当前页码<=0或者为空,003size<=0或者为空
+	data:[//所有学生信息
+		{
+			isId: 学生id
+			isNum:学生学号
+			isName:学生姓名
+			........
+		}
+	]
 
-
+}
 //--------------------------课程表-----------------------------------------------
 课程表
 1,查本周的课程表
