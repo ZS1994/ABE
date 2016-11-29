@@ -48,7 +48,6 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		final String HINT_NO_PASS="密码错误";//密码错误
 		final String result="index";
 		final String result_fail="login";
-		
 		List list=find("from Users where UNum=?", new Object[]{user.getUNum()});
 		Users u=null;
 		if (list.size()>0) {
@@ -280,10 +279,24 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		updateUser.setResult("001");
 		return updateUser;
 	}
-
-
-	
-
+	 /**
+     *查询个人信息资料
+     * 卢江林
+     * 11月27日
+     */
+	public RespUpdateUser queryUsers(String UId){
+		List list=find(" from Users where UId =?", new Object[]{UId});
+		Users u = new Users();
+		RespUpdateUser userInfor= new RespUpdateUser();
+		if (list.size()>0) {
+			u=(Users) list.get(0);
+			userInfor.setData(u);
+			userInfor.setResult("001");
+		}else{
+			userInfor.setResult("002");
+		}
+		return userInfor;
+	}
 
 
 }

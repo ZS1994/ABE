@@ -60,6 +60,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				<a href="<%=path %>/web/news!gotoQuery">编辑新闻</a>
   			</li>
   		</ul>
+  		<li>卡片与考勤管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/web/card!gotoQuery">卡片管理</a>
+  			</li>
+  		</ul>
   		</ul>
   	
 	</div>

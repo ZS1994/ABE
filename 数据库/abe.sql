@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-27 09:51:58
+Date: 2016-11-28 20:44:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -214,7 +214,7 @@ DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news` (
   `n_id` varchar(255) NOT NULL,
   `n_title` varchar(255) NOT NULL,
-  `n_content` varchar(255) DEFAULT NULL,
+  `n_content` text,
   `n_imgs` varchar(255) DEFAULT NULL,
   `n_url` varchar(255) DEFAULT NULL,
   `n_origin` varchar(255) DEFAULT NULL,
@@ -231,6 +231,9 @@ CREATE TABLE `news` (
 -- Records of news
 -- ----------------------------
 INSERT INTO `news` VALUES ('1', '这是标题', '这是正文', null, null, null, null, null, null, null, '271634032221266', null);
+INSERT INTO `news` VALUES ('281945065136760', '你好', '', null, null, '请输入...', '健康', '2016-11-28 19:45:06', '2016-11-28 19:45:06', '0', '271634032221266', '1');
+INSERT INTO `news` VALUES ('282032113195520', '2222', '<p>11111</p>', null, null, '请输入...', '生活', '2016-11-28 20:32:11', '2016-11-28 20:32:11', '0', '271634032221266', '1');
+INSERT INTO `news` VALUES ('282034449895572', '天气晴朗', '<table width=\"100%\"><tbody><tr><td style=\"text-align: left;\">1</td><td>a</td><td>A</td></tr><tr><td>2</td><td>b</td><td>B</td></tr></tbody></table><p><strong><em>占卜术</em></strong></p><p style=\"text-align: left;\"><br></p><p style=\"text-align: left;\"><img class=\"fr-fin\" data-fr-image-preview=\"false\" alt=\"Image title\" src=\"http://i.froala.com/download/3d7dd311a9ef567babbefd208f95b4d57912b764.png?1480336440\" width=\"300\"></p><p style=\"text-align: left;\"><strong><em><br></em></strong></p>', null, null, '百度', '头条咨询', '2016-11-28 20:34:44', '2016-11-28 20:34:44', '0', '271634032221266', '1');
 
 -- ----------------------------
 -- Table structure for `place_area`

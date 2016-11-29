@@ -52,8 +52,10 @@
   <action name="timetables" class="zs_timetables">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
-  
-  
+  <action name="attendance" class="zs_attendance">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
+ 
   <!-- ******消息中心******* -->
   <action name="province" class="zs_province">	   
   	 <interceptor-ref name="mydefault" />
@@ -137,6 +139,13 @@
   	 <result name="courseManager">/backstage/timetables/courseManager.jsp</result>
   	 <result name="index">/index.jsp</result>
   </action>
+  <action name="card" class="zs_card">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="card">/backstage/card/card.jsp</result>
+  	 <result name="index">/index.jsp</result>
+  </action>
+  
+  
   
   
   

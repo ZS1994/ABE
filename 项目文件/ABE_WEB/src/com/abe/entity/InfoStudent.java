@@ -24,23 +24,34 @@ public class InfoStudent implements java.io.Serializable {
 	private String scId;
 
 	// Constructors
-
+	private List<Score> scores;
 	private SchoolClass schoolClass;
 	private List<InfoParents> parents;
+	private List<CardLog> cardLogs;
+
 	
 	
+	public List<CardLog> getCardLogs() {
+		return cardLogs;
+	}
+	public void setCardLogs(List<CardLog> cardLogs) {
+		this.cardLogs = cardLogs;
+	}
+	public List<Score> getScores() {
+		return scores;
+	}
+	public void setScores(List<Score> scores) {
+		this.scores = scores;
+	}
 	public SchoolClass getSchoolClass() {
 		return schoolClass;
 	}
-
 	public void setSchoolClass(SchoolClass schoolClass) {
 		this.schoolClass = schoolClass;
 	}
-
 	public List<InfoParents> getParents() {
 		return parents;
 	}
-
 	public void setParents(List<InfoParents> parents) {
 		this.parents = parents;
 	}

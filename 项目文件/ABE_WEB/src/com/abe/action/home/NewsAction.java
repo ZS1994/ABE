@@ -20,7 +20,6 @@ import com.abe.tools.NameOfDate;
 public class NewsAction extends BaseAction implements iBaseAction {
 	private static final long serialVersionUID = 1L;
 	
-	
 	private iBaseService ser;
 	private iNewsService newsSer;
 	private News news;
@@ -42,6 +41,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	
 	public String updateNews () throws IOException{
 		String nId=(String) getRequest().getParameter("NId");
 		String nTitle=(String) getRequest().getParameter("NTitle");
@@ -62,6 +62,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	
 	public String findSingleNews () throws IOException{
 		String nId=(String) getRequest().getParameter("NId");
 		RespNews respNews = newsSer.findSingleNews(nId);
@@ -71,6 +72,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	
 	public String findAllNewsByPage () throws IOException{
 		String pageNo = (String) getRequest().getParameter("pageNo");
 		String pageSize = (String) getRequest().getParameter("Size");
@@ -81,6 +83,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	
 	public String findAllNewsOnByPage () throws IOException{
 		String pageNo = (String) getRequest().getParameter("pageNo");
 		String pageSize = (String) getRequest().getParameter("Size");
@@ -94,6 +97,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	
 	public News getNews() {
 		return news;
 	}
