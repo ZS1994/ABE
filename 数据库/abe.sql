@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : zs
+Source Server         : lz
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : abe
@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-29 17:40:46
+Date: 2016-11-30 22:11:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `all_inform`
+-- ----------------------------
+DROP TABLE IF EXISTS `all_inform`;
+CREATE TABLE `all_inform` (
+  `ai_id` varchar(255) NOT NULL,
+  `ai_title` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `ai_content` varchar(255) DEFAULT NULL,
+  `ai_status` varchar(255) DEFAULT NULL,
+  `ai_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ai_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of all_inform
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `card`
@@ -63,6 +81,25 @@ CREATE TABLE `ceshi` (
 -- Records of ceshi
 -- ----------------------------
 INSERT INTO `ceshi` VALUES ('2001', '1');
+
+-- ----------------------------
+-- Table structure for `class_inform`
+-- ----------------------------
+DROP TABLE IF EXISTS `class_inform`;
+CREATE TABLE `class_inform` (
+  `ci_id` varchar(255) NOT NULL,
+  `ci_title` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `ci_content` varchar(255) DEFAULT NULL,
+  `sc_id` varchar(255) DEFAULT NULL,
+  `ci_status` varchar(255) DEFAULT NULL,
+  `ci_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ci_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of class_inform
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `course`
@@ -133,22 +170,6 @@ CREATE TABLE `forum_like` (
 -- ----------------------------
 INSERT INTO `forum_like` VALUES ('091103268266335', '091025067281683', '1');
 INSERT INTO `forum_like` VALUES ('091103480463287', '091025067281683', '2');
-
--- ----------------------------
--- Table structure for `hx_group`
--- ----------------------------
-DROP TABLE IF EXISTS `hx_group`;
-CREATE TABLE `hx_group` (
-  `g_id` varchar(255) NOT NULL DEFAULT '',
-  `u_id` varchar(255) DEFAULT NULL,
-  `g_desc` varchar(255) DEFAULT NULL,
-  `g_create_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`g_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of hx_group
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `info_parents`
@@ -236,7 +257,7 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
-INSERT INTO `licence` VALUES ('271634032221266', '6qnGCxq9hDAB1cB9nIwBEg==', '127.0.0.1', '2016-11-29 12:11:56', '2016-11-29 13:12:23');
+INSERT INTO `licence` VALUES ('271634032221266', '8/zFRTOlA1LOUsXaQZ0tyQ==', '127.0.0.1', '2016-11-27 09:40:55', '2016-11-27 10:45:06');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -265,6 +286,24 @@ INSERT INTO `news` VALUES ('1', '这是标题', '这是正文', null, null, null
 INSERT INTO `news` VALUES ('281945065136760', '你好', '', null, null, '请输入...', '健康', '2016-11-28 19:45:06', '2016-11-28 19:45:06', '0', '271634032221266', '1');
 INSERT INTO `news` VALUES ('282032113195520', '2222', '<p>11111</p>', null, null, '请输入...', '生活', '2016-11-28 20:32:11', '2016-11-28 20:32:11', '0', '271634032221266', '1');
 INSERT INTO `news` VALUES ('282034449895572', '天气晴朗', '<table width=\"100%\"><tbody><tr><td style=\"text-align: left;\">1</td><td>a</td><td>A</td></tr><tr><td>2</td><td>b</td><td>B</td></tr></tbody></table><p><strong><em>占卜术</em></strong></p><p style=\"text-align: left;\"><br></p><p style=\"text-align: left;\"><img class=\"fr-fin\" data-fr-image-preview=\"false\" alt=\"Image title\" src=\"http://i.froala.com/download/3d7dd311a9ef567babbefd208f95b4d57912b764.png?1480336440\" width=\"300\"></p><p style=\"text-align: left;\"><strong><em><br></em></strong></p>', null, null, '百度', '头条咨询', '2016-11-28 20:34:44', '2016-11-28 20:34:44', '0', '271634032221266', '1');
+
+-- ----------------------------
+-- Table structure for `person_inform`
+-- ----------------------------
+DROP TABLE IF EXISTS `person_inform`;
+CREATE TABLE `person_inform` (
+  `pi_id` varchar(255) NOT NULL,
+  `pi_title` varchar(255) DEFAULT NULL,
+  `pi_content` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  `pi_status` varchar(255) DEFAULT NULL,
+  `pi_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`pi_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of person_inform
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `place_area`
@@ -441,7 +480,7 @@ CREATE TABLE `student_parent_rel` (
 -- ----------------------------
 -- Records of student_parent_rel
 -- ----------------------------
-INSERT INTO `student_parent_rel` VALUES ('291125252654258', '261802034587218', '1', '父女');
+INSERT INTO `student_parent_rel` VALUES ('261802035157508', '261802034587218', '1', '父女');
 
 -- ----------------------------
 -- Table structure for `timetables`
