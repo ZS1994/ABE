@@ -77,6 +77,7 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <br/>
 <input type="button" value="添加宝贝" onclick="$('#urltmp').val('student!addFromApp');"/>
 <input type="button" value="查看学生信息" onclick="$('#urltmp').val('student!queryFromApp');"/>
+<input type="button" value="分页查看所有学生信息" onclick="$('#urltmp').val('student!queryOfFenYeFromApp');"/>
 <input type="button" value="发表分享" onclick="$('#urltmp').val('forum!addFromApp');"/>
 <input type="button" value="发表评论" onclick="$('#urltmp').val('forum!addCommentFromApp');"/>
 <input type="button" value="查看分享" onclick="$('#urltmp').val('forum!queryOfFenYeForumFromApp');"/>
@@ -102,6 +103,7 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="查看成绩" onclick="$('#urltmp').val('score!QueryScoreFromApp');"/>
 <input type="button" value="通过isId查询成绩" onclick="$('#urltmp').val('score!QueryScoreFromAppOfisId');"/>
 <input type="button" value="查看考勤信息" onclick="$('#urltmp').val('attendance!queryOfUid');"/>
+<input type="button" value="创建环信群组" onclick="$('#urltmp').val('test!createGroupHx');"/>
 
 <br/>
 <input type="button" value="添加参数" onclick="addBody()" style="background-color: rgba(230, 255, 0, 0.33);"/>

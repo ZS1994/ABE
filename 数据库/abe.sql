@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-28 20:44:38
+Date: 2016-11-29 17:40:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,6 +48,21 @@ CREATE TABLE `card_log` (
 -- ----------------------------
 -- Records of card_log
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ceshi`
+-- ----------------------------
+DROP TABLE IF EXISTS `ceshi`;
+CREATE TABLE `ceshi` (
+  `y` year(4) DEFAULT NULL,
+  `id` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ceshi
+-- ----------------------------
+INSERT INTO `ceshi` VALUES ('2001', '1');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -118,6 +133,22 @@ CREATE TABLE `forum_like` (
 -- ----------------------------
 INSERT INTO `forum_like` VALUES ('091103268266335', '091025067281683', '1');
 INSERT INTO `forum_like` VALUES ('091103480463287', '091025067281683', '2');
+
+-- ----------------------------
+-- Table structure for `hx_group`
+-- ----------------------------
+DROP TABLE IF EXISTS `hx_group`;
+CREATE TABLE `hx_group` (
+  `g_id` varchar(255) NOT NULL DEFAULT '',
+  `u_id` varchar(255) DEFAULT NULL,
+  `g_desc` varchar(255) DEFAULT NULL,
+  `g_create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`g_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of hx_group
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `info_parents`
@@ -205,7 +236,7 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
-INSERT INTO `licence` VALUES ('271634032221266', '8/zFRTOlA1LOUsXaQZ0tyQ==', '127.0.0.1', '2016-11-27 09:40:55', '2016-11-27 10:45:06');
+INSERT INTO `licence` VALUES ('271634032221266', '6qnGCxq9hDAB1cB9nIwBEg==', '127.0.0.1', '2016-11-29 12:11:56', '2016-11-29 13:12:23');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -410,7 +441,7 @@ CREATE TABLE `student_parent_rel` (
 -- ----------------------------
 -- Records of student_parent_rel
 -- ----------------------------
-INSERT INTO `student_parent_rel` VALUES ('261802035157508', '261802034587218', '1', '父女');
+INSERT INTO `student_parent_rel` VALUES ('291125252654258', '261802034587218', '1', '父女');
 
 -- ----------------------------
 -- Table structure for `timetables`

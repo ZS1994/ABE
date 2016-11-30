@@ -66,55 +66,30 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 	public RespStudent addFromApp(HttpServletRequest req) {
 		RespStudent respStudent=new RespStudent();
 		//接收数据
-		String isNum=clearSpace(req, "isNum");
-		String isName=clearSpace(req, "isName");
-		String isSex=clearSpace(req, "isSex");
-		String isBirthday=clearSpace(req, "isBirthday");
-		String isLocal=clearSpace(req, "isLocal");
-		String isTeacherChildren=clearSpace(req, "isTeacherChildren");
-		String isIntoDate=clearSpace(req, "isIntoDate");
-		String isLeaveDate=clearSpace(req, "isLeaveDate");
-		String isState=clearSpace(req, "isState");
-		String scId=clearSpace(req, "scId");
+		String isId=clearSpace(req, "isId");
 		String ipId=clearSpace(req, "ipId");
 		String spRelation=clearSpace(req, "spRelation");
-		if (isNum==null) {
-			respStudent.setResult("003");//学号为空
-			respStudent.setData(null);
-		}else {
-			InfoStudent stutmp=getFromNum(isNum);
-			if (stutmp!=null) {
-				respStudent.setResult("002");//该学号已存在
+		if (isId!=null && ipId!=null && spRelation!=null) {
+			InfoStudent stutmp=(InfoStudent) get(InfoStudent.class, isId);
+			InfoParents parent=(InfoParents) get(InfoParents.class, ipId);
+			if (stutmp==null) {
+				respStudent.setResult("002");
+				respStudent.setData(null);
+			}else if (parent==null) {
+				respStudent.setResult("003");
 				respStudent.setData(null);
 			}else {
-				//保存学生信息
-				InfoStudent student=new InfoStudent(NameOfDate.getNum(), isNum, isName, isSex, toDate(isBirthday), toInteger(isLocal), toInteger(isTeacherChildren),toDate(isIntoDate), toDate(isLeaveDate), isState, scId);
-				save(student);
-				InfoStudent studenttmp=(InfoStudent) get(InfoStudent.class, student.getIsId());
 				//绑定家长学生
-				if (ipId==null) {
-					respStudent.setResult("004");//成功
-					respStudent.setData(null);
-				}else {
-					InfoParents parent=(InfoParents) get(InfoParents.class, ipId);
-					if (parent==null) {
-						respStudent.setResult("005");//成功
-						respStudent.setData(null);
-					}else {
-						//先清除也许可能出现的重复,确保不会出现意外
-						List<StudentParentRel> rels=find("from StudentParentRel where isId=? and ipId=?",new String[]{student.getIsId(),ipId});
-						for (int i = 0; i < rels.size(); i++) {
-							delete(rels.get(i));
-						}
-						//保存绑定关系
-						StudentParentRel rel=new StudentParentRel(NameOfDate.getNum(), student.getIsId(), ipId, spRelation); 
-						save(rel);
-						respStudent.setResult("001");//成功
-						//装填学生的其他信息
-						studenttmp=initStudent(studenttmp);
-						respStudent.setData(studenttmp);
-					}
+				//先清除也许可能出现的重复,确保不会出现意外
+				List<StudentParentRel> rels=find("from StudentParentRel where isId=? and ipId=?",new String[]{isId,ipId});
+				for (int i = 0; i < rels.size(); i++) {
+					delete(rels.get(i));
 				}
+				//保存绑定关系
+				StudentParentRel rel=new StudentParentRel(NameOfDate.getNum(), isId, ipId, spRelation); 
+				save(rel);
+				respStudent.setResult("001");//成功
+				respStudent.setData(null);
 			}
 		}
 		return respStudent;

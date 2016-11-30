@@ -13,6 +13,7 @@ import net.sf.json.JsonConfig;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.Forum;
 import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
 import com.abe.entity.StudentParentRel;
@@ -23,6 +24,7 @@ import com.abe.entity.app.RespStudent;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iStudentService;
 import com.abe.tools.NameOfDate;
+import com.abe.tools.Page;
 import com.opensymphony.xwork2.util.finder.ClassFinder.Info;
 
 
@@ -168,6 +170,34 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 		} 
 		JSONObject json=ser.objToJson(respStudent);
 		sendToApp(json, ser);
+		return null;
+	}
+	
+	/**张顺 2016-11-29
+	 * 分页查询所有学生
+	 * @return
+	 */
+	public String queryOfFenYeFromApp() {
+		RespCommon respstu=new RespCommon();
+		int pageNo=ser.toInteger(ser.clearSpace(getRequest(), "pageNo"));
+		int size=ser.toInteger(ser.clearSpace(getRequest(), "size"));
+		if (pageNo<=0) {
+			respstu.setResult("002");
+		}else if (size<=0) {
+			respstu.setResult("003");
+		}else {
+			Page page=new Page(pageNo, 0, size);
+			String hql="from InfoStudent";
+			List<InfoStudent> students=ser.query(hql, null, hql, page);
+			respstu.setResult("001");
+			respstu.setData(students);
+		}
+		try {
+			sendToApp(respstu, ser);
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error("分页查询所有学生发送json时错误，错误json："+respstu);
+		}
 		return null;
 	}
 	
