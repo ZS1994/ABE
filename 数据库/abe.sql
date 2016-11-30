@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-30 15:21:51
+Date: 2016-11-30 22:58:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `all_inform`
+-- ----------------------------
+DROP TABLE IF EXISTS `all_inform`;
+CREATE TABLE `all_inform` (
+  `ai_id` varchar(255) NOT NULL,
+  `ai_title` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `ai_content` varchar(255) DEFAULT NULL,
+  `ai_status` varchar(255) DEFAULT NULL,
+  `ai_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ai_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of all_inform
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `card`
@@ -65,6 +83,25 @@ CREATE TABLE `ceshi` (
 -- Records of ceshi
 -- ----------------------------
 INSERT INTO `ceshi` VALUES ('2001', '1');
+
+-- ----------------------------
+-- Table structure for `class_inform`
+-- ----------------------------
+DROP TABLE IF EXISTS `class_inform`;
+CREATE TABLE `class_inform` (
+  `ci_id` varchar(255) NOT NULL,
+  `ci_title` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `ci_content` varchar(255) DEFAULT NULL,
+  `sc_id` varchar(255) DEFAULT NULL,
+  `ci_status` varchar(255) DEFAULT NULL,
+  `ci_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ci_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of class_inform
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `course`
