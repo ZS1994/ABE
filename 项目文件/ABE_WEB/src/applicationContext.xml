@@ -89,6 +89,7 @@
 	<bean id="zs_school_class" class="com.abe.action.information.SchoolClassAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="classSer" ref="zs_school_class_ser"></property>
+		<property name="groupSer" ref="zs_group_ser_hx"></property>
 	</bean>
 	<bean id="zs_hx_msg" class="com.abe.action.information.MsgAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -198,7 +199,7 @@
 		<property name="dao" ref="zs_dao"></property>
 		<property name="userSer" ref="zs_users_ser_hx"></property>
 	</bean>
-	<bean id="zs_group_ser_hx" class="com.abe.service.hx.impl.ChatGroupServiceImpl">
+	<bean id="zs_group_ser_hx" class="com.abe.service.hx.impl.ChatgroupServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 		<property name="userSer" ref="zs_users_ser_hx"></property>
 	</bean>
