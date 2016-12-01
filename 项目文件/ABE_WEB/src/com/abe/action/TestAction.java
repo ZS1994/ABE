@@ -1,12 +1,17 @@
 package com.abe.action;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+
+import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
 import com.abe.service.iBaseService;
+import com.abe.service.hx.iChatgroupService;
+import com.abe.service.hx.iUsersService;
 import com.abe.tools.MachineCode;
 
 
@@ -17,9 +22,23 @@ public class TestAction extends BaseAction{
 	 */
 	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
+	private iChatgroupService groupSer;
+	private iUsersService userSer;
 	private Logger logger=Logger.getLogger(TestAction.class);
 	
 	
+	public iUsersService getUserSer() {
+		return userSer;
+	}
+	public void setUserSer(iUsersService userSer) {
+		this.userSer = userSer;
+	}
+	public iChatgroupService getGroupSer() {
+		return groupSer;
+	}
+	public void setGroupSer(iChatgroupService groupSer) {
+		this.groupSer = groupSer;
+	}
 	public iBaseService getSer() {
 		return ser;
 	}
@@ -27,6 +46,7 @@ public class TestAction extends BaseAction{
 		this.ser = ser;
 	}
 
+	//-------------------------------------------------------------------
 	
 	public String test() {
 		getRequest().setAttribute("AAA", "这是AAA");
@@ -81,6 +101,28 @@ public class TestAction extends BaseAction{
 		getPrintWriter().print(data);
 		getPrintWriter().flush();
 		getPrintWriter().close();
+		return null;
+	}
+	
+	
+	public String createGroupHx() {
+		HashMap<String, Object> req=new HashMap<String, Object>();
+		req.put("groupname","hello world");
+		req.put("desc","欢迎各位对家务感兴趣的人加入");
+		req.put("public",true);
+		req.put("maxusers",200);
+		req.put("approval",true);
+		req.put("owner","271634032221266");
+		JSONObject json=ser.objToJson(req);
+		String token=userSer.getToken();
+		String str=groupSer.createChatgroup(json.toString(), token);
+		try {
+			getPrintWriter().print(str);
+			getPrintWriter().flush();
+			getPrintWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

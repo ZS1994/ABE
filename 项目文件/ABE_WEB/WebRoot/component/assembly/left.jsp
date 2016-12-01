@@ -51,7 +51,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<li>组织架构管理</li>
   		<ul>
   			<li>
-  				<a href="<%=path %>/">班级管理</a>
+  				<a href="<%=path %>/web/class!queryOfFenYe?cz=yes">班级管理</a>
+  			</li>
+  		</ul>
+  		<li>新闻管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/backstage/news/edit.jsp">编辑新闻</a>
+  			</li>
+  			<li>
+  				<a href="<%=path %>/web/news!queryOfFenYe?pageNo=1">新闻列表</a>
+  			</li>
+  		</ul>
+  		<li>卡片与考勤管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/web/card!gotoQuery">卡片管理</a>
   			</li>
   		</ul>
   		</ul>

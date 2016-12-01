@@ -27,7 +27,6 @@
   
   <!-- *********测试************** -->
   <action name="test" class="zs_test">	   
-     <result>/index.jsp</result>
   </action>
   
   <!-- ********首页*********** -->
@@ -52,8 +51,10 @@
   <action name="timetables" class="zs_timetables">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
-  
-  
+  <action name="attendance" class="zs_attendance">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
+ 
   <!-- ******消息中心******* -->
   <action name="province" class="zs_province">	   
   	 <interceptor-ref name="mydefault" />
@@ -82,7 +83,11 @@
   <action name="one" class="zs_one">	   
   	 <interceptor-ref name="mydefault" />
   </action>
-  
+  <action name="score" class="zs_score">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
+
+
 </package> 
 
 <!-- *************WEB********************* -->
@@ -123,18 +128,30 @@
   	 <result name="timetablesManager">/backstage/timetables/timetablesManager.jsp</result>
   	 <result name="index">/index.jsp</result>
   </action>
+  <action name="news" class="lz_news">	   
+	 <interceptor-ref name="mydefault" />
+	 <result name="index">/index.jsp</result>
+	 <result name="query">/backstage/news/allNews.jsp</result>
+	 <result name="insert">/backstage/news/edit.jsp</result>
+  </action>
   <action name="course" class="zs_course">	   
   	 <interceptor-ref name="mydefault" />
   	 <result name="courseManager">/backstage/timetables/courseManager.jsp</result>
   	 <result name="index">/index.jsp</result>
   </action>
+  <action name="card" class="zs_card">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="card">/backstage/card/card.jsp</result>
+  	 <result name="index">/index.jsp</result>
+  </action>
   
-  
+  <!-- *******************消息中心*********************** -->
+  <!-- ******组织架构****** -->
+  <action name="class" class="zs_school_class">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="class">/backstage/structure/class.jsp</result>
+  </action>
   
 </package>
-
-
-
-
 </struts>    
   

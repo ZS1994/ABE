@@ -4,15 +4,21 @@ package com.abe.service.impl;
 import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import com.abe.dao.iBaseDao;
 import com.abe.service.iBaseService;
 import com.abe.tools.JsonDateValueProcessor;
 import com.abe.tools.Page;
+
+import freemarker.template.SimpleDate;
 
 
 /**
@@ -22,6 +28,7 @@ import com.abe.tools.Page;
 public class BaseServiceImpl implements iBaseService{
 
 	iBaseDao dao;
+	private Logger log=Logger.getLogger(BaseServiceImpl.class);
 	
 	//-----------------------
 	public iBaseDao getDao() {
@@ -115,6 +122,65 @@ public class BaseServiceImpl implements iBaseService{
 	public String clearSpace(HttpServletRequest req, String key) {
 		String str=req.getParameter(key);
 		return str==null?null:str.trim();
+	}
+	
+	
+	@Override
+	public Date toDate(String str) {
+		if (str==null) {
+			return null;
+		}else {
+			try {
+				Date date=new SimpleDateFormat("yyyy-MM-dd").parse(str);
+				return date;
+			} catch (Exception e) {
+				log.error("String转Date错误，被转换的String："+str);
+				return null; 
+			}
+		}
+	}
+	
+	@Override
+	public Integer toInteger(String str) {
+		if (str==null) {
+			return null;
+		}else {
+			try {
+				Integer i=Integer.valueOf(str);
+				return i;
+			} catch (Exception e) {
+				log.error("String转Integer错误，被转换的String："+str);
+				return null; 
+			}
+		}
+	}
+	@Override
+	public Time toTime(String str) {
+		if (str==null) {
+			return null;
+		}else {
+			try {
+				Time time=Time.valueOf(str);
+				return time;
+			} catch (Exception e) {
+				log.error("String转Time错误，被转换的String："+str);
+				return null; 
+			}
+		}
+	}
+	@Override
+	public Timestamp toTimestamp(String str) {
+		if (str==null) {
+			return null;
+		}else {
+			try {
+				Timestamp timestamp=Timestamp.valueOf(str);
+				return timestamp;
+			} catch (Exception e) {
+				log.error("String转Timestamp错误，被转换的String："+str);
+				return null; 
+			}
+		}
 	}
 	
 	

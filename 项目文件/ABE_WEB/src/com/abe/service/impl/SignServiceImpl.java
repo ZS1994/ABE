@@ -48,7 +48,6 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		final String HINT_NO_PASS="密码错误";//密码错误
 		final String result="index";
 		final String result_fail="login";
-		
 		List list=find("from Users where UNum=?", new Object[]{user.getUNum()});
 		Users u=null;
 		if (list.size()>0) {
@@ -184,6 +183,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 					String uPhotoPath=Constant.ABE_WEB_URL+"/photo/"+UId+"/"+NameOfDate.getFileName()+"."+format;
 					Base64.getFromBASE64byte(photo, photoPath);
 					user.setUPhotoPath(uPhotoPath);
+//					logger.debug(uPhotoPath);
 					update(user);
 					uploadPhoto=new RespUploadPhoto("001", user);
 				} catch (IOException e) {
@@ -221,15 +221,16 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			users.setUNum(uNum);
 			users.setUPass(uPass);
 			users.setUType(uType);
-			//users.setUType("1");
 			users.setUId(nameOfData.getNum());
 			save(users);
 			respSignIn.setResult(HINT_SUCCESS_USER);
 			respSignIn.setData(users);
 			//在环信系统中注册
 			String token=usersSer.getToken(iUsersService.ACCESS_TOKEN);
-			usersSer.addUser(users.getUId(), users.getUPass(), token);
+			String result=usersSer.addUser(users.getUId(), users.getUPass(), token);
+			logger.debug("环信注册返回结果："+result);
 		}
+//		System.out.println(respSignIn.toString());
 		return respSignIn;
 	}
 	/**
@@ -278,10 +279,24 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		updateUser.setResult("001");
 		return updateUser;
 	}
-
-
-	
-
+	 /**
+     *查询个人信息资料
+     * 卢江林
+     * 11月27日
+     */
+	public RespUpdateUser queryUsers(String UId){
+		List list=find(" from Users where UId =?", new Object[]{UId});
+		Users u = new Users();
+		RespUpdateUser userInfor= new RespUpdateUser();
+		if (list.size()>0) {
+			u=(Users) list.get(0);
+			userInfor.setData(u);
+			userInfor.setResult("001");
+		}else{
+			userInfor.setResult("002");
+		}
+		return userInfor;
+	}
 
 
 }

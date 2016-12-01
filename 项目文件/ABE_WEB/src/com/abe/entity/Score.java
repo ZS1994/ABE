@@ -17,6 +17,16 @@ public class Score implements java.io.Serializable {
 	private Timestamp SCreateTime;
 
 	// Constructors
+	
+	private Course course;
+	
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 
 	/** default constructor */
 	public Score() {

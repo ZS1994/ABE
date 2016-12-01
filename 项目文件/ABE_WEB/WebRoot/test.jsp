@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		console.log("-----上传图片----");
 		$.post(
 			"<%=path %>/app/one!uploadPhoto",
-			{UId:$("#UId2").val(),UPhoto:$("#UPhoto2").val(),format:$("#format2").val()},
+			{UId:$("#UId2").val(),UPhoto:$("#UPhoto2").val(),format:$("#format2").val(),licence:$("#licence").val()},
 			function(data){
 				console.log(data);
 			}
@@ -60,6 +60,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="button" value="登录" onclick="cs()"/>
 <hr/>
 模拟手机上传头像
+<br/>licence
+<input id="licence" type="text"/>
 <br/>ID
 <input id="UId2" type="text"/>
 <br/>后缀
@@ -75,6 +77,7 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <br/>
 <input type="button" value="添加宝贝" onclick="$('#urltmp').val('student!addFromApp');"/>
 <input type="button" value="查看学生信息" onclick="$('#urltmp').val('student!queryFromApp');"/>
+<input type="button" value="分页查看所有学生信息" onclick="$('#urltmp').val('student!queryOfFenYeFromApp');"/>
 <input type="button" value="发表分享" onclick="$('#urltmp').val('forum!addFromApp');"/>
 <input type="button" value="发表评论" onclick="$('#urltmp').val('forum!addCommentFromApp');"/>
 <input type="button" value="查看分享" onclick="$('#urltmp').val('forum!queryOfFenYeForumFromApp');"/>
@@ -97,7 +100,11 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="查看班级" onclick="$('#urltmp').val('class!queryFromApp');"/>
 <input type="button" value="查看本周课程表" onclick="$('#urltmp').val('timetables!queryFromApp');"/>
 <input type="button" value="注册" onclick="$('#urltmp').val('sign!signUpFromApp');"/>
-
+<input type="button" value="查看成绩" onclick="$('#urltmp').val('score!QueryScoreFromApp');"/>
+<input type="button" value="通过isId查询成绩" onclick="$('#urltmp').val('score!QueryScoreFromAppOfisId');"/>
+<input type="button" value="打卡" onclick="$('#urltmp').val('attendance!addFromApp');"/>
+<input type="button" value="查看考勤信息" onclick="$('#urltmp').val('attendance!queryOfUid');"/>
+<input type="button" value="创建环信群组" onclick="$('#urltmp').val('test!createGroupHx');"/>
 
 <br/>
 <input type="button" value="添加参数" onclick="addBody()" style="background-color: rgba(230, 255, 0, 0.33);"/>
