@@ -14,6 +14,25 @@ public class StudentParentRel implements java.io.Serializable {
 	private String spRelation;
 
 	// Constructors
+	private InfoParents parent;
+	private InfoStudent student;
+	
+	
+	public InfoParents getParent() {
+		return parent;
+	}
+
+	public void setParent(InfoParents parent) {
+		this.parent = parent;
+	}
+
+	public InfoStudent getStudent() {
+		return student;
+	}
+
+	public void setStudent(InfoStudent student) {
+		this.student = student;
+	}
 
 	/** default constructor */
 	public StudentParentRel() {
