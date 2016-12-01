@@ -42,8 +42,11 @@
   <action name="vacate" class="lz_vacate">	   
 	 <interceptor-ref name="mydefault" />
   </action>
-    <action name="news" class="lz_news">	   
+  <action name="news" class="lz_news">	   
 	 <interceptor-ref name="mydefault" />
+  </action>
+  <action name="personInform" class="lz_person_inform">
+  	 <interceptor-ref name="mydefault" />
   </action>
   <action name="forum" class="zs_forum">	   
   	 <interceptor-ref name="mydefault" />
@@ -56,6 +59,9 @@
   </action>
  
   <!-- ******消息中心******* -->
+  <action name="classInform" class="lz_class_inform">
+  	 <interceptor-ref name="mydefault" />
+  </action>
   <action name="province" class="zs_province">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
@@ -80,6 +86,9 @@
   
   
   <!-- ******个人中心******* -->
+  <action name="bulletin" class="lz_bulletin">
+   	 <interceptor-ref name="mydefault" />
+  </action>
   <action name="one" class="zs_one">	   
   	 <interceptor-ref name="mydefault" />
   </action>
