@@ -1,5 +1,7 @@
 package com.abe.service.hx;
 
+import com.abe.entity.SchoolClass;
+
 /**
  * 张顺 2016-11-22
  * 群组管理
@@ -37,7 +39,13 @@ public interface iChatgroupService {
 	public String createChatgroup(String json,String token);
 	
 	
-	
+	/**
+	 * 创建一个环信群组，同时本地数据库保存群组信息
+	 * @param json
+	 * @param token
+	 * @return
+	 */
+	public String addChatgroup(SchoolClass schCla);
 	
 	
 	/**修改群组信息

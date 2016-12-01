@@ -138,7 +138,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 
 修改密码
 
-//---------------------------------------------------------------------------------------
+//------------------------------------添加宝贝---------------------------------------------------
 1,添加宝贝(家长绑定一个孩子）（测试通过，张顺，2016-11-29）
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 请求参数：
@@ -589,30 +589,32 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!queryFromApp
 	}
 }
 5,班级管理
-添加班级
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!addFromApp
-请求参数：
-	licence:数字执照
-	scName:班级名字
-	sgId:年级id
-	itId:班主任id
-应答参数：
-{
-	result：001成功，002该sgId不存在，003接收的sgId为空，004接收的scName为空，005itId不存在，006接收的itId为空
-	data:null	
-}
-修改班级信息
-URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!updateFromApp
-请求参数：
-	licence:数字执照
-	scId:班级id
-	scName:班级名字
-	itId:班主任id
-应答参数：
-{
-	result：001成功，002该scId不存在，003接收的scId为空，004接收的scName为空,005itId不存在，006接收的itId为空
-	data:null	
-}
+/**【已删除】app端只能查看,张顺，2016-11-30
+	添加班级
+	URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!addFromApp
+	请求参数：
+		licence:数字执照
+		scName:班级名字
+		sgId:年级id
+		itId:班主任id
+	应答参数：
+	{
+		result：001成功，002该sgId不存在，003接收的sgId为空，004接收的scName为空，005itId不存在，006接收的itId为空
+		data:null	
+	}
+	修改班级信息
+	URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!updateFromApp
+	请求参数：
+		licence:数字执照
+		scId:班级id
+		scName:班级名字
+		itId:班主任id
+	应答参数：
+	{
+		result：001成功，002该scId不存在，003接收的scId为空，004接收的scName为空,005itId不存在，006接收的itId为空
+		data:null	
+	}
+*/
 查看班级信息
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!queryFromApp
 请求参数：
@@ -1087,7 +1089,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/attendance!queryOfUid
 	licence:执照
 	UId:用户id
 应答参数：
-情况1：如果uid是家长账号id
+情况1：如果uid是家长账号id（测试通过、2016-11-30、张顺）
 {
 	result：001成功，002UId不存在，003接收到的UId为空
 	data:[每个子女的考勤
@@ -1118,6 +1120,17 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/attendance!queryOfUid
 		}
 	]
 }
+2,打卡接口（测试通过、2016-11-30、张顺）
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/attendance!addFromApp
+请求参数：
+	CId：卡号
+	clState:状态
+应答参数：
+{
+	result：001成功,002失败
+	data:null
+}
+
 //----------------------环信----------------------------
 1，发送消息
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/hx_msg!addFromApp
@@ -1194,6 +1207,6 @@ http://localhost:8080/ABE_WEB/app/news!findAllNewsOnByPage
 	
 }
 
-
+//------------------------------------------------
 
 

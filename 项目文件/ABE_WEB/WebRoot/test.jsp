@@ -102,6 +102,7 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="注册" onclick="$('#urltmp').val('sign!signUpFromApp');"/>
 <input type="button" value="查看成绩" onclick="$('#urltmp').val('score!QueryScoreFromApp');"/>
 <input type="button" value="通过isId查询成绩" onclick="$('#urltmp').val('score!QueryScoreFromAppOfisId');"/>
+<input type="button" value="打卡" onclick="$('#urltmp').val('attendance!addFromApp');"/>
 <input type="button" value="查看考勤信息" onclick="$('#urltmp').val('attendance!queryOfUid');"/>
 <input type="button" value="创建环信群组" onclick="$('#urltmp').val('test!createGroupHx');"/>
 

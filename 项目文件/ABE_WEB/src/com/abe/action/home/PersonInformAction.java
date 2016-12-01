@@ -1,65 +1,58 @@
-/**
- * 
- */
 package com.abe.action.home;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
-import com.abe.entity.Card;
+import com.abe.entity.PersonInform;
 import com.abe.service.iBaseService;
-import com.abe.service.home.iCardService;
+import com.abe.service.home.iPersonInformService;
 
-/**
- * 张顺   2016年11月24日
- * <br/> 卡片管理
- * 
- * @author 张顺
- *
- */
-public class CardAction extends BaseAction implements iBaseAction{
+public class PersonInformAction extends BaseAction implements iBaseAction {
+	private static final long serialVersionUID = 1L;
 
 	private iBaseService ser;
-	private iCardService cardSer;
-	private Card card;
-	private String result="card";
-	private String result_fail="";
+	private iPersonInformService personInformSer;
+	private PersonInform personInform;
 	
-	
-	public Card getCard() {
-		return card;
-	}
-	public void setCard(Card card) {
-		this.card = card;
-	}
 	public iBaseService getSer() {
 		return ser;
 	}
+
 	public void setSer(iBaseService ser) {
 		this.ser = ser;
 	}
-	public iCardService getCardSer() {
-		return cardSer;
+
+	public iPersonInformService getPersonInformSer() {
+		return personInformSer;
 	}
-	public void setCardSer(iCardService cardSer) {
-		this.cardSer = cardSer;
+
+	public void setPersonInformSer(iPersonInformService personInformSer) {
+		this.personInformSer = personInformSer;
 	}
-	//---------------------------------------------------
+
+	public PersonInform getPersonInform() {
+		return personInform;
+	}
+
+	public void setPersonInform(PersonInform personInform) {
+		this.personInform = personInform;
+	}
+
 	@Override
 	public String add() {
-		cardSer.add(card.getCId(), card.getCType(), card.getSrtId(), card.getItId(), card.getCState());
-		return gotoQuery();
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
 	@Override
 	public void clearOptions() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void clearSpace() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -70,7 +63,8 @@ public class CardAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String gotoQuery() {
-		return result;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

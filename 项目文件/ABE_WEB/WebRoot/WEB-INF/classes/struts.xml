@@ -145,14 +145,13 @@
   	 <result name="index">/index.jsp</result>
   </action>
   
-  
-  
-  
+  <!-- *******************消息中心*********************** -->
+  <!-- ******组织架构****** -->
+  <action name="class" class="zs_school_class">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="class">/backstage/structure/class.jsp</result>
+  </action>
   
 </package>
-
-
-
-
 </struts>    
   

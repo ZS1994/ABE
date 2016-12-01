@@ -4,6 +4,8 @@
 package com.abe.action.home;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONObject;
@@ -12,10 +14,13 @@ import org.apache.log4j.Logger;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.Card;
+import com.abe.entity.CardLog;
 import com.abe.entity.Users;
 import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iAttendanceService;
+import com.abe.tools.NameOfDate;
 
 /**
  * 张顺  2016年11月24日
@@ -83,6 +88,27 @@ public class AttendanceAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 	
+	public String addFromApp() {
+		String cid=ser.clearSpace(getRequest(), "CId");
+		String clState=ser.clearSpace(getRequest(), "clState");
+		RespCommon resp=new RespCommon();
+		Card card=(Card) ser.get(Card.class, cid);
+		if (cid!=null && card!=null && clState!=null) {
+			CardLog log=new CardLog(NameOfDate.getNum(), cid, new Timestamp(new Date().getTime()), clState);
+			ser.save(log);
+			resp.setResult("001");
+			resp.setData(null);
+		}else {
+			resp.setResult("002");
+			resp.setData(null);
+		}
+		try {
+			sendToApp(resp, ser);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	@Override
 	public String add() {

@@ -10,9 +10,11 @@ import com.abe.entity.SchoolClass;
 import com.abe.entity.SchoolGrade;
 import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
+import com.abe.service.hx.iChatgroupService;
 import com.abe.service.information.iSchoolClassService;
 import com.abe.service.information.iSchoolGradeService;
 import com.abe.tools.NameOfDate;
+import com.abe.tools.Page;
 
 /**
  * 张顺 2016-11-8
@@ -28,9 +30,31 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
 	private iSchoolClassService classSer;
+	private iChatgroupService groupSer;
+	private SchoolClass cla;
+	private String result="class";
+	private Page page;
 	
 	
 	
+	public iChatgroupService getGroupSer() {
+		return groupSer;
+	}
+	public void setGroupSer(iChatgroupService groupSer) {
+		this.groupSer = groupSer;
+	}
+	public Page getPage() {
+		return page;
+	}
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	public SchoolClass getCla() {
+		return cla;
+	}
+	public void setCla(SchoolClass cla) {
+		this.cla = cla;
+	}
 	public iBaseService getSer() {
 		return ser;
 	}
@@ -43,12 +67,14 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	public void setClassSer(iSchoolClassService classSer) {
 		this.classSer = classSer;
 	}
+	//---------------------------------------------------
 	/**
 	 * 张顺 2016-11-8
 	 * <br>从APP添加班级
 	 * @return
 	 * @throws IOException 
 	 */
+	/*【已删除】app端只能查看,张顺，2016-11-30
 	public String addFromApp() throws IOException {
 		String scName=ser.clearSpace(getRequest(), "scName");
 		String sgId=ser.clearSpace(getRequest(), "sgId");
@@ -82,17 +108,21 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 		sendToApp(schoolClass, ser);
 		return null;
 	}		
+	*/
 	
 	@Override
 	public String add() {
-		// TODO Auto-generated method stub
-		return null;
+		cla.setScId(NameOfDate.getNum());
+		ser.save(cla);
+		groupSer.addChatgroup(cla);
+		clearOptions();
+		return gotoQuery();
 	}
 
 	@Override
 	public void clearOptions() {
-		// TODO Auto-generated method stub
-		
+		cla=null;
+		page=null;
 	}
 
 	@Override
@@ -109,8 +139,7 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String gotoQuery() {
-		// TODO Auto-generated method stub
-		return null;
+		return result;
 	}
 
 	/**
@@ -142,8 +171,11 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String queryOfFenYe() {
-		// TODO Auto-generated method stub
-		return null;
+		String cz=getRequest().getParameter("cz");
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
+		return result;
 	}
 	
 	/**
@@ -152,6 +184,7 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	 * @return
 	 * @throws IOException 
 	 */
+	/*【已删除】app端只能查看,张顺，2016-11-30
 	public String updateFromApp() throws IOException {
 		String scId=ser.clearSpace(getRequest(), "scId");
 		String itId=ser.clearSpace(getRequest(), "itId");
@@ -186,7 +219,7 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 		sendToApp(class1, ser);
 		return null;
 	}	
-		
+	*/	
 		
 	@Override
 	public String update() {
