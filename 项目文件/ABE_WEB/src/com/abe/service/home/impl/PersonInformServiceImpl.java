@@ -57,6 +57,8 @@ public class PersonInformServiceImpl extends BaseServiceImpl implements
 	@Override
 	public RespPersonInform findSinglePersonInform(String piId) {
 		PersonInform personInform =(PersonInform) get(PersonInform.class,piId);
+		personInform.setPiStatus("已读");
+		update(personInform);
 		RespPersonInform respPersonInform = new RespPersonInform("001",personInform);
 		return respPersonInform;
 	}
@@ -125,7 +127,7 @@ public class PersonInformServiceImpl extends BaseServiceImpl implements
 			}else {
 
 				respPersonInformAll.setData(null);
-				respPersonInformAll.setResult("004");//当前用户下没有请假条或页数超限
+				respPersonInformAll.setResult("004");
 			}
 		}
 		return respPersonInformAll;
