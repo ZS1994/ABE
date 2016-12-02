@@ -126,7 +126,7 @@
   <!-- ********首页*********** -->
   <action name="student" class="zs_student">	   
   	 <interceptor-ref name="mydefault" />
-     <result name="studentManager">/backstage/student/studentManager.jsp</result>
+     <result name="student">/backstage/student/studentManager.jsp</result>
      <result name="index">/index.jsp</result>
   </action>
   <action name="timetables" class="zs_timetables">	   
