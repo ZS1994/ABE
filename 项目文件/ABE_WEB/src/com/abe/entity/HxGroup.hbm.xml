@@ -22,5 +22,8 @@
         <property name="GCreateTime" type="java.sql.Timestamp">
             <column name="g_create_time" length="19" />
         </property>
+        <property name="GNote" type="java.lang.String">
+            <column name="g_note" />
+        </property>
     </class>
 </hibernate-mapping>

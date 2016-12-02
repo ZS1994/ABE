@@ -7,22 +7,36 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.filefilter.NameFileFilter;
 
+import com.abe.entity.HxGroup;
 import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
+import com.abe.entity.InfoTeacher;
 import com.abe.entity.School;
 import com.abe.entity.SchoolClass;
 import com.abe.entity.SchoolGrade;
 import com.abe.entity.StudentParentRel;
+import com.abe.entity.Users;
 import com.abe.entity.app.ReqObject;
 import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespStudent;
 import com.abe.service.home.iStudentService;
+import com.abe.service.hx.iChatgroupService;
 import com.abe.service.impl.BaseServiceImpl;
 import com.abe.tools.NameOfDate;
 import com.opensymphony.xwork2.util.finder.ClassFinder.Info;
 
 public class StudentServiceImpl extends BaseServiceImpl implements iStudentService{
 
+	private iChatgroupService groupSer;
+	
+	
+	public iChatgroupService getGroupSer() {
+		return groupSer;
+	}
+	public void setGroupSer(iChatgroupService groupSer) {
+		this.groupSer = groupSer;
+	}
+	//-----------------------------------
 	@Override
 	public InfoStudent getFromNum(String isNum) {
 		InfoStudent student=null;
@@ -69,6 +83,13 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 		String isId=clearSpace(req, "isId");
 		String ipId=clearSpace(req, "ipId");
 		String spRelation=clearSpace(req, "spRelation");
+		respStudent=addRel(ipId, isId, spRelation);
+		return respStudent;
+	}
+
+	@Override
+	public RespStudent addRel(String ipId, String isId, String spRelation) {
+		RespStudent respStudent=new RespStudent();
 		if (isId!=null && ipId!=null && spRelation!=null) {
 			InfoStudent stutmp=(InfoStudent) get(InfoStudent.class, isId);
 			InfoParents parent=(InfoParents) get(InfoParents.class, ipId);
@@ -90,11 +111,35 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 				save(rel);
 				respStudent.setResult("001");//成功
 				respStudent.setData(null);
+				//将家长加入到班主任的群组中
+				//1得到学生所在班级
+				SchoolClass schcla=(SchoolClass) get(SchoolClass.class, stutmp.getScId());
+				if (schcla!=null) {
+					//2得到班主任
+					InfoTeacher tea=(InfoTeacher) get(InfoTeacher.class, schcla.getItId()); 
+					if (tea!=null) {
+						//3得到班主任的用户
+						List<Users> users1=find("from Users where UType=2 and trpId=?", new String[]{tea.getItId()});
+						//4得到用户
+						List<Users> users2=find("from Users where UType=1 and trpId=?", new String[]{ipId});
+						if (users1.size()>0 && users2.size()>0) {
+							Users t=users1.get(0);
+							Users u=users2.get(0);
+							//5得到最新的一个群组
+							List<HxGroup> groups=find("from HxGroup where UId=? and GNote='native' order by GCreateTime desc", new String[]{t.getUId()});
+							if (groups.size()>0) {
+								HxGroup group=groups.get(0);
+								groupSer.addUser(u, group);
+							}
+						}
+					}
+				}
 			}
 		}
 		return respStudent;
 	}
-
+	
+	
 	@Override
 	public InfoStudent getFromId(String isId) {
 		if (isId!=null) {
@@ -109,6 +154,13 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 			return null;
 		}
 	}
+	
+	
+	@Override
+	public List<InfoStudent> getAllStu() {
+		return find("from InfoStudent", null);
+	}
+	
 
 
 

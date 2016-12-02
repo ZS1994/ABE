@@ -59,9 +59,6 @@
   </action>
  
   <!-- ******消息中心******* -->
-  <action name="classInform" class="lz_class_inform">
-  	 <interceptor-ref name="mydefault" />
-  </action>
   <action name="province" class="zs_province">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
@@ -86,8 +83,8 @@
   
   
   <!-- ******个人中心******* -->
-  <action name="bulletin" class="lz_bulletin">
-   	 <interceptor-ref name="mydefault" />
+  <action name="classInform" class="lz_class_inform">
+  	 <interceptor-ref name="mydefault" />
   </action>
   <action name="one" class="zs_one">	   
   	 <interceptor-ref name="mydefault" />
@@ -153,6 +150,15 @@
   	 <result name="card">/backstage/card/card.jsp</result>
   	 <result name="index">/index.jsp</result>
   </action>
+  <action name="parents" class="zs_parents">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="parents">/backstage/parents/parents.jsp</result>
+  </action>
+  <action name="rel" class="zs_rel">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="rel">/backstage/parents/rel.jsp</result>
+  </action>
+  
   
   <!-- *******************消息中心*********************** -->
   <!-- ******组织架构****** -->

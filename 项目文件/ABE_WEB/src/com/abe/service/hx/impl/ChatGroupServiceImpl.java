@@ -2,6 +2,7 @@ package com.abe.service.hx.impl;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import com.abe.service.impl.BaseServiceImpl;
 import com.abe.tools.Constant;
 import com.abe.tools.HttpClientHelper;
 import com.abe.tools.NameOfDate;
-import com.sun.jmx.snmp.Timestamp;
+
 
 public class ChatgroupServiceImpl extends BaseServiceImpl implements iChatgroupService{
 
@@ -41,13 +42,31 @@ public class ChatgroupServiceImpl extends BaseServiceImpl implements iChatgroupS
 	
 	@Override
 	public String addUser(String groupid, String username, String token) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return HttpClientHelper.getInstance().doPost(Constant.ADDRESS_SOME+"chatgroups/"+groupid+"/users/"+username, null, token);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-
+ 
+	public String addUser(Users user,HxGroup group) {
+		String result=null;
+		if (user!=null && group!=null) {
+			try {
+				String token=userSer.getToken();
+				String str=addUser(group.getGId(), user.getUId(), token);
+				JSONObject jsonObject=JSONObject.fromObject(str);
+				result=jsonObject.getJSONObject("data").getString("result");
+			} catch (Exception e) {
+				log.error("添加用户到群组失败。用户："+user+";群组："+group);
+			}
+		}
+		return result;
+	}
+	
 	@Override
 	public String addUsers(String groupid, String[] usernames, String token) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -74,7 +93,7 @@ public class ChatgroupServiceImpl extends BaseServiceImpl implements iChatgroupS
 			if (tea!=null && user!=null) {
 				//装填本地群组部分信息：即没有id
 				HxGroup group=new HxGroup(null, schCla.getScName()+""+Calendar.getInstance().get(Calendar.YEAR)+"年"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"月",
-						user.getUId(), schCla.getScName()+""+Calendar.getInstance().get(Calendar.YEAR)+"年"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"月。系统默认自动创建。", new java.sql.Timestamp(new Date().getTime()));
+						user.getUId(), schCla.getScName()+""+Calendar.getInstance().get(Calendar.YEAR)+"年"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"月。系统默认自动创建。", new Timestamp(new Date().getTime()),"native");
 				log.debug(group.toString());
 				//创建环信群组
 				HashMap<String, Object> req=new HashMap<String, Object>();
