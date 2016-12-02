@@ -66,12 +66,12 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
 	public String intercept(ActionInvocation arg0) throws Exception {
 		allInit(arg0);
 		String method=getMethod(path);
-		logger.debug(method);
+//		logger.debug(method);
 		//以下是令牌控制的核心代码
 		String result=null;
 		if (method.equals("gotoQuery")||method.equals("queryOfFenYe")){
 			String token = TokenProccessor.getInstance().makeToken();//创建令牌
-			logger.info("在TokenInterceptorWeb中生成的token："+token);
+//			logger.info("在TokenInterceptorWeb中生成的token："+token);
 			request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
 		} else {
 //			Thread.sleep(3000);//模拟网络延迟
@@ -82,7 +82,7 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
                 return null;
             }
         	request.getSession().removeAttribute("token");//移除session中的token
-        	logger.info("处理用户提交请求！！");
+//        	logger.info("处理用户提交请求！！");
         	//-----------------------------------------
         	String token = TokenProccessor.getInstance().makeToken();//创建新令牌
 			request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)

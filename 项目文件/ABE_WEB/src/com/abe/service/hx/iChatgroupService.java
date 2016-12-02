@@ -1,6 +1,8 @@
 package com.abe.service.hx;
 
+import com.abe.entity.HxGroup;
 import com.abe.entity.SchoolClass;
+import com.abe.entity.Users;
 
 /**
  * 张顺 2016-11-22
@@ -87,7 +89,13 @@ public interface iChatgroupService {
 	 */
 	public String addUser(String groupid,String username,String token);
 	
-	
+	/**
+	 * 往群组里加一个用户
+	 * @param user 用户
+	 * @param group 群组
+	 * @return 有返回值（不出意外是true字符串）代表成功，为null失败
+	 */
+	public String addUser(Users user,HxGroup group);
 	
 	/**
 	 * 添加群组成员[批量]

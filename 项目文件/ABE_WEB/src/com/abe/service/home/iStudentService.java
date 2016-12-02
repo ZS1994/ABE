@@ -1,5 +1,7 @@
 package com.abe.service.home;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoStudent;
@@ -31,6 +33,21 @@ public interface iStudentService {
 	 */
 	public RespStudent addFromApp(HttpServletRequest req);
 	
+	/**
+	 * 绑定学生
+	 * @param req
+	 * @return
+	 */
+	public RespStudent addRel(String ipId,String isId,String spRelation);
+	
+	
+	
+	/**
+	 * 张顺 2016-12-1
+	 * 得到所有学生信息
+	 * @return
+	 */
+	public List<InfoStudent> getAllStu();
 	
 	
 }

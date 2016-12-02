@@ -36,6 +36,10 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="recipeSer" ref="lz_recipe_ser"></property>
 	</bean>
+	<bean id="lz_person_inform" class="com.abe.action.home.PersonInformAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="personInformSer" ref="lz_person_inform_ser"></property>
+	</bean>
 	<bean id="lz_vacate" class="com.abe.action.VacateAction">
  		<property name="ser" ref="zs_ser"></property>
  		<property name="vacateSer" ref="lz_vacate_ser"></property>	
@@ -64,8 +68,24 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="attendanceSer" ref="zs_attendance_ser"></property>
 	</bean>
+	<bean id="zs_parents" class="com.abe.action.home.InfoParentsAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_rel" class="com.abe.action.home.StuParRelAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="parSer" ref="zs_parents_ser"></property>
+		<property name="stuSer" ref="zs_student_ser"></property>
+		<property name="relSer" ref="zs_rel_ser"></property>
+	</bean>
+	
+
+
 
 	<!-- ****************消息中心**************** -->
+	<bean id="lz_class_inform" class="com.abe.action.information.ClassInformAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="classInformSer" ref="lz_class_inform_ser"></property>
+	</bean>
 	<bean id="zs_province" class="com.abe.action.information.ProvinceAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="provinceSer" ref="zs_province_ser"></property>
@@ -100,6 +120,10 @@
 	
 	
 	<!-- ****************个人中心**************** -->
+	<bean id="lz_bulletin" class="com.abe.action.information.BulletinAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="bulletinSer" ref="lz_bulletin_ser"></property>
+	</bean>
 	<bean id="zs_one" class="com.abe.action.one.OneAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="signSer" ref="zs_sign_ser"></property>
@@ -138,6 +162,7 @@
 		<property name="usersSer" ref="zs_users_ser_hx"></property>
 	</bean>	
 	<bean id="zs_student_ser" class="com.abe.service.home.impl.StudentServiceImpl">
+		<property name="groupSer" ref="zs_group_ser_hx"></property>
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="ljl_teacher_ser" class="com.abe.service.home.impl.TeacherServiceImpl">
@@ -150,6 +175,15 @@
  		<property name="dao" ref="zs_dao"></property>
  	</bean>
  	<bean id="lz_news_ser" class="com.abe.service.home.impl.NewsServiceImpl">
+ 		<property name="dao" ref="zs_dao"></property>
+ 	</bean>
+	<bean id="lz_person_inform_ser" class="com.abe.service.home.impl.PersonInformServiceImpl">
+ 		<property name="dao" ref="zs_dao"></property>
+ 	</bean>
+ 	<bean id="lz_bulletin_ser" class="com.abe.service.information.impl.BulletinServiceImpl">
+ 		<property name="dao" ref="zs_dao"></property>
+ 	</bean>
+ 	<bean id="lz_class_inform_ser" class="com.abe.service.information.impl.ClassInformServiceImpl">
  		<property name="dao" ref="zs_dao"></property>
  	</bean>
 	<bean id="zs_forum_ser" class="com.abe.service.home.impl.ForumServiceImpl">
@@ -188,7 +222,12 @@
 	<bean id="zs_attendance_ser" class="com.abe.service.home.impl.AttendanceServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
-	
+	<bean id="zs_parents_ser" class="com.abe.service.home.impl.ParentServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_rel_ser" class="com.abe.service.home.impl.RelServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
 	
 	
 	<!-- ************环信的service层******************** -->
