@@ -59,6 +59,9 @@
   </action>
  
   <!-- ******消息中心******* -->
+  <action name="classInform" class="lz_class_inform">
+  	 <interceptor-ref name="mydefault" />
+  </action>
   <action name="province" class="zs_province">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
@@ -83,7 +86,7 @@
   
   
   <!-- ******个人中心******* -->
-  <action name="classInform" class="lz_class_inform">
+  <action name="bulletin" class="lz_bulletin">
   	 <interceptor-ref name="mydefault" />
   </action>
   <action name="one" class="zs_one">	   
