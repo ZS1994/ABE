@@ -1,0 +1,16 @@
+.odd_table{
+	border: #224466;
+	border-collapse:collapse;
+	width: 1400px;
+	table-layout:fixed;
+}	
+.odd_table thead td{
+	text-align:center;
+	background-color: #DFDFDF;	
+}
+.odd_table thead th{
+	background-color: #CEE7FD;	
+}
+.odd_table tfoot td{
+	background-color: #DFDFDF;	
+}

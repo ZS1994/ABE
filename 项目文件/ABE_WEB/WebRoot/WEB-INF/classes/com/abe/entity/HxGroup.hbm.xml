@@ -10,6 +10,9 @@
             <column name="g_id" />
             <generator class="assigned" />
         </id>
+        <property name="GName" type="java.lang.String">
+            <column name="g_name" />
+        </property>
         <property name="UId" type="java.lang.String">
             <column name="u_id" />
         </property>
@@ -18,6 +21,9 @@
         </property>
         <property name="GCreateTime" type="java.sql.Timestamp">
             <column name="g_create_time" length="19" />
+        </property>
+        <property name="GNote" type="java.lang.String">
+            <column name="g_note" />
         </property>
     </class>
 </hibernate-mapping>

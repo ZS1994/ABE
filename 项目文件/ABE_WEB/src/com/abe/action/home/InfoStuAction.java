@@ -4,28 +4,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.Query;
-
 import org.apache.log4j.Logger;
 
 import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
-import com.abe.entity.Forum;
 import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
 import com.abe.entity.StudentParentRel;
 import com.abe.entity.Users;
-import com.abe.entity.app.ReqObject;
 import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespStudent;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iStudentService;
 import com.abe.tools.NameOfDate;
 import com.abe.tools.Page;
-import com.opensymphony.xwork2.util.finder.ClassFinder.Info;
 
 
 /**
@@ -42,10 +36,12 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	private iBaseService ser;
 	private iStudentService studentSer;
 	//-------------
-	private String result="studentManager";
+	private String result="student";
 	private String result_fail="";
-	
+	private Page page;
 	private InfoStudent student;
+	private List<InfoStudent> stus;
+	private String id;
 	
 	private Logger logger=Logger.getLogger(InfoStuAction.class);
 	
@@ -68,8 +64,25 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	public void setStudent(InfoStudent student) {
 		this.student = student;
 	}
-
-
+	public List<InfoStudent> getStus() {
+		return stus;
+	}
+	public void setStus(List<InfoStudent> stus) {
+		this.stus = stus;
+	}
+	public Page getPage() {
+		return page;
+	}
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	/**
 	 * 添加宝贝（学生）
 	 * @throws IOException 
@@ -82,32 +95,55 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	}
 	@Override
 	public String add() {
-		// TODO Auto-generated method stub
-		return null;
+		logger.debug("-------进入后台添加学生---------");
+		student.setIsId(NameOfDate.getNum());
+		if(student!=null){
+			ser.save(student);
+		}
+		return gotoQuery();
 	}
 
 	@Override
 	public void clearOptions() {
-		// TODO Auto-generated method stub
+		if (page!=null) {
+			page=null;
+		}
+		if (student!=null) {
+			student=null;
+		}
+		if (stus!=null) {
+			stus=null;
+		}
+		if (id!=null) {
+			id=null;
+		}
 		
 	}
 
 	@Override
 	public void clearSpace() {
-		// TODO Auto-generated method stub
-		
+		if (id!=null) {
+			id=id.trim();
+		}
 	}
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		String id=ser.clearSpace(getRequest(), "id");
+		if (id!=null) {
+			student=(InfoStudent) ser.get(InfoStudent.class, id);
+			if (student!=null) {
+				ser.delete(student);
+			}
+		}
+		return gotoQuery();
 	}
 
 	@Override
 	public String gotoQuery() {
-		// TODO Auto-generated method stub
-		return null;
+		clearOptions();
+		stus=ser.find("from InfoStudent order by isNum desc", null);
+		return result;
 	}
 
 	/**
@@ -203,8 +239,22 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String queryOfFenYe() {
-		// TODO Auto-generated method stub
-		return null;
+		String cz=getRequest().getParameter("cz");
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+			page=new Page(1, 0, 10);
+		}
+		clearSpace();
+		StringBuffer hql=new StringBuffer("from InfoStudent ");
+		if (id!=null) {
+			hql.append(" where isId like '%"+id+"%' ");
+		}
+		hql.append("order by isNum desc");
+		stus=ser.query(hql.toString(), null, hql.toString(), page);
+		return result;
 	}
 
 	@Override

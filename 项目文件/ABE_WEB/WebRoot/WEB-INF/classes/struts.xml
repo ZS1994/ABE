@@ -42,8 +42,11 @@
   <action name="vacate" class="lz_vacate">	   
 	 <interceptor-ref name="mydefault" />
   </action>
-    <action name="news" class="lz_news">	   
+  <action name="news" class="lz_news">	   
 	 <interceptor-ref name="mydefault" />
+  </action>
+  <action name="personInform" class="lz_person_inform">
+  	 <interceptor-ref name="mydefault" />
   </action>
   <action name="forum" class="zs_forum">	   
   	 <interceptor-ref name="mydefault" />
@@ -56,6 +59,9 @@
   </action>
  
   <!-- ******消息中心******* -->
+  <action name="classInform" class="lz_class_inform">
+  	 <interceptor-ref name="mydefault" />
+  </action>
   <action name="province" class="zs_province">	   
   	 <interceptor-ref name="mydefault" />
   </action> 
@@ -80,6 +86,9 @@
   
   
   <!-- ******个人中心******* -->
+  <action name="bulletin" class="lz_bulletin">
+  	 <interceptor-ref name="mydefault" />
+  </action>
   <action name="one" class="zs_one">	   
   	 <interceptor-ref name="mydefault" />
   </action>
@@ -120,7 +129,7 @@
   <!-- ********首页*********** -->
   <action name="student" class="zs_student">	   
   	 <interceptor-ref name="mydefault" />
-     <result name="studentManager">/backstage/student/studentManager.jsp</result>
+     <result name="student">/backstage/student/studentManager.jsp</result>
      <result name="index">/index.jsp</result>
   </action>
   <action name="timetables" class="zs_timetables">	   
@@ -131,6 +140,7 @@
   <action name="news" class="lz_news">	   
 	 <interceptor-ref name="mydefault" />
 	 <result name="index">/index.jsp</result>
+	 <result name="query">/backstage/news/allNews.jsp</result>
 	 <result name="insert">/backstage/news/edit.jsp</result>
   </action>
   <action name="course" class="zs_course">	   
@@ -143,15 +153,23 @@
   	 <result name="card">/backstage/card/card.jsp</result>
   	 <result name="index">/index.jsp</result>
   </action>
+  <action name="parents" class="zs_parents">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="parents">/backstage/parents/parents.jsp</result>
+  </action>
+  <action name="rel" class="zs_rel">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="rel">/backstage/parents/rel.jsp</result>
+  </action>
   
   
-  
-  
+  <!-- *******************消息中心*********************** -->
+  <!-- ******组织架构****** -->
+  <action name="class" class="zs_school_class">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="class">/backstage/structure/class.jsp</result>
+  </action>
   
 </package>
-
-
-
-
 </struts>    
   

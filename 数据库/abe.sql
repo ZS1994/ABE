@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-29 17:40:46
+Date: 2016-12-01 13:06:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `all_inform`
+-- ----------------------------
+DROP TABLE IF EXISTS `all_inform`;
+CREATE TABLE `all_inform` (
+  `ai_id` varchar(255) NOT NULL,
+  `ai_title` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `ai_content` varchar(255) DEFAULT NULL,
+  `ai_status` varchar(255) DEFAULT NULL,
+  `ai_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ai_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of all_inform
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `card`
@@ -32,6 +50,7 @@ CREATE TABLE `card` (
 -- ----------------------------
 -- Records of card
 -- ----------------------------
+INSERT INTO `card` VALUES ('123456789', '1', '261802034587218', '1', '2016-11-30 10:26:08', '已发卡');
 
 -- ----------------------------
 -- Table structure for `card_log`
@@ -48,6 +67,7 @@ CREATE TABLE `card_log` (
 -- ----------------------------
 -- Records of card_log
 -- ----------------------------
+INSERT INTO `card_log` VALUES ('301027321614003', '123456789', '2016-11-30 10:27:32', '上班');
 
 -- ----------------------------
 -- Table structure for `ceshi`
@@ -63,6 +83,25 @@ CREATE TABLE `ceshi` (
 -- Records of ceshi
 -- ----------------------------
 INSERT INTO `ceshi` VALUES ('2001', '1');
+
+-- ----------------------------
+-- Table structure for `class_inform`
+-- ----------------------------
+DROP TABLE IF EXISTS `class_inform`;
+CREATE TABLE `class_inform` (
+  `ci_id` varchar(255) NOT NULL,
+  `ci_title` varchar(255) DEFAULT NULL,
+  `it_id` varchar(255) DEFAULT NULL,
+  `ci_content` varchar(255) DEFAULT NULL,
+  `sc_id` varchar(255) DEFAULT NULL,
+  `ci_status` varchar(255) DEFAULT NULL,
+  `ci_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ci_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of class_inform
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `course`
@@ -140,9 +179,11 @@ INSERT INTO `forum_like` VALUES ('091103480463287', '091025067281683', '2');
 DROP TABLE IF EXISTS `hx_group`;
 CREATE TABLE `hx_group` (
   `g_id` varchar(255) NOT NULL DEFAULT '',
+  `g_name` varchar(255) DEFAULT NULL,
   `u_id` varchar(255) DEFAULT NULL,
   `g_desc` varchar(255) DEFAULT NULL,
   `g_create_time` datetime DEFAULT NULL,
+  `g_note` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`g_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -236,7 +277,7 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
-INSERT INTO `licence` VALUES ('271634032221266', '6qnGCxq9hDAB1cB9nIwBEg==', '127.0.0.1', '2016-11-29 12:11:56', '2016-11-29 13:12:23');
+INSERT INTO `licence` VALUES ('271634032221266', 'ac153EthxiK99dmvBNY6xg==', '127.0.0.1', '2016-11-30 10:29:08', '2016-11-30 11:29:35');
 
 -- ----------------------------
 -- Table structure for `news`

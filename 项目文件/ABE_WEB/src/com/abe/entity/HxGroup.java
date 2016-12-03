@@ -11,9 +11,11 @@ public class HxGroup implements java.io.Serializable {
 	// Fields
 
 	private String GId;
+	private String GName;
 	private String UId;
 	private String GDesc;
 	private Timestamp GCreateTime;
+	private String GNote;
 
 	// Constructors
 
@@ -27,11 +29,14 @@ public class HxGroup implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public HxGroup(String GId, String UId, String GDesc, Timestamp GCreateTime) {
+	public HxGroup(String GId, String GName, String UId, String GDesc,
+			Timestamp GCreateTime, String GNote) {
 		this.GId = GId;
+		this.GName = GName;
 		this.UId = UId;
 		this.GDesc = GDesc;
 		this.GCreateTime = GCreateTime;
+		this.GNote = GNote;
 	}
 
 	// Property accessors
@@ -42,6 +47,14 @@ public class HxGroup implements java.io.Serializable {
 
 	public void setGId(String GId) {
 		this.GId = GId;
+	}
+
+	public String getGName() {
+		return this.GName;
+	}
+
+	public void setGName(String GName) {
+		this.GName = GName;
 	}
 
 	public String getUId() {
@@ -66,6 +79,14 @@ public class HxGroup implements java.io.Serializable {
 
 	public void setGCreateTime(Timestamp GCreateTime) {
 		this.GCreateTime = GCreateTime;
+	}
+
+	public String getGNote() {
+		return this.GNote;
+	}
+
+	public void setGNote(String GNote) {
+		this.GNote = GNote;
 	}
 
 }

@@ -65,6 +65,9 @@
 		<mapping resource="com/abe/entity/InfoParents.hbm.xml" />
 		<mapping resource="com/abe/entity/StudentParentRel.hbm.xml" />
 		<mapping resource="com/abe/entity/HxGroup.hbm.xml" />
+		<mapping resource="com/abe/entity/AllInform.hbm.xml" />
+		<mapping resource="com/abe/entity/PersonInform.hbm.xml" />
+		<mapping resource="com/abe/entity/ClassInform.hbm.xml" />
 
 	</session-factory>
 
