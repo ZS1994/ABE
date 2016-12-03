@@ -1,18 +1,13 @@
 package com.abe.service.hx.impl;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.log4j.Logger;
-
 import net.sf.json.JSONObject;
-
-import com.abe.action.home.InfoTeaAction;
 import com.abe.entity.HxGroup;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.SchoolClass;
@@ -22,7 +17,6 @@ import com.abe.service.hx.iUsersService;
 import com.abe.service.impl.BaseServiceImpl;
 import com.abe.tools.Constant;
 import com.abe.tools.HttpClientHelper;
-import com.abe.tools.NameOfDate;
 
 
 public class ChatgroupServiceImpl extends BaseServiceImpl implements iChatgroupService{
