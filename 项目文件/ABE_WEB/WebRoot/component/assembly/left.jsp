@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<li>档案管理</li>
   		<ul>
   			<li>
-  				<a href="<%=path %>/backstage/student/studentManager.jsp">学生管理</a>
+  				<a href="<%=path %>/web/student!queryOfFenYe?cz=yes">学生管理</a>
   			</li>
   			<li>
   				<a href="<%=path %>/web/parents!queryOfFenYe?cz=yes">家长档案管理</a>
