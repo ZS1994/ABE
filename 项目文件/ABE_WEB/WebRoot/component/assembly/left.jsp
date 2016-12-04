@@ -36,6 +36,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				<a href="<%=path %>/web/parents!queryOfFenYe?cz=yes">家长档案管理</a>
   			</li>
   			<li>
+  				<a href="<%=path %>/backstage/teachers/teacherManager.jsp">教师档案管理</a>
+  			</li>
+  			<li>
   				<a href="<%=path %>/web/rel!queryOfFenYe?cz=yes">学生家长关系管理</a>
   			</li>
   			<li>
