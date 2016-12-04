@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : zs
+Source Server         : lz
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : abe
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-01 13:06:49
+Date: 2016-12-04 20:36:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,8 @@ CREATE TABLE `all_inform` (
 -- ----------------------------
 -- Records of all_inform
 -- ----------------------------
+INSERT INTO `all_inform` VALUES ('041010520399815', '新版本APP将于12月4日3点发布', '1', '更新将在半小时内完成，新版本更新期间请不要进行数据操作以免丢失', '已发布', '2016-12-04 10:10:52');
+INSERT INTO `all_inform` VALUES ('041013131823137', '新版本APP将于12月4日4点发布', '1', '更新将在半小时内完成，新版本更新期间请不要进行数据操作以免丢失', '已发布', '2016-12-04 10:13:13');
 
 -- ----------------------------
 -- Table structure for `card`
@@ -50,7 +52,6 @@ CREATE TABLE `card` (
 -- ----------------------------
 -- Records of card
 -- ----------------------------
-INSERT INTO `card` VALUES ('123456789', '1', '261802034587218', '1', '2016-11-30 10:26:08', '已发卡');
 
 -- ----------------------------
 -- Table structure for `card_log`
@@ -67,7 +68,6 @@ CREATE TABLE `card_log` (
 -- ----------------------------
 -- Records of card_log
 -- ----------------------------
-INSERT INTO `card_log` VALUES ('301027321614003', '123456789', '2016-11-30 10:27:32', '上班');
 
 -- ----------------------------
 -- Table structure for `ceshi`
@@ -102,6 +102,8 @@ CREATE TABLE `class_inform` (
 -- ----------------------------
 -- Records of class_inform
 -- ----------------------------
+INSERT INTO `class_inform` VALUES ('040956076907261', '本周末开家长会', '1', '各位家长，**幼儿园**班将于本周末（12月4日）进行家长会活动', '1', '已发布', '2016-12-04 09:56:07');
+INSERT INTO `class_inform` VALUES ('041002108565809', '本周三展开家长会', '1', '各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动', '1', '已发布', '2016-12-04 10:02:10');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -172,24 +174,6 @@ CREATE TABLE `forum_like` (
 -- ----------------------------
 INSERT INTO `forum_like` VALUES ('091103268266335', '091025067281683', '1');
 INSERT INTO `forum_like` VALUES ('091103480463287', '091025067281683', '2');
-
--- ----------------------------
--- Table structure for `hx_group`
--- ----------------------------
-DROP TABLE IF EXISTS `hx_group`;
-CREATE TABLE `hx_group` (
-  `g_id` varchar(255) NOT NULL DEFAULT '',
-  `g_name` varchar(255) DEFAULT NULL,
-  `u_id` varchar(255) DEFAULT NULL,
-  `g_desc` varchar(255) DEFAULT NULL,
-  `g_create_time` datetime DEFAULT NULL,
-  `g_note` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`g_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of hx_group
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `info_parents`
@@ -277,7 +261,8 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
-INSERT INTO `licence` VALUES ('271634032221266', 'ac153EthxiK99dmvBNY6xg==', '127.0.0.1', '2016-11-30 10:29:08', '2016-11-30 11:29:35');
+INSERT INTO `licence` VALUES ('123213141', 'apXPgmegEtTMFjsgcN4wzg==', '127.0.0.1', '2016-12-04 09:40:03', '2016-12-04 11:14:16');
+INSERT INTO `licence` VALUES ('271634032221266', '8/zFRTOlA1LOUsXaQZ0tyQ==', '127.0.0.1', '2016-11-27 09:40:55', '2016-11-27 10:45:06');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -306,6 +291,25 @@ INSERT INTO `news` VALUES ('1', '这是标题', '这是正文', null, null, null
 INSERT INTO `news` VALUES ('281945065136760', '你好', '', null, null, '请输入...', '健康', '2016-11-28 19:45:06', '2016-11-28 19:45:06', '0', '271634032221266', '1');
 INSERT INTO `news` VALUES ('282032113195520', '2222', '<p>11111</p>', null, null, '请输入...', '生活', '2016-11-28 20:32:11', '2016-11-28 20:32:11', '0', '271634032221266', '1');
 INSERT INTO `news` VALUES ('282034449895572', '天气晴朗', '<table width=\"100%\"><tbody><tr><td style=\"text-align: left;\">1</td><td>a</td><td>A</td></tr><tr><td>2</td><td>b</td><td>B</td></tr></tbody></table><p><strong><em>占卜术</em></strong></p><p style=\"text-align: left;\"><br></p><p style=\"text-align: left;\"><img class=\"fr-fin\" data-fr-image-preview=\"false\" alt=\"Image title\" src=\"http://i.froala.com/download/3d7dd311a9ef567babbefd208f95b4d57912b764.png?1480336440\" width=\"300\"></p><p style=\"text-align: left;\"><strong><em><br></em></strong></p>', null, null, '百度', '头条咨询', '2016-11-28 20:34:44', '2016-11-28 20:34:44', '0', '271634032221266', '1');
+
+-- ----------------------------
+-- Table structure for `person_inform`
+-- ----------------------------
+DROP TABLE IF EXISTS `person_inform`;
+CREATE TABLE `person_inform` (
+  `pi_id` varchar(255) NOT NULL,
+  `pi_title` varchar(255) DEFAULT NULL,
+  `pi_content` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  `pi_status` varchar(255) DEFAULT NULL,
+  `pi_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`pi_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of person_inform
+-- ----------------------------
+INSERT INTO `person_inform` VALUES ('040927226119636', '您的反馈结果', '经过测试您所反馈的情况属实，我们将予以补偿', '271634032221266', '已读', '2016-12-04 09:27:22');
 
 -- ----------------------------
 -- Table structure for `place_area`
@@ -482,7 +486,7 @@ CREATE TABLE `student_parent_rel` (
 -- ----------------------------
 -- Records of student_parent_rel
 -- ----------------------------
-INSERT INTO `student_parent_rel` VALUES ('291125252654258', '261802034587218', '1', '父女');
+INSERT INTO `student_parent_rel` VALUES ('261802035157508', '261802034587218', '1', '父女');
 
 -- ----------------------------
 -- Table structure for `timetables`
