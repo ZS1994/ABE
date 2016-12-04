@@ -59,7 +59,7 @@ public class ClassInformAction extends BaseAction implements iBaseAction {
 		return null;
 	}
 
-	public String queryBulletinByItId() throws IOException {
+	public String findClassInformByScId() throws IOException {
 		String pageNo = (String) getRequest().getParameter("pageNo");
 		String pageSize = (String) getRequest().getParameter("pageSize");
 		String scId = (String) getRequest().getParameter("ScId");
@@ -72,7 +72,7 @@ public class ClassInformAction extends BaseAction implements iBaseAction {
 		return null;
 	}
 
-	public String findSingleBulletin() throws IOException {
+	public String findSingleClassInformById() throws IOException {
 		String ciId = (String) getRequest().getParameter("CiId");
 		RespClassInform respClassInform = classInformSer.findSingleClassInformById(ciId);
 		JSONObject jsonObject = ser.objToJson(respClassInform,
