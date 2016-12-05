@@ -1151,7 +1151,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/hx_msg!addFromApp
 新建/修改新闻通过网页编辑器
 
 查看单条新闻
-http://localhost:8080/ABE_WEB/app/news!findSingleNews
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/news!findSingleNews
 请求参数：
 	licence:数字执照
 	NId:新闻编号
@@ -1178,7 +1178,7 @@ http://localhost:8080/ABE_WEB/app/news!findSingleNews
 	
 }
 分页查看所有新闻（发布中）
-http://localhost:8080/ABE_WEB/app/news!findAllNewsOnByPage
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/news!findAllNewsOnByPage
 请求参数：
 	licence:数字执照
 	pageNo：当前页数
@@ -1207,6 +1207,286 @@ http://localhost:8080/ABE_WEB/app/news!findAllNewsOnByPage
 	
 }
 
-//------------------------------------------------
+//-----------------公告--------------------------
+新建公告
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!insertBulletin
+请求参数：
+	licence:数字执照
+	公告标题：AiTitle
+	公告内容：AiContent
+	创建公告者TrpId：TrpId
+应答参数：
+{
+	result：001成功，002标题为空，003内容为空，004当前用户TrpId为空，
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"aiId":"041010520399815",
+		"aiContent":"更新将在半小时内完成，新版本更新期间请不要进行数据操作以免丢失",
+		"aiStatus":"已发布",
+		"teacher":null,
+		"aiTitle":"新版本APP将于12月4日3点发布",
+		"aiTime":"2016-12-04 10:10:52"}
+		}
+}
+分页查看一个教职工发布的所有公告
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!queryBulletinByItId
+请求参数：
+	licence:数字执照
+	当前页码，从1开始算：pageNo
+	每页展示数量：pageSize
+	创建公告者TrpId：TrpId
+应答参数：
+{
+	result：001成功，002pageNo小于0，003pageSize小于0，004当前用户没有发布过公告
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"aiId":"041013131823137",
+		"aiContent":"更新将在半小时内完成，新版本更新期间请不要进行数据操作以免丢失",
+		"aiStatus":"已发布",
+		"teacher":{教师信息，已将密码清空
+			"itId":"1",
+			"itPhone":"",
+			"ssId":"",
+			"itAddress":"",
+			"itBirthday":null,
+			"itIntoDate":null,
+			"itState":"",
+			"itNum":"001",
+			"itPost":"",
+			"itSex":"",
+			"itLeaveDate":null,
+			"itName":"李老师"},
+		"aiTitle":"新版本APP将于12月4日4点发布","
+		aiTime":"2016-12-04 10:13:13"},
+			{第二条公告}{第三条...}{...}]}
+}
+根据id查看单条公告
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!findSingleBulletin
+请求参数：
+	licence:数字执照
+	公告编号：AiId
+应答参数：
+{
+	result：001成功
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"aiId":"041010520399815",
+		"aiContent":"更新将在半小时内完成，新版本更新期间请不要进行数据操作以免丢失",
+		"aiStatus":"已发布",
+		"teacher":null,
+		"aiTitle":"新版本APP将于12月4日3点发布",
+		"aiTime":"2016-12-04 10:10:52"}
+		}
+}
+-------------------------班级通知---------------------------------
+新建班级通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!insertClassInform
+请求参数：
+	licence:数字执照
+	公告标题：CiTitle
+	公告内容：CiContent
+	班级编号：ScId
+	创建班级通知者TrpId：TrpId
+应答参数：
+{
+	result：001成功，002标题为空，003内容为空，004当前用户TrpId为空，005班级编号为空
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"ciTitle":"本周三展开家长会",
+		"ciStatus":"已发布",
+		"classs":null,
+		"ciTime":"2016-12-04 10:02:10",
+		"scId":"1",
+		"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
+		"ciId":"041002108565809",
+		"teacher":null}
+		}
+}
+分页查看一个班级所有的班级通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findClassInformByScId
+请求参数：
+	licence:数字执照
+	当前页码，从1开始算：pageNo
+	每页展示数量：pageSize
+	班级编号：ScId
+应答参数：
+{
+	result：001成功，002pageNo小于0，003pageSize小于0，004当前班级没有发布过班级通知
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"ciTitle":"本周三展开家长会",
+		"ciStatus":"已发布",
+		"classs":{
+				"itId":"1",
+				"scId":"1",
+				"scName":"",
+				"schoolGrade":null,
+				"sgId":"1"},
+		"ciTime":"2016-12-04 10:02:10",
+		"scId":"1",
+		"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
+		"ciId":"041002108565809",
+		"teacher":{
+				"itId":"1",
+				"itPhone":"",
+				"ssId":"",
+				"itAddress":"",
+				"itBirthday":null,
+				"itIntoDate":null,
+				"itState":"",
+				"itNum":"001",
+				"itPost":"",
+				"itSex":"",
+				"itLeaveDate":null,
+				"itName":"李老师"}},
+			{第二条通知}{第三条...}{...}]}
+}
+根据id查看单条班级通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findSingleClassInformById
+请求参数：
+	licence:数字执照
+	公告编号：CiId
+应答参数：
+{
+	result：001成功
+	data:{"result":"001",
+		"data":
+			{(实例)
+			"itId":"1",
+			"ciTitle":"本周三展开家长会",
+			"ciStatus":"已发布",
+			"ciTime":"2016-12-04 10:02:10",
+			"scId":"1",
+			"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
+			"ciId":"041002108565809",
+			"classs":{
+					"itId":"1",
+					"scId":"1",
+					"scName":"",
+					"schoolGrade":null,
+					"sgId":"1"},
+			"teacher":{
+					"itId":"1",
+					"itPhone":"",
+					"ssId":"",
+					"itAddress":"",
+					"itBirthday":null,
+					"itIntoDate":null,
+					"itState":"",
+					"itNum":"001",
+					"itPost":"",
+					"itSex":"",
+					"itLeaveDate":null,
+					"itName":"李老师"}
+			}
+		}
+}
+-------------------------个人通知---------------------------------
+新建/发送个人通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!insertPersonInform
+请求参数：
+	licence:数字执照
+	通知标题：PiTitle
+	通知内容：PiContent
+	接收通知用户编号：UId
+应答参数：
+{
+	result：001成功，002标题为空，003内容为空，004接收用户UId为空
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"UId":"271634032221266",
+		"piTime":"2016-12-04 09:27:22",
+		"piId":"040927226119636",
+		"piContent":"经过测试您所反馈的情况属实，我们将予以补偿",
+		"user":{"
+			UId":"271634032221266",
+			"UPass":"",
+			"trpId":"1",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/26180936276.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+		"piStatus":"已发送",
+		"piTitle":"您的反馈结果"}
+		}
+}
+分页查看一个用户所有的个人通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!queryPersonInformByUId
+请求参数：
+	licence:数字执照
+	当前页码，从1开始算：pageNo
+	每页展示数量：pageSize
+	用户编号：UId
+应答参数：
+{
+	result：001成功，002pageNo小于0，003pageSize小于0，004当前用户没有通知
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"UId":"271634032221266",
+		"piTime":"2016-12-04 09:27:22",
+		"piId":"040927226119636",
+		"piContent":"经过测试您所反馈的情况属实，我们将予以补偿",
+		"user":{"
+			UId":"271634032221266",
+			"UPass":"",
+			"trpId":"1",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/26180936276.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+		"piStatus":"已发送",
+		"piTitle":"您的反馈结果"}，
+			{第二条通知}{第三条...}{...}]}
+}
+根据id查看单条个人通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!findSinglePersonInform
+请求参数：
+	licence:数字执照
+	公告编号：PiId
+应答参数：
+{
+	result：001成功
+	data:{"result":"001",
+		"data":
+			{(实例)
+			"UId":"271634032221266",
+		"piTime":"2016-12-04 09:27:22",
+		"piId":"040927226119636",
+		"piContent":"经过测试您所反馈的情况属实，我们将予以补偿",
+		"user":{"
+			UId":"271634032221266",
+			"UPass":"",
+			"trpId":"1",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/26180936276.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+		"piStatus":"已发送",
+		"piTitle":"您的反馈结果"}
+			}
+		}
+}
+
+
+
+
 
 
