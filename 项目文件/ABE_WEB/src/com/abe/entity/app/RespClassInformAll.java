@@ -9,6 +9,9 @@ public class RespClassInformAll implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String result;
 	private List<ClassInform> data;
+	
+	public RespClassInformAll() {
+	}
 	public String getResult() {
 		return result;
 	}

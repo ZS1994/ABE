@@ -92,18 +92,24 @@ public class AttendanceAction extends BaseAction implements iBaseAction{
 		String cid=ser.clearSpace(getRequest(), "CId");
 		String clState=ser.clearSpace(getRequest(), "clState");
 		RespCommon resp=new RespCommon();
-		Card card=(Card) ser.get(Card.class, cid);
-		if (cid!=null && card!=null && clState!=null) {
-			CardLog log=new CardLog(NameOfDate.getNum(), cid, new Timestamp(new Date().getTime()), clState);
-			ser.save(log);
-			resp.setResult("001");
-			resp.setData(null);
+		if(cid!=null && clState!=null){
+			Card card=(Card) ser.get(Card.class, cid);
+			if (card!=null) {
+				CardLog log=new CardLog(NameOfDate.getNum(), cid, new Timestamp(new Date().getTime()), clState);
+				ser.save(log);
+				resp.setResult("001");
+				resp.setData(null);
+			}else {
+				resp.setResult("002");
+				resp.setData(null);
+			}
 		}else {
 			resp.setResult("002");
 			resp.setData(null);
 		}
 		try {
-			sendToApp(resp, ser);
+			JSONObject json=ser.objToJson(resp);
+			sendToApp(json);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,0 +1,187 @@
+﻿body, p, form, button, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 0;
+}
+
+
+body, button, input, select, textarea {
+    font: 12px/1.5em  "Microsoft Yahei", Helvetica, sans-serif;
+    color: #333;
+}
+
+input, select, textarea {
+    font-size: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+.clearfix:after {
+    display: block;
+    content: ".";
+    height: 0;
+    visibility: hidden;
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+}
+.clearfix {
+    *zoom: 1;
+}
+
+address, caption, cite, code, dfn, em, var , u , i{
+    font-style: normal;
+    font-weight: 400
+}
+
+img {
+    border: 0 none;
+    vertical-align: top;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: none;
+}
+
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.mt {
+    margin-top: 10px !important;
+}
+
+.ml {
+    margin-left: 10px !important;
+}
+
+.mb {
+    margin-bottom: 10px !important;
+}
+
+.mt5 {
+    margin-top: 5px !important;
+}
+
+.al {
+    text-align: left
+}
+
+.ac {
+    text-align: center
+}
+
+.ar {
+    text-align: right
+}
+
+.red {
+    color: red;
+}
+
+.disn {
+    display: none;
+}
+
+sup {
+    vertical-align: text-top
+}
+
+.su-middle{
+    vertical-align: middle;
+}
+sub {
+    vertical-align: text-bottom
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #ff6f19;
+}
+a.blue-link {
+    color: #06c;
+}
+
+a.blue-link:hover {
+    color: #f60;
+}
+
+.wrap {
+    width: 1090px;
+    margin: 0 auto;
+    clear: both;
+}
+
+button, html input[type=button], input[type=submit] {
+    -webkit-apperance: button;
+    cursor: pointer
+}
+button[disabled], html input[disabled] {
+    cursor: default
+}
+
+.dorpdown {
+    position: relative
+}
+
+.dorpdown-layer {
+    display: none;
+    position: absolute
+}
+
+.dorpdown:hover .dorpdown-layer, .hover .dorpdown-layer {
+    display: block
+}
+/****************锟斤拷锟斤拷锟斤拷锟皆硷拷锟斤拷锟斤拷锟�css-reset********************/
+
+.header {
+    width:100%;
+    min-width:1190px;
+    height:88px;
+    border-bottom:2px solid #ff6f19;
+}
+.logo {
+    height:88px;
+}
+.logo img{
+	width:240px;
+	margin-top:4px;
+}
+.hd-right {
+    margin-top:32px;
+}
+.hd-right li {
+    font-size: 20px;
+    text-align: center;
+    float:left;
+    width:120px;
+    height:54px;
+    line-height:54px;
+    margin-left:20px;
+}
+.hd-right li a{
+	display:inline-block;
+	width:100%;
+	height:100%;
+}
+.hd-right .active{
+    border-bottom:3px solid #ff6f19;
+}
+.hd-right .active a{
+	color:#ff6f19;
+}
