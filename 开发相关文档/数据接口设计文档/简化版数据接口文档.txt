@@ -1462,10 +1462,8 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!findSinglePerson
 应答参数：
 {
 	result：001成功
-	data:{"result":"001",
-		"data":
-			{(实例)
-			"UId":"271634032221266",
+	data:{(实例)
+		"UId":"271634032221266",
 		"piTime":"2016-12-04 09:27:22",
 		"piId":"040927226119636",
 		"piContent":"经过测试您所反馈的情况属实，我们将予以补偿",
@@ -1485,8 +1483,83 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!findSinglePerson
 		}
 }
 
-
-
-
+----------------------意见反馈--------------------------
+新建/发送反馈
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!insertReturn
+请求参数：
+	licence:数字执照
+	反馈内容：RContent
+	用户id：UId
+应答参数：
+{
+	result：001成功，002内容为空，003用户ID为空
+	data:{
+		"RId":反馈编号
+		"RContent":反馈内容
+		"RTime":发送反馈时间
+		"UId":用户id
+		"RState":反馈状态,新建默认为"未查看"
+		"user":用户信息null
+	}
+查看单条反馈
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!findSingleReturn
+请求参数：
+	licence:数字执照
+	反馈id：RId
+应答参数：
+{
+	result：001成功，002RId为空
+	data:{
+		"RId":反馈编号
+		"RContent":反馈内容
+		"RTime":发送反馈时间
+		"UId":用户id
+		"RState":反馈状态查看后自动更改为“已查看”
+		"user":用户信息（已清空密码）
+	}	
+修改反馈状态
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!updateReturn
+请求参数：
+	licence:数字执照
+	反馈id：RId
+	反馈状态：RStatus
+应答参数：
+{
+	result：001成功，002反馈状态为空，003RId为空
+	data:{
+		"RId":反馈编号
+		"RContent":反馈内容
+		"RTime":发送反馈时间
+		"UId":用户id
+		"RState":反馈状态
+		"user":用户信息（已清空密码）
+	}
+分页查看所有反馈
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!findAllReturnsByPage
+请求参数：
+	licence:数字执照
+	当前页码，从1开始算：PageNo
+	每页展示数量：PageSize
+	//反馈状态：RStatus（目前可以空传参，因为需求暂时没有根据状态分页查看）
+应答参数：
+{
+	result：001成功，002pageNo小于0，003pageSize小于0，004当前没有查询到反馈
+	data:{[
+		"RId":反馈编号
+		"RContent":反馈内容
+		"RTime":发送反馈时间
+		"UId":用户id
+		"RState":反馈状态
+		"user":用户信息（已清空密码）][...][...]
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 

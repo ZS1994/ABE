@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-04 20:36:56
+Date: 2016-12-07 20:30:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -261,7 +261,7 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
-INSERT INTO `licence` VALUES ('123213141', 'apXPgmegEtTMFjsgcN4wzg==', '127.0.0.1', '2016-12-04 09:40:03', '2016-12-04 11:14:16');
+INSERT INTO `licence` VALUES ('123213141', 'zZOWFIl0afyCpf5fJHPO1A==', '127.0.0.1', '2016-12-07 20:20:19', '2016-12-07 21:26:39');
 INSERT INTO `licence` VALUES ('271634032221266', '8/zFRTOlA1LOUsXaQZ0tyQ==', '127.0.0.1', '2016-11-27 09:40:55', '2016-11-27 10:45:06');
 
 -- ----------------------------
@@ -387,6 +387,25 @@ INSERT INTO `recipe` VALUES ('161828360798426', '1234', '晚餐', '2016.11.10', 
 INSERT INTO `recipe` VALUES ('161828405903858', '12345', '晚餐', '2016.11.10', '排骨面', '123213141', '2016-11-16 18:28:40', '未发布', null, null, null, '001，002，003');
 INSERT INTO `recipe` VALUES ('161828530372140', '12345', '晚餐', '2016.11.10', 'da面', '123213141', '2016-11-16 18:28:53', '未发布', null, null, null, '001，002，003');
 INSERT INTO `recipe` VALUES ('161828581576339', '123245', '晚餐', '2016.11.10', '骨面', '123213141', '2016-11-16 18:28:58', '未发布', null, null, null, '001，002，003');
+
+-- ----------------------------
+-- Table structure for `return`
+-- ----------------------------
+DROP TABLE IF EXISTS `return`;
+CREATE TABLE `return` (
+  `r_id` varchar(255) NOT NULL,
+  `r_content` varchar(255) DEFAULT NULL,
+  `r_time` varchar(255) DEFAULT NULL,
+  `r_status` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`r_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of return
+-- ----------------------------
+INSERT INTO `return` VALUES ('072022008748331', '界面太粗糙了', '2016-12-07 20:22:00', '已查看', '123213141');
+INSERT INTO `return` VALUES ('072023408677718', 'UI交互不够人性化', '2016-12-07 20:23:40', '未查看', '123213141');
 
 -- ----------------------------
 -- Table structure for `school`
