@@ -68,6 +68,7 @@
 		<mapping resource="com/abe/entity/AllInform.hbm.xml" />
 		<mapping resource="com/abe/entity/PersonInform.hbm.xml" />
 		<mapping resource="com/abe/entity/ClassInform.hbm.xml" />
+		<mapping resource="com/abe/entity/Return.hbm.xml" />
 
 	</session-factory>
 
