@@ -1,5 +1,7 @@
 package com.abe.entity;
 
+import java.util.List;
+
 /**
  * School entity. @author MyEclipse Persistence Tools
  */
@@ -13,10 +15,21 @@ public class School implements java.io.Serializable {
 	private String SAddress;
 	private String paId;
 
+	private PlaceArea placeArea;
+	private List<SchoolGrade> grade; //保存班级信息
 	// Constructors
 
+	
 	/** default constructor */
 	public School() {
+	}
+
+	public PlaceArea getPlaceArea() {
+		return placeArea;
+	}
+
+	public void setPlaceArea(PlaceArea placeArea) {
+		this.placeArea = placeArea;
 	}
 
 	/** minimal constructor */
@@ -63,7 +76,15 @@ public class School implements java.io.Serializable {
 	}
 
 	public void setPaId(String paId) {
-		this.paId = paId;
+		this.paId = paId;	}
+
+	public List<SchoolGrade> getGrade() {
+		return grade;
 	}
 
+	public void setGrade(List<SchoolGrade> grade) {
+		this.grade = grade;
+	}
+	 
+	
 }

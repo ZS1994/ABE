@@ -1,5 +1,7 @@
 package com.abe.entity;
 
+import java.util.List;
+
 /**
  * SchoolGrade entity. @author MyEclipse Persistence Tools
  */
@@ -12,10 +14,19 @@ public class SchoolGrade implements java.io.Serializable {
 	private String sgName;
 	private String SId;
 
+	private List<SchoolClass> sclass;//班级信息集合
 	private School school;//学校信息
+	
+	
 	// Constructors
 
 	/** default constructor */
+	public List<SchoolClass> getSclass() {
+		return sclass;
+	}
+	public void setSclass(List<SchoolClass> sclass) {
+		this.sclass = sclass;
+	}
 	public SchoolGrade() {
 	}
 

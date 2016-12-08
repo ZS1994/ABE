@@ -1,6 +1,9 @@
 package com.abe.action.information;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
@@ -28,14 +31,15 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private List<SchoolClass> scs;
 	private iBaseService ser;
 	private iSchoolClassService classSer;
 	private iChatgroupService groupSer;
 	private SchoolClass cla;
 	private String result="class";
 	private Page page;
-	
-	
+	String id;
+	String cz;
 	
 	public iChatgroupService getGroupSer() {
 		return groupSer;
@@ -66,6 +70,24 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	}
 	public void setClassSer(iSchoolClassService classSer) {
 		this.classSer = classSer;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public List<SchoolClass> getScs() {
+		return scs;
+	}
+	public void setScs(List<SchoolClass> scs) {
+		this.scs = scs;
+	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
 	}
 	//---------------------------------------------------
 	/**
@@ -113,6 +135,8 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	@Override
 	public String add() {
 		cla.setScId(NameOfDate.getNum());
+		cla.setScState("有效");//添加时默认为有效
+		cla.setScCreateTime(new Timestamp(new Date().getTime()));//默认创建时间添加
 		ser.save(cla);
 		groupSer.addChatgroup(cla);
 		clearOptions();
@@ -123,12 +147,19 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	public void clearOptions() {
 		cla=null;
 		page=null;
+		scs=null;
+		id=null;
+		cz=null;
 	}
 
 	@Override
 	public void clearSpace() {
-		// TODO Auto-generated method stub
-		
+		if(id!=null){
+			id=id.trim();
+		}
+		if(cz!=null){
+			cz=cz.trim();
+		}
 	}
 
 	@Override
@@ -139,6 +170,17 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String gotoQuery() {
+		clearOptions();
+		String hql="from SchoolClass order by scCreateTime desc";
+		String ss[]={};
+		String hql2="from SchoolClass order by scCreateTime desc";
+		scs=ser.query(hql, ss, hql2, page);
+		for(int i = 0 ; i< scs.size(); i++){
+			InfoTeacher t = (InfoTeacher) ser.get(InfoTeacher.class,scs.get(i).getItId());
+			scs.get(i).setInfoTeacher(t);
+			SchoolGrade s=(SchoolGrade) ser.get(SchoolGrade.class, scs.get(i).getSgId()) ;
+			scs.get(i).setSchoolGrade(s);
+		}
 		return result;
 	}
 
@@ -171,9 +213,25 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String queryOfFenYe() {
-		String cz=getRequest().getParameter("cz");
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
+			page=new Page(1, 0, 10);
+		}
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
+		StringBuffer hql=new StringBuffer("from SchoolClass ");
+		if (id!=null) {
+			hql.append(" where scId like '%"+id+"%' ");
+		}
+		hql.append("order by scCreateTime desc");
+		scs=ser.query(hql.toString(), null, hql.toString(), page);
+		for(int i = 0 ; i< scs.size(); i++){
+			InfoTeacher t = (InfoTeacher) ser.get(InfoTeacher.class,scs.get(i).getItId());
+			scs.get(i).setInfoTeacher(t);
+			SchoolGrade s=(SchoolGrade) ser.get(SchoolGrade.class, scs.get(i).getSgId()) ;
+			scs.get(i).setSchoolGrade(s);
 		}
 		return result;
 	}
@@ -223,8 +281,13 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 		
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		//此处涉及老师表和年级表，暂时不写
+//		if(cla!=null && cla.getScId()!=null && !"".equals(cla.getScId().trim())){
+//			SchoolClass s = (SchoolClass) ser.get(SchoolClass.class, cla.getScId());
+//			cla.setScName(s.getScName());
+//		}
+//		ser.update(cla);
+		return result;
 	}
 
 }
