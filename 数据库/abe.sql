@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-08 16:43:47
+Date: 2016-12-08 19:27:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -104,6 +104,22 @@ CREATE TABLE `class_inform` (
 -- ----------------------------
 INSERT INTO `class_inform` VALUES ('040956076907261', '本周末开家长会', '1', '各位家长，**幼儿园**班将于本周末（12月4日）进行家长会活动', '1', '已发布', '2016-12-04 09:56:07');
 INSERT INTO `class_inform` VALUES ('041002108565809', '本周三展开家长会', '1', '各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动', '1', '已发布', '2016-12-04 10:02:10');
+
+-- ----------------------------
+-- Table structure for `code`
+-- ----------------------------
+DROP TABLE IF EXISTS `code`;
+CREATE TABLE `code` (
+  `u_id` varchar(255) NOT NULL DEFAULT '',
+  `c_code` varchar(255) DEFAULT NULL,
+  `c_time` datetime DEFAULT NULL,
+  `c_no_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`u_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of code
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `course`
