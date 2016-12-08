@@ -41,6 +41,10 @@ public class TeacherServiceImpl extends BaseServiceImpl implements iTeacherServi
 		return sb.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abe.service.home.iTeacherService#addTeacherInfor(com.abe.entity.InfoTeacher)
+	 */
+	
 
 
 	/*@Override
@@ -51,9 +55,9 @@ public class TeacherServiceImpl extends BaseServiceImpl implements iTeacherServi
 			student=stus.get(0);
 		}
 		return student;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public RespStudent addFromApp(HttpServletRequest req) {
 		RespStudent respStudent=new RespStudent();
 		
@@ -117,13 +121,27 @@ public class TeacherServiceImpl extends BaseServiceImpl implements iTeacherServi
 			}
 		}
 		return respStudent;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void csReq(HttpServletRequest req) {
 		//测试添加宝贝
 		System.out.println("----csReq------->>"+req.getParameter("isNum"));
 		//2016-11-2  张顺  成功
 	}*/
+	/**
+	 * web添加教师档案
+	 * teacher
+	 * 2016-12-5
+	 * 卢江林
+	 */
+	@Override
+	public InfoTeacher addTeacherInfor(InfoTeacher teacher) {
+		InfoTeacher teacher1 = new  InfoTeacher();
+		
+		
+		return teacher;
+	}
+
 
 }

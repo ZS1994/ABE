@@ -1,5 +1,7 @@
 package com.abe.service.home;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoTeacher;
@@ -38,8 +40,13 @@ public interface iTeacherService{
 	 */
 	public String queryTeacher(String uId);
 
-	
-	
+	/**
+	 * web添加教师档案
+	 * teacher
+	 * 2016-12-5
+	 * 卢江林
+	 */
+	public InfoTeacher addTeacherInfor(InfoTeacher teacher);
 	
 
 }

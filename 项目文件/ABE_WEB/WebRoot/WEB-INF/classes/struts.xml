@@ -86,6 +86,9 @@
   
   
   <!-- ******个人中心******* -->
+  <action name="return" class="lz_return">
+  	 <interceptor-ref name="mydefault" />
+  </action>
   <action name="bulletin" class="lz_bulletin">
   	 <interceptor-ref name="mydefault" />
   </action>

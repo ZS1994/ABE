@@ -65,17 +65,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tr>
 						<tr>
 							<td class="td-first"><span>* </span>姓名 ：</td>
-							<td class="td-medium"><input type="text" id="itName"
-								name="teacher.itName" /></td>
+							<td class="td-medium"><input name="teacher.itName" id="itName"
+								type="text"/></td>
 							<td id="repwd-tips" class="def-tips realName-tips"></td>
 						</tr>
 						<tr>
 							<td class="td-first">性别 ：
-							<td class="td-medium" name="teacher.itSex"><input type="radio"
-								name="teacher.itSex" id="man" value="0" checked="checked" /><label
-								for="man">男</label> <input type="radio" name="teacher.itSex"
-								id="women" value="1" /><label for="women">女</label> <input
-								type="radio" name="teacher.itSex" id="secret" /><label for="secret">保密</label>
+							<td class="td-medium" name="teacher.itSex">
+							    <input type="radio" name="teacher.itSex" id="man" value="0" 
+							    checked="checked" /><label for="man">男</label> <input type="radio" 
+							    name="teacher.itSex" id="women" value="1" /><label for="women">女</label> 
+							    <input type="radio" name="teacher.itSex" id="secret" /><label for="secret">保密</label>
 							</td>
 							<td class="td-last"></td>
 						</tr>
@@ -89,36 +89,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tr>-->
 						<tr>
 							<td class="td-first">生日 ：</td>
-							<td><input type="text" class="easyui-datetimebox" id="date"/></td>
+							<td><input type="date" id="date"/></td>
 							<td id="QQ-tips" class="td-last def-tips"></td>
 						</tr>
 						<tr>
 							<td class="td-first">手机号 ：</td>
-							<td class="td-medium"><input name="user.phone" type="text"
-								id="tel" /></td>
+							<td class="td-medium">
+							
+							<input name="teacher.itPhone" type="text" id="tel" />
+								</td>
 							<td id="tel-tips" class="def-tips td-last"></td>
 						</tr>
 						<tr>
 							<td class="td-first">职务 ：</td>
-							<td><input name="user.qqNumber" type="text" id="QQ" /></td>
+							<td>
+							<select name="teacher.itPost" value="">
+								<option value="0">--请选择--</option>
+								<option value="1">语文老师</option>
+								<option value="2">音乐老师</option>
+								<option value="3">美术老师</option>
+								<option value="4">数学老师</option>
+								<option value="5">数学老师</option>
+								<option value="6">数学老师</option>
+								<option value="7">数学老师</option>
+							</select>
+							<input name="teacher.itPost" type="text" id="QQ" />
+							</td>
 							<td id="QQ-tips" class="td-last def-tips"></td>
 						</tr>
 						<tr>
 							<td class="td-first">入职日期：</td>
-							<td><input name="user.email" type="text" id="mail" /></td>
+							<td><input name="teacher.itIntoDate" type="date"  id="intoDate" /></td>
 							<td id="mail-tips" class="td-lx ast def-tips"></td>
 						</tr>
 						<tr>
 							<td class="td-first">离职日期：</td>
-							<td><input name="user.email" type="text" id="mail" /></td>
+							<td><input name="teacher.itLeaveDate" type="date" id="IntoDate" /></td>
 							<td id="mail-tips" class="td-lx ast def-tips"></td>
 						</tr>
 						<tr>
 							<td class="td-first">状态：</td>
-							<td><input name="user.email" type="text" id="mail" /></td>
+							<td>
+							<select name="teacher.itState" value="">
+								<option value="0">--请选择--</option>
+								<option value="1">在职</option>
+								<option value="2">已离职</option>
+								<option value="3">休假中</option>
+								<option value="4">已退休</option>
+							</select>
+							<input name="teacher.itState" type="text" id="state" />
+							</td>
 							<td id="mail-tips" class="td-lx ast def-tips"></td>
 						</tr>
-						<tr>
+						<!--<tr>
 							<td class="td-first">住址：</td>
 							<td colspan="2" class="send-address">
 								<select id="sheng" onchange="provincefunction()" ></select> 
@@ -131,16 +154,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input  type="hidden" id="area" name="user.area"/>
 							<input  type="hidden" id="street" name="user.street"/>
 							</td>
-						</tr>
+						</tr>-->
 						<tr>
-							<td class="td-first">详细地址 ：</td>
-							<td class="td-medium"><input name="user.address" type="text"
+							<td class="td-first">住址 ：</td>
+							<td class="td-medium"><input name="teacher.itAddress" type="text"
 								id="address" /></td>
 							<td id="address-tips" class="td-last"></td>
 						</tr>
 						<tr>
 							<td class="td-first">部门编号：</td>
-							<td class="td-medium"><input name="user.address" type="text"
+							<td class="td-medium"><input name="teacher.ssId" type="text"
 								id="address" /></td>
 							<td id="address-tips" class="td-last"></td>
 						</tr>
