@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : lz
+Source Server         : zs
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : abe
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-07 20:30:02
+Date: 2016-12-08 16:43:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -176,6 +176,23 @@ INSERT INTO `forum_like` VALUES ('091103268266335', '091025067281683', '1');
 INSERT INTO `forum_like` VALUES ('091103480463287', '091025067281683', '2');
 
 -- ----------------------------
+-- Table structure for `hx_group`
+-- ----------------------------
+DROP TABLE IF EXISTS `hx_group`;
+CREATE TABLE `hx_group` (
+  `g_id` varchar(255) NOT NULL DEFAULT '',
+  `g_name` varchar(255) DEFAULT NULL,
+  `u_id` varchar(255) DEFAULT NULL,
+  `g_desc` varchar(255) DEFAULT NULL,
+  `g_create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`g_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of hx_group
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `info_parents`
 -- ----------------------------
 DROP TABLE IF EXISTS `info_parents`;
@@ -210,6 +227,7 @@ CREATE TABLE `info_student` (
   `is_leave_date` date DEFAULT NULL,
   `is_state` varchar(255) DEFAULT NULL,
   `sc_id` varchar(255) DEFAULT NULL,
+  `is_class_line` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`is_id`),
   UNIQUE KEY `is_num` (`is_num`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -217,7 +235,7 @@ CREATE TABLE `info_student` (
 -- ----------------------------
 -- Records of info_student
 -- ----------------------------
-INSERT INTO `info_student` VALUES ('261802034587218', '001', '小美', '女', '2016-01-01', '1', '0', '2012-09-09', null, '正在校学生', '1');
+INSERT INTO `info_student` VALUES ('261802034587218', '001', '小美', '女', '2016-01-01', '1', '0', '2012-09-09', null, '正在校学生', '1', null);
 
 -- ----------------------------
 -- Table structure for `info_teacher`
@@ -244,6 +262,7 @@ CREATE TABLE `info_teacher` (
 -- Records of info_teacher
 -- ----------------------------
 INSERT INTO `info_teacher` VALUES ('1', '001', '李老师', null, null, null, null, null, null, null, null, null);
+INSERT INTO `info_teacher` VALUES ('2', '002', '黄老师', null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `licence`
@@ -261,7 +280,7 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
-INSERT INTO `licence` VALUES ('123213141', 'zZOWFIl0afyCpf5fJHPO1A==', '127.0.0.1', '2016-12-07 20:20:19', '2016-12-07 21:26:39');
+INSERT INTO `licence` VALUES ('123213141', 'apXPgmegEtTMFjsgcN4wzg==', '127.0.0.1', '2016-12-04 09:40:03', '2016-12-04 11:14:16');
 INSERT INTO `licence` VALUES ('271634032221266', '8/zFRTOlA1LOUsXaQZ0tyQ==', '127.0.0.1', '2016-11-27 09:40:55', '2016-11-27 10:45:06');
 
 -- ----------------------------
@@ -422,7 +441,10 @@ CREATE TABLE `school` (
 -- ----------------------------
 -- Records of school
 -- ----------------------------
-INSERT INTO `school` VALUES ('1', '阳光幼儿园', null, '');
+INSERT INTO `school` VALUES ('081452563923624', '123', '13', '112');
+INSERT INTO `school` VALUES ('081458124379441', '456', '456', '112');
+INSERT INTO `school` VALUES ('081528027653630', '4156', '464', '46');
+INSERT INTO `school` VALUES ('1', '阳光幼儿园', null, '112');
 
 -- ----------------------------
 -- Table structure for `school_class`
@@ -433,13 +455,21 @@ CREATE TABLE `school_class` (
   `sc_name` varchar(255) DEFAULT NULL,
   `sg_id` varchar(255) DEFAULT NULL,
   `it_id` varchar(255) DEFAULT NULL,
+  `sc_create_time` datetime DEFAULT NULL,
+  `sc_state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`sc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of school_class
 -- ----------------------------
-INSERT INTO `school_class` VALUES ('1', '', '1', '1');
+INSERT INTO `school_class` VALUES ('081459178952128', '156', '465', '4654', '2016-12-08 14:59:17', '有效');
+INSERT INTO `school_class` VALUES ('081500271827928', '范德萨', '范德萨发', '范德萨', '2016-12-08 15:00:27', '有效');
+INSERT INTO `school_class` VALUES ('081502027398492', '范德萨', '1', '1', '2016-12-08 15:02:02', '有效');
+INSERT INTO `school_class` VALUES ('081503183072523', '发的是第三方', '1', '2', '2016-12-08 15:03:18', '有效');
+INSERT INTO `school_class` VALUES ('081504117924606', '范德萨发的说法是', '1', '2', '2016-12-08 15:04:11', '有效');
+INSERT INTO `school_class` VALUES ('1', '一班', '1', '1', '2016-12-08 11:38:26', '有效');
+INSERT INTO `school_class` VALUES ('2', '二班', '2', '2', '2016-12-08 11:38:52', '无效');
 
 -- ----------------------------
 -- Table structure for `school_grade`
@@ -455,7 +485,9 @@ CREATE TABLE `school_grade` (
 -- ----------------------------
 -- Records of school_grade
 -- ----------------------------
+INSERT INTO `school_grade` VALUES ('081458480833030', '三年级', '456');
 INSERT INTO `school_grade` VALUES ('1', '一年级', '1');
+INSERT INTO `school_grade` VALUES ('2', '二年级', '2');
 
 -- ----------------------------
 -- Table structure for `school_section`
