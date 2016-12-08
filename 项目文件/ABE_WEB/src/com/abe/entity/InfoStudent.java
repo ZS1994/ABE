@@ -22,40 +22,14 @@ public class InfoStudent implements java.io.Serializable {
 	private Date isLeaveDate;
 	private String isState;
 	private String scId;
+	private String isClassLine;
 
 	// Constructors
 	private List<Score> scores;
 	private SchoolClass schoolClass;
 	private List<InfoParents> parents;
 	private List<CardLog> cardLogs;
-
 	
-	
-	public List<CardLog> getCardLogs() {
-		return cardLogs;
-	}
-	public void setCardLogs(List<CardLog> cardLogs) {
-		this.cardLogs = cardLogs;
-	}
-	public List<Score> getScores() {
-		return scores;
-	}
-	public void setScores(List<Score> scores) {
-		this.scores = scores;
-	}
-	public SchoolClass getSchoolClass() {
-		return schoolClass;
-	}
-	public void setSchoolClass(SchoolClass schoolClass) {
-		this.schoolClass = schoolClass;
-	}
-	public List<InfoParents> getParents() {
-		return parents;
-	}
-	public void setParents(List<InfoParents> parents) {
-		this.parents = parents;
-	}
-
 	/** default constructor */
 	public InfoStudent() {
 	}
@@ -69,7 +43,8 @@ public class InfoStudent implements java.io.Serializable {
 	/** full constructor */
 	public InfoStudent(String isId, String isNum, String isName, String isSex,
 			Date isBirthday, Integer isLocal, Integer isTeacherChildren,
-			Date isIntoDate, Date isLeaveDate, String isState, String scId) {
+			Date isIntoDate, Date isLeaveDate, String isState, String scId,
+			String isClassLine) {
 		this.isId = isId;
 		this.isNum = isNum;
 		this.isName = isName;
@@ -81,6 +56,7 @@ public class InfoStudent implements java.io.Serializable {
 		this.isLeaveDate = isLeaveDate;
 		this.isState = isState;
 		this.scId = scId;
+		this.isClassLine = isClassLine;
 	}
 
 	// Property accessors
@@ -173,4 +149,45 @@ public class InfoStudent implements java.io.Serializable {
 		this.scId = scId;
 	}
 
+	public String getIsClassLine() {
+		return this.isClassLine;
+	}
+
+	public void setIsClassLine(String isClassLine) {
+		this.isClassLine = isClassLine;
+	}
+
+	public List<Score> getScores() {
+		return scores;
+	}
+
+	public void setScores(List<Score> scores) {
+		this.scores = scores;
+	}
+
+	public SchoolClass getSchoolClass() {
+		return schoolClass;
+	}
+
+	public void setSchoolClass(SchoolClass schoolClass) {
+		this.schoolClass = schoolClass;
+	}
+
+	public List<InfoParents> getParents() {
+		return parents;
+	}
+
+	public void setParents(List<InfoParents> parents) {
+		this.parents = parents;
+	}
+
+	public List<CardLog> getCardLogs() {
+		return cardLogs;
+	}
+
+	public void setCardLogs(List<CardLog> cardLogs) {
+		this.cardLogs = cardLogs;
+	}
+
+	
 }

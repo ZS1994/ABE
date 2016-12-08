@@ -19,5 +19,11 @@
         <property name="itId" type="java.lang.String">
             <column name="it_id" />
         </property>
+        <property name="scCreateTime" type="java.sql.Timestamp">
+            <column name="sc_create_time" length="19" />
+        </property>
+        <property name="scState" type="java.lang.String">
+            <column name="sc_state" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : zs
+Source Server         : b
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : abe
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-08 16:43:47
+Date: 2016-12-08 15:31:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -406,25 +406,6 @@ INSERT INTO `recipe` VALUES ('161828360798426', '1234', '晚餐', '2016.11.10', 
 INSERT INTO `recipe` VALUES ('161828405903858', '12345', '晚餐', '2016.11.10', '排骨面', '123213141', '2016-11-16 18:28:40', '未发布', null, null, null, '001，002，003');
 INSERT INTO `recipe` VALUES ('161828530372140', '12345', '晚餐', '2016.11.10', 'da面', '123213141', '2016-11-16 18:28:53', '未发布', null, null, null, '001，002，003');
 INSERT INTO `recipe` VALUES ('161828581576339', '123245', '晚餐', '2016.11.10', '骨面', '123213141', '2016-11-16 18:28:58', '未发布', null, null, null, '001，002，003');
-
--- ----------------------------
--- Table structure for `return`
--- ----------------------------
-DROP TABLE IF EXISTS `return`;
-CREATE TABLE `return` (
-  `r_id` varchar(255) NOT NULL,
-  `r_content` varchar(255) DEFAULT NULL,
-  `r_time` varchar(255) DEFAULT NULL,
-  `r_status` varchar(255) DEFAULT NULL,
-  `u_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`r_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of return
--- ----------------------------
-INSERT INTO `return` VALUES ('072022008748331', '界面太粗糙了', '2016-12-07 20:22:00', '已查看', '123213141');
-INSERT INTO `return` VALUES ('072023408677718', 'UI交互不够人性化', '2016-12-07 20:23:40', '未查看', '123213141');
 
 -- ----------------------------
 -- Table structure for `school`

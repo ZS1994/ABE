@@ -40,5 +40,8 @@
         <property name="scId" type="java.lang.String">
             <column name="sc_id" />
         </property>
+        <property name="isClassLine" type="java.lang.String">
+            <column name="is_class_line" />
+        </property>
     </class>
 </hibernate-mapping>

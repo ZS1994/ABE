@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>班级管理</title>
+    <title>年级管理</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -25,49 +25,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<jsp:include page="/component/assembly/left.jsp"></jsp:include>
 	<div class="right">
 		
-		<form action="<%=path %>/web/class!add" method="post">
-			班级名字：<input type="text" name="cla.scName"/><br/>
-			班主任id（教职工档案id）：<input type="text" name="cla.itId"/><br/>
-			年级id：<input type="text" name="cla.sgId"/><br/>
+		<form action="<%=path %>/web/grade!add" method="post">
+			年级名字：<input type="text" name="g.sgName"/><br/>
+			学校id：<input type="text" name="g.SId"/><br/>
 			<input type="submit" value="添加"/>
 		</form>
 		<div>
 		<table>
 			<thead>
 				<tr>
-					<td colspan="7">
-						家长档案信息
+					<td colspan="4">
+						年级信息
 					</td>
 				</tr>
 				<tr>
-					<th>班级编号</th>
-					<th>班级名称</th>
-					<th>年级</th>
-					<th>班主任</th>
-					<th>班级创建时间</th>
-					<th>状态</th>
+					<th>年级编号</th>
+					<th>年级名称</th>
+					<th>学校名称</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${scs}" var="c" varStatus="sta">
+				<c:forEach items="${sgs}" var="sg" varStatus="sta">
 				<tr>
-					<td>${c.scId }</td>
-					<td>${c.scName }</td>
-					<td>${c.schoolGrade.sgName }</td>
-					<td>${c.infoTeacher.itName }</td>
-					<td>${c.scCreateTime }</td>
-					<td>${c.scState}</td>
+					<td>${sg.sgId }</td>
+					<td>${sg.sgName }</td>
+					<td>${sg.school.SName}</td>
 					<td>
 						<a onclick="">修改</a>
-						<a href="<%=path %>/web/class!delete?id=${c.scId }" onclick="return confirm('确定删除吗?')">删除</a>
+						<a href="<%=path %>/web/grade!delete?id=${sg.sgId }" onclick="return confirm('确定删除吗?')">删除</a>
 					</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="7">
+					<td colspan="4">
 						首页
 						上一页
 						跳转
@@ -80,27 +73,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div>
 			修改班级信息
-			<form action="<%=path %>/web/class!update" method="post">
+			<form action="<%=path %>/web/grade!update" method="post">
 				<table>
 				  <tr>
-				    <td>班级编号：</td>
-				    <td><input type="text" name="cla.scId" readonly="readonly" /></td>
+				    <td>年级编号：</td>
+				    <td><input type="text" name="g.sgId" readonly="readonly" /></td>
 				  </tr>
 				  <tr>
-				    <td>班级名称：</td>
-				    <td><input type="text" name="cla.scName"  /></td>
+				    <td>年级名称</td>
+				    <td><input type="text" name="g.sgName"  /></td>
 				  </tr>
 				  <tr>
-				    <td>年级：(应使用ajax列表形式选择)</td>
-				    <td><input type="text" name="cla.sgId"  /></td>
-				  </tr>
-				  <tr>
-				    <td>班主任：(应使用ajax列表形式选择)</td>
-				    <td><input type="text" name="cla.itId" /></td>
-				  </tr>
-				  <tr>
-				    <td>状态：</td>
-				    <td><input type="text" name="cla.scState" /></td>
+				    <td>学校编号：(应使用ajax列表形式选择)</td>
+				    <td><input type="text" name="g.SId" /></td>
 				  </tr>
 				  <tr>
 				  	<td colspan="2"><input type="submit" value="提交"/></td>
