@@ -70,6 +70,7 @@
 	</bean>
 	<bean id="zs_parents" class="com.abe.action.home.InfoParentsAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="parentSer" ref="zs_parents_ser"></property>
 	</bean>
 	<bean id="zs_rel" class="com.abe.action.home.StuParRelAction">
 		<property name="ser" ref="zs_ser"></property>

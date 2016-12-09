@@ -11,6 +11,7 @@ public class Code implements java.io.Serializable {
 	// Fields
 
 	private String UId;
+	private String CPhone;
 	private String CCode;
 	private Timestamp CTime;
 	private Timestamp CNoTime;
@@ -27,8 +28,10 @@ public class Code implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Code(String UId, String CCode, Timestamp CTime, Timestamp CNoTime) {
+	public Code(String UId, String CPhone, String CCode, Timestamp CTime,
+			Timestamp CNoTime) {
 		this.UId = UId;
+		this.CPhone = CPhone;
 		this.CCode = CCode;
 		this.CTime = CTime;
 		this.CNoTime = CNoTime;
@@ -42,6 +45,14 @@ public class Code implements java.io.Serializable {
 
 	public void setUId(String UId) {
 		this.UId = UId;
+	}
+
+	public String getCPhone() {
+		return this.CPhone;
+	}
+
+	public void setCPhone(String CPhone) {
+		this.CPhone = CPhone;
 	}
 
 	public String getCCode() {

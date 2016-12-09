@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-08 19:27:12
+Date: 2016-12-09 22:54:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -111,6 +111,7 @@ INSERT INTO `class_inform` VALUES ('041002108565809', '本周三展开家长会'
 DROP TABLE IF EXISTS `code`;
 CREATE TABLE `code` (
   `u_id` varchar(255) NOT NULL DEFAULT '',
+  `c_phone` varchar(255) DEFAULT NULL,
   `c_code` varchar(255) DEFAULT NULL,
   `c_time` datetime DEFAULT NULL,
   `c_no_time` datetime DEFAULT NULL,
@@ -297,7 +298,7 @@ CREATE TABLE `licence` (
 -- Records of licence
 -- ----------------------------
 INSERT INTO `licence` VALUES ('123213141', 'apXPgmegEtTMFjsgcN4wzg==', '127.0.0.1', '2016-12-04 09:40:03', '2016-12-04 11:14:16');
-INSERT INTO `licence` VALUES ('271634032221266', '8/zFRTOlA1LOUsXaQZ0tyQ==', '127.0.0.1', '2016-11-27 09:40:55', '2016-11-27 10:45:06');
+INSERT INTO `licence` VALUES ('271634032221266', 'KnskvHFtncsGhcL4LNf/qw==', '127.0.0.1', '2016-12-09 22:51:18', '2016-12-09 23:52:04');
 
 -- ----------------------------
 -- Table structure for `news`

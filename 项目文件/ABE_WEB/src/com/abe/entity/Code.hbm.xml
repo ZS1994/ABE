@@ -10,6 +10,9 @@
             <column name="u_id" />
             <generator class="assigned" />
         </id>
+        <property name="CPhone" type="java.lang.String">
+            <column name="c_phone" />
+        </property>
         <property name="CCode" type="java.lang.String">
             <column name="c_code" />
         </property>
