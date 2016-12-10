@@ -57,6 +57,9 @@
   <action name="attendance" class="zs_attendance">	   
   	 <interceptor-ref name="mydefault" />
   </action>
+  <action name="parents" class="zs_parents">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
  
   <!-- ******消息中心******* -->
   <action name="classInform" class="lz_class_inform">
