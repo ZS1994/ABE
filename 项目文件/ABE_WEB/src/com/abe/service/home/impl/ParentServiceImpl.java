@@ -124,7 +124,7 @@ public class ParentServiceImpl extends BaseServiceImpl implements iParentService
 						ctmp.setCCode(param);
 						ctmp.setCTime(new Timestamp(date.getTime()));
 						ctmp.setCNoTime(new Timestamp(calendar.getTime().getTime()));
-						save(ctmp);
+						update(ctmp);
 					}
 				}
 			} catch (UnsupportedEncodingException e) {
