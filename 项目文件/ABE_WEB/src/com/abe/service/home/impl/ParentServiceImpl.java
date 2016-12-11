@@ -41,7 +41,22 @@ public class ParentServiceImpl extends BaseServiceImpl implements iParentService
 			parent.setIpId(NameOfDate.getNum());
 			Code co=(Code) get(Code.class, uid);
 			Date date=new Date();
-			if (user!=null && co!=null && code.equals(co.getCCode()) &&
+			//判断是否通过的标志
+			boolean isGoto=false;
+			if (user!=null && user.getUType().equals("1") && user.getTrpId()==null){
+					isGoto=true;
+			}else if (user.getTrpId()!=null && !user.getTrpId().trim().equals("")) {
+				//看看这个uid是否已经有了parent了
+				InfoParents p=(InfoParents) get(InfoParents.class, user.getTrpId());
+				if (p==null) {
+					isGoto=true;
+				}else {
+					isGoto=false;
+					resp.setResult("004");
+					resp.setData(null);
+				}
+			}
+			if (isGoto && user!=null && co!=null && code.equals(co.getCCode()) &&
 					uid.equals(co.getUId()) && date.before(co.getCNoTime())) {//验证码验证通过
 				List<InfoParents> list=find("from InfoParents where ipPhone=?", new String[]{parent.getIpPhone()});
 				if (list!=null) {
@@ -73,7 +88,8 @@ public class ParentServiceImpl extends BaseServiceImpl implements iParentService
 			Code code=(Code) get(Code.class, uid);
 			if (code!=null) {
 				resp.setResult("001");
-				resp.setData(code);
+//				resp.setData(code);
+				resp.setData(null);
 				return resp;
 			}
 		}
