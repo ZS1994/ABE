@@ -149,6 +149,37 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 	
+	public String queryDateFromApp(){
+		RespCommon resp=new RespCommon();
+		String scId=ser.clearSpace(getRequest(), "scId");
+		String week=ser.clearSpace(getRequest(), "TWeek");
+		if (scId!=null && week!=null) {
+			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, scId);
+			if (schoolClass==null) {
+				resp.setResult("002");
+				resp.setData(null);
+			}else {
+				int w=Integer.valueOf(week);
+				if (w>=1 && w<=7) {
+					List<List<Timetables>> list=timetablesSer.getDateOfWeek(scId, w);
+					resp.setResult("001");
+					resp.setData(list);
+				}else {
+					resp.setResult("004");
+					resp.setData(null);
+				}
+			}
+		}else {
+			resp.setResult("003");
+			resp.setData(null);
+		}
+		try {
+			sendToApp(resp, ser);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	@Override
 	public String queryOfFenYe() {
