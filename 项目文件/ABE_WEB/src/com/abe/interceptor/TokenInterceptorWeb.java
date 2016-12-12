@@ -32,6 +32,8 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
 	String path;
 	String reqPamrs;
 	Object user;
+	String actionName;
+	String methodName;
 	private static final String PRO_NAME="/"+Constant.ABE_WEB_NAME+"/web";
 	private Logger logger=Logger.getLogger(TokenInterceptorWeb.class);
 	
@@ -58,18 +60,21 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
         path = request.getRequestURI();//url
         reqPamrs = request.getQueryString();//后面的参数
         //获取登录者信息
-        user =session.get("user"); 
+        user =session.get("user");
+        //获取action的名字
+        actionName = arg0.getProxy().getActionName();
+        //获取action的方法名字
+        methodName = arg0.getProxy().getMethod();
 	}
 	
 	
 	@Override
 	public String intercept(ActionInvocation arg0) throws Exception {
 		allInit(arg0);
-		String method=getMethod(path);
 //		logger.debug(method);
 		//以下是令牌控制的核心代码
 		String result=null;
-		if (method.equals("gotoQuery")||method.equals("queryOfFenYe")){
+		if (methodName.equals("gotoQuery") || methodName.equals("queryOfFenYe")){
 			String token = TokenProccessor.getInstance().makeToken();//创建令牌
 //			logger.info("在TokenInterceptorWeb中生成的token："+token);
 			request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
@@ -123,13 +128,4 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
     }
     
     
-    /**
-     * 张顺 2016-11-14
-     * 得到方法名
-     * @return
-     */
-    public String getMethod(String path) {
-    	String ss[]=path.split("!");
-    	return ss[ss.length-1];
-	}
 }

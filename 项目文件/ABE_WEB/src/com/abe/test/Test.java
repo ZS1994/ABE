@@ -40,6 +40,7 @@ public class Test {
 		String tmpString=Base64.getFromBASE64(filesString);
 		System.out.println(tmpString);
 		 */
-		
+		int i=(int)((Math.random()*9+1)*100000);
+		System.out.println(i);
 	}
 }

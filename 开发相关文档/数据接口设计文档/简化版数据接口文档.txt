@@ -104,7 +104,6 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 		UNote:备注
         trpId:用户档案ID
     }
-
 }
 
 第二步：修改该用户个人信息
@@ -146,9 +145,12 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 	isId:学生id
 	ipId:家长id
 	spRelation:学生与家长的关系    父女、父子、母女、母子等等
+	UId：用户id
+	ipPhone:和该学生已经绑定的家长中任意一位的手机号
+	CCode:验证码（填写手机号，点击获取验证码，验证码会发送到该手机上，获取验证码接口，在家长档案相关接口中）
 应答参数：
 {
-	result:返回码   001:成功，002:isid不存在,003:ipid不存在
+	result:返回码   001:成功，002:isid不存在,003:ipid不存在；004该学生的家长没有这个手机号；005验证码验证不通过
 	data:null
 }
 2,通过学生id查看学生信息(用来查唯一学生)（测试通过，张顺，2016-11-29）
@@ -1553,11 +1555,53 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!findAllReturnsByPage
 		"user":用户信息（已清空密码）][...][...]
 	}	
 	
-	
-	
-	
-	
-	
+
+//-----------------------------------家长档案-------------------------------------	
+1、获取验证码（测试通过、张顺、2016-12-9 22:41:24）
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/parents!queryCode
+请求参数：
+	UId：用户id
+	ipPhone：手机号
+	licence:执照
+应答参数：
+{
+	result：001成功,002失败
+	data:null
+}
+2、添加家长档案（测试通过、张顺、2016-12-10 15:56:56）
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/parents!addFromApp
+请求参数：
+	UId:用户id
+	ipName:家长姓名
+	ipBirthday:家长生日
+	ipAddress:地址
+	ipPhone:家长电话
+	ipSex:家长性别
+	CCode:验证码
+	licence:执照
+应答参数：	
+{
+	result：001成功,002验证码验证失败，003已有家长档案拥有手机号，并已将该用户的家长档案关联到这个家长档案上（也算成功），004该用户已拥有真实的家长档案
+	data:null
+}	
+3、查看家长档案（测试通过、张顺、2016-12-9 22:41:24）	
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/parents!queryFromApp
+请求参数：
+	UId:用户id
+	licence:执照
+应答参数：	
+{
+	result：001成功,002失败
+	data:{
+		......
+		ipId:家长id
+		ipName:家长姓名
+		ipBirthday:家长生日
+		ipAddress:地址
+		ipPhone:家长电话
+		ipSex:家长性别
+	}
+}	
 	
 	
 	

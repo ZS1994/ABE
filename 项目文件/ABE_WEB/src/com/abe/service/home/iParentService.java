@@ -2,7 +2,9 @@ package com.abe.service.home;
 
 import java.util.List;
 
+import com.abe.entity.Code;
 import com.abe.entity.InfoParents;
+import com.abe.entity.app.RespCommon;
 
 public interface iParentService {
 	
@@ -12,5 +14,25 @@ public interface iParentService {
 	 * @return
 	 */
 	public List<InfoParents> getAllParents();
+
 	
+	/**
+	 * 从APP添加家长档案
+	 */
+	public RespCommon addFromApp(String uid,InfoParents parent,String code);
+	
+	
+	/**
+	 * 获取验证码
+	 */
+	public RespCommon getCode(String uid);
+	
+	
+	/**
+	 * 保存验证码
+	 */
+	public void saveCode(String uid,String mobile,String param);
+	
+	
+	public RespCommon queryParent(String uid);
 }

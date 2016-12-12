@@ -1,15 +1,21 @@
 package com.abe.action.information;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.InfoTeacher;
 import com.abe.entity.PlaceArea;
 import com.abe.entity.School;
+import com.abe.entity.SchoolGrade;
 import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.information.iSchoolService;
 import com.abe.tools.NameOfDate;
+import com.abe.tools.Page;
 
 /**
  * 张顺 2016-11-8
@@ -25,10 +31,44 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
 	private iSchoolService schoolSer;
+	private List<School> schools;
+	private School sch;
+	private Page page;
+	String result="school";
+	String id;
+	String cz;
 	
 	
-	
-
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	public List<School> getSchools() {
+		return schools;
+	}
+	public void setSchools(List<School> schools) {
+		this.schools = schools;
+	}
+	public School getSch() {
+		return sch;
+	}
+	public void setSch(School sch) {
+		this.sch = sch;
+	}
+	public Page getPage() {
+		return page;
+	}
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public iBaseService getSer() {
 		return ser;
 	}
@@ -80,20 +120,29 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String add() {
-		// TODO Auto-generated method stub
-		return null;
+		sch.setSId(NameOfDate.getNum());
+		ser.save(sch);
+		clearOptions();
+		return gotoQuery();
 	}
 
 	@Override
 	public void clearOptions() {
-		// TODO Auto-generated method stub
-		
+		sch=null;
+		schools=null;
+		id=null;
+		cz=null;
+		page=null;
 	}
 
 	@Override
 	public void clearSpace() {
-		// TODO Auto-generated method stub
-		
+		if(id!=null){
+			id=id.trim();
+		}
+		if(cz!=null){
+			cz=cz.trim();
+		}
 	}
 
 	@Override
@@ -104,8 +153,12 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String gotoQuery() {
-		// TODO Auto-generated method stub
-		return null;
+		clearOptions();
+		String hql="from School order by SId desc";
+		String ss[]={};
+		String hql2="from School order by SId desc";
+		schools=ser.query(hql, ss, hql2, page);
+		return result;
 	}
 
 	/**
@@ -136,8 +189,25 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String queryOfFenYe() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+			page=new Page(1, 0, 10);
+		}
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
+		StringBuffer hql=new StringBuffer("from School ");
+		if (id!=null) {
+			hql.append(" where SId like '%"+id+"%' ");
+		}
+		hql.append("order by SId desc");
+		schools=ser.query(hql.toString(), null, hql.toString(), page);
+		for(int i = 0 ; i< schools.size(); i++){
+			PlaceArea p = (PlaceArea) ser.get(PlaceArea.class,schools.get(i).getPaId());
+			schools.get(i).setPlaceArea(p);
+		}
+		return result;
 	}
 
 	/**

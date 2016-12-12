@@ -57,6 +57,9 @@
   <action name="attendance" class="zs_attendance">	   
   	 <interceptor-ref name="mydefault" />
   </action>
+  <action name="parents" class="zs_parents">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
  
   <!-- ******消息中心******* -->
   <action name="classInform" class="lz_class_inform">
@@ -164,6 +167,10 @@
   	 <interceptor-ref name="mydefault" />
   	 <result name="rel">/backstage/parents/rel.jsp</result>
   </action>
+  <action name="teacher" class="ljl_teacher">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="teacherManager">/backstage/teachers/teacherManager.jsp</result>
+  </action>
   
   
   <!-- *******************消息中心*********************** -->
@@ -172,6 +179,27 @@
   	 <interceptor-ref name="mydefault" />
   	 <result name="class">/backstage/structure/class.jsp</result>
   </action>
+    <action name="schoolStructure" class="zs_school_structure">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="schoolStructure">/backstage/structure/schoolStructure.jsp</result>
+  </action>
+  <action name="grade" class="zs_school_grade">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="grade">/backstage/structure/grade.jsp</result>
+  </action>
+  <action name="school" class="zs_school">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="school">/backstage/structure/school.jsp</result>
+  </action>
+  
+  
+  <!-- *************系统管理************* -->
+  <action name="users" class="zs_users">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="users">/backstage/system/users.jsp</result>
+  </action>
+  
+  
   
 </package>
 </struts>    

@@ -9,6 +9,7 @@
 	<session-factory>
 
 		<!--
+		-->
 			<property name="proxool.pool_alias">DBPool</property>
 			<property name="proxool.xml">proxool.xml</property>
 			<property name="connection.provider_class">
@@ -17,9 +18,9 @@
 			<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 			</property>
-		-->
 
 
+		<!-- 
 		<property name="myeclipse.connection.profile">
 			com.mysql.jdbc.Driver2
 		</property>
@@ -34,7 +35,6 @@
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 		</property>
-		<!-- 
 		-->
 
 
@@ -69,6 +69,7 @@
 		<mapping resource="com/abe/entity/PersonInform.hbm.xml" />
 		<mapping resource="com/abe/entity/ClassInform.hbm.xml" />
 		<mapping resource="com/abe/entity/Return.hbm.xml" />
+		<mapping resource="com/abe/entity/Code.hbm.xml" />
 
 	</session-factory>
 

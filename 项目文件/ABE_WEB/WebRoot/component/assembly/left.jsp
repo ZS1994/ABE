@@ -36,13 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				<a href="<%=path %>/web/parents!queryOfFenYe?cz=yes">家长档案管理</a>
   			</li>
   			<li>
-  				<a href="<%=path %>/backstage/teachers/teacherManager.jsp">教师档案管理</a>
+  				<a href="<%=path %>/web/teacher!queryOfFenYe?cz=yes">教师档案管理</a>
   			</li>
   			<li>
   				<a href="<%=path %>/web/rel!queryOfFenYe?cz=yes">学生家长关系管理</a>
-  			</li>
-  			<li>
-  				<a href="<%=path %>/backstage/student/studentManager.jsp">教职员工管理</a>
   			</li>
   		</ul>
   		<li>课程表管理</li>
@@ -57,7 +54,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<li>组织架构管理</li>
   		<ul>
   			<li>
+  				<a href="<%=path %>/web/school!queryOfFenYe?cz=yes">学校管理</a>
+  			</li>
+  			<li>
+  				<a href="<%=path %>/web/grade!queryOfFenYe?cz=yes">年级管理</a>
+  			</li>
+  			<li>
   				<a href="<%=path %>/web/class!queryOfFenYe?cz=yes">班级管理</a>
+  			</li>
+  			<li>
+  				<a href="<%=path %>/web/schoolStructure!queryOfFenYe">班级架构</a>
   			</li>
   		</ul>
   		<li>新闻管理</li>
@@ -73,6 +79,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<ul>
   			<li>
   				<a href="<%=path %>/web/card!gotoQuery">卡片管理</a>
+  			</li>
+  		</ul>
+  		<li>系统管理</li>
+  		<ul>
+  			<li>
+  				<a href="<%=path %>/web/users!queryOfFenYe?cz=yes">用户管理</a>
   			</li>
   		</ul>
   		</ul>
