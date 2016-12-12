@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-09 22:54:46
+Date: 2016-12-11 18:49:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -121,6 +121,8 @@ CREATE TABLE `code` (
 -- ----------------------------
 -- Records of code
 -- ----------------------------
+INSERT INTO `code` VALUES ('101552391154734', '18307211633', '564579', '2016-12-10 15:54:30', '2016-12-10 16:04:30');
+INSERT INTO `code` VALUES ('271634032221266', '15817383353', '904363', '2016-12-11 18:43:48', '2016-12-11 18:53:48');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -202,6 +204,7 @@ CREATE TABLE `hx_group` (
   `u_id` varchar(255) DEFAULT NULL,
   `g_desc` varchar(255) DEFAULT NULL,
   `g_create_time` datetime DEFAULT NULL,
+  `g_note` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`g_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -226,7 +229,8 @@ CREATE TABLE `info_parents` (
 -- ----------------------------
 -- Records of info_parents
 -- ----------------------------
-INSERT INTO `info_parents` VALUES ('1', '张顺', null, null, null, null);
+INSERT INTO `info_parents` VALUES ('1', '张顺', null, null, '15817383353', null);
+INSERT INTO `info_parents` VALUES ('101555271959237', '小老鼠', null, '2016-12-11', '18307211633', '观澜大道');
 
 -- ----------------------------
 -- Table structure for `info_student`
@@ -297,8 +301,9 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
+INSERT INTO `licence` VALUES ('101552391154734', 'aZGees3jyujMHroH48EYew==', '127.0.0.1', '2016-12-10 15:53:02', '2016-12-10 16:56:17');
 INSERT INTO `licence` VALUES ('123213141', 'apXPgmegEtTMFjsgcN4wzg==', '127.0.0.1', '2016-12-04 09:40:03', '2016-12-04 11:14:16');
-INSERT INTO `licence` VALUES ('271634032221266', 'KnskvHFtncsGhcL4LNf/qw==', '127.0.0.1', '2016-12-09 22:51:18', '2016-12-09 23:52:04');
+INSERT INTO `licence` VALUES ('271634032221266', '8hYM6ZtqitR1Ww33yxBuaQ==', '127.0.0.1', '2016-12-11 18:36:32', '2016-12-11 19:47:20');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -554,6 +559,7 @@ CREATE TABLE `student_parent_rel` (
 -- ----------------------------
 -- Records of student_parent_rel
 -- ----------------------------
+INSERT INTO `student_parent_rel` VALUES ('111847201572457', '261802034587218', '101555271959237', '母女');
 INSERT INTO `student_parent_rel` VALUES ('261802035157508', '261802034587218', '1', '父女');
 
 -- ----------------------------
@@ -597,6 +603,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+INSERT INTO `users` VALUES ('101552391154734', '7111', '悟空', '123', '1', '2016-12-10 15:52:39', null, null, '101555271959237');
 INSERT INTO `users` VALUES ('123213141', 'qqq', '小李子', '123', '2', null, 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/123213141/31223058436.png', null, '1');
 INSERT INTO `users` VALUES ('271634032221266', 'qwe', '张顺', '123', '1', '2016-10-26 23:08:14', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/26180936276.png', null, '1');
 

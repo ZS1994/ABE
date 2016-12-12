@@ -145,9 +145,12 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 	isId:学生id
 	ipId:家长id
 	spRelation:学生与家长的关系    父女、父子、母女、母子等等
+	UId：用户id
+	ipPhone:和该学生已经绑定的家长中任意一位的手机号
+	CCode:验证码（填写手机号，点击获取验证码，验证码会发送到该手机上，获取验证码接口，在家长档案相关接口中）
 应答参数：
 {
-	result:返回码   001:成功，002:isid不存在,003:ipid不存在
+	result:返回码   001:成功，002:isid不存在,003:ipid不存在；004该学生的家长没有这个手机号；005验证码验证不通过
 	data:null
 }
 2,通过学生id查看学生信息(用来查唯一学生)（测试通过，张顺，2016-11-29）
