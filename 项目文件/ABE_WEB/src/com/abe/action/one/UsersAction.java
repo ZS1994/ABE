@@ -32,7 +32,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	
 	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
-	private iUsersService usersSer;
+	private iUsersService userSer;
 	private Page page;
 	private String result="users";
 	private Users user;
@@ -45,11 +45,17 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	public iBaseService getSer() {
 		return ser;
 	}
-	public iUsersService getUsersSer() {
-		return usersSer;
+	public Page getPage() {
+		return page;
 	}
-	public void setUsersSer(iUsersService usersSer) {
-		this.usersSer = usersSer;
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	public iUsersService getUserSer() {
+		return userSer;
+	}
+	public void setUserSer(iUsersService userSer) {
+		this.userSer = userSer;
 	}
 	public String getCz() {
 		return cz;
@@ -111,35 +117,26 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	@Override
 	public String queryOfFenYe() {
 		clearSpace();
-		String pag=ser.clearSpace(getRequest(), "page");
-		String rows=ser.clearSpace(getRequest(), "rows");
-		
-		logger.debug(pag);
-		logger.debug(rows);
-		
-		
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
-		
-		page.setPageOn(Integer.valueOf(pag));
-		page.setSize(Integer.valueOf(rows));
-		
 		StringBuffer hql=new StringBuffer("from Users where 1=1 ");
 		if (id!=null) {
 			hql.append("and UId like '%"+id+"%'" );
 		}
 		hql.append("order by UCreateTime desc ");
 		users=ser.query(hql.toString(), null, hql.toString(), page);
-		sendJsonArry(users, ser);
-		return null;
+		return result;
 	}
 	@Override
 	public String gotoQuery() {
 		clearSpace();
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
 		String hql="from Users order by UCreateTime desc";
 		users=ser.query(hql, null, hql, page);
 		return result;
@@ -160,8 +157,8 @@ public class UsersAction extends BaseAction implements iBaseAction {
 			user.setUCreateTime(new Timestamp(new Date().getTime()));
 			ser.save(user);
 			//在环信系统中注册
-			String token=usersSer.getToken(iUsersService.ACCESS_TOKEN);
-			String result=usersSer.addUser(user.getUId(), user.getUPass(), token);
+			String token=userSer.getToken(iUsersService.ACCESS_TOKEN);
+			String result=userSer.addUser(user.getUId(), user.getUPass(), token);
 			logger.debug("环信注册返回结果："+result);
 		}
 		return gotoQuery();

@@ -34,10 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			xian_val: "", 
     			xiang_val: "" 
    			});
-   			$("#type_sel option[value='${type}']").attr("selected",true);
 			$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 			$("#eidtASubjectWindow1").show();
-			$('#tt').show();
  		});
  		//分页
 		function page(no,cz){
