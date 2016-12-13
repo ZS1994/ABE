@@ -190,15 +190,25 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 				respStudent.setResult("002");
 				respStudent.setData(null);
 			}else if (user.getUType().equals("1")) {
-				InfoParents parent=(InfoParents) ser.get(InfoParents.class, user.getTrpId());
-				List<StudentParentRel> rels=ser.find("from StudentParentRel where ipId=?", new String[]{parent.getIpId()});
-				List<InfoStudent> list=new ArrayList<InfoStudent>();
-				for (int i = 0; i < rels.size(); i++) {
-					InfoStudent student=studentSer.getFromId(rels.get(i).getIsId());
-					list.add(student);
+				if (user.getTrpId()!=null) {
+					InfoParents parent=(InfoParents) ser.get(InfoParents.class, user.getTrpId());
+					if (parent!=null) {
+						List<StudentParentRel> rels=ser.find("from StudentParentRel where ipId=?", new String[]{parent.getIpId()});
+						List<InfoStudent> list=new ArrayList<InfoStudent>();
+						for (int i = 0; i < rels.size(); i++) {
+							InfoStudent student=studentSer.getFromId(rels.get(i).getIsId());
+							list.add(student);
+						}
+						respStudent.setResult("001");
+						respStudent.setData(list);
+					}else {
+						respStudent.setResult("2001");
+						respStudent.setData(null);
+					}
+				}else {
+					respStudent.setResult("2001");
+					respStudent.setData(null);
 				}
-				respStudent.setResult("001");
-				respStudent.setData(list);
 			}else {
 				respStudent.setResult("004");
 				respStudent.setData(null);
@@ -208,6 +218,7 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 		sendToApp(json, ser);
 		return null;
 	}
+	
 	
 	/**张顺 2016-11-29
 	 * 分页查询所有学生

@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<li>系统管理</li>
   		<ul>
   			<li>
-  				<a href="<%=path %>/web/users!queryOfFenYe?cz=yes">用户管理</a>
+  				<a href="<%=path %>/web/users!gotoQuery">用户管理</a>
   			</li>
   		</ul>
   		</ul>

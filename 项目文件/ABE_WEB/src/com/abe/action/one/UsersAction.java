@@ -2,6 +2,8 @@ package com.abe.action.one;
 
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONObject;
@@ -15,6 +17,7 @@ import com.abe.entity.Users;
 import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iTeacherService;
+import com.abe.service.hx.iUsersService;
 import com.abe.tools.NameOfDate;
 import com.abe.tools.Page;
 
@@ -29,6 +32,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	
 	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
+	private iUsersService usersSer;
 	private Page page;
 	private String result="users";
 	private Users user;
@@ -41,11 +45,11 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	public iBaseService getSer() {
 		return ser;
 	}
-	public Page getPage() {
-		return page;
+	public iUsersService getUsersSer() {
+		return usersSer;
 	}
-	public void setPage(Page page) {
-		this.page = page;
+	public void setUsersSer(iUsersService usersSer) {
+		this.usersSer = usersSer;
 	}
 	public String getCz() {
 		return cz;
@@ -107,19 +111,31 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	@Override
 	public String queryOfFenYe() {
 		clearSpace();
+		String pag=ser.clearSpace(getRequest(), "page");
+		String rows=ser.clearSpace(getRequest(), "rows");
+		
+		logger.debug(pag);
+		logger.debug(rows);
+		
+		
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
+		
+		page.setPageOn(Integer.valueOf(pag));
+		page.setSize(Integer.valueOf(rows));
+		
 		StringBuffer hql=new StringBuffer("from Users where 1=1 ");
 		if (id!=null) {
 			hql.append("and UId like '%"+id+"%'" );
 		}
 		hql.append("order by UCreateTime desc ");
 		users=ser.query(hql.toString(), null, hql.toString(), page);
-		return result;
+		sendJsonArry(users, ser);
+		return null;
 	}
 	@Override
 	public String gotoQuery() {
@@ -141,7 +157,12 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	public String add() {
 		if (user!=null) {
 			user.setUId(NameOfDate.getNum());
+			user.setUCreateTime(new Timestamp(new Date().getTime()));
 			ser.save(user);
+			//在环信系统中注册
+			String token=usersSer.getToken(iUsersService.ACCESS_TOKEN);
+			String result=usersSer.addUser(user.getUId(), user.getUPass(), token);
+			logger.debug("环信注册返回结果："+result);
 		}
 		return gotoQuery();
 	}

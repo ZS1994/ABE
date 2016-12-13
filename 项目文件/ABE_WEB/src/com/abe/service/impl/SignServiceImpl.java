@@ -185,6 +185,8 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 					user.setUPhotoPath(uPhotoPath);
 //					logger.debug(uPhotoPath);
 					update(user);
+//					Users stmp=(Users) get(Users.class, user.getUId());
+//					logger.debug(stmp);
 					uploadPhoto=new RespUploadPhoto("001", user);
 				} catch (IOException e) {
 					e.printStackTrace();
