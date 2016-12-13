@@ -316,7 +316,57 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryFromApp
 	]
 }
 
-
+2、查看某一天的课程表
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryDateFromApp
+请求参数：
+	licence:数字执照
+	scId:班级编号
+	TWeek:（int）1,2,3..7<--->星期1，星期2，星期3...星期日
+应答参数：
+{
+	result：001成功,002scId不存在，003接收到scId为空，004Tweek不合法
+	data:[//一天的课程表
+		{
+			TId:编号
+			CId：科目编号
+			scId:班级编号
+			itId：教师编号
+			TStartTime:开始时间  HH:mm:ss
+			TEndTime:结束时间  HH:mm:ss
+			TWeek:星期  （int）1,2,3..7<--->星期1，星期2，星期3...星期日
+			TOrder:序号（1,2,3,4...）一天中的第几节课
+			course:{//科目信息
+				CId：科目编号
+				CName:科目名称
+			}
+			schoolClass:{//班级信息
+				scId:班级id
+				scName:班级名称
+				sgId:年级id
+				itId：班主任编号
+			}
+			infoTeacher：{//教师信息
+				itId：教师编号
+				itNum:工号
+				itName:教师名字
+				itSex:性别
+				itBirthday:生日
+				itAge:年龄
+				itPhone:手机
+				itWechat:微信
+				itQq:qq
+				itSection:所属部门
+				itPost:职务
+				itIntoDate:入职日期
+				itLeaveDate:离职日期
+				itCreateTime:录入时间
+				itAddress:地址
+				ssId:部门编号
+			}
+		}
+		......
+	]
+}
 
 
 

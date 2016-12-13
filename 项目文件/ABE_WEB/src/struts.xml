@@ -167,6 +167,10 @@
   	 <interceptor-ref name="mydefault" />
   	 <result name="rel">/backstage/parents/rel.jsp</result>
   </action>
+  <action name="teacher" class="ljl_teacher">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="teacherManager">/backstage/teachers/teacherManager.jsp</result>
+  </action>
   
   
   <!-- *******************消息中心*********************** -->
@@ -187,6 +191,15 @@
   	 <interceptor-ref name="mydefault" />
   	 <result name="school">/backstage/structure/school.jsp</result>
   </action>
+  
+  
+  <!-- *************系统管理************* -->
+  <action name="users" class="zs_users">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="users">/backstage/system/users.jsp</result>
+  </action>
+  
+  
   
 </package>
 </struts>    

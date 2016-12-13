@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>教师管理</title>
+    <title>教职工管理</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -18,15 +18,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!--<link rel="stylesheet" href="<%=path %>/FRAMEWORK/css/css-ljl/login-comon.css" />
 	--><!--<link rel="stylesheet" href="<%=path %>/FRAMEWORK/css/css-ljl/css/register.css" />
-	--><script src="<%=path %>/FRAMEWORK/js/js-ljl/jquery-1.11.3.js"></script>
+	-->
+	<script src="<%=path %>/FRAMEWORK/js/js-ljl/jquery-1.11.3.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/js-ljl/cascade/GlobalProvinces_main.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/js-ljl/cascade/GlobalProvinces_extend.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/js-ljl/cascade/initLocation.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/js-ljl/cascade/onchage.js"></script>
 	<!--<script src="<%=path %>/FRAMEWORK/js/js-ljl/register.js"></script>
-	--><script type="text/javascript">
-    $(function () { initLocation({ sheng_val: "", shi_val: "", xian_val: "", xiang_val: "" }); })
-</script>
+	-->
+	<script type="text/javascript">
+    	$(function () { 
+    		initLocation({ 
+    			sheng_val: "",
+    			shi_val: "",
+    			xian_val: "", 
+    			xiang_val: "" 
+   			});
+   			$("#type_sel option[value='${type}']").attr("selected",true);
+			$("#sele option[value='"+${page.size}+"']").attr("selected",true);
+			$("#eidtASubjectWindow1").show();
+			$('#tt').show();
+ 		});
+ 		//分页
+		function page(no,cz){
+			var num1=$('#page').val();
+			if(cz==1){//上下页
+				$('#page').val(num1*1+no*1);
+			}else if(cz==2){//首末页
+				$('#page').val(no);
+			}else{
+			}
+			if($('#page').val()*1<1){
+				$('#page').val(1);
+			}else if($('#page').val()*1>${page.pageMax}*1){
+				$('#page').val(${page.pageMax});
+			}
+			$('#f1').submit();
+		}
+	</script>
 	
 	
   </head>
@@ -35,14 +64,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br><jsp:include page="/component/assembly/top.jsp"></jsp:include>
 	<jsp:include page="/component/assembly/left.jsp"></jsp:include>
 	<div class="right">
-		<div style="width: 100%;">
-			<div style="margin:0 auto;width:100px;text-align: center;">
-			<a>添加教师档案</a>
-			<a href="<%=path %>/web/student!queryOfFenYe?cz=yes">查看教师</a>
-			</div>
+	
+	<div style="width: 100%;">
+		<div style="margin:0 auto;width:100px;text-align: center;">
+		<a>添加教师档案</a>
+		<a href="<%=path %>/web/student!queryOfFenYe?cz=yes">查看教师</a>
+		</div>
 			
-	<div class="section">
-		<div class="container">
+		<div class="section">
+			<div class="container">
 			<form method="post" action=".action" onsubmit="return formValidator()" enctype="multipart/form-data" id="myform">
 				<table>
 					<thead>
@@ -79,14 +109,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</td>
 							<td class="td-last"></td>
 						</tr>
-						<!--<tr>
+						<tr>
 							<td class="td-first">本人头像 ：</td>
 							<td class="td-medium"><a href="javascript:"
 								class="btn_addPic"><span><i>+</i>添加图片</span><input
 									type="file" tabindex="3" size="3" name="image"
 									class="filePrew picfile" onchange="changepic(event);"></a><i></i></td>
 							<td class="td-last"><div id="pic-file"></div></td>
-						</tr>-->
+						</tr>
 						<tr>
 							<td class="td-first">生日 ：</td>
 							<td><input type="date" id="date"/></td>
@@ -130,18 +160,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<tr>
 							<td class="td-first">状态：</td>
 							<td>
-							<select name="teacher.itState" value="">
-								<option value="0">--请选择--</option>
-								<option value="1">在职</option>
-								<option value="2">已离职</option>
-								<option value="3">休假中</option>
-								<option value="4">已退休</option>
-							</select>
-							<input name="teacher.itState" type="text" id="state" />
+								<select name="teacher.itState" value="">
+									<option value="0">--请选择--</option>
+									<option value="1">在职</option>
+									<option value="2">已离职</option>
+									<option value="3">休假中</option>
+									<option value="4">已退休</option>
+								</select>
+								<input name="teacher.itState" type="text" id="state" />
 							</td>
 							<td id="mail-tips" class="td-lx ast def-tips"></td>
 						</tr>
-						<!--<tr>
+						<tr>
 							<td class="td-first">住址：</td>
 							<td colspan="2" class="send-address">
 								<select id="sheng" onchange="provincefunction()" ></select> 
@@ -154,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input  type="hidden" id="area" name="user.area"/>
 							<input  type="hidden" id="street" name="user.street"/>
 							</td>
-						</tr>-->
+						</tr>
 						<tr>
 							<td class="td-first">住址 ：</td>
 							<td class="td-medium"><input name="teacher.itAddress" type="text"
@@ -186,72 +216,118 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-			
+	</div>		
 		
-			<!--<form action="<%=path %>/web/student!add" method="post">
-				学号：
-				<input type="text" name="student.isNum" /><br/>
-				学生姓名：
-				<input type="text" name="student.isName" /><br/>
-				性别：
-				男<input type="radio" name="student.isSex" value="男" checked="checked"/>
-				女<input type="radio" name="student.isSex" value="女"/><br/>
-				生日：
-				<input type="date" name="student.isBirthday" /><br/>
-				是否本地生：
-				是：<input type="radio" name="student.isLocal" value="1" checked="checked"/>
-				否：<input type="radio" name="student.isLocal" value="0"/><br/>
-				是否是教职子弟：
-				是：<input type="radio" name="student.isTeacherChildren" value="1"/>
-				否：<input type="radio" name="student.isTeacherChildren" value="0" checked="checked"/><br/>
-				入校日期(此处还需给默认时间)：
-				<input type="date" name="student.isIntoDate" /><br/>
-				离校日期：
-				<input type="date" name="student.isLeaveDate" /><br/>
-				状态：
-				<input type="text" name="student.isState" /><br/>
-				班级(写ajax获取当前所有班级)：
-				<input type="text" name="student.scId" /><br/>
-				<input type="submit" value="提交"/>
-			</form>
-		--></div>
-		<div>
-			<table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-			    <tr>
-			    	<th width="130px">编号</th>
-			    	<th>学号</th>
-			    	<th>学生姓名</th>
-			    	<th>性别</th>
-			    	<th>生日</th>
-			    	<th>是否本地生</th>
-			    	<th>是否教职子弟</th>
-			    	<th>入校日期</th>
-			    	<th>离校日期</th>
-			    	<th>状态</th>
-			    	<th>班级id</th>
-			    	<th>操作</th>
-			    </tr>
-			    <c:forEach items="${stus}" var="stu">
-			    <tr>
-					<td width="">${stu.isId }</td>
-					<td width="">${stu.isNum }</td>
-					<td width="">${stu.isName }</td>
-					<td width="">${stu.isSex }</td>
-					<td width="">${stu.isBirthday }</td>
-					<td width="">${stu.isLocal }</td>
-					<td width="">${stu.isTeacherChildren}</td>
-					<td width="">${stu.isIntoDate }</td>
-					<td width="">${stu.isLeaveDate }</td>
-					<td width="">${stu.isState }</td>
-					<td width="">${stu.schoolClass }</td>
-					<td width="5%" align="center">
-						<a onclick="">修改</a>
-						<a href="<%=path %>/web/student!delete?id=${stu.isId}" onclick="return confirm('确定删除吗?')">删除</a>
+		<hr/>
+		<form action="<%=path %>/web/teacher!add" method="post">
+			工号<input type="text" name="teacher.itNum"/>
+			<br/>
+			名字<input type="text" name="teacher.itName"/>
+			<br/>
+			性别
+				<input type="radio" name="teacher.itSex" value="男" checked="checked"/>男
+				<input type="radio" name="teacher.itSex" value="女"/>女
+			<br/>
+			生日<input type="date" name="teacher.itBirthday"/>
+			<br/>
+			手机号<input type="text" name="teacher.itPhone"/>
+			<br/>
+			职务<input type="text" name="teacher.itPost"/>
+			<br/>
+			入职日期<input type="date" name="teacher.itIntoDate"/>
+			<br/>
+			离职日期<input type="date" name="teacher.itLeaveDate"/>
+			<br/>
+			状态<input type="text" name="teacher.itState"/>
+			<br/>
+			住址<input type="text" name="teacher.itAddress"/>
+			<br/>
+			部门编号<input type="text" name="teacher.ssId"/>
+			<br/>
+			<input type="submit" value="添加教职工"/>
+		</form>
+		
+		<table border="1" class="odd_table">
+			<thead>
+				<tr>
+					<td colspan="14">
+						教职工信息
 					</td>
-			    </tr>
-			    </c:forEach>
-		    </table>
-		</div>
+				</tr>
+				<tr>
+					<th>序号</th>
+					<th>编号</th>
+					<th>工号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>生日</th>
+					<th>手机</th>
+					<th>职务</th>
+					<th>入职日期</th>
+					<th>离职日期</th>
+					<th>状态</th>
+					<th>住址</th>
+					<th>部门编号</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${teachers}" var="t" varStatus="sta">
+				<tr>
+					<td>${(sta.index+1)+((page.pageOn-1)*page.size) }</td>
+					<td>${t.itId }</td>
+					<td>${t.itNum }</td>
+					<td>${t.itName }</td>
+					<td>${t.itSex }</td>
+					<td>${t.itBirthday }</td>
+					<td>${t.itPhone }</td>
+					<td>${t.itPost }</td>
+					<td>${t.itIntoDate }</td>
+					<td>${t.itLeaveDate }</td>
+					<td>${t.itState }</td>
+					<td>${t.itAddress }</td>
+					<td>${t.ssId }</td>
+					<td>
+						<a onclick="">修改</a>
+						<a href="<%=path %>/web/teacher!delete?id=${t.itId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+					</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="14">
+						<form id="f1" action="<%=path %>/web/teacher!queryOfFenYe?id=${id}" method="post">
+						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+						</select>
+						<span style="float: left;margin-left: 5px;">
+						<span style="color: #A5A5A5;">|</span>
+						<a onclick="page(1,2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-last'" title="首页"></a>
+						<a onclick="page(-1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-l'" title="上一页"></a>
+						<span style="color: #A5A5A5;">|</span>
+						</span>
+						<span style="float: left;margin-top: 3px;margin-left: 5px;">
+						<input id="page" name="page.pageOn" type="number" style="width: 50px;height: 20px;" value="${page.pageOn }" min="1" max="${page.pageMax }" onchange="$('#f1').submit();"/>
+						</span>
+						<span style="float: left;margin-top: 5px;margin-left: 5px;">/${page.pageMax }</span>
+						<span style="float: left;margin-left: 5px;">
+						<span style="color: #A5A5A5;">|</span>
+						<a onclick="page(1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-n'" title="下一页"></a>
+						<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
+						</span>
+						</form>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		
+		
+		
+	
+	
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
 	
