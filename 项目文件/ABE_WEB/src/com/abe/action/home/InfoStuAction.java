@@ -270,8 +270,13 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		if (student!=null) {
+			InfoStudent stutmp=(InfoStudent) ser.get(InfoStudent.class, student.getIsId());
+			student.setIsIntoDate(stutmp.getIsIntoDate());
+			student.setIsNum(stutmp.getIsNum());
+			ser.update(student);
+		}
+		return gotoQuery();
 	}
 
 }
