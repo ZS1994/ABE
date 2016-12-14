@@ -1,7 +1,10 @@
+.hidden_hy{
+	background-color: rgba(101, 255, 0, 0);
+}
 .odd_table{
 	border: #224466;
 	border-collapse:collapse;
-	width: 1400px;
+	width: 100%;
 	table-layout:fixed;
 }	
 .odd_table thead td{
@@ -13,4 +16,13 @@
 }
 .odd_table tfoot td{
 	background-color: #DFDFDF;	
+}
+.odd_table tbody tr td {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    word-break:keep-all;
+    color: black;
+    font-size:14px;
+    padding: 0 0px;
 }

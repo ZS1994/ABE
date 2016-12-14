@@ -2,6 +2,8 @@ package com.abe.action.one;
 
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONObject;
@@ -15,6 +17,7 @@ import com.abe.entity.Users;
 import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iTeacherService;
+import com.abe.service.hx.iUsersService;
 import com.abe.tools.NameOfDate;
 import com.abe.tools.Page;
 
@@ -29,6 +32,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	
 	private static final long serialVersionUID = 1L;
 	private iBaseService ser;
+	private iUsersService userSer;
 	private Page page;
 	private String result="users";
 	private Users user;
@@ -46,6 +50,12 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	}
 	public void setPage(Page page) {
 		this.page = page;
+	}
+	public iUsersService getUserSer() {
+		return userSer;
+	}
+	public void setUserSer(iUsersService userSer) {
+		this.userSer = userSer;
 	}
 	public String getCz() {
 		return cz;
@@ -124,6 +134,9 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	@Override
 	public String gotoQuery() {
 		clearSpace();
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
 		String hql="from Users order by UCreateTime desc";
 		users=ser.query(hql, null, hql, page);
 		return result;
@@ -141,7 +154,12 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	public String add() {
 		if (user!=null) {
 			user.setUId(NameOfDate.getNum());
+			user.setUCreateTime(new Timestamp(new Date().getTime()));
 			ser.save(user);
+			//在环信系统中注册
+			String token=userSer.getToken(iUsersService.ACCESS_TOKEN);
+			String result=userSer.addUser(user.getUId(), user.getUPass(), token);
+			logger.debug("环信注册返回结果："+result);
 		}
 		return gotoQuery();
 	}

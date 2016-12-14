@@ -141,6 +141,7 @@
  	</bean>
 	<bean id="zs_users" class="com.abe.action.one.UsersAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="userSer" ref="zs_users_ser_hx"></property>
  	</bean>
  	
  	

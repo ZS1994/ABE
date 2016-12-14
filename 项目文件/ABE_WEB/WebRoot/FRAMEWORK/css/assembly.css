@@ -29,6 +29,9 @@ width: 100%;
   top: 100px;
   bottom: 50px;
   overflow: auto;
+  padding-left:3px;
+  padding-right: 7px;
+  overflow-x:hidden;
 }
 .right .inner {
   /*此样式为演示所有*/

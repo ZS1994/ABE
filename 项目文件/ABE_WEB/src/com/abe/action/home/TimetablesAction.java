@@ -95,7 +95,7 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 		}
 		timetables.setTId(NameOfDate.getNum());
 		ser.save(timetables);
-		return null;
+		return gotoQuery();
 	}
 
 	@Override
@@ -149,6 +149,11 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 	
+	/**
+	 * 张顺 2016-12-12
+	 * 查看一天的课程表
+	 * @return
+	 */
 	public String queryDateFromApp(){
 		RespCommon resp=new RespCommon();
 		String scId=ser.clearSpace(getRequest(), "scId");

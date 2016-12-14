@@ -3,16 +3,22 @@ package com.abe.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import org.apache.struts2.ServletActionContext;
 
 import com.abe.service.iBaseService;
+import com.abe.tools.JsonDateValueProcessor;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -107,4 +113,24 @@ public class BaseAction extends ActionSupport{
 		getPrintWriter().close();
 	}
 	
+	/**
+	 * 张顺 2016-12-13
+	 * 发送jsonarray数据
+	 * @param obj
+	 * @param ser
+	 */
+	public void sendJsonArry(Object obj,iBaseService ser) {
+		JsonConfig jsonConfig=new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Time.class, new JsonDateValueProcessor("HH:mm:ss"));
+		JSONArray array=JSONArray.fromObject(obj,jsonConfig);
+		try {
+			getPrintWriter().print(array);
+			getPrintWriter().flush();
+			getPrintWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
