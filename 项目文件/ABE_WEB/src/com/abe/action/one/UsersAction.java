@@ -96,6 +96,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 
 	@Override
 	public String delete() {
+		clearSpace();
 		if (id!=null) {
 			user=(Users) ser.get(Users.class, id);
 			if (user!=null) {
@@ -127,7 +128,9 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	public String gotoQuery() {
 		clearSpace();
 		clearOptions();
-		if (page==null) {
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
 			page=new Page(1, 0, 10);
 		}
 		String hql="from Users order by UCreateTime desc";
@@ -136,6 +139,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	}
 	@Override
 	public String update() {
+		clearSpace();
 		if (user!=null) {
 			Users utmp=(Users) ser.get(Users.class, user.getUId());
 			user.setUType(utmp.getUType());
@@ -150,6 +154,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	/*张顺 2016-12-12*/
 	@Override
 	public String add() {
+		clearSpace();
 		if (user!=null) {
 			user.setUId(NameOfDate.getNum());
 			user.setUCreateTime(new Timestamp(new Date().getTime()));

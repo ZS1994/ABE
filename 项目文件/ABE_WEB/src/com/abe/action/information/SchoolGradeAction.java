@@ -35,9 +35,9 @@ public class SchoolGradeAction extends BaseAction implements iBaseAction{
 	private SchoolGrade g;
 	private List<SchoolGrade> sgs;
 	private Page page;
-	String cz;
-	String id;
-	String result = "grade";
+	private String cz;
+	private String id;
+	private String result = "grade";
 	
 	
 	public iChatgroupService getGroupSer() {
@@ -122,9 +122,11 @@ public class SchoolGradeAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String add() {
-		g.setSgId(NameOfDate.getNum());
-		ser.save(g);
-		clearOptions();
+		clearSpace();
+		if (g!=null) {
+			g.setSgId(NameOfDate.getNum());
+			ser.save(g);
+		}
 		return gotoQuery();
 	}
 
@@ -134,7 +136,6 @@ public class SchoolGradeAction extends BaseAction implements iBaseAction{
 		sgs=null;
 		id=null;
 		cz=null;
-		page=null;
 	}
 
 	@Override
@@ -149,17 +150,26 @@ public class SchoolGradeAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (id!=null) {
+			g=(SchoolGrade) ser.get(SchoolGrade.class, id);
+			if (g!=null) {
+				ser.delete(g);
+			}
+		}
+		return gotoQuery();
 	}
 
 	@Override
 	public String gotoQuery() {
 		clearOptions();
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
+			page=new Page(1, 0, 10);
+		}
 		String hql="from SchoolGrade order by sgId desc";
-		String ss[]={};
-		String hql2="from SchoolGrade order by sgId desc";
-		sgs=ser.query(hql, ss, hql2, page);
+		sgs=ser.query(hql, null, hql, page);
 		return result;
 	}
 
@@ -195,14 +205,13 @@ public class SchoolGradeAction extends BaseAction implements iBaseAction{
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 10);
 		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
-		StringBuffer hql=new StringBuffer("from SchoolGrade ");
+		StringBuffer hql=new StringBuffer("from SchoolGrade where 1=1 ");
 		if (id!=null) {
-			hql.append(" where sgId like '%"+id+"%' ");
+			hql.append("and sgId like '%"+id+"%' ");
 		}
 		hql.append("order by sgId desc");
 		sgs=ser.query(hql.toString(), null, hql.toString(), page);
@@ -248,8 +257,11 @@ public class SchoolGradeAction extends BaseAction implements iBaseAction{
 		
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (g!=null) {
+			ser.update(g);
+		}
+		return gotoQuery();
 	}
 
 }

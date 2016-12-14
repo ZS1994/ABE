@@ -64,4 +64,22 @@ public class TimetablesServiceImpl extends BaseServiceImpl implements iTimetable
 		return timetables;
 	}
 
+
+	@Override
+	public List getCourses() {
+		return find("from Course", null);
+	}
+
+
+	@Override
+	public List getTeachers() {
+		return find("from InfoTeacher", null);
+	}
+
+
+	@Override
+	public List getSclass() {
+		return find("from SchoolClass", null);
+	}
+
 }

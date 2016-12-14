@@ -6,7 +6,7 @@
  */
 //显示数据表格单元格详情并可复制内容到剪贴板
 $(function(){
-	$("td").dblclick(function(){
+	$("tbody tr td").dblclick(function(){
 		$('#tdTip').window('open');
 		$("#dialog_content").html($(this).html());
 	});

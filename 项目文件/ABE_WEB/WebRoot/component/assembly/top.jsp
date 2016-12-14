@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="top" style="background-color: #616161;display: table;width: 100%;text-align: center;">
   		<span style="color: white;font-family: Baskerville Old Face;font-size: 36px;font-weight: bold;display: table-cell;vertical-align: middle;">ABE_WEB</span>
   		
-  		<div id="tdTip" class="easyui-dialog" title="提示" style="width:400px;height:200px;"
+  		<div id="tdTip" class="easyui-dialog" title="提示" style="width:400px;height:200px;display: none;"
 		    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
 		    <div id="dialog_content" style="word-wrap:break-word; width:300px;">
 		    
