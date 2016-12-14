@@ -107,6 +107,9 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 					if (user!=null && co!=null && code.equals(co.getCCode()) &&
 							uid.equals(co.getUId()) && date.before(co.getCNoTime())) {//验证码验证通过
 						respStudent=addRel(ipId, isId, spRelation);
+						if ("001".equals(respStudent.getResult())) {
+							respStudent.setData(stu);
+						}
 					}else {
 						respStudent.setResult("005");
 						respStudent.setData(null);

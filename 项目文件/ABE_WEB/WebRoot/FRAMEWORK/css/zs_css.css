@@ -26,3 +26,9 @@
     font-size:14px;
     padding: 0 0px;
 }
+/*
+只读表单的样式
+*/
+.read_only{
+	background-color: rgba(222, 164, 0, 0.06);
+}

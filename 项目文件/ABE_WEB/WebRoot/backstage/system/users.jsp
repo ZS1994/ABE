@@ -27,6 +27,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<input type="button" value="新建" style="margin-top: 3px;" onclick="$('#add').window('open');"/>
 		
+		<div style="margin-bottom: 5px;padding: 5px;">
+	    	快速查询
+	    	<br/>
+	    	<form action="<%=path %>/web/users!queryOfFenYe" method="post">
+	    		编号:<input name="id" type="text" value="${id }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		<input type="submit" value="查询"/>
+	    	</form>	
+	    </div>
+	    
 		<table border="1" class="odd_table">
 			<thead>
 				<tr>
@@ -38,9 +48,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th style="width: 50px;">类型</th>
 					<th>创建时间</th>
 					<th>头像路径</th>
-					<th>备注</th>
 					<th style="width: 140px;">档案id</th>
-					<th style="width: 60px;">操作</th>
+					<th style="width: 75px;">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,18 +63,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${u.UType }</td>
 					<td>${u.UCreateTime }</td>
 					<td>${u.UPhotoPath }</td>
-					<td>${u.UNote }</td>
 					<td>${u.trpId }</td>
 					<td>
-						<a onclick="">修改</a>
-						<a href="<%=path %>/web/users!delete?id=${u.UId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						<a class="easyui-linkbutton" onclick="update('${u.UId}','${u.UNum}','${u.UName}','${u.UPass}','${u.trpId}')">修改</a>
+						<a class="easyui-linkbutton" href="<%=path %>/web/users!delete?id=${u.UId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
 					</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="11">
+					<td colspan="10">
 						<form id="f1" action="<%=path %>/web/users!queryOfFenYe?id=${id}" method="post">
 						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 							<option value="10">10</option>
@@ -93,28 +101,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tfoot>
 		</table>
 		 
-		<div id="add" class="easyui-window" title="新建" style="width:300px;height:180px;" data-options="iconCls:'icon-save',resizable:false,modal:true,closed:true">
+		<div id="add" class="easyui-window" title="新建" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
 			<form action="<%=path %>/web/users!add" method="post">
-				账号<input type="text" name="user.UNum"/>
-				<br/>
-				昵称<input type="text" name="user.UName"/>
-				<br/>
-				密码<input type="text" name="user.UPass"/>
-				<br/>
-				类型
+				账号:<br/>
+				<input type="text" name="user.UNum" style="width: 100%;"/><br/>
+				昵称:<br/>
+				<input type="text" name="user.UName" style="width: 100%;"/><br/>
+				密码:<br/>
+				<input type="text" name="user.UPass" style="width: 100%;"/><br/>
+				类型:<br/>
 					<input type="radio" name="user.UType" value="1" checked="checked"/>家长
 					<input type="radio" name="user.UType" value="2"/>教职工
 				<br/>
-				档案id<input type="text" name="user.trpId"/>
-				<br/>
-				<input type="submit" value="添加用户"/>
+				档案id:<br/>
+				<input type="text" name="user.trpId" style="width: 100%;"/><br/>
+				<input type="submit" value="添加用户" onclick="return show_hint(['add'])"/>
 			</form>
 		</div>
 		
-		<div style="height: 1000px;">
-		
-		
+		<div id="upd" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
+			<form action="<%=path %>/web/users!update" method="post">
+				编号：<br/>
+				<input id="u_1" name="user.UId" type="text" style="width: 100%;" readonly="readonly"/><br/>
+				账号：<br/>
+				<input id="u_2" name="user.UNum" type="text" style="width: 100%;"/><br/>
+				昵称：<br/>
+				<input id="u_3" name="user.UName" type="text" style="width: 100%;"/><br/>
+				密码：<br/>
+				<input id="u_4" name="user.UPass" type="text" style="width: 100%;"/><br/>
+				档案：<br/>
+				<input id="u_5" name="user.trpId" type="text" style="width: 100%;"/><br/>
+				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
+			</form>
 		</div>
+		
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
 	
@@ -138,6 +158,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#page').val(${page.pageMax});
 		}
 		$('#f1').submit();
+	}
+	function update(u1,u2,u3,u4,u5){
+		$('#upd').window('open');
+		$('#u_1').val(u1);
+		$('#u_2').val(u2);
+		$('#u_3').val(u3);
+		$('#u_4').val(u4);
+		$('#u_5').val(u5);
 	}
 </script>
 </html>

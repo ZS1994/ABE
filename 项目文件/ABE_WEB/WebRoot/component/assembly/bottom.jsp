@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
 	<div class="bottom" style="background-color: #D8D8D8;">
   	
-  	
+  		<jsp:include page="/component/hintModal.jsp"/>
 	</div>
   
 </body>
