@@ -155,7 +155,19 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
 应答参数：
 {
 	result:返回码   001:成功，002:isid不存在,003:ipid不存在；004该学生的家长没有这个手机号；005验证码验证不通过
-	data:null
+	data:{
+		isId:学生id
+		isNum:学号
+		isName:名字
+		isSex:男/女
+		isBirthday:生日   yyyy-MM-dd
+		isLocal:是否本地生  0：否/1：是
+		isTeacherChildren:是否是教职工子弟   0：否/1：是
+		isIntoDate:入校日期    yyyy-MM-dd
+		isLeaveDate:离校日期   没有就为空
+		isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
+		scId:班级id
+	}
 }
 2,通过学生id查看学生信息(用来查唯一学生)（测试通过，张顺，2016-11-29）
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp

@@ -18,4 +18,15 @@ $(function(){
 			alert("不好意思，该浏览器无法使用该功能。");
 		}
 	});
+	$("input[readonly]").each(function(){
+		console.log("readonly");
+		$(this).addClass("read_only");
+	});
 });
+function trans_radio(str){
+	if (str=="是") {
+		return 0;
+	}else if (str=="否") {
+		return 1;
+	}
+}

@@ -1,22 +1,14 @@
 package com.abe.action.one;
 
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
-
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
-import com.abe.entity.InfoTeacher;
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
-import com.abe.service.home.iTeacherService;
 import com.abe.service.hx.iUsersService;
 import com.abe.tools.NameOfDate;
 import com.abe.tools.Page;
@@ -134,6 +126,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	@Override
 	public String gotoQuery() {
 		clearSpace();
+		clearOptions();
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
@@ -144,6 +137,11 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	@Override
 	public String update() {
 		if (user!=null) {
+			Users utmp=(Users) ser.get(Users.class, user.getUId());
+			user.setUType(utmp.getUType());
+			user.setUCreateTime(utmp.getUCreateTime());
+			user.setUPhotoPath(utmp.getUPhotoPath());
+			user.setUNote(utmp.getUNote());
 			ser.update(user);
 		}
 		return gotoQuery();

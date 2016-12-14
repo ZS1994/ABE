@@ -30,7 +30,7 @@ width: 100%;
   bottom: 50px;
   overflow: auto;
   padding-left:3px;
-  padding-right: 7px;
+  padding-right: 20px;
   overflow-x:hidden;
 }
 .right .inner {
