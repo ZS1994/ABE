@@ -196,6 +196,28 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 	public List<InfoStudent> getAllStu() {
 		return find("from InfoStudent", null);
 	}
+	@Override
+	public List getScals() {
+		return find("from SchoolClass", null);
+	}
+	@Override
+	public void initStu(InfoStudent stu) {
+		//装填班级
+		if (stu!=null) {
+			SchoolClass sc=(SchoolClass) get(SchoolClass.class, stu.getScId());
+			if (sc!=null) {
+				stu.setSchoolClass(sc);
+			}
+		}
+	}
+	@Override
+	public void initStu(List<InfoStudent> stus) {
+		if (stus!=null) {
+			for (int i = 0; i < stus.size(); i++) {
+				initStu(stus.get(i));
+			}
+		}
+	}
 	
 
 

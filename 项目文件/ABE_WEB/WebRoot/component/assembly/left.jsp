@@ -45,10 +45,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<li>课程表管理</li>
   		<ul>
   			<li>
-  				<a href="<%=path %>/web/timetables!gotoQuery">课程表管理</a>
+  				<a href="<%=path %>/web/timetables!gotoQuery?cz=yes">课程表管理</a>
   			</li>
   			<li>
-  				<a href="<%=path %>/web/course!gotoQuery">科目管理</a>
+  				<a href="<%=path %>/web/course!gotoQuery?cz=yes">科目管理</a>
   			</li>
   		</ul>
   		<li>组织架构管理</li>
@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				<a href="<%=path %>/web/class!queryOfFenYe?cz=yes">班级管理</a>
   			</li>
   			<li>
-  				<a href="<%=path %>/web/schoolStructure!queryOfFenYe">班级架构</a>
+  				<a href="<%=path %>/web/schoolStructure!queryOfFenYe?cz=yes">班级架构</a>
   			</li>
   		</ul>
   		<li>新闻管理</li>

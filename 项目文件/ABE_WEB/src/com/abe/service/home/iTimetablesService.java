@@ -25,4 +25,13 @@ public interface iTimetablesService {
 	public List getDateOfWeek(String scId,int index);
 	
 	
+	/*得到教师与科目、班级信息*/
+	public List getTeachers();
+	
+	public List getCourses();
+	
+	public List getSclass();
+	
+	
+	
 }

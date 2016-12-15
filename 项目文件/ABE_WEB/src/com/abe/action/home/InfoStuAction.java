@@ -37,15 +37,21 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	private iStudentService studentSer;
 	//-------------
 	private String result="student";
-	private String result_fail="";
 	private Page page;
 	private InfoStudent student;
 	private List<InfoStudent> stus;
 	private String id;
+	private String cz;
 	
 	private Logger logger=Logger.getLogger(InfoStuAction.class);
 	
-
+	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	public iStudentService getStudentSer() {
 		return studentSer;
 	}
@@ -96,8 +102,9 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	@Override
 	public String add() {
 		logger.debug("-------进入后台添加学生---------");
-		student.setIsId(NameOfDate.getNum());
+		clearSpace();
 		if(student!=null){
+			student.setIsId(NameOfDate.getNum());
 			ser.save(student);
 		}
 		return gotoQuery();
@@ -105,19 +112,10 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public void clearOptions() {
-		if (page!=null) {
-			page=null;
-		}
-		if (student!=null) {
-			student=null;
-		}
-		if (stus!=null) {
-			stus=null;
-		}
-		if (id!=null) {
-			id=null;
-		}
-		
+		stus=null;
+		student=null;
+		id=null;
+		cz=null;
 	}
 
 	@Override
@@ -125,11 +123,14 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 		if (id!=null) {
 			id=id.trim();
 		}
+		if (cz!=null) {
+			cz=cz.trim();
+		}
 	}
 
 	@Override
 	public String delete() {
-		String id=ser.clearSpace(getRequest(), "id");
+		clearSpace();
 		if (id!=null) {
 			student=(InfoStudent) ser.get(InfoStudent.class, id);
 			if (student!=null) {
@@ -142,7 +143,16 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	@Override
 	public String gotoQuery() {
 		clearOptions();
-		stus=ser.find("from InfoStudent order by isNum desc", null);
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+		String hql="from InfoStudent order by isNum desc";
+		stus=ser.query(hql, null, hql, page);
+		studentSer.initStu(stus);//装填封装
+		//带上需要的信息过去
+		getRequest().setAttribute("scals", studentSer.getScals());
 		return result;
 	}
 
@@ -250,30 +260,32 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String queryOfFenYe() {
-		String cz=getRequest().getParameter("cz");
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
-		if (cz!=null && cz.equals("yes")) {
-			clearOptions();
-			page=new Page(1, 0, 10);
-		}
-		clearSpace();
-		StringBuffer hql=new StringBuffer("from InfoStudent ");
+		StringBuffer hql=new StringBuffer("from InfoStudent where 1=1 ");
 		if (id!=null) {
-			hql.append(" where isId like '%"+id+"%' ");
+			hql.append("and isId like '%"+id+"%' ");
 		}
 		hql.append("order by isNum desc");
 		stus=ser.query(hql.toString(), null, hql.toString(), page);
+		studentSer.initStu(stus);//装填封装
+		//带上需要的信息过去
+		getRequest().setAttribute("scals", studentSer.getScals());
 		return result;
 	}
 
 	@Override
 	public String update() {
+		clearSpace();
 		if (student!=null) {
-			InfoStudent stutmp=(InfoStudent) ser.get(InfoStudent.class, student.getIsId());
-			student.setIsIntoDate(stutmp.getIsIntoDate());
-			student.setIsNum(stutmp.getIsNum());
+//			InfoStudent stutmp=(InfoStudent) ser.get(InfoStudent.class, student.getIsId());
+//			student.setIsIntoDate(stutmp.getIsIntoDate());
+//			student.setIsNum(stutmp.getIsNum());
 			ser.update(student);
 		}
 		return gotoQuery();

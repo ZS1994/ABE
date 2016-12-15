@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.Course;
+import com.abe.entity.Users;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iCourseService;
 import com.abe.tools.NameOfDate;
@@ -26,12 +27,26 @@ public class CourseAction extends BaseAction implements iBaseAction{
 	private iCourseService courseSer;
 	private String result="courseManager";
 	private Page page;
+	private String id;
+	private String cz;
 	private Course course;
 	private List<Course> courses; 
 
 	//--------------------------------------------------
 	public List<Course> getCourses() {
 		return courses;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
 	}
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
@@ -65,6 +80,7 @@ public class CourseAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String add() {
+		clearSpace();
 		if (course!=null && !course.getCName().trim().equals("")) {
 			course.setCId(NameOfDate.getNum());
 			ser.save(course);
@@ -75,43 +91,68 @@ public class CourseAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public void clearOptions() {
-		// TODO Auto-generated method stub
-		
+		cz=null;
+		id=null;
+		course=null;
+		courses=null;
 	}
 
 	@Override
 	public void clearSpace() {
-		// TODO Auto-generated method stub
-		
+		cz=cz!=null?cz.trim():null;
+		id=id!=null?id.trim():null;
 	}
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (id!=null) {
+			course=(Course) ser.get(Course.class, id);
+			if (course!=null) {
+				ser.delete(course);
+			}
+		}
+		return gotoQuery();
 	}
 
 	@Override
 	public String gotoQuery() {
-		courses=courseSer.queryAll();
+		clearOptions();
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
+			page=new Page(1, 0, 10);
+		}
+		String hql="from Course";
+		courses=ser.query(hql, null, hql, page);
 		return result;
 	}
 
 	@Override
 	public String queryOfFenYe() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
+		StringBuffer hql=new StringBuffer("from Course where 1=1 ");
+		if (id!=null) {
+			hql.append("and CId like '%"+id+"%'" );
+		}
+		hql.append("");
+		courses=ser.query(hql.toString(), null, hql.toString(), page);
+		return result;
 	}
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (course!=null) {
+			ser.update(course);
+		}
+		return gotoQuery();
 	}
-	
-	
-	
-	
-	
 	
 }

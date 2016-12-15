@@ -23,6 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/token.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/zs_css.css">
@@ -33,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="top" style="background-color: #616161;display: table;width: 100%;text-align: center;">
   		<span style="color: white;font-family: Baskerville Old Face;font-size: 36px;font-weight: bold;display: table-cell;vertical-align: middle;">ABE_WEB</span>
   		
-  		<div id="tdTip" class="easyui-dialog" title="提示" style="width:400px;height:200px;"
+  		<div id="tdTip" class="easyui-dialog" title="提示" style="width:400px;height:200px;display: none;"
 		    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
 		    <div id="dialog_content" style="word-wrap:break-word; width:300px;">
 		    

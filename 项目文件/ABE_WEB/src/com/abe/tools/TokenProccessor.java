@@ -37,8 +37,9 @@ public class TokenProccessor {
      */
     public String makeToken(){  //checkException
         //  7346734837483  834u938493493849384  43434384
-        String token = (System.currentTimeMillis() + new Random().nextInt(999999999)) + "";
+        String token = ((System.currentTimeMillis()/(1000*60*60*24) + new Random().nextInt(999))) + "";
         //数据指纹   128位长   16个字节  md5
+        /*为什么不用下面这个更加复杂更加不可能重复的呢？因为session加载效率太低，长字符串往往加载很慢，无奈之下只得精简。（张顺 2016-12-14）
         try {
             MessageDigest md = MessageDigest.getInstance("md5");
             byte md5[] =  md.digest(token.getBytes());
@@ -48,5 +49,7 @@ public class TokenProccessor {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+        */
+        return token;
     }
 }
