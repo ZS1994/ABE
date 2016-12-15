@@ -100,7 +100,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
    data:{
         UId:用户编号
 		UNum:账号
-		UPass:密码
+		UPass:null
 		UName:姓名
 		UType:用户类型，1家长，2教职员工
 		UCreateTime:创建时间
@@ -116,7 +116,6 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 	licence:数字执照
 	UId:用户编号
 	UNum:账号
-	UPass:密码
 	UName:姓名
 	UType:用户类型，1家长，2教职员工
 	UCreateTime:创建时间
@@ -129,7 +128,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
    data:{
         UId:用户编号
 		UNum:账号
-		UPass:密码
+		UPass:null
 		UName:姓名
 		UType:用户类型，1家长，2教职员工
 		UCreateTime:创建时间
@@ -139,7 +138,18 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
     }
 }
 
-修改密码
+3、修改密码
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updatePass
+请求参数：
+	licence:数字执照
+	UId:用户id
+	oldPass:旧密码
+	newPass:新密码
+应答参数：
+{
+	result：001成功，002失败
+	data:null
+}
 
 //------------------------------------添加宝贝---------------------------------------------------
 1,添加宝贝(家长绑定一个孩子）（测试通过，张顺，2016-11-29）

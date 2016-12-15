@@ -71,7 +71,7 @@ public interface iSignService {
 	 * @param User
 	 */
 	public RespUpdateUser updateUser1(String UNum);
-	public RespUpdateUser updateUser2(String UName,String UPass,String UType,Timestamp UCreateTime,
+	public RespUpdateUser updateUser2(String UName,String UType,Timestamp UCreateTime,
 			String UPhotoPath,String UNote,String UNum,String UId,String trpId);
 	/**
 	 *  app查询个人信息资料
@@ -80,4 +80,9 @@ public interface iSignService {
 	 */
 	public RespUpdateUser queryUsers(String UId);
 	
+	/**
+	 * 张顺 2016-12-15
+	 * 修改密码
+	 */
+	public RespCommon updatePass(String uid,String oldpass,String newpass); 
 }
