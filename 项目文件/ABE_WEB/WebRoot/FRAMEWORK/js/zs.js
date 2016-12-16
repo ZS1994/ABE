@@ -19,7 +19,6 @@ $(function(){
 		}
 	});
 	$("input[readonly]").each(function(){
-		console.log("readonly");
 		$(this).addClass("read_only");
 	});
 	$("input.Wdate[ddf='yyyy-MM-dd']").each(function(){
