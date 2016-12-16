@@ -197,9 +197,9 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
-		StringBuffer hql=new StringBuffer("from InfoParents ");
+		StringBuffer hql=new StringBuffer("from InfoParents where 1=1");
 		if (id!=null) {
-			hql.append(" where ipId='%"+id+"%' ");
+			hql.append(" and ipId  like '%"+id+"%' ");
 		}
 		hql.append("order by ipName desc");
 		parents=ser.query(hql.toString(), null, hql.toString(), page);
@@ -209,8 +209,10 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 	@Override
 	public String update() {
 		clearSpace();
-		// TODO Auto-generated method stub
-		return null;
+		if(parent != null){
+			ser.update(parent);
+		}
+		return gotoQuery();
 	}
 
 }

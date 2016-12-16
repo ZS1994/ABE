@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>用户管理</title>
+    <title>学生管理</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -60,17 +60,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<c:forEach items="${stus}" var="stu" varStatus="sta">
 			    <tr>
 			    	<td>${(sta.index+1)+((page.pageOn-1)*page.size) }</td>
-					<td width="">${stu.isId }</td>
-					<td width="">${stu.isNum }</td>
-					<td width="">${stu.isName }</td>
-					<td width="">${stu.isSex }</td>
-					<td width=""><fmt:formatDate value="${stu.isBirthday }" pattern="yyyy-MM-dd" /></td>
-					<td width="">${stu.isLocal }</td>
-					<td width="">${stu.isTeacherChildren}</td>
-					<td width=""><fmt:formatDate value="${stu.isIntoDate }" pattern="yyyy-MM-dd" /></td>
-					<td width=""><fmt:formatDate value="${stu.isLeaveDate }" pattern="yyyy-MM-dd" /></td>
-					<td width="">${stu.isState }</td>
-					<td width="">${stu.schoolClass.scName }</td>
+					<td width="" align="center">${stu.isId }</td>
+					<td width="" align="center">${stu.isNum }</td>
+					<td width="" align="center">${stu.isName }</td>
+					<td width="" align="center">${stu.isSex }</td>
+					<td width="" align="center"><fmt:formatDate value="${stu.isBirthday }" pattern="yyyy-MM-dd" /></td>
+					<td width="" align="center">${stu.isLocal }</td>
+					<td width="" align="center">${stu.isTeacherChildren}</td>
+					<td width="" align="center"><fmt:formatDate value="${stu.isIntoDate }" pattern="yyyy-MM-dd" /></td>
+					<td width="" align="center"><fmt:formatDate value="${stu.isLeaveDate }" pattern="yyyy-MM-dd" /></td>
+					<td width="" align="center">${stu.isState }</td>
+					<td width="" align="center">${stu.schoolClass.scName }</td>
 					<td width="5%" align="center">
 						<a class="easyui-linkbutton" onclick="update('${stu.isId}','${stu.isNum}','${stu.isName}',
 						'${stu.isSex}','<fmt:formatDate value="${stu.isBirthday }" pattern="yyyy-MM-dd" />','${stu.isLocal }',
