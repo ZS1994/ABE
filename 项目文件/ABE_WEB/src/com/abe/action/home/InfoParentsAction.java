@@ -143,8 +143,10 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 	@Override
 	public String add() {
 		clearSpace();
-		parent.setIpId(NameOfDate.getNum());
-		ser.save(parent);
+		if (parent!=null) {
+			parent.setIpId(NameOfDate.getNum());
+			ser.save(parent);
+		}
 		return gotoQuery();
 	}
 
@@ -182,7 +184,13 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 	public String gotoQuery() {
 		clearSpace();
 		clearOptions();
-		parents=ser.find("from InfoParents order by ipName desc", null);
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
+			page=new Page(1, 0, 10);
+		}
+		String hql="from InfoParents order by ipName desc";
+		parents=ser.query(hql, null, hql, page);
 		return result;
 	}
 
@@ -192,7 +200,6 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 10);
 		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
