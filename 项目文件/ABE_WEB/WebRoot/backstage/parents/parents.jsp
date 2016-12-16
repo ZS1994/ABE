@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="13">
+					<td colspan="8">
 						<form id="f1" action="<%=path %>/web/parents!queryOfFenYe?id=${id}" method="post">
 						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 							<option value="10">10</option>
@@ -102,16 +102,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 
 		<div id="add" class="easyui-window" title="新建" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
 			<form action="<%=path %>/web/parents!add" method="post">
-			姓名<input type="text" name="parent.ipName"/>
+			姓名<br/>
+			<input type="text" name="parent.ipName" style="width: 100%"/>
 			<br/>
-			性别
+			性别<br/>
 				<input type="radio" name="parent.ipSex" value="男" checked="checked"/>男
 				<input type="radio" name="parent.ipSex" value="女"/>女
 			<br/>
-			生日<input type="text" name="parent.ipBirthday" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;" ddf="yyyy-MM-dd"/><br/>
-			手机号<input type="text" name="parent.ipPhone"/>
+			生日<br/>
+			<input type="text" name="parent.ipBirthday" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;" ddf="yyyy-MM-dd"/><br/>
+			手机号<br/>
+			<input type="text" name="parent.ipPhone" style="width: 100%"/>
 			<br/>
-			住址<input type="text" name="parent.ipAddress"/>
+			住址<br/>
+			<input type="text" name="parent.ipAddress" style="width: 100%"/>
 			<br/>
 			<input type="submit" value="添加家长"/>
 		</form>
@@ -122,16 +126,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				编号：<br/>
 				<input id="u_1" type="text" name="parent.ipId" style="width: 100%" readonly="readonly"/><br/>
 				姓名：<br/>
-				<input id="u_3" name="parent.ipName" type="text" style="width: 100%" style="width: 100%;" /><br/>
+				<input id="u_2" name="parent.ipName" type="text" style="width: 100%" style="width: 100%;" /><br/>
 				性别：<br/>
 				男<input id="u_3_0" type="radio" name="parent.ipSex" value="男"/>
 				女<input id="u_3_1" type="radio" name="parent.ipSex" value="女"/><br/>
 				生日：<br/>
 				<input id="u_4" type="text" name="parent.ipBirthday" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;"/><br/>
+				手机号<br/>
+				<input id="u_5"  type="text" name="parent.ipPhone" style="width: 100%"/>
 				<br/>
-				手机号<input id="u_5"  type="text" name="parent.ipPhone"/>
-				<br/>
-				住址<input id="u_6"  type="text" name="parent.ipAddress"/>
+				住址<br/>
+				<input id="u_6"  type="text" name="parent.ipAddress" style="width: 100%"/>
 				<br/>
 				
 				

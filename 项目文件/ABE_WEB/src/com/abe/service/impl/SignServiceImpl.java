@@ -253,34 +253,55 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		RespUpdateUser updateUser= new RespUpdateUser();
 		if (list.size()>0) {
 			u=(Users) list.get(0);
-		
-		updateUser.setData(u);
-		updateUser.setResult("001");
+			u.setUPass(null);
+			updateUser.setResult("001");
+			updateUser.setData(u);
 		}else{
 			updateUser.setResult("002");
 		}
 		return updateUser;
 	}
 	
-	public RespUpdateUser updateUser2(String UName,String UPass,String UType,Timestamp UCreateTime,
+	public RespUpdateUser updateUser2(String UName,String UType,Timestamp UCreateTime,
 			String UPhotoPath,String UNote,String UNum,String UId,String trpId){
-		Users u = new Users();
-		RespUpdateUser updateUser=null;
-		u.setUName(UName);
-		u.setUPass(UPass);
-		u.setUPhotoPath(UPhotoPath);
-		u.setUNote(UNote);
-		u.setUType(UType);
-		u.setUCreateTime(UCreateTime);
-		u.setTrpId(trpId);
-		u.setUNum(UNum);
-		u.setUId(UId);
-		update(u);
-		updateUser = new RespUpdateUser(null, u); 
-		updateUser.setData(u);
-		updateUser.setResult("001");
-		return updateUser;
+		Users u = (Users) get(Users.class, UId);
+		if (u!=null) {
+			if (UName!=null)u.setUName(UName);
+			if (UPhotoPath!=null)u.setUPhotoPath(UPhotoPath);
+			if (UNote!=null)u.setUNote(UNote);
+			if (UType!=null)u.setUType(UType);
+			if (UCreateTime!=null)u.setUCreateTime(UCreateTime);
+			if (trpId!=null)u.setTrpId(trpId);
+			if (UNum!=null)u.setUNum(UNum);
+			if (UId!=null)u.setUId(UId);
+			update(u);
+			RespUpdateUser updateUser = new RespUpdateUser(); 
+			updateUser.setResult("001");
+			updateUser.setData(u);
+			return updateUser;
+		}
+		return null;
 	}
+	
+	public RespCommon updatePass(String uid,String oldpass,String newpass) {
+		if (uid!=null && oldpass!=null && newpass!=null) {
+			Users user=(Users) get(Users.class, uid);
+			if (user!=null && user.getUPass()!=null && oldpass.equals(user.getUPass())) {//验证通过:原密码是对的
+				user.setUPass(newpass);
+				update(user);
+				RespCommon resp=new RespCommon();
+				resp.setResult("001");
+				resp.setData(null);
+				return resp;
+			}
+		}
+		RespCommon common=new RespCommon();
+		common.setResult("002");
+		common.setData(null);
+		return common;
+	} 
+	
+	
 	 /**
      *查询个人信息资料
      * 卢江林
