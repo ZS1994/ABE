@@ -22,8 +22,17 @@ public class InfoTeacher implements java.io.Serializable {
 	private String itState;
 	private String itAddress;
 	private String ssId;
-
+//----------------------------------
+	private SchoolSection schoolSection;
 	// Constructors
+
+	public SchoolSection getSchoolSection() {
+		return schoolSection;
+	}
+
+	public void setSchoolSection(SchoolSection schoolSection) {
+		this.schoolSection = schoolSection;
+	}
 
 	/** default constructor */
 	public InfoTeacher() {

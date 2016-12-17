@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td width="" align="center">${p.ipId }</td>
 					<td width="" align="center">${p.ipName }</td>
 					<td width="" align="center">${p.ipSex }</td>
-					<td width=""><fmt:formatDate value="${p.ipBirthday }" pattern="yyyy-MM-dd" /></td>
+					<td width="" align="center"><fmt:formatDate value="${p.ipBirthday }" pattern="yyyy-MM-dd" /></td>
 					<td width="" align="center">${p.ipPhone }</td>
 					<td width="" align="center">${p.ipAddress}</td>
 					<td width="5%" align="center">

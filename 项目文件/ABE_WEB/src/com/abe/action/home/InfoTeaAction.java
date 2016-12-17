@@ -10,7 +10,9 @@ import org.apache.log4j.Logger;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.InfoStudent;
 import com.abe.entity.InfoTeacher;
+import com.abe.entity.SchoolSection;
 import com.abe.entity.Users;
 import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
@@ -30,7 +32,7 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	//-------------
 	private String result="teacherManager";
 	private InfoTeacher teacher;
-	private List<InfoTeaAction> teachers; 
+	private List<InfoTeacher> teachers; 
 	private String cz;
 	private String id;
 	private Logger logger=Logger.getLogger(InfoTeaAction.class);
@@ -45,10 +47,10 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	public List<InfoTeaAction> getTeachers() {
+	public List<InfoTeacher> getTeachers() {
 		return teachers;
 	}
-	public void setTeachers(List<InfoTeaAction> teachers) {
+	public void setTeachers(List<InfoTeacher> teachers) {
 		this.teachers = teachers;
 	}
 	public String getCz() {
@@ -164,6 +166,13 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 		}
 		hql.append("order by itIntoDate desc ");
 		teachers=ser.query(hql.toString(), null, hql.toString(), page);
+//		for (int i = 0; i < teachers.size(); i++) {
+//			SchoolSection ss = (SchoolSection) ser.get(SchoolSection.class,teachers.get(i).getSsId());
+//			teachers.get(i).setSchoolSection(ss);
+//		}
+		teacherSer.initTeacher(teachers);//装填封装
+		//带上需要的信息过去
+		getRequest().setAttribute("ssals", teacherSer.getSsals());
 		return result;
 	}
 	@Override
@@ -171,6 +180,9 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 		clearSpace();
 		String hql="from InfoTeacher order by itIntoDate desc";
 		teachers=ser.query(hql, null, hql, page);
+		teacherSer.initTeacher(teachers);//装填封装
+		//带上需要的信息过去
+		getRequest().setAttribute("ssals", teacherSer.getSsals());
 		return result;
 	}
 	@Override
