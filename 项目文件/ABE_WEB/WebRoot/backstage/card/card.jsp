@@ -105,12 +105,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form action="<%=path %>/web/card!add" method="post">
 				卡号：<br/>
 				<input type="text" name="card.CId" style="width: 100%;"/><br/>
-				用户类型：<br/>
-				<input type="radio" name="card.CType" value="1" checked="checked"/>学生
-				<input type="radio" name="card.CType" value="2"/>教职工
-				<br/>
+				用户类型：
+				<div>
+					<input type="radio" name="card.CType" value="1" checked="checked"/>学生
+					<input type="radio" name="card.CType" value="2"/>教职工
+				</div>
 				用户档案id：<br/>
-				<div id="sel_srt">
+				<div id="sel_srt_1">
+					
 				</div>
 				<input type="text" name="card.srtId" style="width: 100%;"/>
 				<br/>
@@ -137,6 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input id="u_2_1" type="radio" name="card.CType" value="2"/>教职工
 				<br/>
 				用户档案id：<br/>
+				<div id="sel_srt_2">
 				<input id="u_3" type="text" name="card.srtId" style="width: 100%;"/>
 				<br/>
 				发卡人id:<br/>
@@ -152,18 +155,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 		
-		<div>
-			<select id="srt_s" name="card.srtId">
-				<c:forEach items="${stus}" var="stu">
-				<option value="${stu.isId }">${stu.isName }</option>
-				</c:forEach>
-			</select>
-			<select id="srt_t" name="card.srtId">
-				<c:forEach items="${teas}" var="tea">
-				<option value="${tea.itId }">${tea.itName }</option>
-				</c:forEach>
-			</select>
-		</div>
 		
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
@@ -173,8 +164,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		
-		$(":radio").click(function(){
-			alert("card.srtId");
+		$("div[id='add'] :radio[name='card.CType']").click(function(){
+			var tp=$(this);
+			$.post(
+				"<%=path%>/web/card!querySrt",
+				{"type":tp.val()},
+				function(data){
+					var json = eval('(' + data + ')'); 
+					if (tp.val()=="1") {
+						console.log("1");
+					}else if (tp.val()=="2") {
+						console.log("2");
+						
+					}
+					tp.parent().after("<h1>ceshi1</h1>");
+					
+				}
+			);
 		});
 	})
 	//分页

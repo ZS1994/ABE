@@ -8,6 +8,7 @@ import java.util.List;
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.Card;
+import com.abe.entity.InfoStudent;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.SchoolGrade;
 import com.abe.service.iBaseService;
@@ -125,8 +126,6 @@ public class CardAction extends BaseAction implements iBaseAction{
 		}
 		String hql="from Card order by CCreateTime desc";
 		cards=ser.query(hql, null, hql, page);
-		getRequest().setAttribute("stus", cardSer.getStus());
-		getRequest().setAttribute("teas", cardSer.getTeas());
 		return result;
 	}
 
@@ -145,8 +144,6 @@ public class CardAction extends BaseAction implements iBaseAction{
 		}
 		hql.append("order by CCreateTime desc");
 		cards=ser.query(hql.toString(), null, hql.toString(), page);
-		getRequest().setAttribute("stus", cardSer.getStus());
-		getRequest().setAttribute("teas", cardSer.getTeas());
 		return result;
 	}
 
@@ -159,4 +156,22 @@ public class CardAction extends BaseAction implements iBaseAction{
 		return gotoQuery();
 	}
 
+	/**
+	 * ajax传所需的学生或教师信息
+	 */
+	public String querySrt() {
+		System.out.println("---------querySrt----------");
+		String type=ser.clearSpace(getRequest(), "type");
+		System.out.println("--->>"+type);
+		if (type!=null && type.equals("1")) {
+			List<InfoStudent> stus=cardSer.getStus();
+			sendJsonArry(stus, ser);
+			return null;
+		}else if (type!=null && type.equals("2")) {
+			List<InfoTeacher> teas=cardSer.getTeas();
+			sendJsonArry(teas, ser);
+			return null;
+		}
+		return null;
+	}
 }
