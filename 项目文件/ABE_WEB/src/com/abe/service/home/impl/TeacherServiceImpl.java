@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoTeacher;
+import com.abe.entity.SchoolClass;
+import com.abe.entity.SchoolSection;
 import com.abe.entity.app.RespTeacher;
 import com.abe.service.home.iTeacherService;
 import com.abe.service.impl.BaseServiceImpl;
@@ -142,6 +144,32 @@ public class TeacherServiceImpl extends BaseServiceImpl implements iTeacherServi
 		
 		return teacher;
 	}
+
+	@Override
+	public void initTeacher(InfoTeacher techer) {
+		if (techer!=null) {
+			SchoolSection ss=(SchoolSection) get(SchoolSection.class, techer.getSsId());
+			if (ss!=null) {
+				techer.setSchoolSection(ss);
+			}
+		}
+		
+	}
+	@Override
+	public void initTeacher(List<InfoTeacher> techers) {
+		if (techers!=null) {
+			for (int i = 0; i < techers.size(); i++) {
+				initTeacher(techers.get(i));
+			}
+		}
+		
+	}
+
+	@Override
+	public List getSsals() {
+		return find("from SchoolSection", null);
+	}
+
 
 
 }
