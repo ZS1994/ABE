@@ -148,7 +148,13 @@ public class StuParRelAction extends BaseAction implements iBaseAction{
 	@Override
 	public String gotoQuery() {
 		clearOptions();
-		rels=ser.find("from StudentParentRel order by ipId", null);
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+		String hql="from StudentParentRel order by ipId";
+		rels=ser.query(hql, null,hql,page);
 		relSer.initRel(rels);
 		getRequest().setAttribute("stus", stuSer.getAllStu());
 		getRequest().setAttribute("pars", parSer.getAllParents());
@@ -169,7 +175,7 @@ public class StuParRelAction extends BaseAction implements iBaseAction{
 		clearSpace();
 		StringBuffer hql=new StringBuffer("from StudentParentRel ");
 		if (id!=null) {
-			hql.append(" where spId='%"+id+"%' ");
+			hql.append(" where spId like'%"+id+"%' ");
 		}
 		hql.append("order by ipId");
 		rels=ser.query(hql.toString(), null, hql.toString(), page);
@@ -181,8 +187,11 @@ public class StuParRelAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (rel!=null) {
+			ser.update(rel);
+		}
+		return gotoQuery();
 	}
 
 }
