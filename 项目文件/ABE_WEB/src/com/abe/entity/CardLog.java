@@ -16,6 +16,17 @@ public class CardLog implements java.io.Serializable {
 	private String clState;
 
 	// Constructors
+	private String srtName;//持卡人姓名
+	
+	
+	
+	public String getSrtName() {
+		return srtName;
+	}
+
+	public void setSrtName(String srtName) {
+		this.srtName = srtName;
+	}
 
 	/** default constructor */
 	public CardLog() {

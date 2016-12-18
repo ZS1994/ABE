@@ -115,12 +115,15 @@
       </interceptor>
       <interceptor name="timeline_inter" class="zs_interceptor_timeline">
       </interceptor>
+      <interceptor name="style_inter" class="zs_interceptor_style">
+      </interceptor>
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
           <interceptor-ref name="defaultStack" />  
           <interceptor-ref name="role_inter" />
           <interceptor-ref name="token_inter" />    
           <interceptor-ref name="timeline_inter" />  
+          <interceptor-ref name="style_inter" />  
       </interceptor-stack>
   </interceptors>  
   <!-- 测试用 -->
@@ -157,6 +160,11 @@
   <action name="card" class="zs_card">	   
   	 <interceptor-ref name="mydefault" />
   	 <result name="card">/backstage/card/card.jsp</result>
+  	 <result name="index">/index.jsp</result>
+  </action>
+  <action name="attendance" class="zs_attendance">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="attendance">/backstage/card/cardLog.jsp</result>
   	 <result name="index">/index.jsp</result>
   </action>
   <action name="parents" class="zs_parents">	   

@@ -21,6 +21,7 @@ import com.abe.entity.app.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iAttendanceService;
 import com.abe.tools.NameOfDate;
+import com.abe.tools.Page;
 
 /**
  * 张顺  2016年11月24日
@@ -34,16 +35,47 @@ public class AttendanceAction extends BaseAction implements iBaseAction{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Logger logger=Logger.getLogger(AttendanceAction.class);
 	private iBaseService ser;
 	private iAttendanceService attendanceSer;
-	
 	private String result="attendance";
-	private String result_fail="";
+	private Page page;
+	private CardLog cl;
+	private List<CardLog> cls;
+	private String cz;
+	private String id;
 	
-	private Logger logger=Logger.getLogger(AttendanceAction.class);
 	
-	
-	
+	public Page getPage() {
+		return page;
+	}
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	public CardLog getCl() {
+		return cl;
+	}
+	public void setCl(CardLog cl) {
+		this.cl = cl;
+	}
+	public List<CardLog> getCls() {
+		return cls;
+	}
+	public void setCls(List<CardLog> cls) {
+		this.cls = cls;
+	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public iBaseService getSer() {
 		return ser;
 	}
@@ -117,45 +149,72 @@ public class AttendanceAction extends BaseAction implements iBaseAction{
 	}
 	
 	@Override
-	public String add() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void clearOptions() {
-		// TODO Auto-generated method stub
-		
+		cl=null;
+		cls=null;
+		cz=null;
+		id=null;
 	}
 
 	@Override
 	public void clearSpace() {
-		// TODO Auto-generated method stub
-		
+		cz=cz==null?null:cz.trim();
+		id=id==null?null:id.trim();
+	}
+	@Override
+	public String add() {
+		clearSpace();
+		return gotoQuery();
 	}
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		return gotoQuery();
 	}
 
 	@Override
 	public String gotoQuery() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		clearOptions();
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+		String hql="from CardLog order by clTime desc";
+		cls=ser.query(hql, null, hql, page);
+		for (int i = 0; i < cls.size(); i++) {
+			cls.get(i).setSrtName(attendanceSer.getSrtName(cls.get(i).getCId()));
+		}
+		return result;
 	}
 
 	@Override
 	public String queryOfFenYe() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (cz!=null && "yes".equals(cz)) {
+			clearOptions();
+		}
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
+		String hql="from CardLog where 1=1 ";
+		if (id!=null) {
+			hql=hql+"and clId like '%"+id+"%' ";
+		}
+		hql=hql+"order by clTime desc";
+		cls=ser.query(hql, null, hql, page);
+		for (int i = 0; i < cls.size(); i++) {
+			cls.get(i).setSrtName(attendanceSer.getSrtName(cls.get(i).getCId()));
+		}
+		return result;
 	}
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		return gotoQuery();
 	}
 
 }

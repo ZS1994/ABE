@@ -188,6 +188,9 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 			SchoolGrade s=(SchoolGrade) ser.get(SchoolGrade.class, scs.get(i).getSgId()) ;
 			scs.get(i).setSchoolGrade(s);
 		}
+		//带上所需信息
+		getRequest().setAttribute("sgs", classSer.getSgs());
+		getRequest().setAttribute("teas", classSer.getTeas());
 		return result;
 	}
 
@@ -239,6 +242,9 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 			SchoolGrade s=(SchoolGrade) ser.get(SchoolGrade.class, scs.get(i).getSgId()) ;
 			scs.get(i).setSchoolGrade(s);
 		}
+		//带上所需信息
+		getRequest().setAttribute("sgs", classSer.getSgs());
+		getRequest().setAttribute("teas", classSer.getTeas());
 		return result;
 	}
 	
@@ -297,7 +303,7 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 		if (cla!=null) {
 			ser.update(cla);
 		}
-		return result;
+		return gotoQuery();
 	}
 
 }

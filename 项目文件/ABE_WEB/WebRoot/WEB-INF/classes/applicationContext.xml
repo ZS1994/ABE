@@ -78,7 +78,6 @@
 		<property name="stuSer" ref="zs_student_ser"></property>
 		<property name="relSer" ref="zs_rel_ser"></property>
 	</bean>
-	
 
 
 
@@ -154,6 +153,9 @@
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	<bean id="zs_interceptor_token" class="com.abe.interceptor.TokenInterceptorWeb">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_interceptor_style" class="com.abe.interceptor.StyleInterceptorWeb">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	<bean id="zs_interceptor_role_app" class="com.abe.interceptor.RoleInterceptorApp">

@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr>
 					<td>${c.scId }</td>
 					<td>${c.scName }</td>
-					<td>${c.schoolGrade.sgName }</td>
+					<td>${c.schoolGrade.sgId }<br/>${c.schoolGrade.sgName }</td>
 					<td>${c.infoTeacher.itName }</td>
 					<td>${c.scCreateTime }</td>
 					<td>${c.scState}</td>
@@ -102,11 +102,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				班级名称：<br/>
 				<input type="text" name="cla.scName" style="width: 100%;"/><br/>
 				年级：<br/>
-				<input type="text" name="cla.sgId" style="width: 100%;"/><br/>
+				<select name="cla.sgId">
+					<c:forEach items="${sgs}" var="sg">
+					<option value="${sg.sgId }">${sg.sgName }</option>
+					</c:forEach>
+				</select>
+				<br/>
 				班主任：<br/>
-				<input type="text" name="cla.itId" style="width: 100%;"/><br/>
+				<select name="cla.itId">
+					<c:forEach items="${teas}" var="tea">
+					<option value="${tea.itId }">${tea.itName }</option>
+					</c:forEach>
+				</select>
+				<br/>
 				状态：<br/>
-				<input type="text" name="cla.scState" style="width: 100%;"/><br/>
+				<select name="cla.scState">
+					<option value="有效">有效</option>
+					<option value="无效">无效</option>
+				</select>
+				<br/>
 				<input type="submit" value="提交" onclick="return show_hint(['add'])"/>
 			</form>
 		</div>
@@ -118,13 +132,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				班级名称：<br/>
 				<input id="u_2" type="text" name="cla.scName" style="width: 100%;"/><br/>
 				年级：<br/>
-				<input id="u_3" type="text" name="cla.sgId" style="width: 100%;"/><br/>
+				<select id="u_3" name="cla.sgId">
+					<c:forEach items="${sgs}" var="sg">
+					<option value="${sg.sgId }">${sg.sgName }</option>
+					</c:forEach>
+				</select>
+				<br/>
 				班主任：<br/>
-				<input id="u_4" type="text" name="cla.itId" style="width: 100%;"/><br/>
+				<select id="u_4" name="cla.itId">
+					<c:forEach items="${teas}" var="tea">
+					<option value="${tea.itId }">${tea.itName }</option>
+					</c:forEach>
+				</select>
+				<br/>
 				创建时间：<br/>
 				<input id="u_5" type="text" name="cla.scCreateTime" style="width: 100%;" readonly="readonly"/><br/>
 				状态：<br/>
-				<input id="u_6" type="text" name="cla.scState" style="width: 100%;" readonly="readonly"/><br/>
+				<select id="u_6" name="cla.scState">
+					<option value="有效">有效</option>
+					<option value="无效">无效</option>
+				</select>
+				<br/>
 				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
 			</form>
 		</div>
@@ -159,10 +187,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#upd').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
-		$('#u_3').val(u3);
-		$('#u_4').val(u4);
+		$("#u_3 option[value='"+u3+"']").attr("selected",true);
+		$("#u_4 option[value='"+u4+"']").attr("selected",true);
 		$('#u_5').val(u5);
-		$('#u_6').val(u6);
+		$("#u_6 option[value='"+u6+"']").attr("selected",true);
 	}
 </script>
 </html>
