@@ -64,8 +64,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${c.CState}</td>
 					<td>
 						<a class="easyui-linkbutton" onclick="update('${c.CId}','${c.CType}','${c.srtId}'
-						,'${c.itId}','${c.CCreateTime}','${c.CState}')">修改</a>
-						<a class="easyui-linkbutton" href="<%=path %>/web/card!delete?id=${c.CId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						,'${c.itId}','${c.CState}','${c.CCreateTime}')" data-options="plain:true">修改</a>
+						<a class="easyui-linkbutton" href="<%=path %>/web/card!delete?id=${c.CId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
 					</td>
 				</tr>
 				</c:forEach>
@@ -111,9 +111,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="radio" name="card.CType" value="2"/>教职工
 				</div>
 				用户档案id：<br/>
-				<div id="sel_srt_1">
-					
-				</div>
 				<input type="text" name="card.srtId" style="width: 100%;"/>
 				<br/>
 				发卡人id:<br/>
@@ -129,7 +126,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 		
-		
 		<div id="upd" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
 			<form action="<%=path %>/web/card!update" method="post">
 				卡号：<br/>
@@ -139,7 +135,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input id="u_2_1" type="radio" name="card.CType" value="2"/>教职工
 				<br/>
 				用户档案id：<br/>
-				<div id="sel_srt_2">
 				<input id="u_3" type="text" name="card.srtId" style="width: 100%;"/>
 				<br/>
 				发卡人id:<br/>
@@ -150,6 +145,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<option value="已发卡">已发卡</option>
 					<option value="未发卡">未发卡</option>
 				</select>
+				<div>
+				发卡时间：<br/>
+				<input id="u_6" type="text" name="card.itId" style="width: 100%;" readonly="readonly"/>
+				</div>
 				<br/>
 				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
 			</form>
@@ -158,31 +157,131 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
-	
 </body>
+<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.css"></link>
+<script type="text/javascript" src="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
-		
-		$("div[id='add'] :radio[name='card.CType']").click(function(){
-			var tp=$(this);
-			$.post(
-				"<%=path%>/web/card!querySrt",
-				{"type":tp.val()},
-				function(data){
-					var json = eval('(' + data + ')'); 
-					if (tp.val()=="1") {
-						console.log("1");
-					}else if (tp.val()=="2") {
-						console.log("2");
-						
-					}
-					tp.parent().after("<h1>ceshi1</h1>");
-					
-				}
-			);
+		$("#add input[name='card.srtId']").AutoComplete({
+			"data": "<%=path%>/web/card!querySrt?type="+$("#add input[name='card.CType']:checked").val(),
+	       	"async": true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/工号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
 		});
-	})
+		$("#add input[name='card.itId']").AutoComplete({
+			"data": "<%=path%>/web/card!querySrt?type="+2,
+	       	"async": true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/工号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
+		$("#upd input[name='card.srtId']").AutoComplete({
+			"data": "<%=path%>/web/card!querySrt?type="+$("#upd input[name='card.CType']:checked").val(),
+	       	"async": true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/工号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
+		$("#upd input[name='card.itId']").AutoComplete({
+			"data": "<%=path%>/web/card!querySrt?type="+2,
+	       	"async": true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/工号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
+	});
+	$("#add input[name='card.CType']").click(function(){
+		$("#add input[name='card.srtId']").AutoComplete({
+			"data": "<%=path%>/web/card!querySrt?type="+$("#add input[name='card.CType']:checked").val(),
+	       	"async": true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/工号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
+	});
+	$("#upd input[name='card.CType']").click(function(){
+		$("#upd input[name='card.srtId']").AutoComplete({
+			"data": "<%=path%>/web/card!querySrt?type="+$("#upd input[name='card.CType']:checked").val(),
+	       	"async": true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/工号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
+	});
 	//分页
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -206,13 +305,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return 1;
 		}
 	}
-	function update(u1,u2,u3,u4,u5){
+	function update(u1,u2,u3,u4,u5,u6){
 		$('#upd').window('open');
 		$('#u_1').val(u1);
 		$('#u_2_'+numRadio(u2)).click();
 		$('#u_3').val(u3);
 		$('#u_4').val(u4);
 		$("#u_5 option[value='"+u5+"']").attr("selected",true);
+		$('#u_6').val(u6);
 	}
 </script>
 </html>
