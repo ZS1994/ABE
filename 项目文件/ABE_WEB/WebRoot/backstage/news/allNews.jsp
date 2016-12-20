@@ -212,7 +212,7 @@
 									<option value="健康">
 										健康
 									</option>
-									<option value="健康">
+									<option value="新闻">
 										新闻
 									</option>
 									<option value="头条咨询">
