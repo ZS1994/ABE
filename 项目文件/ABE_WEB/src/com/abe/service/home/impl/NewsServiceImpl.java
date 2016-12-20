@@ -1,5 +1,6 @@
 package com.abe.service.home.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -98,13 +99,20 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 		respNews.setResult("008");
 	} else{
 	String time = getTime();
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	Date datmp=new Date();
+	try {
+		datmp=sdf.parse(time);
+	} catch (ParseException e1) {
+		e1.printStackTrace();
+	}
 	NameOfDate nameOfData = new NameOfDate();
 	String nId = nameOfData.getNum();
 	
 	news.setNId(nId);
 	news.setNContent(NContent);
-	news.setNCreatTime(time);
-	news.setNFinalTime(time);
+	news.setNCreatTime(datmp);
+	news.setNFinalTime(datmp);
 	news.setNImgs(NImgs);
 	news.setNIstop(NIstop);
 	news.setNOrigin(NOrigin);
@@ -161,22 +169,29 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 			respNews.setData(null);
 			respNews.setResult("008");
 		} else{	
-		news.setNId(NId);
-		news.setNContent(NContent);
-		news.setNCreatTime(NCreatTime);
-		news.setNFinalTime(NFinalTime);
-		news.setNImgs(NImgs);
-		news.setNIstop(NIstop);
-		news.setNOrigin(NOrigin);
-		news.setNUrl(NUrl);
-		news.setUId(UId);
-		news.setNStatus(NStatus);
-		news.setNTitle(NTitle);
-		news.setNType(NType);
-		save(news);
-		
-		respNews.setData(news);
-		respNews.setResult("001");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			Date datmp=new Date();
+			try {
+				datmp=sdf.parse(NCreatTime);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			news.setNId(NId);
+			news.setNContent(NContent);
+			news.setNCreatTime(datmp);
+			news.setNFinalTime(datmp);
+			news.setNImgs(NImgs);
+			news.setNIstop(NIstop);
+			news.setNOrigin(NOrigin);
+			news.setNUrl(NUrl);
+			news.setUId(UId);
+			news.setNStatus(NStatus);
+			news.setNTitle(NTitle);
+			news.setNType(NType);
+			save(news);
+			
+			respNews.setData(news);
+			respNews.setResult("001");
 		}
 		return respNews;
 	}

@@ -40,55 +40,42 @@ public class NewsAction extends BaseAction implements iBaseAction {
 	public List<News> getNewslist() {
 		return newslist;
 	}
-
 	public void setNewslist(List<News> newslist) {
 		this.newslist = newslist;
 	}
-
 	public Page getPage() {
 		return page;
 	}
-
 	public void setPage(Page page) {
 		this.page = page;
 	}
-
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getCz() {
 		return cz;
 	}
-
 	public void setCz(String cz) {
 		this.cz = cz;
 	}
-
 	public News getNews() {
 		return news;
 	}
-
 	public void setNews(News news) {
 		this.news = news;
 	}
-
 	public iBaseService getSer() {
 		return ser;
 	}
-
 	public void setSer(iBaseService ser) {
 		this.ser = ser;
 	}
-
 	public iNewsService getNewsSer() {
 		return newsSer;
 	}
-
 	public void setNewsSer(iNewsService newsSer) {
 		this.newsSer = newsSer;
 	}

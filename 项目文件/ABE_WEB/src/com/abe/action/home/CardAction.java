@@ -3,7 +3,10 @@
  */
 package com.abe.action.home;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
@@ -160,16 +163,32 @@ public class CardAction extends BaseAction implements iBaseAction{
 	 * ajax传所需的学生或教师信息
 	 */
 	public String querySrt() {
-		System.out.println("---------querySrt----------");
 		String type=ser.clearSpace(getRequest(), "type");
-		System.out.println("--->>"+type);
 		if (type!=null && type.equals("1")) {
 			List<InfoStudent> stus=cardSer.getStus();
-			sendJsonArry(stus, ser);
+			ArrayList<Map> list=new ArrayList<Map>();
+			for (int i = 0; i < stus.size(); i++) {
+				Map map=new HashMap();
+				map.put("label", stus.get(i).getIsId());
+				map.put("value", stus.get(i).getIsId());
+				map.put("num", stus.get(i).getIsNum());
+				map.put("name", stus.get(i).getIsName());
+				list.add(map);
+			}
+			sendJsonArry(list, ser);
 			return null;
 		}else if (type!=null && type.equals("2")) {
 			List<InfoTeacher> teas=cardSer.getTeas();
-			sendJsonArry(teas, ser);
+			ArrayList<Map> list=new ArrayList<Map>();
+			for (int i = 0; i < teas.size(); i++) {
+				Map map=new HashMap();
+				map.put("label", teas.get(i).getItId());
+				map.put("value", teas.get(i).getItId());
+				map.put("num", teas.get(i).getItNum());
+				map.put("name", teas.get(i).getItName());
+				list.add(map);
+			}
+			sendJsonArry(list, ser);
 			return null;
 		}
 		return null;
