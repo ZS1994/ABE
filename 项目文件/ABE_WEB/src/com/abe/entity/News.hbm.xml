@@ -28,11 +28,11 @@
         <property name="NType" type="java.lang.String">
             <column name="n_type" />
         </property>
-        <property name="NCreatTime" type="java.lang.String">
-            <column name="n_creat_time" />
+        <property name="NCreatTime" type="java.util.Date">
+            <column name="n_creat_time" length="10"/>
         </property>
-        <property name="NFinalTime" type="java.lang.String">
-            <column name="n_final_time" />
+        <property name="NFinalTime" type="java.util.Date">
+            <column name="n_final_time" length="10"/>
         </property>
         <property name="NIstop" type="java.lang.String">
             <column name="n_istop" />

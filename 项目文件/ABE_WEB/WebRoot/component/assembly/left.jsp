@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				<a href="<%=path %>/backstage/news/edit.jsp">编辑新闻</a>
 	  			</li>
 	  			<li>
-	  				<a href="<%=path %>/web/news!queryOfFenYe?pageNo=1&selInd=3">新闻列表</a>
+	  				<a href="<%=path %>/web/news!queryOfFenYe?cz=yes&selInd=3">新闻列表</a>
 	  			</li>
 	  		</ul>
   		</div>

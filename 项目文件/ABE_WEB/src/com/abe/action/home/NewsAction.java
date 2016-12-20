@@ -1,6 +1,7 @@
 package com.abe.action.home;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import net.sf.json.JSONObject;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.InfoStudent;
 import com.abe.entity.News;
 import com.abe.entity.Users;
 import com.abe.entity.app.RespNews;
@@ -19,6 +21,7 @@ import com.abe.entity.app.RespVacate;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iNewsService;
 import com.abe.tools.NameOfDate;
+import com.abe.tools.Page;
 import com.opensymphony.xwork2.ActionContext;
 
 public class NewsAction extends BaseAction implements iBaseAction {
@@ -27,6 +30,44 @@ public class NewsAction extends BaseAction implements iBaseAction {
 	private iBaseService ser;
 	private iNewsService newsSer;
 	private News news;
+	//-------------
+	private List<News> newslist;
+	private String result="news";
+	private Page page;
+	private String id;
+	private String cz;
+	
+	public List<News> getNewslist() {
+		return newslist;
+	}
+
+	public void setNewslist(List<News> newslist) {
+		this.newslist = newslist;
+	}
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCz() {
+		return cz;
+	}
+
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 
 	public News getNews() {
 		return news;
@@ -157,60 +198,84 @@ public class NewsAction extends BaseAction implements iBaseAction {
 
 	@Override
 	public void clearOptions() {
-		// TODO Auto-generated method stub
+		id=null;
+		cz=null;
+		news=null;
+		newslist=null;
 
 	}
 
 	@Override
 	public void clearSpace() {
-		// TODO Auto-generated method stub
+		if (id!=null) {
+			id=id.trim();
+		}
+		if (cz!=null) {
+			cz=cz.trim();
+		}
 
 	}
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (id!=null) {
+			news=(News) ser.get(News.class, id);
+			if (news!=null) {
+				ser.delete(news);
+			}
+		}
+		return gotoQuery();
 	}
 
 	@Override
 	public String gotoQuery() {
-		String pageNo = "1";
-		String pageSize = "10";
-		RespNewsAll respNews = newsSer.findAllNewsByPage(pageNo, pageSize);
-		List<News> list = respNews.getData();
-		ActionContext.getContext().getApplication().put("data", list);
-		return "query";
+		clearOptions();
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+		String hql=new String("from News order by NFinalTime desc");
+		newslist = ser.query(hql,null,hql,page);
+		newsSer.initNews(newslist);
+		getRequest().setAttribute("userals", newsSer.getUserals());
+		return result;
 	}
 
 	@Override
 	public String queryOfFenYe() {
-		String pageNo = (String) getRequest().getParameter("pageNo");
-		String pageSize = "10";
-		int record = ser.find("from News", null).size();
-		int maxPage = (record - 1) / 10 + 1;
-		int curPage = Integer.parseInt(pageNo);
-		if (curPage < 1)
-			curPage = 1;
-		if (curPage > maxPage)
-			curPage = maxPage;
-		ActionContext.getContext().put("curPage", curPage);
-		ActionContext.getContext().put("maxPage", maxPage);
-		RespNewsAll respNews = newsSer.findAllNewsByPage(String.valueOf(curPage), pageSize);
-		List<News> list = respNews.getData();
-		ActionContext.getContext().getApplication().put("datas", list);
-		return "query";
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
+		StringBuffer hql=new StringBuffer("from News where 1=1 ");
+		if (id!=null) {
+			hql.append("and NId like '%"+id+"%' ");
+		}
+		hql.append("order by NFinalTime desc");
+		newslist = ser.query(hql.toString(), null, hql.toString(), page);
+		newsSer.initNews(newslist);
+		getRequest().setAttribute("userals", newsSer.getUserals());
+		return result;
 	}
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (news!=null) 
+		 {
+			news.setNFinalTime(getTime());
+			ser.update(news);
+		}
+		return gotoQuery();
 	}
 
-	public static String getTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String time = sdf.format(new Date());
+	public static Date getTime() {
+		Timestamp time = new Timestamp(new Date().getTime());
 		return time;
 	}
 

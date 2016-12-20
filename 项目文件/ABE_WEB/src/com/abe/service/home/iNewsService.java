@@ -1,5 +1,8 @@
 package com.abe.service.home;
 
+import java.util.List;
+
+import com.abe.entity.News;
 import com.abe.entity.app.RespNews;
 import com.abe.entity.app.RespNewsAll;
 
@@ -34,4 +37,14 @@ public interface iNewsService {
 	 * 分页查询所有状态为展示的新闻
 	 */
 	public RespNewsAll findAllNewsOnByPage(String pageNo,String pageSize,String NStatus,String NIstop,String NFinalTime);
+	
+	/*
+	 * 获取所有用户
+	 */
+	public List getUserals();
+	/*
+	 * 填装用户信息
+	 */
+	public void initNews(News news);
+	public void initNews(List<News> newslist);
 }

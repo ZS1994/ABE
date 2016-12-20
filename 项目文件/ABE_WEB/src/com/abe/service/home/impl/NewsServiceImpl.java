@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.abe.entity.News;
+import com.abe.entity.SchoolClass;
 import com.abe.entity.Users;
 import com.abe.entity.Vacate;
 import com.abe.entity.app.RespNews;
@@ -220,5 +221,38 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = sdf.format(new Date());
 		return time;
+	}
+
+
+
+	@Override
+	public List getUserals() {
+		
+		return find("from Users", null);
+	}
+
+
+
+	@Override
+	public void initNews(News news) {
+		//装填创建者用户
+		if (news!=null) {
+			Users users=(Users) get(Users.class, news.getUId());
+			if (users!=null) {
+				news.setUser(users);
+			}
+		}
+	}
+
+
+
+	@Override
+	public void initNews(List<News> newslist) {
+		if (newslist!=null) {
+			for (int i = 0; i < newslist.size(); i++) {
+				initNews(newslist.get(i));
+			}
+		}
+		
 	}
 }

@@ -19,6 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.css"></link>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.js"></script>		
   </head>
   
 <body>
@@ -102,7 +104,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:forEach items="${pars}" var="par">
 					<option value="${par.ipId }">${par.ipName }(手机号${par.ipPhone })</option>
 					</c:forEach>
-				</select>
+				</select> 
+			
+			<!--	<input type="text" id="a_2" name="rel.ipId"/>-->
 				<br/>
 				学生：<br/>
 				<select name="rel.isId">
@@ -110,9 +114,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<option value="${stu.isId }">${stu.isName }(学号${stu.isNum })</option>
 					</c:forEach>
 				</select>
+			
+		<!--		<input type="text" id="a_3" name="rel.isId"/>-->
 				<br/>
 				关系：<br/>
-				<input type="text" name="rel.spRelation"/><br/>
+				<select  name="rel.spRelation">
+				<option value="父女">父女</option>
+				<option value="父子">父子</option>
+				<option value="母女">母女</option>
+				<option value="母子">母子</option>
+				</select>
+				<br/>
 				<input type="submit" value="提交"/>
 			</form>
 		</div>
@@ -122,21 +134,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				编号：<br/>
 				<input id="u_1" type="text" name="rel.spId" style="width: 100%" readonly="readonly"/><br/>
 				家长：<br/>
-				<select id="u_2" name="rel.ipId">
+	<!--				<input type="text" id="u_2" name="rel.ipId"/>	-->		
+			<select id="u_2" name="rel.ipId">
 					<c:forEach items="${pars}" var="par">
 					<option value="${par.ipId }">${par.ipName }(手机号${par.ipPhone })</option>
 					</c:forEach>
 				</select>
+	
 				<br/>
 				学生：<br/>
-				<select id="u_3" name="rel.isId">
+			<!-- 		<input type="text" id="u_3" name="rel.isId"/> -->
+			<select id="u_3" name="rel.isId">
 					<c:forEach items="${stus}" var="stu">
 					<option value="${stu.isId }">${stu.isName }(学号${stu.isNum })</option>
 					</c:forEach>
 				</select>
+		
 				<br/>
 				关系：<br/>
-				<input id="u_4"  type="text" name="rel.spRelation"/><br/>
+				<input type="text" id="u_4" name="rel.ipId"/>
+				<select id="u_4"  name="rel.spRelation">
+				<option value="父女">父女</option>
+				<option value="父子">父子</option>
+				<option value="母女">母女</option>
+				<option value="母子">母子</option>
+				</select>
+				<br/>
 				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
 			</form>
 		</div>
@@ -183,9 +206,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function update(u1,u2,u3,u4){
 		$('#upd').window('open');
 		$('#u_1').val(u1);
-		$("#u_2 option[value='"+u2+"']").attr("selected",true);
-		$("#u_3 option[value='"+u3+"']").attr("selected",true);
-		$('#u_4').val(u4);
+		$('#u_2').val(u2);
+		$('#u_3').val(u3);
+		$("#u_4 option[value='"+u4+"']").attr("selected",true);
 	}
+	$(function(){
+	$('#a2').AutoComplete({
+                'data': JSON.stringify(pars),
+                'itemHeight': 20,
+                'width': 280
+            }).AutoComplete('show');
+    }
 </script>
 </html>
