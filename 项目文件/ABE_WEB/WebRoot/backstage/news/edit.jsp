@@ -33,7 +33,7 @@
 		<jsp:include page="/component/assembly/top.jsp"></jsp:include>
 		<jsp:include page="/component/assembly/left.jsp"></jsp:include>
 		<div class="right">
-			<
+			
 			<form action="<%=path%>/web/news!add" method="post">
 				<table class="table table-bordered table-hover definewidth m10"
 					id="tables" style="width: 90%">
@@ -66,19 +66,6 @@
 								<option value="头条咨询">
 									头条资讯
 								</option>
-								<!--<option value="鏃舵斂">鏃舵斂</option>
-					<option value="鐢熸椿">鐢熸椿</option>
-					<option value="鐑偣">鐑偣</option>
-					<option value="骞冲畨绀惧尯">骞冲畨绀惧尯</option>
-					<option value="娉曞埗绀惧尯">娉曞埗绀惧尯</option>
-					<option value="鏂囨槑绀惧尯">鏂囨槑绀惧尯</option>
-					<option value="鍏氬缓绀惧尯">鍏氬缓绀惧尯</option>
-					<option value="绉戞櫘绀惧尯">绉戞櫘绀惧尯</option>
-					<option value="鎴夸骇瀹跺洯">鎴夸骇瀹跺洯</option>
-					<option value="鏅烘収鏃呮父">鏅烘収鏃呮父</option>
-					<option value="娓呴杞﹀奖">娓呴杞﹀奖</option>
-					<option value="浜插瓙鏁欒偛">浜插瓙鏁欒偛</option>
-					<option value="鍋ュ悍楗">鍋ュ悍楗</option> -->
 							</select>
 							&nbsp;&nbsp;
 						</td>
@@ -91,7 +78,7 @@
 								是否置顶
 							</button>
 							&nbsp;&nbsp;
-							<input name="news.NIstop" type="radio" value="0" list
+							<input name="news.NIstop" type="radio" value="0" 
 								checked="true" />
 							否 &nbsp;
 							<input name="news.NIstop" type="radio" value="1" />
@@ -120,9 +107,9 @@
 
 					<tr>
 						<td colspan="2" id="checkeds">
-							<section id="editor">
+							
 							<div id='edit' style="margin-top: 0px; height: 500px;"></div>
-							</section>
+						
 
 						</td>
 					</tr>
@@ -138,7 +125,7 @@
 				</table>
 			</form>
 		</div>
-		<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
+
 		<script
 			src="<%=path%>/FRAMEWORK/froala_editor/js/libs/jquery-1.11.1.min.js"></script>
 		<script

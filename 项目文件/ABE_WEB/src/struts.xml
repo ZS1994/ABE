@@ -149,7 +149,7 @@
   <action name="news" class="lz_news">	   
 	 <interceptor-ref name="mydefault" />
 	 <result name="index">/index.jsp</result>
-	 <result name="query">/backstage/news/allNews.jsp</result>
+	 <result name="news">/backstage/news/allNews.jsp</result>
 	 <result name="insert">/backstage/news/edit.jsp</result>
   </action>
   <action name="course" class="zs_course">	   
