@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>登录</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -23,17 +23,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
+	<style type="text/css">
+	.box{
+	    display: flex;
+	    width: 100%;
+	    height: 100%;
+	    justify-content: center;
+	    align-items:center;
+	    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#fff,endColorStr=rgb(3, 99, 101)); /*IE 6 7 8*/ 
+		background: -ms-linear-gradient(top, #fff,  rgb(3, 99, 101));        /* IE 10 */
+		background:-moz-linear-gradient(top,#fff,rgb(3, 99, 101));/*火狐*/ 
+		background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#fff), to( rgb(3, 99, 101)));/*谷歌*/ 
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to( rgb(3, 99, 101)));      /* Safari 4-5, Chrome 1-9*/
+		background: -webkit-linear-gradient(top, #fff,  rgb(3, 99, 101));   /*Safari5.1 Chrome 10+*/
+		background: -o-linear-gradient(top, #fff,  rgb(3, 99, 101));  /*Opera 11.10+*/
+	}
+	.word_3d{
+		position: absolute;
+	    margin-top: calc(-4% - 160px);
+	    font-size: 60px;
+	    font-weight: bolder;
+	    text-shadow: 1px 1px rgba(197, 223, 248,0.8),2px 2px rgba(197, 223, 248,0.8),3px 3px rgba(197, 223, 248,0.8),4px 4px rgba(197, 223, 248,0.8),5px 5px rgba(197, 223, 248,0.8),6px 6px rgba(197, 223, 248,0.8);
+	    color: #eee;
+	}
+	.box_midden{
+		width:300px;
+		height:160px;
+		margin-top: -4%;
+		border: 1px black solid;
+		box-shadow: 3px 3px 3px;
+		border-radius: 15px;
+		padding: 15px;
+		background-color: white;
+	}
+	</style>
+<body class="box">
 
-<body>
-
-<form action="<%=path %>/web/sign!signIn" method="post" style="border: 1px black solid;">
-账号：<input type="text" name="user.UNum"/>
-<br/>
-密码：<input type="password" name="user.UPass"/>
-<br/>
-<input type="submit" value="登录"/>
-</form>
-<font color="red">${hint }</font>
+<div class="box_midden">
+	<h1 align="center">登录</h1>
+	<form action="<%=path %>/web/sign!signIn" method="post">
+		<div style="text-align: center;">
+			账号：<input type="text" name="user.UNum"/>
+		</div>
+		<div style="margin-top: 5px;text-align: center;">
+			密码：<input type="password" name="user.UPass"/>
+		</div>
+		<div align="center" style="margin-top: 5px;">
+			<input type="submit" value="登录"/>
+		</div>
+	</form>
+	<div style="text-align: center;color: red;">${hint }</div>
+</div>
+<div class="word_3d">
+	安贝尔
+</div>
 
 <jsp:include page="/component/assembly/token.jsp"></jsp:include>
 </body>

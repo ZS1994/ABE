@@ -163,9 +163,7 @@ public class CardAction extends BaseAction implements iBaseAction{
 	 * ajax传所需的学生或教师信息
 	 */
 	public String querySrt() {
-		System.out.println("---------querySrt----------");
 		String type=ser.clearSpace(getRequest(), "type");
-		System.out.println("--->>"+type);
 		if (type!=null && type.equals("1")) {
 			List<InfoStudent> stus=cardSer.getStus();
 			ArrayList<Map> list=new ArrayList<Map>();

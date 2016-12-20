@@ -147,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</select>
 				<div>
 				发卡时间：<br/>
-				<input id="u_6" type="text" name="card.itId" style="width: 100%;" readonly="readonly"/>
+				<input id="u_6" type="text" name="card.CCreateTime" style="width: 100%;" readonly="readonly"/>
 				</div>
 				<br/>
 				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
