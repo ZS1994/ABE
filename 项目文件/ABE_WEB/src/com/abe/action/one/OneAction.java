@@ -65,34 +65,22 @@ public class OneAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 	/**
-	 * APP端修改个人信息，密码
+	 * APP端修改个人信息
 	 * @return
 	 */
 	public String updateUserFromApp1() throws IOException{
 		logger.debug("-------进入updateUsersFromApp--------");
 		String UNum=getRequest().getParameter("UNum");
-		RespUpdateUser respupdateUser = signSer.updateUser1(UNum);
-		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		RespUpdateUser resp = signSer.updateUser1(UNum);
+		sendToApp(resp, ser);
 		return null;
 	}
 	public String updateUserFromApp2() throws IOException{
 		logger.debug("-------进入updateUsersFromApp--------");
-		String UNum = getRequest().getParameter("UNum");
-		String UName = getRequest().getParameter("UName");
-		String UType = getRequest().getParameter("UType");
-		String UCreateTime = getRequest().getParameter("UCreateTime");
-		String UPhotoPath = getRequest().getParameter("UPhotoPath");
-		String UNote = getRequest().getParameter("UNote");
-		String UId = getRequest().getParameter("UId");
-		String trpId = getRequest().getParameter("trpId");
-		RespUpdateUser respupdateUser = signSer.updateUser2(UName,UType, Timestamp.valueOf(UCreateTime), UPhotoPath, UNote, UNum, UId, trpId);
-		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		String UName = ser.clearSpace(getRequest(), "UName");
+		String UId = ser.clearSpace(getRequest(), "UId");
+		RespUpdateUser resp = signSer.updateUser2(UId,UName);
+		sendToApp(resp, ser);
 		return null;
 	}
 	

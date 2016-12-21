@@ -88,7 +88,6 @@ public class ParentServiceImpl extends BaseServiceImpl implements iParentService
 			Code code=(Code) get(Code.class, uid);
 			if (code!=null) {
 				resp.setResult("001");
-//				resp.setData(code);
 				resp.setData(null);
 				return resp;
 			}

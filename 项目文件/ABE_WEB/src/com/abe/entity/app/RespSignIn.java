@@ -8,6 +8,14 @@ public class RespSignIn {
 	private Users data;
 	
 	
+	public RespSignIn() {
+	}
+	
+	public RespSignIn(String result, Users data) {
+		super();
+		this.result = result;
+		this.data = data;
+	}
 	
 	
 	public String getResult() {
