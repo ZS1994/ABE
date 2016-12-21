@@ -178,6 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						"学号/工号："+data.num+"<br/>"+
 						"姓名："+data.name+
 						"</div>";
+						debugger;
 				return str;
 			},
 			"onerror": function(msg){alert(msg);}

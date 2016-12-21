@@ -19,8 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.css"></link>
-	<script type="text/javascript" src="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.js"></script>		
+	
   </head>
   
 <body>
@@ -100,22 +99,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="add" class="easyui-window" title="新建" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
 			<form action="<%=path %>/web/rel!add" method="post">
 				家长：<br/>
-				<select name="rel.ipId">
+		<!--	<select name="rel.ipId">
 					<c:forEach items="${pars}" var="par">
 					<option value="${par.ipId }">${par.ipName }(手机号${par.ipPhone })</option>
 					</c:forEach>
-				</select> 
+				</select> -->
 			
-			<!--	<input type="text" id="a_2" name="rel.ipId"/>-->
+				<input type="text" id="a_2" name="rel.ipId"/>
 				<br/>
 				学生：<br/>
-				<select name="rel.isId">
+		<!--			<select name="rel.isId">
 					<c:forEach items="${stus}" var="stu">
 					<option value="${stu.isId }">${stu.isName }(学号${stu.isNum })</option>
 					</c:forEach>
 				</select>
-			
-		<!--		<input type="text" id="a_3" name="rel.isId"/>-->
+			-->
+			<input type="text" id="a_3" name="rel.isId"/>
 				<br/>
 				关系：<br/>
 				<select  name="rel.spRelation">
@@ -134,25 +133,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				编号：<br/>
 				<input id="u_1" type="text" name="rel.spId" style="width: 100%" readonly="readonly"/><br/>
 				家长：<br/>
-	<!--				<input type="text" id="u_2" name="rel.ipId"/>	-->		
-			<select id="u_2" name="rel.ipId">
+					<input type="text" id="u_2" name="rel.ipId"/>		
+		<!--	<select id="u_2" name="rel.ipId">
 					<c:forEach items="${pars}" var="par">
 					<option value="${par.ipId }">${par.ipName }(手机号${par.ipPhone })</option>
 					</c:forEach>
 				</select>
-	
+	-->	
 				<br/>
 				学生：<br/>
-			<!-- 		<input type="text" id="u_3" name="rel.isId"/> -->
-			<select id="u_3" name="rel.isId">
+					<input type="text" id="u_3" name="rel.isId"/>
+		<!-- 	<select id="u_3" name="rel.isId">
 					<c:forEach items="${stus}" var="stu">
 					<option value="${stu.isId }">${stu.isName }(学号${stu.isNum })</option>
 					</c:forEach>
 				</select>
-		
+		 -->
 				<br/>
 				关系：<br/>
-				<input type="text" id="u_4" name="rel.ipId"/>
 				<select id="u_4"  name="rel.spRelation">
 				<option value="父女">父女</option>
 				<option value="父子">父子</option>
@@ -168,10 +166,96 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
 	
 </body>
+<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.css"></link>
+<script type="text/javascript" src="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.js"></script>
 <script type="text/javascript">
 	
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
+		$("#a_2").AutoComplete({
+			"data": "<%=path%>/web/rel!querySrt?type="+2,
+	       	"async": true,
+	       	"scroll":true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/手机号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+						
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
+		$("#u_2").AutoComplete({
+			"data": "<%=path%>/web/rel!querySrt?type="+2,
+	       	"async": true,
+	       	"scroll":true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/手机号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+						
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
+		$("#a_3").AutoComplete({
+			"data": "<%=path%>/web/rel!querySrt?type="+1,
+	       	"async": true,
+	       	"scroll":true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/手机号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+						
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
+		$("#u_3").AutoComplete({
+			"data": "<%=path%>/web/rel!querySrt?type="+1,
+	       	"async": true,
+	       	"scroll":true,
+			"width": "auto",
+			"listStyle": "custom",
+			"matchHandler": function(keyword, data){
+				var isgo=(data.num.indexOf(keyword)>=0)||(data.name.indexOf(keyword)>=0);
+	            return isgo;
+	        },
+			"createItemHandler": function(index, data){
+				var str="<div>"+
+						"编号："+data.value+"<br/>"+
+						"学号/手机号："+data.num+"<br/>"+
+						"姓名："+data.name+
+						"</div>";
+						
+				return str;
+			},
+			"onerror": function(msg){alert(msg);}
+		});
 	})
 	//分页
 	function page(no,cz){
@@ -210,12 +294,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_3').val(u3);
 		$("#u_4 option[value='"+u4+"']").attr("selected",true);
 	}
-	$(function(){
-	$('#a2').AutoComplete({
-                'data': JSON.stringify(pars),
-                'itemHeight': 20,
-                'width': 280
-            }).AutoComplete('show');
-    }
 </script>
 </html>
