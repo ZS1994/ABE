@@ -8,8 +8,8 @@ import net.sf.json.JSONObject;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
-import com.abe.entity.app.RespCity;
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCity;
+import com.abe.entity.other.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.hx.iMessageService;
 

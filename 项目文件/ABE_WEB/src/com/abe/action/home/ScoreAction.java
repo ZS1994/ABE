@@ -16,7 +16,7 @@ import com.abe.action.iBaseAction;
 import com.abe.entity.InfoStudent;
 import com.abe.entity.Score;
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iScoreService;
 

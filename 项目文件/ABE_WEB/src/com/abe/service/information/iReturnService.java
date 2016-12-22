@@ -1,7 +1,7 @@
 package com.abe.service.information;
 
-import com.abe.entity.app.RespReturn;
-import com.abe.entity.app.RespReturnAll;
+import com.abe.entity.other.RespReturn;
+import com.abe.entity.other.RespReturnAll;
 
 /*
  * 用户反馈

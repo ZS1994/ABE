@@ -1,7 +1,7 @@
 package com.abe.service;
 
-import com.abe.entity.app.RespVacate;
-import com.abe.entity.app.RespVacateAll;
+import com.abe.entity.other.RespVacate;
+import com.abe.entity.other.RespVacateAll;
 
 /**
  * 请假模块

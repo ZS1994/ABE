@@ -11,9 +11,9 @@ import com.abe.action.BaseAction;
 import com.abe.action.SignAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespUpdateUser;
-import com.abe.entity.app.RespUploadPhoto;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespUpdateUser;
+import com.abe.entity.other.RespUploadPhoto;
 import com.abe.service.iBaseService;
 import com.abe.service.iSignService;
 

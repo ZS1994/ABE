@@ -52,7 +52,7 @@ ${user.UNum }
 ${user.UPass }
 
 <hr/>
-<a href="<%=path %>/backstage/student/studentManager.jsp">后台页面结构示例</a>
+<a href="<%=path %>/web/student!queryOfFenYe?cz=yes&selInd=0">后台页面结构示例</a>
   
 </body>
 </html>

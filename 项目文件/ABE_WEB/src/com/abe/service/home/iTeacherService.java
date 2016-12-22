@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoStudent;
 import com.abe.entity.InfoTeacher;
-import com.abe.entity.app.RespTeacher;
+import com.abe.entity.other.RespTeacher;
 
 
 public interface iTeacherService{

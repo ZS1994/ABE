@@ -119,7 +119,7 @@ public class BaseAction extends ActionSupport{
 	 * @param obj
 	 * @param ser
 	 */
-	public void sendJsonArry(Object obj,iBaseService ser) {
+	public JSONArray sendJsonArry(Object obj,iBaseService ser) {
 		JsonConfig jsonConfig=new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor("yyyy-MM-dd"));
 		jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor("yyyy-MM-dd HH:mm:ss"));
@@ -132,5 +132,6 @@ public class BaseAction extends ActionSupport{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return array;
 	}
 }

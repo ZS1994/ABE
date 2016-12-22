@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.abe.entity.AllInform;
 import com.abe.entity.InfoTeacher;
-import com.abe.entity.app.RespBulletin;
-import com.abe.entity.app.RespBulletinAll;
+import com.abe.entity.other.RespBulletin;
+import com.abe.entity.other.RespBulletinAll;
 import com.abe.service.impl.BaseServiceImpl;
 import com.abe.service.information.iBulletinService;
 import com.abe.tools.NameOfDate;

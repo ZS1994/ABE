@@ -3,7 +3,7 @@ package com.abe.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCommon;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
