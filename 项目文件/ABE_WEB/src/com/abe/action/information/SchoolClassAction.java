@@ -26,15 +26,14 @@ import com.abe.tools.Page;
  */
 public class SchoolClassAction extends BaseAction implements iBaseAction{
 
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<SchoolClass> scs;
 	private iBaseService ser;
 	private iSchoolClassService classSer;
 	private iChatgroupService groupSer;
+	private List<SchoolClass> scs;
 	private SchoolClass cla;
 	private String result="class";
 	private Page page;
@@ -134,19 +133,20 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String add() {
-		cla.setScId(NameOfDate.getNum());
-		cla.setScState("有效");//添加时默认为有效
-		cla.setScCreateTime(new Timestamp(new Date().getTime()));//默认创建时间添加
-		ser.save(cla);
-		groupSer.addChatgroup(cla);
-		clearOptions();
+		clearSpace();
+		if (cla!=null) {
+			cla.setScId(NameOfDate.getNum());
+			cla.setScState("有效");//添加时默认为有效
+			cla.setScCreateTime(new Timestamp(new Date().getTime()));//默认创建时间添加
+			ser.save(cla);
+			groupSer.addChatgroup(cla);
+		}
 		return gotoQuery();
 	}
 
 	@Override
 	public void clearOptions() {
 		cla=null;
-		page=null;
 		scs=null;
 		id=null;
 		cz=null;
@@ -164,23 +164,33 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (id!=null) {
+			cla=(SchoolClass) ser.get(SchoolClass.class, id);
+			ser.delete(cla);
+		}
+		return gotoQuery();
 	}
 
 	@Override
 	public String gotoQuery() {
 		clearOptions();
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
+			page=new Page(1, 0, 10);
+		}
 		String hql="from SchoolClass order by scCreateTime desc";
-		String ss[]={};
-		String hql2="from SchoolClass order by scCreateTime desc";
-		scs=ser.query(hql, ss, hql2, page);
+		scs=ser.query(hql, null, hql, page);
 		for(int i = 0 ; i< scs.size(); i++){
 			InfoTeacher t = (InfoTeacher) ser.get(InfoTeacher.class,scs.get(i).getItId());
 			scs.get(i).setInfoTeacher(t);
 			SchoolGrade s=(SchoolGrade) ser.get(SchoolGrade.class, scs.get(i).getSgId()) ;
 			scs.get(i).setSchoolGrade(s);
 		}
+		//带上所需信息
+		getRequest().setAttribute("sgs", classSer.getSgs());
+		getRequest().setAttribute("teas", classSer.getTeas());
 		return result;
 	}
 
@@ -216,14 +226,13 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 10);
 		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
-		StringBuffer hql=new StringBuffer("from SchoolClass ");
+		StringBuffer hql=new StringBuffer("from SchoolClass where 1=1 ");
 		if (id!=null) {
-			hql.append(" where scId like '%"+id+"%' ");
+			hql.append("and scId like '%"+id+"%' ");
 		}
 		hql.append("order by scCreateTime desc");
 		scs=ser.query(hql.toString(), null, hql.toString(), page);
@@ -233,6 +242,9 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 			SchoolGrade s=(SchoolGrade) ser.get(SchoolGrade.class, scs.get(i).getSgId()) ;
 			scs.get(i).setSchoolGrade(s);
 		}
+		//带上所需信息
+		getRequest().setAttribute("sgs", classSer.getSgs());
+		getRequest().setAttribute("teas", classSer.getTeas());
 		return result;
 	}
 	
@@ -287,7 +299,11 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 //			cla.setScName(s.getScName());
 //		}
 //		ser.update(cla);
-		return result;
+		clearSpace();
+		if (cla!=null) {
+			ser.update(cla);
+		}
+		return gotoQuery();
 	}
 
 }

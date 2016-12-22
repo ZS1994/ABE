@@ -1,259 +1,249 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>教师管理</title>
+    
+    <title>教师档案管理</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
-	
-	<!--<link rel="stylesheet" href="<%=path %>/FRAMEWORK/css/css-ljl/login-comon.css" />
-	--><!--<link rel="stylesheet" href="<%=path %>/FRAMEWORK/css/css-ljl/css/register.css" />
-	--><script src="<%=path %>/FRAMEWORK/js/js-ljl/jquery-1.11.3.js"></script>
-	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/js-ljl/cascade/GlobalProvinces_main.js"></script>
-	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/js-ljl/cascade/GlobalProvinces_extend.js"></script>
-	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/js-ljl/cascade/initLocation.js"></script>
-	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/js-ljl/cascade/onchage.js"></script>
-	<!--<script src="<%=path %>/FRAMEWORK/js/js-ljl/register.js"></script>
-	--><script type="text/javascript">
-    $(function () { initLocation({ sheng_val: "", shi_val: "", xian_val: "", xiang_val: "" }); })
-</script>
-	
-	
   </head>
+  
 <body>
-	
-	<br><jsp:include page="/component/assembly/top.jsp"></jsp:include>
+	<jsp:include page="/component/assembly/top.jsp"></jsp:include>
 	<jsp:include page="/component/assembly/left.jsp"></jsp:include>
 	<div class="right">
-		<div style="width: 100%;">
-			<div style="margin:0 auto;width:100px;text-align: center;">
-			<a>添加教师档案</a>
-			<a href="<%=path %>/web/student!queryOfFenYe?cz=yes">查看教师</a>
-			</div>
-			
-	<div class="section">
-		<div class="container">
-			<form method="post" action=".action" onsubmit="return formValidator()" enctype="multipart/form-data" id="myform">
-				<table>
-					<thead>
-						<tr class="whole-row ">
-							<th colspan="3" class="first-line">添加教师档案</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="td-first"><span>* </span>教师ID：</td>
-							<td class="td-medium"><input name="teacher.itId" id="itId"
-								 type="text" /></td>
-							<td id="suggest" class="def-tips" style="color:red"></td>
-						</tr>
-						<tr>
-							<td class="td-first"><span>* </span>教师工号 ：</td>
-							<td class="td-medium"><input name="teacher.itNum" id="itNum"
-								 type="text" /></td>
-							<td id="suggest" class="def-tips" style="color:red"></td>
-						</tr>
-						<tr>
-							<td class="td-first"><span>* </span>姓名 ：</td>
-							<td class="td-medium"><input name="teacher.itName" id="itName"
-								type="text"/></td>
-							<td id="repwd-tips" class="def-tips realName-tips"></td>
-						</tr>
-						<tr>
-							<td class="td-first">性别 ：
-							<td class="td-medium" name="teacher.itSex">
-							    <input type="radio" name="teacher.itSex" id="man" value="0" 
-							    checked="checked" /><label for="man">男</label> <input type="radio" 
-							    name="teacher.itSex" id="women" value="1" /><label for="women">女</label> 
-							    <input type="radio" name="teacher.itSex" id="secret" /><label for="secret">保密</label>
-							</td>
-							<td class="td-last"></td>
-						</tr>
-						<!--<tr>
-							<td class="td-first">本人头像 ：</td>
-							<td class="td-medium"><a href="javascript:"
-								class="btn_addPic"><span><i>+</i>添加图片</span><input
-									type="file" tabindex="3" size="3" name="image"
-									class="filePrew picfile" onchange="changepic(event);"></a><i></i></td>
-							<td class="td-last"><div id="pic-file"></div></td>
-						</tr>-->
-						<tr>
-							<td class="td-first">生日 ：</td>
-							<td><input type="date" id="date"/></td>
-							<td id="QQ-tips" class="td-last def-tips"></td>
-						</tr>
-						<tr>
-							<td class="td-first">手机号 ：</td>
-							<td class="td-medium">
-							
-							<input name="teacher.itPhone" type="text" id="tel" />
-								</td>
-							<td id="tel-tips" class="def-tips td-last"></td>
-						</tr>
-						<tr>
-							<td class="td-first">职务 ：</td>
-							<td>
-							<select name="teacher.itPost" value="">
-								<option value="0">--请选择--</option>
-								<option value="1">语文老师</option>
-								<option value="2">音乐老师</option>
-								<option value="3">美术老师</option>
-								<option value="4">数学老师</option>
-								<option value="5">数学老师</option>
-								<option value="6">数学老师</option>
-								<option value="7">数学老师</option>
-							</select>
-							<input name="teacher.itPost" type="text" id="QQ" />
-							</td>
-							<td id="QQ-tips" class="td-last def-tips"></td>
-						</tr>
-						<tr>
-							<td class="td-first">入职日期：</td>
-							<td><input name="teacher.itIntoDate" type="date"  id="intoDate" /></td>
-							<td id="mail-tips" class="td-lx ast def-tips"></td>
-						</tr>
-						<tr>
-							<td class="td-first">离职日期：</td>
-							<td><input name="teacher.itLeaveDate" type="date" id="IntoDate" /></td>
-							<td id="mail-tips" class="td-lx ast def-tips"></td>
-						</tr>
-						<tr>
-							<td class="td-first">状态：</td>
-							<td>
-							<select name="teacher.itState" value="">
-								<option value="0">--请选择--</option>
-								<option value="1">在职</option>
-								<option value="2">已离职</option>
-								<option value="3">休假中</option>
-								<option value="4">已退休</option>
-							</select>
-							<input name="teacher.itState" type="text" id="state" />
-							</td>
-							<td id="mail-tips" class="td-lx ast def-tips"></td>
-						</tr>
-						<!--<tr>
-							<td class="td-first">住址：</td>
-							<td colspan="2" class="send-address">
-								<select id="sheng" onchange="provincefunction()" ></select> 
-							    <select id="shi"   onchange="fatherfunction()" ></select> 
-							    <select id="xian"  onchange="areafunction()" ></select> 
-							    <select id="xiang" onchange="streetfunction()" ></select>
-							    <span class="addr-tips" style="padding-left:10px;"></span>
-							<input  type="hidden" id="province"  name="user.province"/>
-							<input  type="hidden" id="father" name="user.father"/>
-							<input  type="hidden" id="area" name="user.area"/>
-							<input  type="hidden" id="street" name="user.street"/>
-							</td>
-						</tr>-->
-						<tr>
-							<td class="td-first">住址 ：</td>
-							<td class="td-medium"><input name="teacher.itAddress" type="text"
-								id="address" /></td>
-							<td id="address-tips" class="td-last"></td>
-						</tr>
-						<tr>
-							<td class="td-first">部门编号：</td>
-							<td class="td-medium"><input name="teacher.ssId" type="text"
-								id="address" /></td>
-							<td id="address-tips" class="td-last"></td>
-						</tr>
-						<tr>
-							<td class="td-first">教师图片 ：</td>
-							<td class="td-medium"><a href="javascript:"
-								class="btn_addPic"><span> +添加图片</span> <input type="file"
-									tabindex="3" size="3" name="image" class="filePrew license"
-									onchange="changeLicense(event); " value="请选择要上传的图片"> </a></td>
-							<td class="td-last " id="License-fiel"></td>
-						</tr>
-						<tr>
-							<td class="td-first"></td>
-							<td class="td-medium"><input type="submit" id="submit"
-								value="提交" /></td>
-							<td class="td-last"></td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-		</div>
-	</div>
-			
 		
-			<!--<form action="<%=path %>/web/student!add" method="post">
-				学号：
-				<input type="text" name="student.isNum" /><br/>
-				学生姓名：
-				<input type="text" name="student.isName" /><br/>
-				性别：
-				男<input type="radio" name="student.isSex" value="男" checked="checked"/>
-				女<input type="radio" name="student.isSex" value="女"/><br/>
-				生日：
-				<input type="date" name="student.isBirthday" /><br/>
-				是否本地生：
-				是：<input type="radio" name="student.isLocal" value="1" checked="checked"/>
-				否：<input type="radio" name="student.isLocal" value="0"/><br/>
-				是否是教职子弟：
-				是：<input type="radio" name="student.isTeacherChildren" value="1"/>
-				否：<input type="radio" name="student.isTeacherChildren" value="0" checked="checked"/><br/>
-				入校日期(此处还需给默认时间)：
-				<input type="date" name="student.isIntoDate" /><br/>
-				离校日期：
-				<input type="date" name="student.isLeaveDate" /><br/>
-				状态：
-				<input type="text" name="student.isState" /><br/>
-				班级(写ajax获取当前所有班级)：
-				<input type="text" name="student.scId" /><br/>
-				<input type="submit" value="提交"/>
-			</form>
-		--></div>
-		<div>
-			<table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-			    <tr>
+		<input type="button" value="新建" style="margin-top: 3px;" onclick="$('#add').window('open');"/>
+		
+		<div style="margin-bottom: 5px;padding: 5px;">
+	    	快速查询
+	    	<br/>
+	    	<form action="<%=path %>/web/teacher!queryOfFenYe" method="post">
+	    		编号:<input name="id" type="text" value="${id }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		<input type="submit" value="查询"/>
+	    	</form>	
+	    </div>
+	    
+		<table border="1" class="odd_table">
+			<thead>
+				 <tr>
+				 	<th style="width: 40px;">序号</th>
 			    	<th width="130px">编号</th>
-			    	<th>学号</th>
-			    	<th>学生姓名</th>
+			    	<th>工号</th>
+			    	<th>姓名</th>
 			    	<th>性别</th>
 			    	<th>生日</th>
-			    	<th>是否本地生</th>
-			    	<th>是否教职子弟</th>
-			    	<th>入校日期</th>
-			    	<th>离校日期</th>
+			    	<th>手机号</th>
+			    	<th>职务</th>
+			    	<th>入职日期</th>
+			    	<th>离职日期</th>
 			    	<th>状态</th>
-			    	<th>班级id</th>
+			    	<th>住址</th>
+			    	<th>部门</th>
 			    	<th>操作</th>
 			    </tr>
-			    <c:forEach items="${stus}" var="stu">
+			</thead>
+			<tbody>
+				<c:forEach items="${teachers}" var="t" varStatus="sta">
 			    <tr>
-					<td width="">${stu.isId }</td>
-					<td width="">${stu.isNum }</td>
-					<td width="">${stu.isName }</td>
-					<td width="">${stu.isSex }</td>
-					<td width="">${stu.isBirthday }</td>
-					<td width="">${stu.isLocal }</td>
-					<td width="">${stu.isTeacherChildren}</td>
-					<td width="">${stu.isIntoDate }</td>
-					<td width="">${stu.isLeaveDate }</td>
-					<td width="">${stu.isState }</td>
-					<td width="">${stu.schoolClass }</td>
+			    	<td>${(sta.index+1)+((page.pageOn-1)*page.size) }</td>
+					<td width="" align="center">${t.itId }</td>
+					<td width="" align="center">${t.itNum }</td>
+					<td width="" align="center">${t.itName }</td>
+					<td width="" align="center">${t.itSex  }</td>
+					<td width="" align="center"><fmt:formatDate value="${t.itBirthday }" pattern="yyyy-MM-dd" /></td>
+					<td width="" align="center">${t.itPhone }</td>
+					<td width="" align="center">${t.itPost}</td>
+					<td width="" align="center"><fmt:formatDate value="${t.itIntoDate }" pattern="yyyy-MM-dd" /></td>
+					<td width="" align="center"><fmt:formatDate value="${t.itLeaveDate }" pattern="yyyy-MM-dd" /></td>
+					<td width="" align="center">${t.itState }</td>
+					<td width="" align="center">${t.itAddress }</td>
+					<td width="" align="center">${t.schoolSection.ssName  }</td>
 					<td width="5%" align="center">
-						<a onclick="">修改</a>
-						<a href="<%=path %>/web/student!delete?id=${stu.isId}" onclick="return confirm('确定删除吗?')">删除</a>
+						<a class="easyui-linkbutton" onclick="update('${t.itId}','${t.itNum}','${t.itName}',
+						'${t.itSex }','<fmt:formatDate value="${t.itBirthday }" pattern="yyyy-MM-dd" />','${t.itPhone }',
+						'${t.itPost }','<fmt:formatDate value="${t.itIntoDate  }" pattern="yyyy-MM-dd" />',
+						'<fmt:formatDate value="${t.itLeaveDate }" pattern="yyyy-MM-dd" />','${t.itState }','${t.itAddress }','${t.ssId  }')">修改</a>
+						<a class="easyui-linkbutton" href="<%=path %>/web/teacher!delete?id=${t.itId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
 					</td>
 			    </tr>
 			    </c:forEach>
-		    </table>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="14">
+						<form id="f1" action="<%=path %>/web/teacher!queryOfFenYe?id=${id}" method="post">
+						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+						</select>
+						<span style="float: left;margin-left: 5px;">
+						<span style="color: #A5A5A5;">|</span>
+						<a onclick="page(1,2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-last'" title="首页"></a>
+						<a onclick="page(-1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-l'" title="上一页"></a>
+						<span style="color: #A5A5A5;">|</span>
+						</span>
+						<span style="float: left;margin-top: 3px;margin-left: 5px;">
+						<input id="page" name="page.pageOn" type="number" style="width: 50px;height: 20px;" value="${page.pageOn }" min="1" max="${page.pageMax }" onchange="$('#f1').submit();"/>
+						</span>
+						<span style="float: left;margin-top: 5px;margin-left: 5px;">/${page.pageMax }</span>
+						<span style="float: left;margin-left: 5px;">
+						<span style="color: #A5A5A5;">|</span>
+						<a onclick="page(1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-n'" title="下一页"></a>
+						<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
+						</span>
+						</form>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		 
+		<div id="add" class="easyui-window" title="新建" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
+			<form action="<%=path %>/web/teacher!add" method="post">
+				工号：<br/>
+				<input type="text" name="teacher.itNum" style="width: 100%"/><br/>
+				教师姓名：<br/>
+				<input type="text" name="teacher.itName" style="width: 100%"/><br/>
+				性别：<br/>
+				男<input type="radio" name="teacher.itSex" value="男" checked="checked"/>
+				女<input type="radio" name="teacher.itSex" value="女"/><br/>
+				生日：<br/>
+				<input type="text" name="teacher.itBirthday" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;" ddf="yyyy-MM-dd"/><br/>
+				手机号：<br/>
+				<input type="text" name="teacher.itPhone" style="width: 100%"/><br/>
+				职务：<br/>
+				<input type="text" name="teacher.itPost" style="width: 100%"/><br/>
+				入职日期：<br/>
+				<input type="text" name="teacher.itIntoDate" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;" ddf="yyyy-MM-dd"/><br/>
+				<br/>
+				离职日期：<br/>
+				<input type="text" name="teacher.itLeaveDate" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;" ddf="yyyy-MM-dd"/><br/>
+				<br/>
+				状态：<br/>
+				<select name="teacher.itState">
+					<option value="入职">入职</option>
+					<option value="离职">离职</option>
+				</select><br/>
+				住址：<br/>
+				<input type="text" name="teacher.itAddress" style="width: 100%"/><br/>
+				部门：<br/>
+				<select name="teacher.ssId">
+					<c:forEach items="${ssals}" var="ss">
+					<option value="${ss.ssId }">${ss.ssName }</option>
+					</c:forEach>
+				</select><br/>
+				<input type="submit" value="提交"/>
+			</form>
 		</div>
+		
+		<div id="upd" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
+			<form action="<%=path %>/web/teacher!update" method="post">
+				教师编号：<br/>
+				<input id="u_1" type="text" name="teacher.ItId" style="width: 100%" readonly="readonly"/><br/>
+				工号：<br/>
+				<input id="u_2" type="text" name="teacher.itNum" style="width: 100%" readonly="readonly"/><br/>
+				姓名：<br/>
+				<input id="u_3" type="text" name="teacher.itName" style="width: 100%" style="width: 100%;" /><br/>
+				性别：<br/>
+				男<input id="u_4_0" type="radio" name="teacher.itSex" value="男"/>
+				女<input id="u_4_1" type="radio" name="teacher.itSex" value="女"/><br/>
+				生日：<br/>
+				<input id="u_5" type="text" name="teacher.itBirthday" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;"/><br/>
+				<br/>
+				手机号：<br/>
+				<input id="u_6" type="text" name="teacher.itPhone" style="width: 100%"/><br/>
+				职务：<br/>
+				<input id="u_7" type="text" name="teacher.itPost" style="width: 100%"/><br/>
+				入职日期：<br/>
+				<input id="u_8" type="text" name="teacher.itIntoDate" style="width: 100%" readonly="readonly"/><br/>
+				离职日期：
+				<input id="u_9" type="text" name="teacher.itLeaveDate" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;"/><br/>
+				<br/>
+				状态：<br/>
+				<select id="u_10" name="teacher.itState">
+					<option value="入职">入职</option>
+					<option value="离职">离职</option>
+				</select><br/>
+				住址：<br/>
+				<input id="u_11" type="text" name="teacher.itAddress" style="width: 100%"/><br/>
+				部门：<br/>
+				<select id="u_12" name="teacher.ssId"">
+					<c:forEach items="${ssals}" var="ss">
+					<option value="${ss.ssId }">${ss.ssName }</option>
+					</c:forEach>
+				</select><br/>
+				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
+			</form>
+		</div>
+	
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
 	
 </body>
+<script type="text/javascript">
+	
+	$(function(){
+		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
+	})
+	//分页
+	function page(no,cz){
+		var num1=$('#page').val();
+		if(cz==1){//上下页
+			$('#page').val(num1*1+no*1);
+		}else if(cz==2){//首末页
+			$('#page').val(no);
+		}else{
+		}
+		if($('#page').val()*1<1){
+			$('#page').val(1);
+		}else if($('#page').val()*1>${page.pageMax}*1){
+			$('#page').val(${page.pageMax});
+		}
+		$('#f1').submit();
+	}
+	function sexRadio(str){
+		if(str == "男"){
+			return 0;
+		}else if(str == "女"){
+			return 1;
+		}
+	}
+	function numRadio(str){
+		if(str == 0){
+			return 0;
+		}else if(str == 1){
+			return 1;
+		}
+	}
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12){
+		$('#upd').window('open');
+		$('#u_1').val(u1);
+		$('#u_2').val(u2);
+		$('#u_3').val(u3);
+		$('#u_4_'+sexRadio(u4)).click();
+		$('#u_5').val(u5);
+		$('#u_6').val(u6);
+		$('#u_7').val(u7);
+		$('#u_8').val(u8);
+		$('#u_9').val(u9);
+		$("#u_10 option[value='"+u10+"']").attr("selected",true);
+		$('#u_11').val(u11);
+		$("#u_12 option[value='"+u12+"']").attr("selected",true);
+	}
+</script>
 </html>

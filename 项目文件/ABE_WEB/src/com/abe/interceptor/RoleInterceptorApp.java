@@ -107,9 +107,10 @@ public class RoleInterceptorApp extends AbstractInterceptor{
 		String result=null;
 		//声明一个返回封装备用
 		RespCommon respc=new RespCommon();
-		//登录、注册、打卡除外
+		//登录、注册、注册获取验证码、打卡除外
 		if ( (PRO_NAME+"/sign!signInFromApp").equals(path) ||
 				(PRO_NAME+"/sign!signUpFromApp").equals(path) ||
+				(PRO_NAME+"/sign!queryCode").equals(path) ||
 				(PRO_NAME+"/attendance!addFromApp").equals(path) ) {
 			result=arg0.invoke();
 		}else {

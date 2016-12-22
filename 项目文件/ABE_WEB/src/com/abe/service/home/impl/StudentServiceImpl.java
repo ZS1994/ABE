@@ -1,12 +1,14 @@
 package com.abe.service.home.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.filefilter.NameFileFilter;
 
+import com.abe.entity.Code;
 import com.abe.entity.HxGroup;
 import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
@@ -83,7 +85,41 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 		String isId=clearSpace(req, "isId");
 		String ipId=clearSpace(req, "ipId");
 		String spRelation=clearSpace(req, "spRelation");
-		respStudent=addRel(ipId, isId, spRelation);
+		String uid=clearSpace(req, "UId");
+		String ipPhone=clearSpace(req, "ipPhone");
+		String code=clearSpace(req, "CCode");
+		if (uid!=null && isId!=null && ipId!=null && spRelation!=null && ipPhone!=null && code!=null) {
+			InfoStudent stu=(InfoStudent) get(InfoStudent.class, isId);
+			if (stu!=null) {
+				List<StudentParentRel> list=find("from StudentParentRel where isId=?", new String[]{isId});
+				boolean isHave=false;//是否有这个手机号的标志
+				for (int i = 0; i < list.size(); i++) {
+					InfoParents par=(InfoParents) get(InfoParents.class, list.get(i).getIpId());
+					if (par!=null && par.getIpPhone()!=null && ipPhone.equals(par.getIpPhone())) {
+						isHave=true;
+						break;
+					}
+				}
+				if (isHave) {//手机号是对的
+					Users user=(Users) get(Users.class, uid);
+					Code co=(Code) get(Code.class, uid);
+					Date date=new Date();
+					if (user!=null && co!=null && code.equals(co.getCCode()) &&
+							uid.equals(co.getUId()) && date.before(co.getCNoTime())) {//验证码验证通过
+						respStudent=addRel(ipId, isId, spRelation);
+						if ("001".equals(respStudent.getResult())) {
+							respStudent.setData(stu);
+						}
+					}else {
+						respStudent.setResult("005");
+						respStudent.setData(null);
+					}
+				}else {
+					respStudent.setResult("004");
+					respStudent.setData(null);
+				}
+			}
+		}
 		return respStudent;
 	}
 
@@ -159,6 +195,28 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 	@Override
 	public List<InfoStudent> getAllStu() {
 		return find("from InfoStudent", null);
+	}
+	@Override
+	public List getScals() {
+		return find("from SchoolClass", null);
+	}
+	@Override
+	public void initStu(InfoStudent stu) {
+		//装填班级
+		if (stu!=null) {
+			SchoolClass sc=(SchoolClass) get(SchoolClass.class, stu.getScId());
+			if (sc!=null) {
+				stu.setSchoolClass(sc);
+			}
+		}
+	}
+	@Override
+	public void initStu(List<InfoStudent> stus) {
+		if (stus!=null) {
+			for (int i = 0; i < stus.size(); i++) {
+				initStu(stus.get(i));
+			}
+		}
 	}
 	
 

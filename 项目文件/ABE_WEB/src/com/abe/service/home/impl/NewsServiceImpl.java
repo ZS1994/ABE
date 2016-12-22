@@ -1,10 +1,12 @@
 package com.abe.service.home.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import com.abe.entity.News;
+import com.abe.entity.SchoolClass;
 import com.abe.entity.Users;
 import com.abe.entity.Vacate;
 import com.abe.entity.app.RespNews;
@@ -97,13 +99,20 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 		respNews.setResult("008");
 	} else{
 	String time = getTime();
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	Date datmp=new Date();
+	try {
+		datmp=sdf.parse(time);
+	} catch (ParseException e1) {
+		e1.printStackTrace();
+	}
 	NameOfDate nameOfData = new NameOfDate();
 	String nId = nameOfData.getNum();
 	
 	news.setNId(nId);
 	news.setNContent(NContent);
-	news.setNCreatTime(time);
-	news.setNFinalTime(time);
+	news.setNCreatTime(datmp);
+	news.setNFinalTime(datmp);
 	news.setNImgs(NImgs);
 	news.setNIstop(NIstop);
 	news.setNOrigin(NOrigin);
@@ -160,22 +169,29 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 			respNews.setData(null);
 			respNews.setResult("008");
 		} else{	
-		news.setNId(NId);
-		news.setNContent(NContent);
-		news.setNCreatTime(NCreatTime);
-		news.setNFinalTime(NFinalTime);
-		news.setNImgs(NImgs);
-		news.setNIstop(NIstop);
-		news.setNOrigin(NOrigin);
-		news.setNUrl(NUrl);
-		news.setUId(UId);
-		news.setNStatus(NStatus);
-		news.setNTitle(NTitle);
-		news.setNType(NType);
-		save(news);
-		
-		respNews.setData(news);
-		respNews.setResult("001");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			Date datmp=new Date();
+			try {
+				datmp=sdf.parse(NCreatTime);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			news.setNId(NId);
+			news.setNContent(NContent);
+			news.setNCreatTime(datmp);
+			news.setNFinalTime(datmp);
+			news.setNImgs(NImgs);
+			news.setNIstop(NIstop);
+			news.setNOrigin(NOrigin);
+			news.setNUrl(NUrl);
+			news.setUId(UId);
+			news.setNStatus(NStatus);
+			news.setNTitle(NTitle);
+			news.setNType(NType);
+			save(news);
+			
+			respNews.setData(news);
+			respNews.setResult("001");
 		}
 		return respNews;
 	}
@@ -220,5 +236,38 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = sdf.format(new Date());
 		return time;
+	}
+
+
+
+	@Override
+	public List getUserals() {
+		
+		return find("from Users", null);
+	}
+
+
+
+	@Override
+	public void initNews(News news) {
+		//装填创建者用户
+		if (news!=null) {
+			Users users=(Users) get(Users.class, news.getUId());
+			if (users!=null) {
+				news.setUser(users);
+			}
+		}
+	}
+
+
+
+	@Override
+	public void initNews(List<News> newslist) {
+		if (newslist!=null) {
+			for (int i = 0; i < newslist.size(); i++) {
+				initNews(newslist.get(i));
+			}
+		}
+		
 	}
 }

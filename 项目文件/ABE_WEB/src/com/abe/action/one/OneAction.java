@@ -11,6 +11,7 @@ import com.abe.action.BaseAction;
 import com.abe.action.SignAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.Users;
+import com.abe.entity.app.RespCommon;
 import com.abe.entity.app.RespUpdateUser;
 import com.abe.entity.app.RespUploadPhoto;
 import com.abe.service.iBaseService;
@@ -64,35 +65,39 @@ public class OneAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 	/**
-	 * APP端修改个人信息，密码
+	 * APP端修改个人信息
 	 * @return
 	 */
 	public String updateUserFromApp1() throws IOException{
 		logger.debug("-------进入updateUsersFromApp--------");
 		String UNum=getRequest().getParameter("UNum");
-		RespUpdateUser respupdateUser = signSer.updateUser1(UNum);
-		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		RespUpdateUser resp = signSer.updateUser1(UNum);
+		sendToApp(resp, ser);
 		return null;
 	}
 	public String updateUserFromApp2() throws IOException{
 		logger.debug("-------进入updateUsersFromApp--------");
-		String UNum = getRequest().getParameter("UNum");
-		String UPass = getRequest().getParameter("UPass");
-		String UName = getRequest().getParameter("UName");
-		String UType = getRequest().getParameter("UType");
-		String UCreateTime = getRequest().getParameter("UCreateTime");
-		String UPhotoPath = getRequest().getParameter("UPhotoPath");
-		String UNote = getRequest().getParameter("UNote");
-		String UId = getRequest().getParameter("UId");
-		String trpId = getRequest().getParameter("trpId");
-		RespUpdateUser respupdateUser = signSer.updateUser2(UName, UPass, UType, Timestamp.valueOf(UCreateTime), UPhotoPath, UNote, UNum, UId, trpId);
-		JSONObject jsonObject = ser.objToJson(respupdateUser, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		String UName = ser.clearSpace(getRequest(), "UName");
+		String UId = ser.clearSpace(getRequest(), "UId");
+		RespUpdateUser resp = signSer.updateUser2(UId,UName);
+		sendToApp(resp, ser);
+		return null;
+	}
+	
+	/**
+	 * app端修改密码
+	 * @return
+	 */
+	public String updatePass() {
+		String uid=ser.clearSpace(getRequest(), "UId");
+		String oldPass=ser.clearSpace(getRequest(), "oldPass");
+		String newPass=ser.clearSpace(getRequest(), "newPass");
+		RespCommon resp=signSer.updatePass(uid, oldPass, newPass);
+		try {
+			sendToApp(resp, ser);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	

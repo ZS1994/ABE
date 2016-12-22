@@ -45,4 +45,41 @@ public class TimetablesServiceImpl extends BaseServiceImpl implements iTimetable
 		return list;
 	}
 
+	
+	@Override
+	public List getDateOfWeek(String scId, int index) {
+		List<Timetables> timetables=null;
+		if (scId!=null && index>=1 && index<=7) {
+			timetables=find("from Timetables where TWeek=? and scId=?", new Object[]{index,scId});
+			for (int j = 0; j < timetables.size(); j++) {
+				//装配关联项
+				Course course=(Course) get(Course.class, timetables.get(j).getCId());
+				SchoolClass schoolClass=(SchoolClass) get(SchoolClass.class, timetables.get(j).getScId());
+				InfoTeacher infoTeacher=(InfoTeacher) get(InfoTeacher.class, timetables.get(j).getItId());
+				timetables.get(j).setCourse(course);
+				timetables.get(j).setSchoolClass(schoolClass);
+				timetables.get(j).setInfoTeacher(infoTeacher);
+			}
+		}
+		return timetables;
+	}
+
+
+	@Override
+	public List getCourses() {
+		return find("from Course", null);
+	}
+
+
+	@Override
+	public List getTeachers() {
+		return find("from InfoTeacher", null);
+	}
+
+
+	@Override
+	public List getSclass() {
+		return find("from SchoolClass", null);
+	}
+
 }

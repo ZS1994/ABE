@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>学生管理</title>
+    <title>学校班级架构</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -28,8 +28,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br><jsp:include page="/component/assembly/top.jsp"></jsp:include>
 	<jsp:include page="/component/assembly/left.jsp"></jsp:include>
 	<div class="right">
-		<input type="text" value="省" /><input type="text" value="市" /><input type="text" value="区" name="paId"/><br/>
-        <span><a href="#" target="right">该区部下的学校班级架构</a></span>
+		
+		
+		<select id="pps">
+			<c:forEach items="${pps}" var="p">
+			<option value="${p.ppId }">${p.ppName }</option>	
+			</c:forEach>
+		</select>
+		省
+		<select id="pcs">
+			<c:forEach items="${pcs}" var="c">
+			<option value="${c.pcId }">${c.pcName }</option>	
+			</c:forEach>	
+		</select>
+		市
+		<select id="pas">
+			<c:forEach items="${pas}" var="a">
+			<option value="${a.paId }">${a.paName }</option>	
+			</c:forEach>	
+		</select>
+		区
+		
+		<br/>
+		
+                该区部下的学校班级架构
         <ul class="easyui-tree" data-options="animate:true,lines:true">
      	<c:forEach items="${schools}" var="s">
                 <li><span><a href="<%=path %>/web/school!queryOfFenYe?cz=no&id=${s.SId }">${s.SName }</a></span>
@@ -53,8 +75,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </li>
      	</c:forEach>
         </ul>
+        
+        
+        
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
 	
 </body>
+<script type="text/javascript">
+	$(function(){
+		$("#pps option[value='"+${pp.ppId}+"']").attr("selected",true);
+		$("#pcs option[value='"+${pc.pcId}+"']").attr("selected",true);
+		$("#pas option[value='"+${pa.paId}+"']").attr("selected",true);
+	});
+</script>
 </html>

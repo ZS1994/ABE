@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-<constant name="struts.devMode" value="true"></constant>
+<constant name="struts.devMode" value="false"></constant>
 
 <constant name="struts.multipart.maxSize" value="209715200"></constant>
 
@@ -55,6 +55,9 @@
   	 <interceptor-ref name="mydefault" />
   </action> 
   <action name="attendance" class="zs_attendance">	   
+  	 <interceptor-ref name="mydefault" />
+  </action>
+  <action name="parents" class="zs_parents">	   
   	 <interceptor-ref name="mydefault" />
   </action>
  
@@ -112,12 +115,15 @@
       </interceptor>
       <interceptor name="timeline_inter" class="zs_interceptor_timeline">
       </interceptor>
+      <interceptor name="style_inter" class="zs_interceptor_style">
+      </interceptor>
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
           <interceptor-ref name="defaultStack" />  
           <interceptor-ref name="role_inter" />
           <interceptor-ref name="token_inter" />    
           <interceptor-ref name="timeline_inter" />  
+          <interceptor-ref name="style_inter" />  
       </interceptor-stack>
   </interceptors>  
   <!-- 测试用 -->
@@ -143,7 +149,7 @@
   <action name="news" class="lz_news">	   
 	 <interceptor-ref name="mydefault" />
 	 <result name="index">/index.jsp</result>
-	 <result name="query">/backstage/news/allNews.jsp</result>
+	 <result name="news">/backstage/news/allNews.jsp</result>
 	 <result name="insert">/backstage/news/edit.jsp</result>
   </action>
   <action name="course" class="zs_course">	   
@@ -156,6 +162,11 @@
   	 <result name="card">/backstage/card/card.jsp</result>
   	 <result name="index">/index.jsp</result>
   </action>
+  <action name="attendance" class="zs_attendance">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="attendance">/backstage/card/cardLog.jsp</result>
+  	 <result name="index">/index.jsp</result>
+  </action>
   <action name="parents" class="zs_parents">	   
   	 <interceptor-ref name="mydefault" />
   	 <result name="parents">/backstage/parents/parents.jsp</result>
@@ -163,6 +174,10 @@
   <action name="rel" class="zs_rel">	   
   	 <interceptor-ref name="mydefault" />
   	 <result name="rel">/backstage/parents/rel.jsp</result>
+  </action>
+  <action name="teacher" class="ljl_teacher">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="teacherManager">/backstage/teachers/teacherManager.jsp</result>
   </action>
   
   
@@ -184,6 +199,15 @@
   	 <interceptor-ref name="mydefault" />
   	 <result name="school">/backstage/structure/school.jsp</result>
   </action>
+  
+  
+  <!-- *************系统管理************* -->
+  <action name="users" class="zs_users">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="users">/backstage/system/users.jsp</result>
+  </action>
+  
+  
   
 </package>
 </struts>    

@@ -32,6 +32,8 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
 	String path;
 	String reqPamrs;
 	Object user;
+	String actionName;
+	String methodName;
 	private static final String PRO_NAME="/"+Constant.ABE_WEB_NAME+"/web";
 	private Logger logger=Logger.getLogger(TokenInterceptorWeb.class);
 	
@@ -58,34 +60,37 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
         path = request.getRequestURI();//url
         reqPamrs = request.getQueryString();//后面的参数
         //获取登录者信息
-        user =session.get("user"); 
+        user =session.get("user");
+        //获取action的名字
+        actionName = arg0.getProxy().getActionName();
+        //获取action的方法名字
+        methodName = arg0.getProxy().getMethod();
 	}
 	
 	
 	@Override
 	public String intercept(ActionInvocation arg0) throws Exception {
 		allInit(arg0);
-		String method=getMethod(path);
-//		logger.debug(method);
 		//以下是令牌控制的核心代码
 		String result=null;
-		if (method.equals("gotoQuery")||method.equals("queryOfFenYe")){
-			String token = TokenProccessor.getInstance().makeToken();//创建令牌
-//			logger.info("在TokenInterceptorWeb中生成的token："+token);
-			request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
-		} else {
-//			Thread.sleep(3000);//模拟网络延迟
-			boolean b = isRepeatSubmit(request);//判断用户是否是重复提交
-            if(b==true){
-                logger.error("请不要重复提交");
-                response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error_token.jsp");
-                return null;
-            }
-        	request.getSession().removeAttribute("token");//移除session中的token
-//        	logger.info("处理用户提交请求！！");
-        	//-----------------------------------------
-        	String token = TokenProccessor.getInstance().makeToken();//创建新令牌
-			request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
+		if (!isAjaxRequest(request)) {//注意这里排除了ajax访问
+			if (methodName.equals("gotoQuery") || methodName.equals("queryOfFenYe")){
+				String token = TokenProccessor.getInstance().makeToken();//创建令牌
+				request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
+			} else {
+//				Thread.sleep(3000);//模拟网络延迟
+				boolean b = isRepeatSubmit(request);//判断用户是否是重复提交
+				if(b==true){
+					logger.error("请不要重复提交");
+					response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error_token.jsp");
+					return null;
+				}
+				request.getSession().removeAttribute("token");//移除session中的token
+//        		logger.info("处理用户提交请求！！");
+				//-----------------------------------------
+				String token = TokenProccessor.getInstance().makeToken();//创建新令牌
+				request.getSession().setAttribute("token", token);  //在服务器使用session保存token(令牌)
+			}
 		}
 		result=arg0.invoke();
 		close(); 
@@ -122,14 +127,19 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
         return false;
     }
     
-    
     /**
-     * 张顺 2016-11-14
-     * 得到方法名
+     * 张顺 2016-12-13
+     * 判断是否是jquery的ajax访问。注意：只对jquery的ajax有效
+     * @param request
      * @return
      */
-    public String getMethod(String path) {
-    	String ss[]=path.split("!");
-    	return ss[ss.length-1];
-	}
+    private boolean isAjaxRequest(HttpServletRequest request) {  
+        String header = request.getHeader("X-Requested-With");  
+        if (header != null && "XMLHttpRequest".equals(header)){
+        	return true;  
+        }else{  
+            return false;  
+        }
+    }  
+    
 }

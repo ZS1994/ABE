@@ -13,6 +13,7 @@ import com.abe.entity.CardLog;
 import com.abe.entity.Course;
 import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
+import com.abe.entity.InfoTeacher;
 import com.abe.entity.Score;
 import com.abe.entity.StudentParentRel;
 import com.abe.entity.Users;
@@ -89,6 +90,23 @@ public class AttendanceServiceImpl extends BaseServiceImpl implements iAttendanc
 				List<CardLog> cardLogs=find("from CardLog where CId=?", new String[]{card.getCId()});
 				student.setCardLogs(cardLogs);
 				return student;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String getSrtName(String CId) {
+		if (CId!=null) {
+			Card card=(Card) get(Card.class, CId);
+			if (card!=null && card.getCType()!=null) {
+				if (card.getCType().equals("1")) {//学生
+					InfoStudent stu=(InfoStudent) get(InfoStudent.class, card.getSrtId());
+					return stu.getIsName();
+				}else if (card.getCType().equals("2")) {//教职工
+					InfoTeacher tea=(InfoTeacher) get(InfoTeacher.class, card.getSrtId());
+					return tea.getItName();
+				}
 			}
 		}
 		return null;

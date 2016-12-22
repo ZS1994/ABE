@@ -2,7 +2,9 @@ package com.abe.action.home;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.management.Query;
 
@@ -18,6 +20,7 @@ import com.abe.action.iBaseAction;
 import com.abe.entity.Forum;
 import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
+import com.abe.entity.InfoTeacher;
 import com.abe.entity.StudentParentRel;
 import com.abe.entity.Users;
 import com.abe.entity.app.ReqObject;
@@ -148,7 +151,13 @@ public class StuParRelAction extends BaseAction implements iBaseAction{
 	@Override
 	public String gotoQuery() {
 		clearOptions();
-		rels=ser.find("from StudentParentRel order by ipId", null);
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+		String hql="from StudentParentRel order by ipId";
+		rels=ser.query(hql, null,hql,page);
 		relSer.initRel(rels);
 		getRequest().setAttribute("stus", stuSer.getAllStu());
 		getRequest().setAttribute("pars", parSer.getAllParents());
@@ -169,7 +178,7 @@ public class StuParRelAction extends BaseAction implements iBaseAction{
 		clearSpace();
 		StringBuffer hql=new StringBuffer("from StudentParentRel ");
 		if (id!=null) {
-			hql.append(" where spId='%"+id+"%' ");
+			hql.append(" where spId like'%"+id+"%' ");
 		}
 		hql.append("order by ipId");
 		rels=ser.query(hql.toString(), null, hql.toString(), page);
@@ -181,8 +190,41 @@ public class StuParRelAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
+		clearSpace();
+		if (rel!=null) {
+			ser.update(rel);
+		}
+		return gotoQuery();
+	}
+	public String querySrt() {
+		String type=ser.clearSpace(getRequest(), "type");
+		if (type!=null && type.equals("1")) {
+			List<InfoStudent> stus=stuSer.getAllStu();
+			ArrayList<Map> list=new ArrayList<Map>();
+			for (int i = 0; i < stus.size(); i++) {
+				Map map=new HashMap();
+				map.put("label", stus.get(i).getIsId());
+				map.put("value", stus.get(i).getIsId());
+				map.put("num", stus.get(i).getIsNum());
+				map.put("name", stus.get(i).getIsName());
+				list.add(map);
+			}
+			sendJsonArry(list, ser);
+			return null;
+		}else if (type!=null && type.equals("2")) {
+			List<InfoParents> pars=parSer.getAllParents();
+			ArrayList<Map> list=new ArrayList<Map>();
+			for (int i = 0; i < pars.size(); i++) {
+				Map map=new HashMap();
+				map.put("label", pars.get(i).getIpId());
+				map.put("value", pars.get(i).getIpId());
+				map.put("num", pars.get(i).getIpPhone());
+				map.put("name", pars.get(i).getIpName());
+				list.add(map);
+			}
+			sendJsonArry(list, ser);
+			return null;
+		}
 		return null;
 	}
-
 }

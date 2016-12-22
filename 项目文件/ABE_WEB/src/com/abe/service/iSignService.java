@@ -55,7 +55,7 @@ public interface iSignService {
 	 * @param uType
 	 * @return
 	 */
-	public RespSignIn signUpFromApp(String uNum,String uPass,String uName,String uType);
+	public RespSignIn signUpFromApp(String uNum,String uPass,String uName,String ipPhone,String code);
 	
 	
 	/**
@@ -71,8 +71,7 @@ public interface iSignService {
 	 * @param User
 	 */
 	public RespUpdateUser updateUser1(String UNum);
-	public RespUpdateUser updateUser2(String UName,String UPass,String UType,Timestamp UCreateTime,
-			String UPhotoPath,String UNote,String UNum,String UId,String trpId);
+	public RespUpdateUser updateUser2(String UName,String UId);
 	/**
 	 *  app查询个人信息资料
 	 *  卢江林
@@ -80,4 +79,14 @@ public interface iSignService {
 	 */
 	public RespUpdateUser queryUsers(String UId);
 	
+	/**
+	 * 张顺 2016-12-15
+	 * 修改密码
+	 */
+	public RespCommon updatePass(String uid,String oldpass,String newpass); 
+	
+	/**
+	 * 获取验证码
+	 */
+	public RespCommon queryCode(String phone);
 }

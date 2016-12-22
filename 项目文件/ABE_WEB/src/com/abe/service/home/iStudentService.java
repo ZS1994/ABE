@@ -49,5 +49,16 @@ public interface iStudentService {
 	 */
 	public List<InfoStudent> getAllStu();
 	
+	/*以下是得到各种数据.张顺，2016-12-15*/
+	public List getScals();
+	
+	/**2016-12-15
+	 * 张顺 装填学生封装
+	 * @param stu
+	 */
+	public void initStu(InfoStudent stu);
+	
+	public void initStu(List<InfoStudent> stus);
+	
 	
 }

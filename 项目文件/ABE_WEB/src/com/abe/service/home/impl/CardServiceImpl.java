@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.abe.entity.Card;
+import com.abe.entity.InfoStudent;
+import com.abe.entity.InfoTeacher;
 import com.abe.service.home.iCardService;
 import com.abe.service.impl.BaseServiceImpl;
 
@@ -47,6 +49,16 @@ public class CardServiceImpl extends BaseServiceImpl implements iCardService{
 			return card;
 		}
 		return null;
+	}
+
+	@Override
+	public List<InfoStudent> getStus() {
+		return find("from InfoStudent", null);
+	}
+
+	@Override
+	public List<InfoTeacher> getTeas() {
+		return find("from InfoTeacher", null);
 	}
 
 }
