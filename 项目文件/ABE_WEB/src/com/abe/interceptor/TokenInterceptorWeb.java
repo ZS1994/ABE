@@ -82,7 +82,8 @@ public class TokenInterceptorWeb extends AbstractInterceptor{
 				boolean b = isRepeatSubmit(request);//判断用户是否是重复提交
 				if(b==true){
 					logger.error("请不要重复提交");
-					response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error_token.jsp");
+					response.sendRedirect(PRO_NAME+"/"+actionName+"!gotoQuery");
+//					response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error_token.jsp");
 					return null;
 				}
 				request.getSession().removeAttribute("token");//移除session中的token

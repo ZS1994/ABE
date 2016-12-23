@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th>学校编号</th>
 					<th>学校名称</th>
 					<th>学校地址</th>
-					<th>区编号</th>
+					<th>所在区域</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${s.SId }</td>
 					<td>${s.SName }</td>
 					<td>${s.SAddress }</td>
-					<td>${s.paId}</td>
+					<td>${s.areaFullName}</td>
 					<td>
 						<a class="easyui-linkbutton" onclick="update('${s.SId}','${s.SName}','${s.SAddress}','${s.paId}')">修改</a>
 						<a class="easyui-linkbutton" href="<%=path %>/web/school!delete?id=${s.SId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
