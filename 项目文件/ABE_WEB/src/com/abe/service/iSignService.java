@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespSignIn;
-import com.abe.entity.app.RespUpdateUser;
-import com.abe.entity.app.RespUploadPhoto;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespSignIn;
+import com.abe.entity.other.RespUpdateUser;
+import com.abe.entity.other.RespUploadPhoto;
 
 public interface iSignService {
 	

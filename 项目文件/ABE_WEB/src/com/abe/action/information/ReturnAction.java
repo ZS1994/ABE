@@ -7,8 +7,8 @@ import net.sf.json.JSONObject;
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.Return;
-import com.abe.entity.app.RespReturn;
-import com.abe.entity.app.RespReturnAll;
+import com.abe.entity.other.RespReturn;
+import com.abe.entity.other.RespReturnAll;
 import com.abe.service.iBaseService;
 import com.abe.service.information.iReturnService;
 

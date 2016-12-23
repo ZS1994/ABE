@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.SchoolClass;
 import com.abe.entity.SchoolSection;
-import com.abe.entity.app.RespTeacher;
+import com.abe.entity.other.RespTeacher;
 import com.abe.service.home.iTeacherService;
 import com.abe.service.impl.BaseServiceImpl;
 

@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.abe.entity.Recipe;
 import com.abe.entity.Users;
-import com.abe.entity.app.RespRecipe;
-import com.abe.entity.app.RespRecipeAll;
+import com.abe.entity.other.RespRecipe;
+import com.abe.entity.other.RespRecipeAll;
 import com.abe.service.iRecipeService;
 import com.abe.tools.NameOfDate;
 import com.abe.tools.Page;

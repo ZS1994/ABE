@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoStudent;
-import com.abe.entity.app.ReqObject;
-import com.abe.entity.app.RespStudent;
+import com.abe.entity.other.ReqObject;
+import com.abe.entity.other.RespStudent;
 
 public interface iStudentService {
 	

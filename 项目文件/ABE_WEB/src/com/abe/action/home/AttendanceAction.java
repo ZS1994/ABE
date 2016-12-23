@@ -17,7 +17,7 @@ import com.abe.action.iBaseAction;
 import com.abe.entity.Card;
 import com.abe.entity.CardLog;
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iAttendanceService;
 import com.abe.tools.NameOfDate;

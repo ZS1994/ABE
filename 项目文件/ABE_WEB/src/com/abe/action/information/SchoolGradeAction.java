@@ -10,7 +10,7 @@ import com.abe.action.iBaseAction;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.School;
 import com.abe.entity.SchoolGrade;
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.hx.iChatgroupService;
 import com.abe.service.information.iSchoolGradeService;
