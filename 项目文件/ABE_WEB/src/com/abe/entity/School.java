@@ -15,6 +15,7 @@ public class School implements java.io.Serializable {
 	private String SAddress;
 	private String paId;
 
+	private String areaFullName;
 	private PlaceArea placeArea;
 	private List<SchoolGrade> grade; //保存班级信息
 	// Constructors
@@ -84,6 +85,14 @@ public class School implements java.io.Serializable {
 
 	public void setGrade(List<SchoolGrade> grade) {
 		this.grade = grade;
+	}
+
+	public String getAreaFullName() {
+		return areaFullName;
+	}
+
+	public void setAreaFullName(String areaFullName) {
+		this.areaFullName = areaFullName;
 	}
 	 
 	

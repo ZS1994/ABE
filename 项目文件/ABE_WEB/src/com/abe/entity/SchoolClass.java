@@ -22,7 +22,10 @@ public class SchoolClass implements java.io.Serializable {
 	private List<InfoStudent> student;//保存学生信息
 	private SchoolGrade schoolGrade;//年级信息
 	private InfoTeacher infoTeacher;//教师信息
+	private School school;
 	
+	
+
 	/** default constructor */
 	public SchoolClass() {
 	}
@@ -117,4 +120,11 @@ public class SchoolClass implements java.io.Serializable {
 		this.infoTeacher = infoTeacher;
 	}
 	
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
+	}
 }

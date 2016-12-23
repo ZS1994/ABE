@@ -241,6 +241,9 @@ public class SchoolClassAction extends BaseAction implements iBaseAction{
 			scs.get(i).setInfoTeacher(t);
 			SchoolGrade s=(SchoolGrade) ser.get(SchoolGrade.class, scs.get(i).getSgId()) ;
 			scs.get(i).setSchoolGrade(s);
+			System.out.println("");
+			School sch =(School) ser.get(School.class, s.getSId());
+			scs.get(i).setSchool(sch);
 		}
 		//带上所需信息
 		getRequest().setAttribute("sgs", classSer.getSgs());
