@@ -54,8 +54,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${sg.sgName }</td>
 					<td>${sg.school.SName}</td>
 					<td>
-						<a class="easyui-linkbutton" onclick="update('${sg.sgId}','${sg.sgName}','${sg.school.SId}')">修改</a>
-						<a class="easyui-linkbutton" href="<%=path %>/web/grade!delete?id=${sg.sgId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						<a class="easyui-linkbutton" onclick="update('${sg.sgId}','${sg.sgName}','${sg.school.SId}')" data-options="plain:true">修改</a>
+						<a class="easyui-linkbutton" href="<%=path %>/web/grade!delete?id=${sg.sgId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
 					</td>
 				</tr>
 				</c:forEach>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-<constant name="struts.devMode" value="false"></constant>
+<constant name="struts.devMode" value="true"></constant>
 
 <constant name="struts.multipart.maxSize" value="209715200"></constant>
 
@@ -201,12 +201,16 @@
   </action>
   
   
-  <!-- *************系统管理************* -->
+  <!-- **********个人中心***系统管理************* -->
   <action name="users" class="zs_users">	   
   	 <interceptor-ref name="mydefault" />
   	 <result name="users">/backstage/system/users.jsp</result>
   </action>
-  
+  <action name="role" class="zs_role">	   
+  	 <interceptor-ref name="mydefault" />
+  	 <result name="role">/backstage/system/role.jsp</result>
+  	 <result name="roleTree">/backstage/system/roleTree.jsp</result>
+  </action>
   
   
 </package>

@@ -121,7 +121,7 @@
 	
 	
 	
-	<!-- ****************个人中心**************** -->
+	<!-- ********个人中心******系统管理********** -->
 	<bean id="lz_bulletin" class="com.abe.action.information.BulletinAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="bulletinSer" ref="lz_bulletin_ser"></property>
@@ -130,7 +130,7 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="returnSer" ref="lz_return_ser"></property>
 	</bean>
-	<bean id="zs_one" class="com.abe.action.one.OneAction">
+	<bean id="zs_one" class="com.abe.action.system.OneAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="signSer" ref="zs_sign_ser"></property>
 	</bean>
@@ -138,11 +138,14 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="scoreSer" ref="zs_score_ser"></property>
  	</bean>
-	<bean id="zs_users" class="com.abe.action.one.UsersAction">
+	<bean id="zs_users" class="com.abe.action.system.UsersAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="userSer" ref="zs_users_ser_hx"></property>
  	</bean>
- 	
+ 	<bean id="zs_role" class="com.abe.action.system.RoleAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="roleSer" ref="zs_role_ser"></property>
+ 	</bean>
  	
  	
 	<!-- **************拦截器************* -->
@@ -243,6 +246,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_rel_ser" class="com.abe.service.home.impl.RelServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_role_ser" class="com.abe.service.system.impl.RoleServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	

@@ -10,14 +10,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>班级管理</title>
+    <title>角色管理</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-
+	
   </head>
   
 <body>
@@ -30,49 +30,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="margin-bottom: 5px;padding: 5px;">
 	    	快速查询
 	    	<br/>
-	    	<form action="<%=path %>/web/class!queryOfFenYe" method="post">
+	    	<form action="<%=path %>/web/role!queryOfFenYe" method="post">
 	    		编号:<input name="id" type="text" value="${id }"/>
 	    		&nbsp;&nbsp;&nbsp;&nbsp;
 	    		<input type="submit" value="查询"/>
 	    	</form>	
 	    </div>
-		
-		
+	    
 		<table border="1" class="odd_table">
 			<thead>
 				<tr>
-					<th>班级编号</th>
-					<th>班级名称</th>
-					<th>班主任</th>
-					<th>年级</th>
-					<th>学校</th>
-					<th>班级创建时间</th>
-					<th>状态</th>
-					<th>操作</th>
+					<th style="width: 40px;">序号</th>
+					<th style="width: 150px;">编号</th>
+					<th style="width: 140px;">名字</th>
+					<th>描述</th>
+					<th>创建时间</th>
+					<th>创建人</th>
+					<th style="width: 75px;">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${scs}" var="c" varStatus="sta">
+				<c:forEach items="${roles}" var="r" varStatus="sta">
 				<tr>
-					<td>${c.scId }</td>
-					<td>${c.scName }</td>
-					<td>${c.infoTeacher.itName }</td>
-					<td>${c.schoolGrade.sgName }</td>
-					<td>${c.school.SName }</td>
-					<td>${c.scCreateTime }</td>
-					<td>${c.scState}</td>
+					<td>${(sta.index+1)+((page.pageOn-1)*page.size) }</td>
+					<td>${r.RId }</td>
+					<td>${r.RName }</td>
+					<td>${r.RDesc }</td>
+					<td>${r.RCreateTime }</td>
+					<td>${r.UId }</td>
 					<td>
-						<a class="easyui-linkbutton" onclick="update('${c.scId}','${c.scName}','${c.schoolGrade.sgId}'
-						,'${c.infoTeacher.itId}','${c.scCreateTime}','${c.scState}')" data-options="plain:true">修改</a>
-						<a class="easyui-linkbutton" href="<%=path %>/web/class!delete?id=${c.scId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
+						<a class="easyui-linkbutton" onclick="update('${r.RId}','${r.RNum}','${r.RName}','${r.RPass}','${u.trpId}')" data-options="plain:true">修改</a>
+						<a class="easyui-linkbutton" href="<%=path %>/web/role!delete?id=${r.RId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
 					</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="8">
-						<form id="f1" action="<%=path %>/web/class!queryOfFenYe?id=${id}" method="post">
+					<td colspan="7">
+						<form id="f1" action="<%=path %>/web/role!queryOfFenYe?id=${id}" method="post">
 						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 							<option value="10">10</option>
 							<option value="15">15</option>
@@ -98,68 +94,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</tfoot>
 		</table>
-		
+		 
 		<div id="add" class="easyui-window" title="新建" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
-			<form action="<%=path %>/web/class!add" method="post">
-				班级名称：<br/>
-				<input type="text" name="cla.scName" style="width: 100%;"/><br/>
-				年级：<br/>
-				<select name="cla.sgId">
-					<c:forEach items="${sgs}" var="sg">
-					<option value="${sg.sgId }">${sg.sgName }</option>
-					</c:forEach>
-				</select>
+			<form action="<%=path %>/web/role!add" method="post">
+				名字:<br/>
+				<input type="text" name="user.UNum" style="width: 100%;"/><br/>
+				描述:<br/>
+				<input type="text" name="user.UName" style="width: 100%;"/><br/>
+				密码:<br/>
+				<input type="text" name="user.UPass" style="width: 100%;"/><br/>
+				类型:<br/>
+					<input type="radio" name="user.UType" value="1" checked="checked"/>家长
+					<input type="radio" name="user.UType" value="2"/>教职工
 				<br/>
-				班主任：<br/>
-				<select name="cla.itId">
-					<c:forEach items="${teas}" var="tea">
-					<option value="${tea.itId }">${tea.itName }</option>
-					</c:forEach>
-				</select>
-				<br/>
-				状态：<br/>
-				<select name="cla.scState">
-					<option value="有效">有效</option>
-					<option value="无效">无效</option>
-				</select>
-				<br/>
-				<input type="submit" value="提交" onclick="return show_hint(['add'])"/>
+				档案id:<br/>
+				<input type="text" name="user.trpId" style="width: 100%;"/><br/>
+				<input type="submit" value="添加用户" onclick="return show_hint(['add'])"/>
 			</form>
 		</div>
 		
 		<div id="upd" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
-			<form action="<%=path %>/web/class!update" method="post">
-				班级编号：<br/>
-				<input id="u_1" name="cla.scId" type="text" style="width: 100%;" readonly="readonly"/><br/>
-				班级名称：<br/>
-				<input id="u_2" type="text" name="cla.scName" style="width: 100%;"/><br/>
-				年级：<br/>
-				<select id="u_3" name="cla.sgId">
-					<c:forEach items="${sgs}" var="sg">
-					<option value="${sg.sgId }">${sg.sgName }</option>
-					</c:forEach>
-				</select>
-				<br/>
-				班主任：<br/>
-				<select id="u_4" name="cla.itId">
-					<c:forEach items="${teas}" var="tea">
-					<option value="${tea.itId }">${tea.itName }</option>
-					</c:forEach>
-				</select>
-				<br/>
-				创建时间：<br/>
-				<input id="u_5" type="text" name="cla.scCreateTime" style="width: 100%;" readonly="readonly"/><br/>
-				状态：<br/>
-				<select id="u_6" name="cla.scState">
-					<option value="有效">有效</option>
-					<option value="无效">无效</option>
-				</select>
-				<br/>
+			<form action="<%=path %>/web/role!update" method="post">
+				编号：<br/>
+				<input id="u_1" name="user.UId" type="text" style="width: 100%;" readonly="readonly"/><br/>
+				账号：<br/>
+				<input id="u_2" name="user.UNum" type="text" style="width: 100%;"/><br/>
+				昵称：<br/>
+				<input id="u_3" name="user.UName" type="text" style="width: 100%;"/><br/>
+				密码：<br/>
+				<input id="u_4" name="user.UPass" type="text" style="width: 100%;"/><br/>
+				档案：<br/>
+				<input id="u_5" name="user.trpId" type="text" style="width: 100%;"/><br/>
 				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
 			</form>
 		</div>
-		
-		
 		
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
@@ -185,14 +153,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	function update(u1,u2,u3,u4,u5,u6){
+	function update(u1,u2,u3,u4,u5){
 		$('#upd').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
-		$("#u_3 option[value='"+u3+"']").attr("selected",true);
-		$("#u_4 option[value='"+u4+"']").attr("selected",true);
+		$('#u_3').val(u3);
+		$('#u_4').val(u4);
 		$('#u_5').val(u5);
-		$("#u_6 option[value='"+u6+"']").attr("selected",true);
 	}
 </script>
 </html>

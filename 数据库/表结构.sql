@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 60099
 File Encoding         : 65001
 
-Date: 2016-12-12 11:03:19
+Date: 2016-12-24 18:10:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -370,6 +370,53 @@ DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 ;
 
 -- ----------------------------
+-- Table structure for `power_permission`
+-- ----------------------------
+DROP TABLE IF EXISTS `power_permission`;
+CREATE TABLE `power_permission` (
+`p_id`  int(11) NOT NULL AUTO_INCREMENT ,
+`p_name`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`p_id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=5
+
+;
+
+-- ----------------------------
+-- Table structure for `power_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `power_role`;
+CREATE TABLE `power_role` (
+`r_id`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
+`r_name`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`r_desc`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`r_parent_ids`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`r_create_time`  datetime NULL DEFAULT NULL ,
+PRIMARY KEY (`r_id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+
+;
+
+-- ----------------------------
+-- Table structure for `power_role_permission`
+-- ----------------------------
+DROP TABLE IF EXISTS `power_role_permission`;
+CREATE TABLE `power_role_permission` (
+`rp_id`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
+`r_id`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`p_id`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`rp_id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+
+;
+
+-- ----------------------------
 -- Table structure for `recipe`
 -- ----------------------------
 DROP TABLE IF EXISTS `recipe`;
@@ -569,3 +616,8 @@ ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 
 ;
+
+-- ----------------------------
+-- Auto increment value for `power_permission`
+-- ----------------------------
+ALTER TABLE `power_permission` AUTO_INCREMENT=5;
