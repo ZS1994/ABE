@@ -3,9 +3,9 @@ package com.abe.service.home;
 import java.io.IOException;
 
 import com.abe.entity.Forum;
-import com.abe.entity.app.ReqObject;
-import com.abe.entity.app.RespForum;
-import com.abe.entity.app.RespForumAll;
+import com.abe.entity.other.ReqObject;
+import com.abe.entity.other.RespForum;
+import com.abe.entity.other.RespForumAll;
 import com.abe.tools.Page;
 
 public interface iForumService {

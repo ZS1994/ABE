@@ -65,8 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${u.UPhotoPath }</td>
 					<td>${u.trpId }</td>
 					<td>
-						<a class="easyui-linkbutton" onclick="update('${u.UId}','${u.UNum}','${u.UName}','${u.UPass}','${u.trpId}')">修改</a>
-						<a class="easyui-linkbutton" href="<%=path %>/web/users!delete?id=${u.UId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						<a class="easyui-linkbutton" onclick="update('${u.UId}','${u.UNum}','${u.UName}','${u.UPass}','${u.trpId}')" data-options="plain:true">修改</a>
+						<a class="easyui-linkbutton" href="<%=path %>/web/users!delete?id=${u.UId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
 					</td>
 				</tr>
 				</c:forEach>

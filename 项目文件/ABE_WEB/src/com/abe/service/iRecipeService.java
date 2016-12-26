@@ -1,7 +1,7 @@
 package com.abe.service;
 
-import com.abe.entity.app.RespRecipe;
-import com.abe.entity.app.RespRecipeAll;
+import com.abe.entity.other.RespRecipe;
+import com.abe.entity.other.RespRecipeAll;
 
 /**
  * 食谱模块

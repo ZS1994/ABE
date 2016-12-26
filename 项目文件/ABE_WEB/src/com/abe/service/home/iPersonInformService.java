@@ -1,7 +1,7 @@
 package com.abe.service.home;
 
-import com.abe.entity.app.RespPersonInform;
-import com.abe.entity.app.RespPersonInformAll;
+import com.abe.entity.other.RespPersonInform;
+import com.abe.entity.other.RespPersonInformAll;
 
 /*
  * 个人通知

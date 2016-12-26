@@ -43,8 +43,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr>
 					<th>班级编号</th>
 					<th>班级名称</th>
-					<th>年级</th>
 					<th>班主任</th>
+					<th>年级</th>
+					<th>学校</th>
 					<th>班级创建时间</th>
 					<th>状态</th>
 					<th>操作</th>
@@ -55,21 +56,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr>
 					<td>${c.scId }</td>
 					<td>${c.scName }</td>
-					<td>${c.schoolGrade.sgId }<br/>${c.schoolGrade.sgName }</td>
 					<td>${c.infoTeacher.itName }</td>
+					<td>${c.schoolGrade.sgName }</td>
+					<td>${c.school.SName }</td>
 					<td>${c.scCreateTime }</td>
 					<td>${c.scState}</td>
 					<td>
 						<a class="easyui-linkbutton" onclick="update('${c.scId}','${c.scName}','${c.schoolGrade.sgId}'
-						,'${c.infoTeacher.itId}','${c.scCreateTime}','${c.scState}')">修改</a>
-						<a class="easyui-linkbutton" href="<%=path %>/web/class!delete?id=${c.scId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						,'${c.infoTeacher.itId}','${c.scCreateTime}','${c.scState}')" data-options="plain:true">修改</a>
+						<a class="easyui-linkbutton" href="<%=path %>/web/class!delete?id=${c.scId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
 					</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="7">
+					<td colspan="8">
 						<form id="f1" action="<%=path %>/web/class!queryOfFenYe?id=${id}" method="post">
 						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 							<option value="10">10</option>

@@ -92,6 +92,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			<li>
 	  				<a href="<%=path %>/web/users!queryOfFenYe?cz=yes&selInd=5">用户管理</a>
 	  			</li>
+	  			<li>
+	  				<a href="<%=path %>/web/role!queryOfFenYe?cz=yes&selInd=5">角色管理</a>
+	  			</li>
 	  		</ul>
   		</div>
   		

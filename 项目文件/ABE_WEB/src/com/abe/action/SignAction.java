@@ -11,10 +11,10 @@ import net.sf.json.JsonConfig;
 import org.apache.log4j.Logger;
 
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespSignIn;
-import com.abe.entity.app.RespUpdateUser;
-import com.abe.entity.app.RespUploadPhoto;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespSignIn;
+import com.abe.entity.other.RespUpdateUser;
+import com.abe.entity.other.RespUploadPhoto;
 import com.abe.service.iBaseService;
 import com.abe.service.iSignService;
 import com.abe.tools.Base64;
@@ -110,21 +110,36 @@ public class SignAction extends BaseAction implements iBaseAction{
 		
 		return null;
 	}
+	
+	/**
+	 * 张顺 2016-12-21
+	 * 获取验证码
+	 * @return
+	 */
+	public String queryCode() {
+		String phone=ser.clearSpace(getRequest(), "ipPhone");
+		RespCommon resp=signSer.queryCode(phone);
+		try {
+			sendToApp(resp, ser);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
 	 * APP创建账号
 	 * @throws IOException 
 	 */
 	public String signUpFromApp() throws IOException{
 		logger.info("-------进入signUpFromApp--------");
-		String uNum=(String) getRequest().getParameter("UNum");
-		String uPass=(String) getRequest().getParameter("UPass");
-		String uName=(String) getRequest().getParameter("UName");
-		String uType=(String) getRequest().getParameter("UType");
-		RespSignIn respSignIn=signSer.signUpFromApp(uNum, uPass,uName ,uType);
-		JSONObject jsonObject=ser.objToJson(respSignIn, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		String uNum=ser.clearSpace(getRequest(), "UNum");
+		String uPass=ser.clearSpace(getRequest(), "UPass");
+		String uName=ser.clearSpace(getRequest(), "UName");
+		String ipPhone=ser.clearSpace(getRequest(), "ipPhone");
+		String code=ser.clearSpace(getRequest(), "CCode");
+		RespSignIn respSignIn=signSer.signUpFromApp(uNum, uPass,uName,ipPhone,code);
+		sendToApp(respSignIn, ser);
 		return null;
 	}
 	

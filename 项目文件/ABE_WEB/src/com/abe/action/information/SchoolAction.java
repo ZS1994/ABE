@@ -11,7 +11,7 @@ import com.abe.entity.InfoTeacher;
 import com.abe.entity.PlaceArea;
 import com.abe.entity.School;
 import com.abe.entity.SchoolGrade;
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.information.iSchoolService;
 import com.abe.tools.NameOfDate;
@@ -167,7 +167,8 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 			
 		}
 		String hql="from School order by SId desc";
-		schools=ser.query(hql, null, hql, page);
+		List<School> ls =ser.query(hql, null, hql, page);
+		schools = schoolSer.allFullName(ls);
 		return result;
 	}
 
@@ -211,7 +212,8 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 			hql.append("and SId like '%"+id+"%' ");
 		}
 		hql.append("order by SId desc");
-		schools=ser.query(hql.toString(), null, hql.toString(), page);
+		List<School> ls=ser.query(hql.toString(), null, hql.toString(), page);
+		schools = schoolSer.allFullName(ls);
 		for(int i = 0 ; i< schools.size(); i++){
 			PlaceArea p = (PlaceArea) ser.get(PlaceArea.class,schools.get(i).getPaId());
 			schools.get(i).setPlaceArea(p);

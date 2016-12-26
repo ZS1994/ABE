@@ -39,12 +39,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		background: -o-linear-gradient(top, #fff,  rgb(3, 99, 101));  /*Opera 11.10+*/
 	}
 	.word_3d{
+		text-align:center;
+		width:300px;
+		left:calc(50% - 125px);
+		top:calc(46% - 212px);
+		margin:0 auto;
 		position: absolute;
-	    margin-top: calc(-4% - 160px);
 	    font-size: 60px;
 	    font-weight: bolder;
-	    text-shadow: 1px 1px rgba(197, 223, 248,0.8),2px 2px rgba(197, 223, 248,0.8),3px 3px rgba(197, 223, 248,0.8),4px 4px rgba(197, 223, 248,0.8),5px 5px rgba(197, 223, 248,0.8),6px 6px rgba(197, 223, 248,0.8);
-	    color: #eee;
+	    text-shadow: 1px 1px rgba(61, 123, 255, 0.8), 2px 2px rgba(13, 133, 248, 0.8), 3px 3px rgba(21, 138, 251, 0.8), 4px 4px rgba(34, 144, 250, 0.8), 5px 5px rgba(50, 149, 242, 0.8), 6px 6px rgba(81, 166, 247, 0.8);
+	    color: rgb(0, 230, 219);
 	}
 	.box_midden{
 		width:300px;
@@ -57,6 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		background-color: white;
 	}
 	</style>
+	</head>
 <body class="box">
 
 <div class="box_midden">

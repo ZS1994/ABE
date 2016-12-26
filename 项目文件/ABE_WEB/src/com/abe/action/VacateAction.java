@@ -7,9 +7,9 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.abe.entity.Vacate;
-import com.abe.entity.app.RespRecipeAll;
-import com.abe.entity.app.RespVacate;
-import com.abe.entity.app.RespVacateAll;
+import com.abe.entity.other.RespRecipeAll;
+import com.abe.entity.other.RespVacate;
+import com.abe.entity.other.RespVacateAll;
 import com.abe.service.iBaseService;
 import com.abe.service.iVacateService;
 

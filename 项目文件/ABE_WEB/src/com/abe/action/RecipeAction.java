@@ -7,8 +7,8 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.abe.entity.Recipe;
-import com.abe.entity.app.RespRecipe;
-import com.abe.entity.app.RespRecipeAll;
+import com.abe.entity.other.RespRecipe;
+import com.abe.entity.other.RespRecipeAll;
 import com.abe.service.iBaseService;
 import com.abe.service.iRecipeService;
 

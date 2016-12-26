@@ -1,7 +1,7 @@
 package com.abe.service.information;
 
-import com.abe.entity.app.RespClassInform;
-import com.abe.entity.app.RespClassInformAll;
+import com.abe.entity.other.RespClassInform;
+import com.abe.entity.other.RespClassInformAll;
 
 /*
  * 班级通知

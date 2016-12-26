@@ -3,8 +3,8 @@ package com.abe.service.home;
 import java.util.List;
 
 import com.abe.entity.News;
-import com.abe.entity.app.RespNews;
-import com.abe.entity.app.RespNewsAll;
+import com.abe.entity.other.RespNews;
+import com.abe.entity.other.RespNewsAll;
 
 /*
  * 新闻模块各种功能

@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import net.sf.json.JSONObject;
 
-import com.abe.entity.app.ReqMesText;
-import com.abe.entity.app.ReqObject;
+import com.abe.entity.other.ReqMesText;
+import com.abe.entity.other.ReqObject;
 import com.abe.service.hx.iMessageService;
 import com.abe.service.hx.iUsersService;
 import com.abe.service.impl.BaseServiceImpl;

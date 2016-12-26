@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespSignIn;
-import com.abe.entity.app.RespUpdateUser;
-import com.abe.entity.app.RespUploadPhoto;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespSignIn;
+import com.abe.entity.other.RespUpdateUser;
+import com.abe.entity.other.RespUploadPhoto;
 
 public interface iSignService {
 	
@@ -55,7 +55,7 @@ public interface iSignService {
 	 * @param uType
 	 * @return
 	 */
-	public RespSignIn signUpFromApp(String uNum,String uPass,String uName,String uType);
+	public RespSignIn signUpFromApp(String uNum,String uPass,String uName,String ipPhone,String code);
 	
 	
 	/**
@@ -71,8 +71,7 @@ public interface iSignService {
 	 * @param User
 	 */
 	public RespUpdateUser updateUser1(String UNum);
-	public RespUpdateUser updateUser2(String UName,String UType,Timestamp UCreateTime,
-			String UPhotoPath,String UNote,String UNum,String UId,String trpId);
+	public RespUpdateUser updateUser2(String UName,String UId);
 	/**
 	 *  app查询个人信息资料
 	 *  卢江林
@@ -85,4 +84,9 @@ public interface iSignService {
 	 * 修改密码
 	 */
 	public RespCommon updatePass(String uid,String oldpass,String newpass); 
+	
+	/**
+	 * 获取验证码
+	 */
+	public RespCommon queryCode(String phone);
 }
