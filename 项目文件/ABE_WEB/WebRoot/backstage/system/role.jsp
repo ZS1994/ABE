@@ -26,10 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="right">
 		
 		<input type="button" value="新建" style="margin-top: 3px;" onclick="add()"/>
+		<input type="button" value="查看角色关系" style="margin-top: 3px;" onclick="queryTree()"/>
 		
-		<div style="margin-bottom: 5px;padding: 5px;">
-	    	快速查询
-	    	<br/>
+		<div class="kscx">
 	    	<form action="<%=path %>/web/role!queryOfFenYe" method="post">
 	    		编号:<input name="id" type="text" value="${id }"/>
 	    		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -59,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${r.RCreateTime }</td>
 					<td>${r.UId }</td>
 					<td>
-						<a class="easyui-linkbutton" onclick="update('${r.RId}','${r.RNum}','${r.RName}','${r.RPass}','${u.trpId}')" data-options="plain:true">修改</a>
+						<a class="easyui-linkbutton" onclick="update('${r.RId }','${r.RName }','${r.RDesc }')" data-options="plain:true">修改</a>
 						<a class="easyui-linkbutton" href="<%=path %>/web/role!delete?id=${r.RId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
 					</td>
 				</tr>
@@ -107,17 +106,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div>
 					父角色:<br/>
-					<div style="height: 100px;">
+					<div class="box_div">
 						<ul id="tree_ul_a_ids" class="easyui-tree" data-options="animate:true,lines:true">
         				</ul>
 					</div>
+					<input type="text" name="role.RParentIds" id="ids_json"/>
 				</div>
 				<div>
 					权限:<br/>
-					<div style="height: 100px;">
+					<div class="box_div">
 						<ul id="tree_ul_a_pers" class="easyui-tree" data-options="animate:true,lines:true" checkbox="true">
         				</ul>
 					</div>
+					<input id="pers_json" type="hidden" name="pers_json"/>
 				</div>
 				<input type="submit" value="添加用户" onclick="return show_hint(['add'])"/>
 			</form>
@@ -125,22 +126,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<div id="upd" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
 			<form action="<%=path %>/web/role!update" method="post">
-				编号：<br/>
-				<input id="u_1" name="role.RId" type="text" style="width: 100%;" readonly="readonly"/><br/>
-				账号：<br/>
-				<input id="u_2" name="role.RNum" type="text" style="width: 100%;"/><br/>
-				昵称：<br/>
-				<input id="u_3" name="role.RName" type="text" style="width: 100%;"/><br/>
-				密码：<br/>
-				<input id="u_4" name="role.RPass" type="text" style="width: 100%;"/><br/>
-				档案：<br/>
-				<input id="u_5" name="user.trpId" type="text" style="width: 100%;"/><br/>
+				<div>
+					编号:<br/>
+					<input id="u_1" type="text" name="role.RId" style="width: 100%;" readonly="readonly"/>
+				</div>
+				<div>
+					名字:<br/>
+					<input id="u_2" type="text" name="role.RName" style="width: 100%;"/>
+				</div>
+				<div>
+					描述:<br/>
+					<input id="u_3" type="text" name="role.RDesc" style="width: 100%;"/>
+				</div>
+				<div>
+					权限:<br/>
+					<div class="box_div">
+						<ul id="tree_ul_u_pers" class="easyui-tree" data-options="animate:true,lines:true" checkbox="true">
+        				</ul>
+					</div>
+					<input id="pers_json_u" type="hidden" name="pers_json"/>
+				</div>
+				<div class="warn_span">警告：该操作会影响其下级所有的角色，请谨慎操作。</div>
 				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
 			</form>
 		</div>
 		
 		
-		
+		<div id="role_tree" class="easyui-window" title="查看角色关系" data-options="modal:true,closed:true" style="width:300px;height:400px;padding:10px;display: none;">
+			<ul class="easyui-tree" 
+				data-options="url:'<%=path %>/web/role!queryRoles?firstId=0',
+							animate:true,
+							lines:true
+							"
+			>
+ 			</ul>
+		</div>
 		
 		
 		
@@ -179,32 +199,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    formatter:function(node){
 				return node.text;
 			},
-			onDblClick: function(node){
-				console.log("------blClick: function(node){--------");
-			},
 			onClick: function(node){
+				$("#ids_json").val(node.attributes.next_ids);
+				$("#pers_json").val("");
 				$('#tree_ul_a_pers').tree({
-				    url:"<%=path %>/web/role!getPers",
+				    url:"<%=path %>/web/role!getPers?id="+node.id,
 				    formatter:function(node){
 						return node.text;
-					},
-					onDblClick: function(node){
-						console.log("--------onDblClick: function(node){----------");
-					},
-					onClick:function(node){
-						console.log("------ick: function(node){--------");
-						
-						
 					},
 					onCheck:function(node, checked){
 						console.log("------点击复选框--------");
 						var nodes = $('#tree_ul_a_pers').tree('getChecked');
 						console.log(nodes);
+						var str="[";
+						for(var i=0;i<nodes.length;i++){
+							if(i==nodes.length-1){
+								str=str+nodes[i].id;
+							}else {
+								str=str+nodes[i].id+",";
+							}
+						}
+						str=str+"]";
+						console.log(str);
+						$("#pers_json").val(str);
 					}
 				});
-				
 			},
 		});
+	}
+	function update(id,u2,u3){
+		$("#upd").window("open");
+		$("#u_1").val(id);
+		$("#u_2").val(u2);
+		$("#u_3").val(u3);
+		$('#tree_ul_u_pers').tree({
+		   url:"<%=path %>/web/role!getPersFromUpdate?id="+id,
+		   onCheck:function(node, checked){
+				var nodes = $('#tree_ul_u_pers').tree('getChecked');
+				var str="[";
+				for(var i=0;i<nodes.length;i++){
+					if(i==nodes.length-1){
+						str=str+nodes[i].id;
+					}else {
+						str=str+nodes[i].id+",";
+					}
+				}
+				str=str+"]";
+				console.log(str);
+				$("#pers_json_u").val(str);
+			},
+			onLoadSuccess:function(node, data){
+				var nodes = $('#tree_ul_u_pers').tree('getChecked');
+				var str="[";
+				for(var i=0;i<nodes.length;i++){
+					if(i==nodes.length-1){
+						str=str+nodes[i].id;
+					}else {
+						str=str+nodes[i].id+",";
+					}
+				}
+				str=str+"]";
+				$("#pers_json_u").val(str);
+			}
+	    });
+	}
+	function queryTree(){
+		$("#role_tree").window("open");
 	}
 </script>
 </html>

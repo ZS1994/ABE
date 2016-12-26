@@ -11,10 +11,10 @@ public class RoleServiceImpl extends BaseServiceImpl implements iRoleService{
 
 	@Override
 	public List<PowerPermission> queryPers(String rid) {
-		if (rid!=null) {
+		if (rid!=null && !rid.equals("0")) {
 			List<PowerPermission> list=find("from PowerPermission where PId in (select PId from PowerRolePermission where RId=?)", new String[]{rid});
 			return list;
-		}else {
+		}else{
 			List<PowerPermission> list=find("from PowerPermission", null);
 			return list;
 		}

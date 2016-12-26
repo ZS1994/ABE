@@ -34,5 +34,8 @@
         <property name="trpId" type="java.lang.String">
             <column name="trp_id" />
         </property>
+        <property name="RId" type="java.lang.String">
+            <column name="r_id" />
+        </property>
     </class>
 </hibernate-mapping>

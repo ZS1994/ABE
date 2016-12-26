@@ -22,5 +22,8 @@
         <property name="RCreateTime" type="java.sql.Timestamp">
             <column name="r_create_time" length="19" />
         </property>
+        <property name="UId" type="java.lang.String">
+            <column name="u_id" />
+        </property>
     </class>
 </hibernate-mapping>
