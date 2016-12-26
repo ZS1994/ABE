@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
+import com.abe.entity.PowerRole;
 import com.abe.entity.Users;
 import com.abe.service.iBaseService;
 import com.abe.service.hx.iUsersService;
@@ -122,6 +123,12 @@ public class UsersAction extends BaseAction implements iBaseAction {
 		}
 		hql.append("order by UCreateTime desc ");
 		users=ser.query(hql.toString(), null, hql.toString(), page);
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getRId()!=null) {
+				PowerRole role=(PowerRole) ser.get(PowerRole.class, users.get(i).getRId());
+				users.get(i).setRole(role);
+			}
+		}
 		return result;
 	}
 	@Override
@@ -135,6 +142,12 @@ public class UsersAction extends BaseAction implements iBaseAction {
 		}
 		String hql="from Users order by UCreateTime desc";
 		users=ser.query(hql, null, hql, page);
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getRId()!=null) {
+				PowerRole role=(PowerRole) ser.get(PowerRole.class, users.get(i).getRId());
+				users.get(i).setRole(role);
+			}
+		}
 		return result;
 	}
 	@Override

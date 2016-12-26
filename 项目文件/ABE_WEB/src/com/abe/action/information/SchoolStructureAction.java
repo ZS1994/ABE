@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.abe.action.information;
 
 import java.util.ArrayList;
@@ -194,7 +191,7 @@ public class SchoolStructureAction  extends BaseAction implements iBaseAction{
 				for(int i = 0 ; i<schools.size();i++){
 					HashMap<String, String> map=new HashMap<String, String>();
 					map.put("path", "/web/school!queryOfFenYe?cz=no&id="+schools.get(i).getSId());
-					UiTree tr=new UiTree("school,"+schools.get(i).getSId(), schools.get(i).getSName(), "closed", false, map, null);
+					UiTree tr=new UiTree("school,"+schools.get(i).getSId(), schools.get(i).getSName(),null, "closed", false, map, null);
 					list.add(tr);
 				}
 			}
@@ -206,7 +203,7 @@ public class SchoolStructureAction  extends BaseAction implements iBaseAction{
 					for (int j = 0; j < g.size(); j++) {	//只显示有效的班级，
 						HashMap<String, String> map=new HashMap<String, String>();
 						map.put("path", "/web/grade!queryOfFenYe?cz=no&id="+g.get(j).getSgId());
-						UiTree tr=new UiTree("grade,"+g.get(j).getSgId(), g.get(j).getSgName(), "closed", false, map, null);
+						UiTree tr=new UiTree("grade,"+g.get(j).getSgId(), g.get(j).getSgName(),null, "closed", false, map, null);
 						list.add(tr);
 					}
 				}else if (ss[0].equals("grade")) {
@@ -214,7 +211,7 @@ public class SchoolStructureAction  extends BaseAction implements iBaseAction{
 					for (int k = 0; k < c.size(); k++) {
 						HashMap<String, String> map=new HashMap<String, String>();
 						map.put("path", "/web/class!queryOfFenYe?cz=no&id="+c.get(k).getScId());
-						UiTree tr=new UiTree("class,"+c.get(k).getScId(), c.get(k).getScName(), "closed", false, map, null);
+						UiTree tr=new UiTree("class,"+c.get(k).getScId(), c.get(k).getScName(),null, "closed", false, map, null);
 						list.add(tr);
 					}
 				}else if (ss[0].equals("class")) {
@@ -222,7 +219,7 @@ public class SchoolStructureAction  extends BaseAction implements iBaseAction{
 					for (int h = 0; h < s.size(); h++) {
 						HashMap<String, String> map=new HashMap<String, String>();
 						map.put("path", "/web/student!queryOfFenYe?cz=no&id="+s.get(h).getIsId());
-						UiTree tr=new UiTree("student"+s.get(h).getIsId(), s.get(h).getIsName(), "open", false, map, null);
+						UiTree tr=new UiTree("student"+s.get(h).getIsId(), s.get(h).getIsName(),null, "open", false, map, null);
 						list.add(tr);
 					}
 				}else {

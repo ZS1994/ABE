@@ -49,6 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th>创建时间</th>
 					<th>头像路径</th>
 					<th style="width: 140px;">档案id</th>
+					<th>角色</th>
 					<th style="width: 75px;">操作</th>
 				</tr>
 			</thead>
@@ -64,8 +65,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${u.UCreateTime }</td>
 					<td>${u.UPhotoPath }</td>
 					<td>${u.trpId }</td>
+					<td>${u.role.RName }</td>
 					<td>
-						<a class="easyui-linkbutton" onclick="update('${u.UId}','${u.UNum}','${u.UName}','${u.UPass}','${u.trpId}')" data-options="plain:true">修改</a>
+						<a class="easyui-linkbutton" onclick="update('${u.UId}','${u.UNum}','${u.UName}','${u.UPass}','${u.trpId}','${u.RId}')" data-options="plain:true">修改</a>
 						<a class="easyui-linkbutton" href="<%=path %>/web/users!delete?id=${u.UId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
 					</td>
 				</tr>
@@ -73,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="10">
+					<td colspan="11">
 						<form id="f1" action="<%=path %>/web/users!queryOfFenYe?id=${id}" method="post">
 						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 							<option value="10">10</option>
@@ -115,6 +117,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<br/>
 				档案id:<br/>
 				<input type="text" name="user.trpId" style="width: 100%;"/><br/>
+				角色:<br/>
+				<input type="text" name="user.RId" style="width: 100%;"/><br/>
+				<div class="box_div">
+					<ul class="easyui-tree" data-options="url:'<%=path %>/web/role!queryRoles?firstId=0',animate:true,lines:true">
+		 			</ul>
+				</div>
 				<input type="submit" value="添加用户" onclick="return show_hint(['add'])"/>
 			</form>
 		</div>
@@ -131,6 +139,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input id="u_4" name="user.UPass" type="text" style="width: 100%;"/><br/>
 				档案：<br/>
 				<input id="u_5" name="user.trpId" type="text" style="width: 100%;"/><br/>
+				角色：<br/>
+				<input id="u_6" name="user.RId" type="text" style="width: 100%;"/><br/>
+				<div class="box_div">
+					<ul class="easyui-tree" data-options="url:'<%=path %>/web/role!queryRoles?firstId=0',animate:true,lines:true">
+		 			</ul>
+				</div>
 				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
 			</form>
 		</div>
@@ -142,6 +156,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
+		$("#add ul").tree({
+		    url:"<%=path %>/web/role!queryRoles?firstId=0",
+			onClick: function(node){
+				$("#add input[name='user.RId']").val(node.id);
+			},
+		});
+		$("#upd ul").tree({
+		    url:"<%=path %>/web/role!queryRoles?firstId=0",
+			onClick: function(node){
+				$("#upd input[name='user.RId']").val(node.id);
+			},
+		});
 	})
 	//分页
 	function page(no,cz){
@@ -159,13 +185,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	function update(u1,u2,u3,u4,u5){
+	function update(u1,u2,u3,u4,u5,u6){
 		$('#upd').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
+		$('#u_6').val(u6);
 	}
 </script>
 </html>

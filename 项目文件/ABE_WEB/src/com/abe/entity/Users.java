@@ -1,7 +1,6 @@
 package com.abe.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Users entity. @author MyEclipse Persistence Tools
@@ -20,12 +19,23 @@ public class Users implements java.io.Serializable {
 	private String UPhotoPath;
 	private String UNote;
 	private String trpId;
+	private String RId;
 
 	// Constructors
-
+	private PowerRole role;
+	
 	/** default constructor */
 	public Users() {
 	}
+
+	
+	public PowerRole getRole() {
+		return role;
+	}
+	public void setRole(PowerRole role) {
+		this.role = role;
+	}
+
 
 	/** minimal constructor */
 	public Users(String UId, String UNum) {
@@ -36,7 +46,7 @@ public class Users implements java.io.Serializable {
 	/** full constructor */
 	public Users(String UId, String UNum, String UName, String UPass,
 			String UType, Timestamp UCreateTime, String UPhotoPath,
-			String UNote, String trpId) {
+			String UNote, String trpId, String RId) {
 		this.UId = UId;
 		this.UNum = UNum;
 		this.UName = UName;
@@ -46,6 +56,7 @@ public class Users implements java.io.Serializable {
 		this.UPhotoPath = UPhotoPath;
 		this.UNote = UNote;
 		this.trpId = trpId;
+		this.RId = RId;
 	}
 
 	// Property accessors
@@ -122,12 +133,12 @@ public class Users implements java.io.Serializable {
 		this.trpId = trpId;
 	}
 
-	@Override
-	public String toString() {
-		return "Users [UCreateTime=" + UCreateTime + ", UId=" + UId
-				+ ", UName=" + UName + ", UNote=" + UNote + ", UNum=" + UNum
-				+ ", UPass=" + UPass + ", UPhotoPath=" + UPhotoPath
-				+ ", UType=" + UType + ", trpId=" + trpId + "]";
+	public String getRId() {
+		return this.RId;
+	}
+
+	public void setRId(String RId) {
+		this.RId = RId;
 	}
 
 }

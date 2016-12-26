@@ -32,3 +32,23 @@
 .read_only{
 	background-color: rgba(222, 164, 0, 0.06);
 }
+/*
+警告样式
+*/
+.warn_span{
+	color: #FCB805;
+}
+/*
+表单，取消空间
+*/
+form{
+	margin: 0px;
+}
+/*快速查询*/
+.kscx{
+	padding: 5px;
+}
+.box_div{
+	border: 1px solid #D4D4D4;	
+	height: 100px;
+}

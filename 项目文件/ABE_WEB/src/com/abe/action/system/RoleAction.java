@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import net.sf.json.JSONArray;
+
 import org.apache.log4j.Logger;
 import org.apache.struts2.components.UIBean;
 
@@ -13,6 +16,7 @@ import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.PowerPermission;
 import com.abe.entity.PowerRole;
+import com.abe.entity.PowerRolePermission;
 import com.abe.entity.Users;
 import com.abe.entity.other.UiTree;
 import com.abe.service.iBaseService;
@@ -114,6 +118,17 @@ public class RoleAction extends BaseAction implements iBaseAction {
 			role=(PowerRole) ser.get(PowerRole.class, id);
 			if (role!=null) {
 				ser.delete(role);
+				//删关系
+				List<PowerRolePermission> list=ser.find("from PowerRolePermission where RId=?", new String[]{role.getRId()});
+				for (int i = 0; i < list.size(); i++) {
+					ser.delete(list.get(i));
+				}
+				//下级角色自动上升一级
+				List<PowerRole> lists=ser.find("from PowerRole where RParentIds like ?", new String[]{"%,"+role.getRId()});
+				for (int i = 0; i < lists.size(); i++) {
+					lists.get(i).setRParentIds(lists.get(i).getRParentIds().replace(","+role.getRId(),""));
+					ser.update(lists.get(i));
+				}
 				//给时间轴系统传参
 				getRequest().setAttribute("obj", role);
 			}
@@ -143,13 +158,73 @@ public class RoleAction extends BaseAction implements iBaseAction {
 		roles=ser.query(hql, null, hql, page);
 		return result;
 	}
+	
+	/**
+	 * 张顺 2016-12-26
+	 * 修改角色（权限组）
+	 */
 	@Override
 	public String update() {
 		clearSpace();
-		if (role!=null) {
-			
-			
-			getRequest().setAttribute("obj", role);
+		String persJson=ser.clearSpace(getRequest(), "pers_json");
+		if (role!=null && persJson!=null) {
+			PowerRole role2=(PowerRole) ser.get(PowerRole.class, role.getRId());
+			role2.setRName(role.getRName());
+			role2.setRDesc(role.getRDesc());
+			ser.update(role2);
+			List<PowerRolePermission> rel1=ser.find("from PowerRolePermission where RId=?", new String[]{role.getRId()});
+			JSONArray array=JSONArray.fromObject(persJson);
+			List<PowerRolePermission> rps1=new ArrayList<PowerRolePermission>();//新增权限
+			List<PowerRolePermission> rps2=new ArrayList<PowerRolePermission>();//删除权限
+			//找到新增权限
+			for (int i = 0; i < array.size(); i++) {
+				boolean isNew=true;//是否新增的标志
+				for (int j = 0; j < rel1.size(); j++) {
+					if (rel1.get(j).getPId().equals(array.getString(i))) {
+						isNew=false;
+						break;
+					}
+				}
+				if (isNew) {
+					PowerRolePermission rp=new PowerRolePermission(NameOfDate.getNum(), role.getRId(), array.getString(i));
+					rps1.add(rp);
+				}
+			}
+			//找到删除权限
+			for (int i = 0; i < rel1.size(); i++) {
+				boolean isDel=true;//是否删除的标志
+				for (int j = 0; j < array.size(); j++) {
+					if (rel1.get(i).getPId().equals(array.getString(j))) {
+						isDel=false;
+						break;
+					}
+				}
+				if (isDel) {
+					rps2.add(rel1.get(i));
+				}
+			}
+			//新增新增的权限，删除删除的权限
+			for (int i = 0; i < rps1.size(); i++) {
+				ser.save(rps1.get(i));
+			}
+			for (int i = 0; i < rps2.size(); i++) {
+				ser.delete(rps2.get(i));
+			}
+			//找到所有的下级角色
+			roles=ser.find("from PowerRole where RParentIds like ?", new String[]{role2.getRParentIds()+","+role2.getRId()+"%"});
+			//将每个下级角色移除删除权限列表中得权限
+			for (int i = 0; i < roles.size(); i++) {
+				rel1=ser.find("from PowerRolePermission where RId=?", new String[]{roles.get(i).getRId()});
+				for (int j = 0; j < rel1.size(); j++) {
+					for (int j2 = 0; j2 < rps2.size(); j2++) {
+						if (rel1.get(j).getPId().equals(rps2.get(j2).getPId())) {
+							ser.delete(rel1.get(j));
+							break;
+						}
+					}
+				}
+			}
+			getRequest().setAttribute("obj", role2);
 		}
 		return gotoQuery();
 	}
@@ -157,12 +232,18 @@ public class RoleAction extends BaseAction implements iBaseAction {
 	@Override
 	public String add() {
 		clearSpace();
-		if (role!=null) {
+		Users user=(Users) getSession().getAttribute("user");
+		String persJson=ser.clearSpace(getRequest(), "pers_json");
+		if (role!=null && persJson!=null && user!=null) {
 			role.setRId(NameOfDate.getNum());
-			
-			
-			
+			role.setRCreateTime(new Timestamp(new Date().getTime()));
+			role.setUId(user.getUId());
 			ser.save(role);
+			JSONArray array=JSONArray.fromObject(persJson);
+			for (int i = 0; i < array.size(); i++) {
+				PowerRolePermission rp=new PowerRolePermission(NameOfDate.getNum(), role.getRId(), array.getString(i));
+				ser.save(rp);
+			}
 			getRequest().setAttribute("obj", role);
 		}
 		return gotoQuery();
@@ -170,12 +251,16 @@ public class RoleAction extends BaseAction implements iBaseAction {
 	
 	/*以下是ajax访问的方法，用于异步显示角色树*/
 	public String queryRoles() {
-		logger.debug("----------queryRoles-------------"+id);
 		clearSpace();
 		List<UiTree> list=new ArrayList<UiTree>();
-		HashMap<String, String> map=new HashMap<String, String>();
+		String firstId=ser.clearSpace(getRequest(), "firstId");//需要显示的树的起点id
+		if (firstId!=null && id==null) {
+			id=firstId;
+		}
 		if (id==null) {
-			UiTree tree=new UiTree("0", "选择这个代表无父id，即自己就是最高角色", "closed", false, map, null);
+			HashMap<String, String> map=new HashMap<String, String>();
+			map.put("next_ids", "0");
+			UiTree tree=new UiTree("0", "选择这个代表无父id，即自己就是最高角色","icon-role","closed", false, map, null);
 			list.add(tree);
 		}else {
 			if (id.equals("0")) {
@@ -184,8 +269,9 @@ public class RoleAction extends BaseAction implements iBaseAction {
 				roles=ser.find("from PowerRole where RParentIds like ?", new String[]{"%,"+id});
 			}
 			for (int i = 0; i < roles.size(); i++) {
-				map.put("path", "/web/role!queryOfFenYe?cz=no&id="+roles.get(i).getRId());
-				UiTree tree=new UiTree(roles.get(i).getRId(), roles.get(i).getRName(), "closed", false, map, null);
+				HashMap<String, String> map=new HashMap<String, String>();
+				map.put("next_ids", roles.get(i).getRParentIds()+","+roles.get(i).getRId());
+				UiTree tree=new UiTree(roles.get(i).getRId(), roles.get(i).getRName(),"icon-role", "closed", false, map, null);
 				list.add(tree);
 			}
 		}
@@ -205,11 +291,36 @@ public class RoleAction extends BaseAction implements iBaseAction {
 			pers=roleSer.queryPers(id);
 		}
 		for (int i = 0; i < pers.size(); i++) {
-			UiTree tree=new UiTree(pers.get(i).getPId()+"", pers.get(i).getPName(), "open", false, map, null);
+			UiTree tree=new UiTree(pers.get(i).getPId()+"", pers.get(i).getPName(), "icon-permission","open", false, map, null);
 			list.add(tree);
 		}
 		sendJsonArry(list, ser);
+		clearOptions();
 		return null;
 	}
-	
+	//获取可修改的权限信息
+	public String getPersFromUpdate() {
+		clearSpace();
+		List<UiTree> list=new ArrayList<UiTree>();
+		HashMap<String, String> map=new HashMap<String, String>();
+		List<PowerPermission> pers=null;
+		if (id!=null){
+			role=(PowerRole) ser.get(PowerRole.class, id);
+			String ids[]=role.getRParentIds().split(",");
+			pers=roleSer.queryPers(ids[ids.length-1]);
+		}
+		for (int i = 0; i < pers.size(); i++) {
+			List<PowerPermission> list2=roleSer.queryPers(id);
+			UiTree tree=new UiTree(pers.get(i).getPId()+"", pers.get(i).getPName(), "icon-permission","open", false, map, null);
+			for (int j = 0; j < list2.size(); j++) {
+				if (list2.get(j).getPId().equals(pers.get(i).getPId())) {
+					tree.setChecked(true);
+				}
+			}
+			list.add(tree);
+		}
+		sendJsonArry(list, ser);
+		clearOptions();
+		return null;
+	}
 }
