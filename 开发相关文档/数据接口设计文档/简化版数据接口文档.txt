@@ -58,38 +58,33 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
 	}
 }
 
-1、获取验证码（测试通过、张顺、2016-12-9 22:41:24）
-URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!queryCode
-请求参数：
-	ipPhone：手机号
-应答参数：
-{
-	result：001成功,002失败
-	data:null
-}
-2、注册
+
+
+
+注册
 接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signUpFromApp
 请求参数：
 	UNum:用户账号
 	UPass:用户密码
 	UName:用户名称
-	ipPhone:电话号码
-	CCode:验证码
+	UType:用户类型（考虑到接口的共用性且客户端有不同类型建议隐式固定提供为1或2）
 应答参数：
 {
-	result:注册状态，001成功，002用户账号已存在，003验证码错误，004该手机号已被使用
+	result:注册状态，001成功，002用户账号已存在。
 	data:{
-		UId:用户id
+		UId:用户编号
 		UNum:账号
-		UName:昵称
-		UPass:密码 null
+		UPass:密码
+		UName:姓名
 		UType:用户类型，1家长，2教职员工
 		UCreateTime:创建时间
 		UPhotoPath:头像的路径
 		UNote:备注
-		trpId:档案id
 	}
 }
+成功json实例
+{"result":"001","data":{"UPass":"123456","UId":"032330587745169","trpId":"","UPhotoPath":"","UType":"1","UNote":"","UName":"王麻子","UNum":"wew","UCreateTime":"2016-11-03 23:30:57"}}
+
 
 
 修改个人资料
@@ -119,8 +114,14 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!queryCode
 接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updateUserFromApp2
 请求参数：
 	licence:数字执照
-	UId:账号id
+	UId:用户编号
+	UNum:账号
 	UName:姓名
+	UType:用户类型，1家长，2教职员工
+	UCreateTime:创建时间
+	UPhotoPath:头像的路径
+	UNote:备注
+	trpId:用户档案ID
 应答参数：
 {
    result：001成功，002失败
@@ -1291,7 +1292,7 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!insertBulletin
 	licence:数字执照
 	公告标题：AiTitle
 	公告内容：AiContent
-	创建公告者TrpId：TrpId
+	创建公告者：ItId
 应答参数：
 {
 	result：001成功，002标题为空，003内容为空，004当前用户TrpId为空，
@@ -1307,13 +1308,13 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!insertBulletin
 		"aiTime":"2016-12-04 10:10:52"}
 		}
 }
-分页查看一个教职工发布的所有公告
+分页查看（某教职工）发布的所有公告
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!queryBulletinByItId
 请求参数：
 	licence:数字执照
 	当前页码，从1开始算：pageNo
 	每页展示数量：pageSize
-	创建公告者TrpId：TrpId
+	创建公告者：ItId（不传该参数或传空值则返回所有公告）
 应答参数：
 {
 	result：001成功，002pageNo小于0，003pageSize小于0，004当前用户没有发布过公告

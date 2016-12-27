@@ -47,7 +47,7 @@ public class BulletinAction extends BaseAction implements iBaseAction {
 	public String insertBulletin() throws IOException {
 		String aiTitle = (String) getRequest().getParameter("AiTitle");
 		String aiContent = (String) getRequest().getParameter("AiContent");
-		String itId = (String) getRequest().getParameter("TrpId");
+		String itId = (String) getRequest().getParameter("ItId");
 		RespBulletin respBulletin = bulletinSer.insertBulletin(aiTitle,
 				aiContent, itId);
 		JSONObject jsonObject = ser.objToJson(respBulletin,
@@ -61,7 +61,7 @@ public class BulletinAction extends BaseAction implements iBaseAction {
 	public String queryBulletinByItId() throws IOException {
 		String pageNo = (String) getRequest().getParameter("pageNo");
 		String pageSize = (String) getRequest().getParameter("pageSize");
-		String itId = (String) getRequest().getParameter("TrpId");
+		String itId = (String) getRequest().getParameter("ItId");
 		RespBulletinAll respBulletinAll = bulletinSer.queryBulletinByItId(
 				pageNo, pageSize, itId);
 		JSONObject jsonObject = ser.objToJson(respBulletinAll,
