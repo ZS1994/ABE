@@ -149,6 +149,11 @@ public class RoleAction extends BaseAction implements iBaseAction {
 		}
 		hql.append("order by RCreateTime desc ");
 		roles=ser.query(hql.toString(), null, hql.toString(), page);
+		//带上前端显示所需信息
+		for (int i = 0; i < roles.size(); i++) {
+			Users u=(Users) ser.get(Users.class, roles.get(i).getUId());
+			roles.get(i).setUser(u);
+		}
 		return result;
 	}
 	@Override
@@ -156,6 +161,11 @@ public class RoleAction extends BaseAction implements iBaseAction {
 		clearOptions();
 		String hql="from PowerRole order by RCreateTime desc";
 		roles=ser.query(hql, null, hql, page);
+		//带上前端显示所需信息
+		for (int i = 0; i < roles.size(); i++) {
+			Users u=(Users) ser.get(Users.class, roles.get(i).getUId());
+			roles.get(i).setUser(u);
+		}
 		return result;
 	}
 	

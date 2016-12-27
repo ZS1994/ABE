@@ -27,9 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<input type="button" value="新建" style="margin-top: 3px;" onclick="$('#add').window('open');"/>
 		
-		<div style="margin-bottom: 5px;padding: 5px;">
-	    	快速查询
-	    	<br/>
+	    <div class="kscx">
 	    	<form action="<%=path %>/web/users!queryOfFenYe" method="post">
 	    		编号:<input name="id" type="text" value="${id }"/>
 	    		&nbsp;&nbsp;&nbsp;&nbsp;

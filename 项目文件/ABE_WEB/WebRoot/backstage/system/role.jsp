@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${r.RName }</td>
 					<td>${r.RDesc }</td>
 					<td>${r.RCreateTime }</td>
-					<td>${r.UId }</td>
+					<td>${r.user.UName }</td>
 					<td>
 						<a class="easyui-linkbutton" onclick="update('${r.RId }','${r.RName }','${r.RDesc }')" data-options="plain:true">修改</a>
 						<a class="easyui-linkbutton" href="<%=path %>/web/role!delete?id=${r.RId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>

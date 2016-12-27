@@ -29,9 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<input type="button" value="新建" style="margin-top: 3px;" onclick="$('#add').window('open');"/>
 		
-		<div style="margin-bottom: 5px;padding: 5px;">
-	    	快速查询
-	    	<br/>
+	    <div class="kscx">
 	    	<form action="<%=path %>/web/timetables!queryOfFenYe" method="post">
 	    		班级编号:<input name="id" type="text" value="${id }"/>
 	    		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -61,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${tt[2].CId }${tt[2].course.CName }(${tt[2].infoTeacher.itName })<br/>${tt[2].TStartTime }~${tt[2].TEndTime }</td>            
 					<td>${tt[3].CId }${tt[3].course.CName }(${tt[3].infoTeacher.itName })<br/>${tt[3].TStartTime }~${tt[3].TEndTime }</td>
 					<td>
-						<a class="easyui-linkbutton" onclick="update('${tt[0].scId}','${tt[0].TWeek}')">编辑</a>
+						<a class="easyui-linkbutton" onclick="update('${tt[0].scId}','${tt[0].TWeek}')" data-options="plain:true">编辑</a>
 					</td>
 				</tr>
 				</c:forEach>
