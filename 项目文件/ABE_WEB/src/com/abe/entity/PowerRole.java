@@ -18,6 +18,15 @@ public class PowerRole implements java.io.Serializable {
 	private String UId;
 
 	// Constructors
+	private Users user;
+	
+	
+	public Users getUser() {
+		return user;
+	}
+	public void setUser(Users user) {
+		this.user = user;
+	}
 
 	/** default constructor */
 	public PowerRole() {

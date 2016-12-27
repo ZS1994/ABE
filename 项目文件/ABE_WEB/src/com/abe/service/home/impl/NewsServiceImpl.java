@@ -212,20 +212,20 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 			respNewsAll.setData(null);
 		}else if((NStatus!=null||!"".equals(NStatus))&&"1".equals(NStatus)){
 			Page page=new Page(pano, 0, size);
-		String hql1="from News where NStatus = "+NStatus+" order by NFinalTime desc ";
-		List<News> list = query(hql1, null, hql1, page);
-		for (int i = 0; i < list.size(); i++) {
-			Users user=(Users) get(Users.class, list.get(i).getUId());
-			user.setUPass(null);
-			list.get(i).setUser(user);
-		}
-		if (list.size()>0){
-			respNewsAll.setData(list);
-			respNewsAll.setResult("001");
-		}else {
-			respNewsAll.setData(null);
-			respNewsAll.setResult("004");
-		}
+			String hql1="from News where NStatus = "+NStatus+" order by NFinalTime desc ";
+			List<News> list = query(hql1, null, hql1, page);
+			for (int i = 0; i < list.size(); i++) {
+				Users user=(Users) get(Users.class, list.get(i).getUId());
+				user.setUPass(null);
+				list.get(i).setUser(user);
+			}
+			if (list.size()>0){
+				respNewsAll.setData(list);
+				respNewsAll.setResult("001");
+			}else {
+				respNewsAll.setData(null);
+				respNewsAll.setResult("004");
+			}
 		}else {
 			respNewsAll.setData(null);
 			respNewsAll.setResult("005");

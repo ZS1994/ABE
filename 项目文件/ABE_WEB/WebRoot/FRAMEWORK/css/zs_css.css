@@ -2,7 +2,7 @@
 	background-color: rgba(101, 255, 0, 0);
 }
 .odd_table{
-	border: #224466;
+	border: rgb(199, 211, 217);
 	border-collapse:collapse;
 	width: 100%;
 	table-layout:fixed;
@@ -12,12 +12,13 @@
 	background-color: #DFDFDF;	
 }
 .odd_table thead th{
-	background-color: #CEE7FD;	
+	background-color: rgb(217, 241, 255);	
 }
 .odd_table tfoot td{
-	background-color: #DFDFDF;	
+	background-color: #f8f8f8;	
 }
 .odd_table tbody tr td {
+	text-align:center;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;

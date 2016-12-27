@@ -1382,6 +1382,7 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!insertClassInform
 		"classs":null,
 		"ciTime":"2016-12-04 10:02:10",
 		"scId":"1",
+
 		"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
 		"ciId":"041002108565809",
 		"teacher":null}
@@ -1399,34 +1400,39 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findClassInformBy
 	result：001成功，002pageNo小于0，003pageSize小于0，004当前班级没有发布过班级通知
 	data:{"result":"001",
 	"data":
-		{(实例)
-		"itId":"1",
-		"ciTitle":"本周三展开家长会",
-		"ciStatus":"已发布",
-		"classs":{
-				"itId":"1",
-				"scId":"1",
-				"scName":"",
-				"schoolGrade":null,
-				"sgId":"1"},
-		"ciTime":"2016-12-04 10:02:10",
-		"scId":"1",
-		"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
-		"ciId":"041002108565809",
-		"teacher":{
-				"itId":"1",
-				"itPhone":"",
-				"ssId":"",
-				"itAddress":"",
-				"itBirthday":null,
-				"itIntoDate":null,
-				"itState":"",
-				"itNum":"001",
-				"itPost":"",
-				"itSex":"",
-				"itLeaveDate":null,
-				"itName":"李老师"}},
-			{第二条通知}{第三条...}{...}]}
+	[
+		{
+			"itId":"1",
+			"ciTitle":"本周三展开家长会",
+			"ciStatus":"已发布",
+			"classs":{
+					"itId":"1",
+					"scId":"1",
+					"scName":"",
+					"schoolGrade":null,
+					"sgId":"1"},
+			"ciTime":"2016-12-04 10:02:10",
+			"scId":"1",
+			"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
+			"ciId":"041002108565809",
+			"teacher":{
+					"itId":"1",
+					"itPhone":"",
+					"ssId":"",
+					"itAddress":"",
+					"itBirthday":null,
+					"itIntoDate":null,
+					"itState":"",
+					"itNum":"001",
+					"itPost":"",
+					"itSex":"",
+					"itLeaveDate":null,
+					"itName":"李老师"}
+		},
+		{第二条通知},
+		{第三条...},
+		{...}
+	]			
 }
 根据id查看单条班级通知
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findSingleClassInformById
@@ -1438,7 +1444,7 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findSingleClassIn
 	result：001成功
 	data:{"result":"001",
 		"data":
-			{(实例)
+		{
 			"itId":"1",
 			"ciTitle":"本周三展开家长会",
 			"ciStatus":"已发布",

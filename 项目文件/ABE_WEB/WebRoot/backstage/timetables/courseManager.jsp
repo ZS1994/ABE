@@ -27,9 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<input type="button" value="新建" style="margin-top: 3px;" onclick="$('#add').window('open');"/>
 		
-		<div style="margin-bottom: 5px;padding: 5px;">
-	    	快速查询
-	    	<br/>
+	    <div class="kscx">
 	    	<form action="<%=path %>/web/course!queryOfFenYe" method="post">
 	    		编号:<input name="id" type="text" value="${id }"/>
 	    		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -54,8 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${c.CId }</td>
 					<td>${c.CName }</td>
 					<td>
-						<a class="easyui-linkbutton" onclick="update('${c.CId}','${c.CName}')">修改</a>
-						<a class="easyui-linkbutton" href="<%=path %>/web/course!delete?id=${c.CId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						<a class="easyui-linkbutton" onclick="update('${c.CId}','${c.CName}')" data-options="plain:true">修改</a>
+						<a class="easyui-linkbutton" href="<%=path %>/web/course!delete?id=${c.CId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
 					</td>
 				</tr>
 				</c:forEach>

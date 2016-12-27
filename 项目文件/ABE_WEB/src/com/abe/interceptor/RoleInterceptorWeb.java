@@ -115,6 +115,7 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
 			if (actionName.equals("sign")){
 				if (methodName.equals("queryOfFenYe") || methodName.equals("gotoQuery") || methodName.equals("signIn")) {
 					result=arg0.invoke();
+					return result;
 				}else {
 					response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error1.jsp");
 					result=null;
