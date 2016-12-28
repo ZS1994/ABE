@@ -92,10 +92,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		String nStatus = (String) getRequest().getParameter("NStatus");
 		RespNews respNews = newsSer.insertNews(nTitle, nContent, nImgs, nUrl,
 				nOrigin, nType, nIstop, uId, nStatus);
-		JSONObject jsonObject = ser.objToJson(respNews, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respNews, ser);
 		return null;
 	}
 
@@ -115,20 +112,14 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		RespNews respNews = newsSer.upDateNews(nId, nTitle, nContent, nImgs,
 				nUrl, nOrigin, nType, nCreatTime, nFinalTime, nIstop, uId,
 				nStatus);
-		JSONObject jsonObject = ser.objToJson(respNews, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respNews, ser);
 		return null;
 	}
 
 	public String findSingleNews() throws IOException {
 		String nId = (String) getRequest().getParameter("NId");
 		RespNews respNews = newsSer.findSingleNews(nId);
-		JSONObject jsonObject = ser.objToJson(respNews, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respNews, ser);
 		return null;
 	}
 
@@ -136,10 +127,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		String pageNo = (String) getRequest().getParameter("pageNo");
 		String pageSize = (String) getRequest().getParameter("Size");
 		RespNewsAll respNews = newsSer.findAllNewsByPage(pageNo, pageSize);
-		JSONObject jsonObject = ser.objToJson(respNews, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respNews, ser);
 		return null;
 	}
 
@@ -151,10 +139,7 @@ public class NewsAction extends BaseAction implements iBaseAction {
 		String nFinalTime = (String) getRequest().getParameter("NFinalTime");
 		RespNewsAll respNews = newsSer.findAllNewsOnByPage(pageNo, pageSize,
 				nStatus, nIstop, nFinalTime);
-		JSONObject jsonObject = ser.objToJson(respNews, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respNews, ser);
 		return null;
 	}
 	@Override

@@ -928,12 +928,11 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!updateRecipe
 向教师发送请假条
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!createVacate
 请求参数：
+	licence:数字执照
 	IsId:请假学生id
 	UId:请假学生家长客户端id
-	ItId：接收该请假条的班主任APP端trpid（也是教师资料表的id编号）
 	VContent：请假原因
 	VDate：请假时间
-	
 	
 应答参数：
 {
@@ -967,9 +966,8 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!createVacate
 查询单条请假条详情
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findSingleVacate
 请求参数：
+	licence:数字执照
 	VId：请假条的编号
-	
-	
 应答参数：
 {
 	result：001成功，
@@ -1002,6 +1000,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findSingleVacate
 教师批复请假条
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!respsVacate
 请求参数：
+	licence:数字执照
 	VId：请假条的编号
 	IsId:请假学生id
 	UId:请假学生家长客户端id
@@ -1041,6 +1040,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!respsVacate
 分页查看给该班主任/学生的请假条
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findOwnerVacate
 请求参数：
+	licence:数字执照
 	UId:APP用户id（家长端教师端通用）
 	pageNo：当前页数
 	Size：每页展示请假条数量
@@ -1080,6 +1080,7 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findOwnerVacate
 
 URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findAllVacate
 请求参数：
+	licence:数字执照
 	pageNo：当前页数
 	Size：每页展示请假条数量
 应答参数：
@@ -1286,7 +1287,7 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/news!findAllNewsOnByPage
 }
 
 //-----------------公告--------------------------
-新建公告
+新建公告（已停用）
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!insertBulletin
 请求参数：
 	licence:数字执照

@@ -47,22 +47,14 @@ public class ReturnAction extends BaseAction implements iBaseAction {
 		String uId = (String) getRequest().getParameter("UId");
 		String rContent = (String) getRequest().getParameter("RContent");
 		RespReturn respReturn = returnSer.insertReturn(rContent, uId);
-		JSONObject jsonObject = ser
-				.objToJson(respReturn, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respReturn, ser);
 		return null;
 	}
 
 	public String findSingleReturn() throws IOException {
 		String rId = (String) getRequest().getParameter("RId");
 		RespReturn respReturn = returnSer.findSingleReturn(rId);
-		JSONObject jsonObject = ser
-				.objToJson(respReturn, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respReturn, ser);
 		return null;
 	}
 
@@ -70,11 +62,7 @@ public class ReturnAction extends BaseAction implements iBaseAction {
 		String rId = (String) getRequest().getParameter("RId");
 		String rStatus = (String) getRequest().getParameter("RStatus");
 		RespReturn respReturn = returnSer.updateReturn(rId, rStatus);
-		JSONObject jsonObject = ser
-				.objToJson(respReturn, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respReturn, ser);
 		return null;
 	}
 
@@ -83,11 +71,7 @@ public class ReturnAction extends BaseAction implements iBaseAction {
 		String pageSize = (String) getRequest().getParameter("PageSize");
 		String rStatus = (String) getRequest().getParameter("RStatus");
 		RespReturnAll respReturnAll = returnSer.findAllReturnsByPage(pageNo, pageSize, rStatus);
-		JSONObject jsonObject = ser
-				.objToJson(respReturnAll, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respReturnAll, ser);
 		return null;
 	}
 

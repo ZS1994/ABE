@@ -39,10 +39,7 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String isIdAll=(String) getRequest().getParameter("IsIdAll");
 		RespRecipe respRecipe=recipeSer.creatRecipe
 		(scId, rType, rTime, rState, uId, rImages,rImagesUrl,isIdAll);
-		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respRecipe, ser);
 		return null;
 	}
 	/*
@@ -62,10 +59,7 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String isIdAll=(String) getRequest().getParameter("IsIdAll");
 		String rImagesUrl=(String) getRequest().getParameter("RImagesUrl");
 		RespRecipe respRecipe=recipeSer.releaseRecipe(rId,scId, rType, rTime, rState, uId, rImages, isIdAll,rCreatTime,rImagesUrl);
-		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respRecipe, ser);
 		return null;
 	}
 	/*
@@ -76,10 +70,7 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String pageNo = (String) getRequest().getParameter("pageNo");
 		String pageSize = (String) getRequest().getParameter("Size");
 		RespRecipeAll respRecipe = recipeSer.findPageAllRecipe(pageNo,pageSize);
-		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respRecipe, ser);
 		return null;
 	}
 	/*
@@ -91,10 +82,7 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String pageNo = (String) getRequest().getParameter("pageNo");
 		String pageSize = (String) getRequest().getParameter("Size");
 		RespRecipeAll respRecipe = recipeSer.findPageCreaterRecipe(uId,pageNo,pageSize);
-		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respRecipe, ser);
 		return null;
 	}
 	/*
@@ -105,10 +93,7 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		logger.debug("-------进入deleteRecipe--------");
 		String rId=(String) getRequest().getParameter("RId");
 		RespRecipe respRecipe =  recipeSer.deleteRecipe(rId);
-		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respRecipe, ser);
 	return null;	
 	}
 	/*
@@ -129,10 +114,7 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		String isIdAll = (String) getRequest().getParameter("IsIdAll");
 		String rStatus = (String) getRequest().getParameter("RStatus");
 		RespRecipe respRecipe=recipeSer.updateRecipe(rId,scId, rType, rTime, rState, uId, rImages,rImagesUrl, isIdAll,rStatus,rCreatTime);
-		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respRecipe, ser);
 		return null;
 	}
 	/*
@@ -143,10 +125,7 @@ public class RecipeAction extends BaseAction implements iBaseAction {
 		logger.debug("-------进入findSingleRecipe--------");
 		String rId = (String) getRequest().getParameter("RId");
 		RespRecipe respRecipe=recipeSer.findSingleRecipe(rId);
-		JSONObject jsonObject=ser.objToJson(respRecipe, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respRecipe, ser);
 		return null;
 	}
 	
