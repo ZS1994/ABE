@@ -50,10 +50,7 @@ public class PersonInformAction extends BaseAction implements iBaseAction {
 		String piContent = (String) getRequest().getParameter("PiContent");
 		String uId = (String) getRequest().getParameter("UId");
 		RespPersonInform respPersonInform = personInformSer.insertPersonInform(piTitle,piContent,uId);
-		JSONObject jsonObject = ser.objToJson(respPersonInform, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respPersonInform, ser);
 
 		return null;
 	}
@@ -62,20 +59,14 @@ public class PersonInformAction extends BaseAction implements iBaseAction {
 		String pageSize = (String) getRequest().getParameter("pageSize");
 		String uId = (String) getRequest().getParameter("UId");
 		RespPersonInformAll respPersonInformAll = personInformSer.queryPersonInformByUId(pageNo,pageSize,uId);
-		JSONObject jsonObject = ser.objToJson(respPersonInformAll, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respPersonInformAll, ser);
 
 		return null;
 	}
 	public String findSinglePersonInform () throws IOException{
 		String piId=(String) getRequest().getParameter("PiId");
 		RespPersonInform respPersonInform = personInformSer.findSinglePersonInform(piId);
-		JSONObject jsonObject=ser.objToJson(respPersonInform, "yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respPersonInform, ser);
 		return null;
 	}
 	@Override
