@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>卡片管理</title>
+    <title>考勤管理</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -56,9 +56,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${c.clId }</td>
 					<td>${c.CId }</td>
 					<td>${c.srtName }</td>
-					<td>${c.itId }</td>
-					<td>${c.CCreateTime }</td>
-					<td>${c.CState}</td>
+					<td>${c.clTime }</td>
+					<td>${c.clState}</td>
 				</tr>
 				</c:forEach>
 			</tbody>

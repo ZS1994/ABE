@@ -51,11 +51,7 @@ public class ClassInformAction extends BaseAction implements iBaseAction {
 		String scId = (String) getRequest().getParameter("ScId");
 		String itId = (String) getRequest().getParameter("TrpId");
 		RespClassInform respClassInform = classInformSer.insertClassInform(ciTitle, ciContent, scId, itId);
-		JSONObject jsonObject = ser.objToJson(respClassInform,
-				"yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respClassInform, ser);
 		return null;
 	}
 
@@ -64,22 +60,14 @@ public class ClassInformAction extends BaseAction implements iBaseAction {
 		String pageSize = (String) getRequest().getParameter("pageSize");
 		String scId = (String) getRequest().getParameter("ScId");
 		RespClassInformAll respClassInformAll = classInformSer.findClassInformByScId(pageNo, pageSize, scId);
-		JSONObject jsonObject = ser.objToJson(respClassInformAll,
-				"yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respClassInformAll, ser);
 		return null;
 	}
 
 	public String findSingleClassInformById() throws IOException {
 		String ciId = (String) getRequest().getParameter("CiId");
 		RespClassInform respClassInform = classInformSer.findSingleClassInformById(ciId);
-		JSONObject jsonObject = ser.objToJson(respClassInform,
-				"yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respClassInform, ser);
 		return null;
 	}
 	
