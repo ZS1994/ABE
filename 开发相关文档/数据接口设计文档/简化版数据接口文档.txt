@@ -1393,9 +1393,9 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!insertClassInform
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findClassInformByScId
 请求参数：
 	licence:数字执照
-	当前页码，从1开始算：pageNo
-	每页展示数量：pageSize
-	班级编号：ScId
+	pageNo：当前页码，从1开始算
+	pageSize：每页展示数量
+	ScId：班级编号
 应答参数：
 {
 	result：001成功，002pageNo小于0，003pageSize小于0，004当前班级没有发布过班级通知
@@ -1439,10 +1439,10 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findClassInformBy
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findSingleClassInformById
 请求参数：
 	licence:数字执照
-	公告编号：CiId
+	CiId:班级通知编号
 应答参数：
 {
-	result：001成功
+	result：001成功，002失败
 	data:{"result":"001",
 		"data":
 		{

@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.abe.entity.ClassInform;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.SchoolClass;
@@ -14,9 +16,12 @@ import com.abe.service.information.iClassInformService;
 import com.abe.tools.NameOfDate;
 import com.abe.tools.Page;
 
-public class ClassInformServiceImpl extends BaseServiceImpl implements
-		iClassInformService {
 
+public class ClassInformServiceImpl extends BaseServiceImpl implements iClassInformService {
+
+	
+	Logger logger=Logger.getLogger(ClassInformServiceImpl.class);
+	
 	@Override
 	public RespClassInform insertClassInform(String ciTitle, String ciContent,
 			String scId, String itId) {
@@ -92,42 +97,40 @@ public class ClassInformServiceImpl extends BaseServiceImpl implements
 	}
 
 	@Override
-	public RespClassInformAll findClassInformByScId(String pageNo,
-			String pageSize, String scId) {
+	public RespClassInformAll findClassInformByScId(String pageNo,String pageSize, String scId) {
 		RespClassInformAll respClassInformAll = new RespClassInformAll();
-		ClassInform classInform = new ClassInform();
-		int pano = Integer.valueOf(pageNo);
-		int size = Integer.valueOf(pageSize);
-
-		if (pano <= 0) {
-			respClassInformAll.setResult("002");
-			respClassInformAll.setData(null);
-		} else if (size <= 0) {
-			respClassInformAll.setResult("003");
-			respClassInformAll.setData(null);
-		} else {
-			Page page = new Page(pano, 0, size);
-			String hql1 = "from ClassInform where scId = ? order by ciTime desc";
-			String hql2 = "from ClassInform where scId = '" + scId
-					+ "' order by aiTime desc";
-			List<ClassInform> list = query(hql1, new String[] { scId }, hql2,
-					page);
-			for (int i = 0; i < list.size(); i++) {
-				InfoTeacher teacher = (InfoTeacher) get(InfoTeacher.class, list
-						.get(i).getItId());
-				SchoolClass classs = (SchoolClass) get(SchoolClass.class, list
-						.get(i).getScId());
-				list.get(i).setClasss(classs);
-				list.get(i).setTeacher(teacher);
+		if (pageNo!=null && pageSize!=null && scId!=null) {
+			int pano = 0,size = 0;
+			try {
+				pano = Integer.valueOf(pageNo);
+				size = Integer.valueOf(pageSize);
+			} catch (Exception e) {
+				logger.debug("String 转 int 错误,错误数据源："+pageNo+","+pageSize);
 			}
-			if (list.size() > 0) {
-
-				respClassInformAll.setData(list);
-				respClassInformAll.setResult("001");
-			} else {
-
+			if (pano <= 0) {
+				respClassInformAll.setResult("002");
 				respClassInformAll.setData(null);
-				respClassInformAll.setResult("004");
+			} else if (size <= 0) {
+				respClassInformAll.setResult("003");
+				respClassInformAll.setData(null);
+			} else {
+				Page page = new Page(pano, 0, size);
+				String hql1 = "from ClassInform where scId = ? order by ciTime desc";
+				String hql2 = "from ClassInform where scId = '" + scId + "' order by ciTime desc";
+				List<ClassInform> list = query(hql1, new String[] { scId }, hql2,page);
+				for (int i = 0; i < list.size(); i++) {
+					InfoTeacher teacher = (InfoTeacher) get(InfoTeacher.class, list.get(i).getItId());
+					SchoolClass classs = (SchoolClass) get(SchoolClass.class, list.get(i).getScId());
+					list.get(i).setClasss(classs);
+					list.get(i).setTeacher(teacher);
+				}
+				if (list.size() > 0) {
+					respClassInformAll.setResult("001");
+					respClassInformAll.setData(list);
+				} else {
+					respClassInformAll.setResult("004");
+					respClassInformAll.setData(null);
+				} 
 			}
 		}
 		return respClassInformAll;
@@ -135,15 +138,16 @@ public class ClassInformServiceImpl extends BaseServiceImpl implements
 
 	@Override
 	public RespClassInform findSingleClassInformById(String ciId) {
-		RespClassInform respClassInform = new RespClassInform();
-		ClassInform classInform = new ClassInform();
-		classInform = (ClassInform) get(ClassInform.class, ciId);
-		classInform.setClasss((SchoolClass) get(SchoolClass.class, classInform
-				.getScId()));
-		classInform.setTeacher((InfoTeacher) get(InfoTeacher.class, classInform
-				.getItId()));
-		respClassInform.setData(classInform);
-		respClassInform.setResult("001");
+		RespClassInform respClassInform = new RespClassInform("002", null);
+		if (ciId!=null) {
+			ClassInform classInform = (ClassInform) get(ClassInform.class, ciId);
+			if (classInform!=null) {
+				classInform.setClasss((SchoolClass) get(SchoolClass.class, classInform.getScId()));
+				classInform.setTeacher((InfoTeacher) get(InfoTeacher.class, classInform.getItId()));
+				respClassInform=new RespClassInform("001", classInform);
+				return respClassInform;
+			}
+		}
 		return respClassInform;
 	}
 
