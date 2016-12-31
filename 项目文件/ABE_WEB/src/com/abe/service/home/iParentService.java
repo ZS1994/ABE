@@ -31,7 +31,7 @@ public interface iParentService {
 	/**
 	 * 保存验证码
 	 */
-	public void saveCode(String uid,String mobile,String param);
+	public boolean saveCode(String uid,String mobile,String param);
 	
 	
 	public RespCommon queryParent(String uid);
