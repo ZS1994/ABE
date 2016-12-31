@@ -1,0 +1,1711 @@
+﻿//---------------------------------------------------------------------------
+公共错误代码
+{
+	result:1000该执照不存在（假执照），
+		1001该执照已过期(不操作1个小时会失效)，
+		1002ip发生改变
+			
+		2001其他错误
+	data:null
+}
+
+
+//---------------------------------------------------------------------------
+登录
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signInFromApp
+请求参数：
+	UNum:用户账号
+	UPass:用户密码
+应答参数：
+{
+	result:登录状态，001成功，002用户不存在，003密码错误，004其他错误。
+	data:{
+		user:{
+			UId:用户编号
+			UNum:账号
+			UPass:密码
+			UName:姓名
+			UType:用户类型，001家长，002教职员工
+			UCreateTime:创建时间
+			UPhotoPath:头像的路径
+			UNote:备注
+			trpId : 教师档案或者家长档案编号（根据用户类型判断）		
+		},
+		licence:数字执照(不操作1个小时会失效)
+	}
+}
+//---------------------------------------------------------------------------
+上传头像
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!uploadPhoto
+请求参数：
+	licence:数字执照
+	UId:用户编号
+	UPhoto：图片Base64编码
+	format:图片的格式，图片的后缀   比如：png
+应答参数：
+{
+	result：001成功，002失败，003该uid不存在
+	data:{
+		UId:用户编号 null
+		UNum:账号 null
+		UPass:密码 null
+		UName:姓名 null
+		UType:用户类型，001家长，002教职员工 null
+		UCreateTime:创建时间 null 
+		UPhotoPath:头像的路径
+		UNote:备注 null
+		trpId : 教师档案或者家长档案编号（根据用户类型判断）
+	}
+}
+
+
+
+
+注册
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/sign!signUpFromApp
+请求参数：
+	UNum:用户账号
+	UPass:用户密码
+	UName:用户名称
+	UType:用户类型（考虑到接口的共用性且客户端有不同类型建议隐式固定提供为1或2）
+应答参数：
+{
+	result:注册状态，001成功，002用户账号已存在。
+	data:{
+		UId:用户编号
+		UNum:账号
+		UPass:密码
+		UName:姓名
+		UType:用户类型，1家长，2教职员工
+		UCreateTime:创建时间
+		UPhotoPath:头像的路径
+		UNote:备注
+	}
+}
+成功json实例
+{"result":"001","data":{"UPass":"123456","UId":"032330587745169","trpId":"","UPhotoPath":"","UType":"1","UNote":"","UName":"王麻子","UNum":"wew","UCreateTime":"2016-11-03 23:30:57"}}
+
+
+
+修改个人资料
+---------------------修改个人资料------------
+第一步：查出该用户所有信息
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updateUserFromApp1
+请求参数：
+	licence:数字执照
+	UNum:用户账号
+应答参数：
+{
+   result：001成功，002失败
+   data:{
+        UId:用户编号
+		UNum:账号
+		UPass:null
+		UName:姓名
+		UType:用户类型，1家长，2教职员工
+		UCreateTime:创建时间
+		UPhotoPath:头像的路径
+		UNote:备注
+        trpId:用户档案ID
+    }
+}
+
+第二步：修改该用户个人信息
+接口地址：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updateUserFromApp2
+请求参数：
+	licence:数字执照
+	UId:用户编号
+	UNum:账号
+	UName:姓名
+	UType:用户类型，1家长，2教职员工
+	UCreateTime:创建时间
+	UPhotoPath:头像的路径
+	UNote:备注
+	trpId:用户档案ID
+应答参数：
+{
+   result：001成功，002失败
+   data:{
+        UId:用户编号
+		UNum:账号
+		UPass:null
+		UName:姓名
+		UType:用户类型，1家长，2教职员工
+		UCreateTime:创建时间
+		UPhotoPath:头像的路径
+		UNote:备注
+        trpId:用户档案ID
+    }
+}
+
+3、修改密码
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/one!updatePass
+请求参数：
+	licence:数字执照
+	UId:用户id
+	oldPass:旧密码
+	newPass:新密码
+应答参数：
+{
+	result：001成功，002失败
+	data:null
+}
+
+//------------------------------------添加宝贝---------------------------------------------------
+1,添加宝贝(家长绑定一个孩子）（测试通过，张顺，2016-11-29）
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!addFromApp
+请求参数：
+	licence:数字执照
+	isId:学生id
+	ipId:家长id
+	spRelation:学生与家长的关系    父女、父子、母女、母子等等
+	UId：用户id
+	ipPhone:和该学生已经绑定的家长中任意一位的手机号
+	CCode:验证码（填写手机号，点击获取验证码，验证码会发送到该手机上，获取验证码接口，在家长档案相关接口中）
+应答参数：
+{
+	result:返回码   001:成功，002:isid不存在,003:ipid不存在；004该学生的家长没有这个手机号；005验证码验证不通过
+	data:{
+		isId:学生id
+		isNum:学号
+		isName:名字
+		isSex:男/女
+		isBirthday:生日   yyyy-MM-dd
+		isLocal:是否本地生  0：否/1：是
+		isTeacherChildren:是否是教职工子弟   0：否/1：是
+		isIntoDate:入校日期    yyyy-MM-dd
+		isLeaveDate:离校日期   没有就为空
+		isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
+		scId:班级id
+	}
+}
+2,通过学生id查看学生信息(用来查唯一学生)（测试通过，张顺，2016-11-29）
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp
+请求参数：
+	licence:数字执照
+	isId:学生id
+应答参数：
+{
+	result：001成功，002isId不存在，003接收到的isId为空
+	data:{
+		isId:学生id
+		isNum:学号
+		isName:名字
+		isSex:男/女
+		isBirthday:生日   yyyy-MM-dd
+		isLocal:是否本地生  0：否/1：是
+		isTeacherChildren:是否是教职工子弟   0：否/1：是
+		isIntoDate:入校日期    yyyy-MM-dd
+		isLeaveDate:离校日期   没有就为空
+		isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
+		scId:班级id
+		schoolClass:{//班级、年级、学校信息
+			scId:班级id
+			scName:班级名字
+			grade:{//年级信息
+				sgId:年级id
+				sgName:年级名字
+				school:{
+					SId:学校id
+					SName:学校名字
+					SAddress:学校地址
+				}
+			}
+		}
+		parents:[//家长信息
+			{
+				ipId:家长id
+				ipName:家长姓名
+				ipBirthday:家长生日
+				ipAddress:地址
+				ipPhone:家长电话
+				ipSex:家长性别
+				spRelation:与家长的关系
+			}
+		]
+	}
+}
+3,通过用户uid查看学生信息（测试通过，张顺，2016-11-29）
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryFromApp2
+请求参数：
+	licence:数字执照
+	UId:用户id
+应答参数：
+{
+	result：001成功，002UId不存在，003接收到的UId为空,004该用户不是家长
+	data:[{
+		isId:学生id
+		isNum:学号
+		isName:名字
+		isSex:男/女
+		isBirthday:生日   yyyy-MM-dd
+		isLocal:是否本地生  0：否/1：是
+		isTeacherChildren:是否是教职工子弟   0：否/1：是
+		isIntoDate:入校日期    yyyy-MM-dd
+		isLeaveDate:离校日期   没有就为空
+		isState:状态    正在校学生/待分班/待确认入学/正常就读/已休学/已离校学生/已退学/已毕业
+		scId:班级id
+		schoolClass:{//班级、年级、学校信息
+			scId:班级id
+			scName:班级名字
+			grade:{//年级信息
+				sgId:年级id
+				sgName:年级名字
+				school:{
+					SId:学校id
+					SName:学校名字
+					SAddress:学校地址
+				}
+			}
+		}
+		parents:[//家长信息
+			{
+				ipId:家长id
+				ipName:家长姓名
+				ipBirthday:家长生日
+				ipAddress:地址
+				ipPhone:家长电话
+				ipSex:家长性别
+				spRelation:与家长的关系
+			}
+		]
+	}]	
+}
+4,分页查看所有学生（测试通过，张顺，2016-11-29）
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/student!queryOfFenYeFromApp
+请求参数：
+	licence:执照
+	pageNo:当前页码，从1开始算
+	size：每页大小
+应答参数：
+{
+	result：001成功，002传过来的当前页码<=0或者为空,003size<=0或者为空
+	data:[//所有学生信息
+		{
+			isId: 学生id
+			isNum:学生学号
+			isName:学生姓名
+			........
+		}
+	]
+
+}
+//--------------------------课程表-----------------------------------------------
+课程表
+1,查本周的课程表
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryFromApp
+请求参数：
+	licence:数字执照
+	scId:班级编号
+应答参数：
+{
+	result：001成功,002scId不存在，003接收到scId为空
+	data:[//一周的课程表信息
+		[{
+			TId:编号
+			CId：科目编号
+			scId:班级编号
+			itId：教师编号
+			TStartTime:开始时间  HH:mm:ss
+			TEndTime:结束时间  HH:mm:ss
+			TWeek:星期  （int）1,2,3..7<--->星期1，星期2，星期3...星期日
+			TOrder:序号（1,2,3,4...）一天中的第几节课
+			course:{//科目信息
+				CId：科目编号
+				CName:科目名称
+			}
+			schoolClass:{//班级信息
+				scId:班级id
+				scName:班级名称
+				sgId:年级id
+				itId：班主任编号
+			}
+			infoTeacher：{//教师信息
+				itId：教师编号
+				itNum:工号
+				itName:教师名字
+				itSex:性别
+				itBirthday:生日
+				itAge:年龄
+				itPhone:手机
+				itWechat:微信
+				itQq:qq
+				itSection:所属部门
+				itPost:职务
+				itIntoDate:入职日期
+				itLeaveDate:离职日期
+				itCreateTime:录入时间
+				itAddress:地址
+				ssId:部门编号
+			}
+		}]
+	]
+}
+
+2、查看某一天的课程表
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/timetables!queryDateFromApp
+请求参数：
+	licence:数字执照
+	scId:班级编号
+	TWeek:（int）1,2,3..7<--->星期1，星期2，星期3...星期日
+应答参数：
+{
+	result：001成功,002scId不存在，003接收到scId为空，004Tweek不合法
+	data:[//一天的课程表
+		{
+			TId:编号
+			CId：科目编号
+			scId:班级编号
+			itId：教师编号
+			TStartTime:开始时间  HH:mm:ss
+			TEndTime:结束时间  HH:mm:ss
+			TWeek:星期  （int）1,2,3..7<--->星期1，星期2，星期3...星期日
+			TOrder:序号（1,2,3,4...）一天中的第几节课
+			course:{//科目信息
+				CId：科目编号
+				CName:科目名称
+			}
+			schoolClass:{//班级信息
+				scId:班级id
+				scName:班级名称
+				sgId:年级id
+				itId：班主任编号
+			}
+			infoTeacher：{//教师信息
+				itId：教师编号
+				itNum:工号
+				itName:教师名字
+				itSex:性别
+				itBirthday:生日
+				itAge:年龄
+				itPhone:手机
+				itWechat:微信
+				itQq:qq
+				itSection:所属部门
+				itPost:职务
+				itIntoDate:入职日期
+				itLeaveDate:离职日期
+				itCreateTime:录入时间
+				itAddress:地址
+				ssId:部门编号
+			}
+		}
+		......
+	]
+}
+
+
+
+//---------------------------班级圈----------------------------------------------
+班级圈
+1,查看所有分享(看不到评论)
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!queryOfFenYeForumFromApp
+请求参数：
+	licence:数字执照
+	pageNo:当前页码，从1开始算
+	size：每页大小
+应答参数：
+{
+	result：001成功，002传过来的当前页码<=0或者为空,003size<=0或者为空
+	data:[
+		{
+			FId:分享编号
+			FContent：分享的内容
+			FLike:被赞次数
+			FCreateTime : 发表时间  yyyy-MM-dd HH:mm:ss.SSS
+			UId:用户编号
+			user:{			//发表人信息
+				UId:用户编号
+				UNum:账号
+				UPass:密码【null】
+				UName:姓名
+				UType:用户类型，001家长，002教职员工
+				UCreateTime:创建时间
+				UPhotoPath:头像的路径
+				UNote:备注
+				trpId : 教师档案或者家长档案编号（根据用户类型判断）
+			}
+			comment:null
+		}
+	]
+}
+2,查看一个分享的评论
+URL：
+请求参数：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!queryOfFenYeCommentFromApp
+	licence:数字执照
+	pageNo:当前页码
+	size：每页大小
+	FId：分享id
+应答参数：
+{
+	result：001成功，002传过来的当前页码<=0或者为空,003size<=0或者为空，004该fid不存在，005接收的fid为空
+	data:{
+		FId:分享编号
+		FContent：分享的内容
+		FLike:被赞次数
+		FCreateTime : 发表时间  yyyy-MM-dd HH:mm:ss.SSS
+		UId:用户编号
+		user:{			//发表人信息
+			UId:用户编号
+			UNum:账号
+			UPass:密码【null】
+			UName:姓名
+			UType:用户类型，001家长，002教职员工
+			UCreateTime:创建时间
+			UPhotoPath:头像的路径
+			UNote:备注
+			trpId : 教师档案或者家长档案编号（根据用户类型判断）
+		}
+		comment:[            //评论数组
+			{
+				fcId:评论编号
+				fcContent:评论内容
+				fcCreateTime :评论时间  yyyy-MM-dd HH:mm:ss.SSS
+				UId:评论人id
+				FId：分享id
+				user:{			//评论人信息
+					UId:用户编号
+					UNum:账号
+					UPass:密码【null】
+					UName:姓名
+					UType:用户类型，001家长，002教职员工
+					UCreateTime:创建时间
+					UPhotoPath:头像的路径
+					UNote:备注
+					trpId : 教师档案或者家长档案编号（根据用户类型判断）
+				}
+			}
+		]
+	}
+}
+1,发表分享
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addFromApp
+请求参数：
+	licence:数字执照
+	UId:发送人id【必须】
+	FContent：分享的内容【必须，即不能为空】
+应答参数：
+{
+	result:001:成功，002：用户id不存在,003:接收到的用户id为空
+	data:null	
+}
+2，发表评论
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!addCommentFromApp
+请求参数：
+	licence:数字执照
+	UId:评论人id【必须】
+	fcContent：评论内容【必须】
+	FId:评论的分享id【必须】
+应答参数：
+{
+	result：001成功，002该uid不存在，003该fid不存在,004接收的uid为空，005接收的fid为空
+	data:null
+}
+3，点赞
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/forum!updateLikeFromApp
+请求参数：
+	licence:数字执照
+	FId：分享id
+	like:点赞（只要不为空代表赞一次，这里可以约定为：1）
+应答参数：
+{
+	result：001成功，002该fid不存在，003接收的fid为空,004like为空
+	data:null
+}	
+
+//--------------------------组织架构（班级架构）----------------------------------------------------
+组织架构（班级架构）	
+1，市管理
+添加市
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!addFromApp
+请求参数：
+	licence:数字执照
+	pcName:市名字
+	ppId:省id
+应答参数：
+{
+	result：001成功，002该ppid不存在，003接收的ppid为空，004接收的pcName为空
+	data:null
+}	
+修改市
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!updateFromApp	
+请求参数：
+	licence:数字执照
+	pcId:市id
+	pcName:市名字
+应答参数：	
+{
+	result：001成功，002该pcId不存在，003接收的pcId为空，004接收的pcName为空
+	data:null
+}	
+查看市详情
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/city!queryFromApp
+请求参数：
+	licence:数字执照
+	pcId:市id
+应答参数：
+{
+	result：001成功，002该pcid不存在，003接收的pcid为空
+	data:{
+		pcId:市id
+		pcName:市名字
+		pcId:省id
+	}
+}	
+2,区管理
+添加区
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!addFromApp
+请求参数：
+	licence:数字执照
+	paName:区名字
+	pcId:市id
+应答参数：
+{
+	result：001成功，002该pcid不存在，003接收的pcid为空,004paName为空
+	data:null
+}	
+修改区
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!updateFromApp
+请求参数：
+	licence:数字执照
+	paId:区id
+	paName:区名字
+应答参数：	
+{
+	result：001成功，002该paId不存在，003接收的paId为空，004接收的paName为空
+	data:null
+}
+查看区详情
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/area!queryFromApp
+请求参数：	
+	licence:数字执照
+	paId:区id
+应答参数：		
+{
+	result：001成功，002该paId不存在，003接收的paId为空
+	data:{
+		paId:区id
+		paName:区名字
+		pcId:市id
+	}
+}	
+3,学校管理
+添加学校
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!addFromApp
+请求参数：
+	licence:数字执照
+	SName:学校名字
+	SAddress:学校的详细地址
+	paId:区id
+应答参数：	
+{
+	result：001成功，002该paId不存在，003接收的paId为空，004接收的sName为空，005接收的sAddress为空
+	data:null
+}	
+修改学校基本信息
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!updateFromApp
+请求参数：
+	licence:数字执照
+	SId:学校id
+	SName:新学校名字
+	SAddress:新学校地址
+应答参数：
+{
+	result：001成功，002该SId不存在，003接收的SId为空，004接收的SName为空，005接收的SAddress为空
+	data:null
+}
+查看学校信息
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/school!queryFromApp
+请求参数：
+	licence:数字执照
+	SId:学校id
+应答参数：
+{
+	result：001成功，002该SId不存在，003接收的SId为空
+	data:{//学校信息
+		SId:学校id
+		SName:学校名字
+		SAddress:学校的详细地址
+		paId:区id
+	}
+}
+4,年级管理
+添加年级
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!addFromApp
+请求参数：
+	licence:数字执照
+	sgName:年级名字
+	SId:学校id
+应答参数：	
+{
+	result：001成功，002该SId不存在，003接收的SId为空，004接收的sgName为空
+	data:null
+}
+修改年级
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!updateFromApp
+请求参数：
+	licence:数字执照
+	sgId:年级id
+	sgName:学校名字
+应答参数：	
+{
+	result：001成功，002该sgId不存在，003接收的sgId为空，004接收的sgName为空
+	data:null
+}
+查看年级信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/grade!queryFromApp
+请求参数：
+	licence:数字执照
+	sgId:年级id
+应答参数：
+{
+	result：001成功，002sgid不存在，003接收到的sgid为空
+	data:{//年级信息
+		sgId:年级id
+		sgName:年级名字
+		SId:学校id
+	}
+}
+5,班级管理
+/**【已删除】app端只能查看,张顺，2016-11-30
+	添加班级
+	URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!addFromApp
+	请求参数：
+		licence:数字执照
+		scName:班级名字
+		sgId:年级id
+		itId:班主任id
+	应答参数：
+	{
+		result：001成功，002该sgId不存在，003接收的sgId为空，004接收的scName为空，005itId不存在，006接收的itId为空
+		data:null	
+	}
+	修改班级信息
+	URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!updateFromApp
+	请求参数：
+		licence:数字执照
+		scId:班级id
+		scName:班级名字
+		itId:班主任id
+	应答参数：
+	{
+		result：001成功，002该scId不存在，003接收的scId为空，004接收的scName为空,005itId不存在，006接收的itId为空
+		data:null	
+	}
+*/
+查看班级信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!queryFromApp
+请求参数：
+	licence:数字执照
+	scId:班级id
+应答参数：
+{
+	result：001成功，002该scId不存在，003接收的scId为空
+	data:{//班级信息
+		scId:班级id
+		scName:班级名字
+		sgId:年级id
+		itId:班主任id
+	}
+}
+
+//------------------------------------------------每日食谱------------------------
+创建食谱
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!creatRecipe
+请求参数：
+	licence:数字执照
+	scId:使用该食谱的班级id
+	RTime：食谱使用日期 
+	RState：食谱内容说明
+	UId：创建该食谱用户（教师）id
+	IsIdAll：拟接收该食谱信息的学生id
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+发布食谱
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!releaseRecipe
+请求参数：
+	licence:数字执照
+	scId:使用该食谱的班级id
+	RTime：食谱使用日期 
+	RState：食谱内容说明
+	UId：创建该食谱用户（教师）id
+	IsIdAll：拟接收该食谱信息的学生id
+	"RCreatTime":食谱创建时间
+	"RId":食谱id
+	"RImages":食谱图片
+	"RType":食谱类型
+	"RImagesUrl":食谱图片url
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+查看所有食谱
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findAllRecipe
+请求参数：
+	licence:数字执照
+应答参数：
+{
+	result：001成功
+	data:[{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}//下一条食谱。。。//下一条食谱。。。//下一条]
+	}
+}
+分页查询当前用户创建的食谱
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findCreaterRecipe
+请求参数：
+	licence:数字执照
+	UId：创建该食谱用户（教师）id
+	pageNo：当前页数
+	Size：每页展示食谱数量
+应答参数：
+{
+	result：001成功002当前页数为负003每页食谱数量为负数004当前用户（教师）未查询到有创建成功的食谱
+	data:{//食谱信息
+		[{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}//下一条食谱。。。//下一条食谱。。。//下一条]
+		}
+	}
+}
+查询单条食谱信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!findSingleRecipe
+请求参数：
+	licence:数字执照
+	RId：食谱id
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+删除单条食谱信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!deleteRecipe
+请求参数：
+	licence:数字执照
+	RId：食谱id
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+修改食谱信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/recipe!updateRecipe
+请求参数：
+	licence:数字执照
+	scId:使用该食谱的班级id
+	RTime：食谱使用日期 
+	RState：食谱内容说明
+	RStatus: 食谱状态（已发布和未发布两种）
+	UId：创建该食谱用户（教师）id
+	IsIdAll：拟接收该食谱信息的学生id
+	"RCreatTime":食谱创建时间
+	"RId":食谱id
+	"RImages":食谱图片
+	"RType":食谱类型
+	"RImagesUrl":食谱图片url
+	
+应答参数：
+{
+	result：001成功
+	data:{//食谱信息
+		{"users":创建者账号信息,
+		"students":[拟接收该食谱的所有学生信息，格式：list<student>],
+		"RImages":食谱图片
+		"RTime":食谱使用日期
+		"UId":食谱创建者id
+		"isIdAccept":已经接收到食谱的学生id
+		"schoolClass":使用该食谱的班级信息
+		"isIdAll":拟接收该食谱信息的学生id（用，隔开）
+		"RId":食谱id
+		"RCreatTime":食谱创建时间
+		"scId":班级id
+		"RStatus":食谱状态（已发布和未发布两种)
+		"RType":食谱类型
+		"RImagesUrl":食谱图片url
+		"RState":食谱内容}
+		}
+	}
+}
+----------------------------------------请假条--------------------------
+向教师发送请假条
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!createVacate
+请求参数：
+	licence:数字执照
+	IsId:请假学生id
+	UId:请假学生家长客户端id
+	VContent：请假原因
+	VDate：请假时间
+	
+应答参数：
+{
+	result：001成功，002学生id为空，003班主任id为空，004请假原因为空，005请假时间为空
+	"data":[{"UId":家长的用户id
+		"VTime":请假条的创建时间
+		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
+		"student":{学生信息
+					
+					}
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"teacher":{教师信息
+					
+					}
+		"VId":请假条编号
+		"VDate":请假时间
+		"user":{//家长的用户登录信息（已将密码清空）
+			"UId":"271634032221266",
+			"UPass":"",
+			"trpId":"35",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+}
+
+
+查询单条请假条详情
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findSingleVacate
+请求参数：
+	licence:数字执照
+	VId：请假条的编号
+应答参数：
+{
+	result：001成功，
+	"data":[{"UId":家长的用户id
+		"VTime":请假条的创建时间
+		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
+		"student":{学生信息
+					
+					}
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"teacher":{教师信息
+					
+					}
+		"VId":请假条编号
+		"VDate":请假时间
+		"user":{//家长的用户登录信息（已将密码清空）
+			"UId":"271634032221266",
+			"UPass":"",
+			"trpId":"35",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+}
+
+
+教师批复请假条
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!respsVacate
+请求参数：
+	licence:数字执照
+	VId：请假条的编号
+	IsId:请假学生id
+	UId:请假学生家长客户端id
+	ItId：接收该请假条的班主任APP端trpid（也是教师资料表的id编号）
+	VContent：请假原因
+	VDate：请假时间
+	VResp：批复内容（是否准假）
+	VTime：请假条创建时间
+应答参数：
+{
+	result：001成功，002批复内容为空
+	"data":[{"UId":家长的用户id
+		"VTime":请假条的创建时间
+		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
+		"student":{学生信息
+					
+					}
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"teacher":{教师信息
+					
+					}
+		"VId":请假条编号
+		"VDate":请假时间
+		"user":{//家长的用户登录信息（已将密码清空）
+			"UId":"271634032221266",
+			"UPass":"",
+			"trpId":"35",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+}
+
+分页查看给该班主任/学生的请假条
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findOwnerVacate
+请求参数：
+	licence:数字执照
+	UId:APP用户id（家长端教师端通用）
+	pageNo：当前页数
+	Size：每页展示请假条数量
+应答参数：
+{
+	result：001成功，002页数为负，003每页数量为负，004/005当前用户（家长用户/教师用户）下没有请假条或页数超限
+		006用户不存在，007有用户但类型不是教师也不是家长
+	"data":[//一个请假条信息
+		{"UId":家长的用户id
+		"VTime":请假条的创建时间
+		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
+		"student":{学生信息
+					
+					}
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"teacher":{教师信息
+					
+					}
+		"VId":请假条编号
+		"VDate":请假时间
+		"user":{//家长的用户登录信息（已将密码清空）
+			"UId":"271634032221266",
+			"UPass":"",
+			"trpId":"35",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+		}{一个请假条信息...}{一个请假条信息...}{一个请假条信息...}......]
+			
+}
+
+分页查看所有（是否分区域学校部门等信息待定）请假条
+
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findAllVacate
+请求参数：
+	licence:数字执照
+	pageNo：当前页数
+	Size：每页展示请假条数量
+应答参数：
+{
+	result：001成功，002页数为负，003每页数量为负
+	"data":[//一个请假条信息
+		{"UId":家长的用户id
+		"VTime":请假条的创建时间
+		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
+		"student":{学生信息
+					
+					}
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"teacher":{教师信息
+					
+					}
+		"VId":请假条编号
+		"VDate":请假时间
+		"user":{//家长的用户登录信息（已将密码清空）
+			"UId":"271634032221266",
+			"UPass":"",
+			"trpId":"35",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+		}{一个请假条信息...}{一个请假条信息...}{一个请假条信息...}......]
+			
+}
+
+//-----------------------查看成绩------------------------------------
+1，查看成绩 <此方式适用于家长对孩子的成绩进行查询>（测试通过、2016-11-28、张顺）
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/score!QueryScoreFromApp
+请求参数
+	licence:数字执照
+	UId：家长id【必须】
+应答参数
+{
+    result:001成功，002用户不存在，003接受的UId为空，004未知错误
+    data:[//家长所有孩子的所有科目成绩
+		{
+			isId:学生id
+			isName:学生名字
+			......
+			score:[//不同科目成绩
+				{
+					SScore: 科目分数
+					SCreateTime: 创建时间
+					SId: 编号
+					CId: 科目编号
+					isId: 学生编号
+					course:{//科目信息
+						CId：科目编号
+						CName:科目名称
+					}
+				}	
+			]
+		}
+	]
+}
+2，查询成绩<此方法使用学生Id进行精确查询>（测试通过、2016-11-28、张顺）
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/score!QueryScoreFromAppOfisId
+请求参数
+	licence:数字执照
+	isId: 学生id【必须】
+应答参数
+{
+    "result": "001"表示成功 002接收的isId为空  003 查找不到对应isId
+    "data": 
+    [{
+	    "SScore": 科目分数
+		"SCreateTime": 创建时间
+		"SId": 编号
+		"CId": 科目编号
+		"isId": 学生编号
+    }]
+}
+//----------------------------------考勤管理-------------------------------------
+1，通过UId查询对应子女或教职工的考勤信息
+URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/attendance!queryOfUid
+请求参数：
+	licence:执照
+	UId:用户id
+应答参数：
+情况1：如果uid是家长账号id（测试通过、2016-11-30、张顺）
+{
+	result：001成功，002UId不存在，003接收到的UId为空
+	data:[每个子女的考勤
+		{
+			isId:学生id
+			isName:学生名字
+			........
+			cardLog:[//学生的考勤信息
+				{
+					CId:卡号
+					clId:考勤编号
+					clState:状态：上车、下车、上班、下班等等
+					clTime:打卡时间
+				}
+			]
+		}
+	]
+}
+情况2：如果uid是教职工账号id
+{
+	result：001成功，002UId不存在，003接收到的UId为空
+	data:[//教职工的考勤信息
+		{
+			CId:卡号
+			clId:考勤编号
+			clState:状态：上车、下车、上班、下班等等
+			clTime:打卡时间
+		}
+	]
+}
+2,打卡接口（测试通过、2016-11-30、张顺）
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/attendance!addFromApp
+请求参数：
+	CId：卡号
+	clState:状态
+应答参数：
+{
+	result：001成功,002失败
+	data:null
+}
+
+//----------------------环信----------------------------
+1，发送消息
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/hx_msg!addFromApp
+请求参数：
+	licence:数字执照
+	target:接受者用户
+	from:发送者用户
+	msg:消息内容
+应答参数：
+{
+	result：001成功，002失败
+	data:null
+}
+
+
+
+//---------------------新闻----------------------------------
+新建/修改新闻通过网页编辑器
+
+查看单条新闻
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/news!findSingleNews
+请求参数：
+	licence:数字执照
+	NId:新闻编号
+应答参数：
+{
+	result：001成功，002新闻编号为空
+	data:{
+		NId:新闻编号
+		NTitle:新闻标题
+		NContent:新闻内容
+		NImgs：新闻图片
+		NUrl：新闻图片url
+		NOrigin：新闻来源
+		NType：新闻类型
+		NCreatTime：新闻创建时间
+		NFinalTime：新闻最后修改/发布时间
+		NIstop：是否置顶
+		UId：创建该新闻用户id
+		NStatus：新闻状态：1发布中，2过时
+		user{创建新闻者（用户）所有信息（已清空密码）
+		
+				}
+		}
+	
+}
+分页查看所有新闻（发布中）
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/news!findAllNewsOnByPage
+请求参数：
+	licence:数字执照
+	pageNo：当前页数
+	Size：每页展示数量
+	NStatus：新闻状态：1发布中，0过时
+应答参数：
+{
+	result：001成功，002当前页数为负，003每页数量为负，004当前没有查到新闻，005NStatus为空或者不为1
+	data:[{一条新闻
+		NId:新闻编号
+		NTitle:新闻标题
+		NContent:新闻内容
+		NImgs：新闻图片
+		NUrl：新闻图片url
+		NOrigin：新闻来源
+		NType：新闻类型
+		NCreatTime：新闻创建时间
+		NFinalTime：新闻最后修改/发布时间
+		NIstop：是否置顶：1置顶，2不置顶
+		UId：创建该新闻用户id
+		NStatus：新闻状态：1发布中，0过时
+		user{创建新闻者（用户）所有信息（已清空密码）
+		
+				}
+		}{下一条新闻。。。   }{下一条新闻。。。    }]
+	
+}
+
+//-----------------公告--------------------------
+新建公告（已停用）
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!insertBulletin
+请求参数：
+	licence:数字执照
+	公告标题：AiTitle
+	公告内容：AiContent
+	创建公告者：ItId
+应答参数：
+{
+	result：001成功，002标题为空，003内容为空，004当前用户TrpId为空，
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"aiId":"041010520399815",
+		"aiContent":"更新将在半小时内完成，新版本更新期间请不要进行数据操作以免丢失",
+		"aiStatus":"已发布",
+		"teacher":null,
+		"aiTitle":"新版本APP将于12月4日3点发布",
+		"aiTime":"2016-12-04 10:10:52"}
+		}
+}
+分页查看（某教职工）发布的所有公告
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!queryBulletinByItId
+请求参数：
+	licence:数字执照
+	当前页码，从1开始算：pageNo
+	每页展示数量：pageSize
+	创建公告者：ItId（不传该参数或传空值则返回所有公告）
+应答参数：
+{
+	result：001成功，002pageNo小于0，003pageSize小于0，004当前用户没有发布过公告
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"aiId":"041013131823137",
+		"aiContent":"更新将在半小时内完成，新版本更新期间请不要进行数据操作以免丢失",
+		"aiStatus":"已发布",
+		"teacher":{教师信息，已将密码清空
+			"itId":"1",
+			"itPhone":"",
+			"ssId":"",
+			"itAddress":"",
+			"itBirthday":null,
+			"itIntoDate":null,
+			"itState":"",
+			"itNum":"001",
+			"itPost":"",
+			"itSex":"",
+			"itLeaveDate":null,
+			"itName":"李老师"},
+		"aiTitle":"新版本APP将于12月4日4点发布","
+		aiTime":"2016-12-04 10:13:13"},
+			{第二条公告}{第三条...}{...}]}
+}
+根据id查看单条公告
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!findSingleBulletin
+请求参数：
+	licence:数字执照
+	公告编号：AiId
+应答参数：
+{
+	result：001成功
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"aiId":"041010520399815",
+		"aiContent":"更新将在半小时内完成，新版本更新期间请不要进行数据操作以免丢失",
+		"aiStatus":"已发布",
+		"teacher":null,
+		"aiTitle":"新版本APP将于12月4日3点发布",
+		"aiTime":"2016-12-04 10:10:52"}
+		}
+}
+-------------------------班级通知---------------------------------
+新建班级通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!insertClassInform
+请求参数：
+	licence:数字执照
+	公告标题：CiTitle
+	公告内容：CiContent
+	班级编号：ScId
+	创建班级通知者TrpId：TrpId
+应答参数：
+{
+	result：001成功，002标题为空，003内容为空，004当前用户TrpId为空，005班级编号为空
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"itId":"1",
+		"ciTitle":"本周三展开家长会",
+		"ciStatus":"已发布",
+		"classs":null,
+		"ciTime":"2016-12-04 10:02:10",
+		"scId":"1",
+
+		"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
+		"ciId":"041002108565809",
+		"teacher":null}
+		}
+}
+分页查看一个班级所有的班级通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findClassInformByScId
+请求参数：
+	licence:数字执照
+	pageNo：当前页码，从1开始算
+	pageSize：每页展示数量
+	ScId：班级编号
+应答参数：
+{
+	result：001成功，002pageNo小于0，003pageSize小于0，004当前班级没有发布过班级通知
+	data:{"result":"001",
+	"data":
+	[
+		{
+			"itId":"1",
+			"ciTitle":"本周三展开家长会",
+			"ciStatus":"已发布",
+			"classs":{
+					"itId":"1",
+					"scId":"1",
+					"scName":"",
+					"schoolGrade":null,
+					"sgId":"1"},
+			"ciTime":"2016-12-04 10:02:10",
+			"scId":"1",
+			"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
+			"ciId":"041002108565809",
+			"teacher":{
+					"itId":"1",
+					"itPhone":"",
+					"ssId":"",
+					"itAddress":"",
+					"itBirthday":null,
+					"itIntoDate":null,
+					"itState":"",
+					"itNum":"001",
+					"itPost":"",
+					"itSex":"",
+					"itLeaveDate":null,
+					"itName":"李老师"}
+		},
+		{第二条通知},
+		{第三条...},
+		{...}
+	]			
+}
+根据id查看单条班级通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findSingleClassInformById
+请求参数：
+	licence:数字执照
+	CiId:班级通知编号
+应答参数：
+{
+	result：001成功，002失败
+	data:{"result":"001",
+		"data":
+		{
+			"itId":"1",
+			"ciTitle":"本周三展开家长会",
+			"ciStatus":"已发布",
+			"ciTime":"2016-12-04 10:02:10",
+			"scId":"1",
+			"ciContent":"各位家长，**幼儿园**班将于本周末（11月30日）进行家长会活动",
+			"ciId":"041002108565809",
+			"classs":{
+					"itId":"1",
+					"scId":"1",
+					"scName":"",
+					"schoolGrade":null,
+					"sgId":"1"},
+			"teacher":{
+					"itId":"1",
+					"itPhone":"",
+					"ssId":"",
+					"itAddress":"",
+					"itBirthday":null,
+					"itIntoDate":null,
+					"itState":"",
+					"itNum":"001",
+					"itPost":"",
+					"itSex":"",
+					"itLeaveDate":null,
+					"itName":"李老师"}
+			}
+		}
+}
+-------------------------个人通知---------------------------------
+新建/发送个人通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!insertPersonInform
+请求参数：
+	licence:数字执照
+	通知标题：PiTitle
+	通知内容：PiContent
+	接收通知用户编号：UId
+应答参数：
+{
+	result：001成功，002标题为空，003内容为空，004接收用户UId为空
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"UId":"271634032221266",
+		"piTime":"2016-12-04 09:27:22",
+		"piId":"040927226119636",
+		"piContent":"经过测试您所反馈的情况属实，我们将予以补偿",
+		"user":{"
+			UId":"271634032221266",
+			"UPass":"",
+			"trpId":"1",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/26180936276.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+		"piStatus":"已发送",
+		"piTitle":"您的反馈结果"}
+		}
+}
+分页查看一个用户所有的个人通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!queryPersonInformByUId
+请求参数：
+	licence:数字执照
+	当前页码，从1开始算：pageNo
+	每页展示数量：pageSize
+	用户编号：UId
+应答参数：
+{
+	result：001成功，002pageNo小于0，003pageSize小于0，004当前用户没有通知
+	data:{"result":"001",
+	"data":
+		{(实例)
+		"UId":"271634032221266",
+		"piTime":"2016-12-04 09:27:22",
+		"piId":"040927226119636",
+		"piContent":"经过测试您所反馈的情况属实，我们将予以补偿",
+		"user":{"
+			UId":"271634032221266",
+			"UPass":"",
+			"trpId":"1",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/26180936276.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+		"piStatus":"已发送",
+		"piTitle":"您的反馈结果"}，
+			{第二条通知}{第三条...}{...}]}
+}
+根据id查看单条个人通知
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!findSinglePersonInform
+请求参数：
+	licence:数字执照
+	公告编号：PiId
+应答参数：
+{
+	result：001成功
+	data:{(实例)
+		"UId":"271634032221266",
+		"piTime":"2016-12-04 09:27:22",
+		"piId":"040927226119636",
+		"piContent":"经过测试您所反馈的情况属实，我们将予以补偿",
+		"user":{"
+			UId":"271634032221266",
+			"UPass":"",
+			"trpId":"1",
+			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/26180936276.png",
+			"UNote":"",
+			"UType":"1",
+			"UName":"张顺",
+			"UCreateTime":"2016-10-26 23:08:14",
+			"UNum":"qwe"},
+		"piStatus":"已发送",
+		"piTitle":"您的反馈结果"}
+			}
+		}
+}
+
+----------------------意见反馈--------------------------
+新建/发送反馈
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!insertReturn
+请求参数：
+	licence:数字执照
+	反馈内容：RContent
+	用户id：UId
+应答参数：
+{
+	result：001成功，002内容为空，003用户ID为空
+	data:{
+		"RId":反馈编号
+		"RContent":反馈内容
+		"RTime":发送反馈时间
+		"UId":用户id
+		"RState":反馈状态,新建默认为"未查看"
+		"user":用户信息null
+	}
+查看单条反馈
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!findSingleReturn
+请求参数：
+	licence:数字执照
+	反馈id：RId
+应答参数：
+{
+	result：001成功，002RId为空
+	data:{
+		"RId":反馈编号
+		"RContent":反馈内容
+		"RTime":发送反馈时间
+		"UId":用户id
+		"RState":反馈状态查看后自动更改为“已查看”
+		"user":用户信息（已清空密码）
+	}	
+修改反馈状态
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!updateReturn
+请求参数：
+	licence:数字执照
+	反馈id：RId
+	反馈状态：RStatus
+应答参数：
+{
+	result：001成功，002反馈状态为空，003RId为空
+	data:{
+		"RId":反馈编号
+		"RContent":反馈内容
+		"RTime":发送反馈时间
+		"UId":用户id
+		"RState":反馈状态
+		"user":用户信息（已清空密码）
+	}
+分页查看所有反馈
+http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!findAllReturnsByPage
+请求参数：
+	licence:数字执照
+	当前页码，从1开始算：PageNo
+	每页展示数量：PageSize
+	//反馈状态：RStatus（目前可以空传参，因为需求暂时没有根据状态分页查看）
+应答参数：
+{
+	result：001成功，002pageNo小于0，003pageSize小于0，004当前没有查询到反馈
+	data:{[
+		"RId":反馈编号
+		"RContent":反馈内容
+		"RTime":发送反馈时间
+		"UId":用户id
+		"RState":反馈状态
+		"user":用户信息（已清空密码）][...][...]
+	}	
+	
+
+//-----------------------------------家长档案-------------------------------------	
+1、获取验证码（测试通过、张顺、2016-12-9 22:41:24）
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/parents!queryCode
+请求参数：
+	UId：用户id
+	ipPhone：手机号
+	licence:执照
+应答参数：
+{
+	result：001成功,002失败
+	data:null
+}
+2、添加家长档案（测试通过、张顺、2016-12-10 15:56:56）
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/parents!addFromApp
+请求参数：
+	UId:用户id
+	ipName:家长姓名
+	ipBirthday:家长生日
+	ipAddress:地址
+	ipPhone:家长电话
+	ipSex:家长性别
+	CCode:验证码
+	licence:执照
+应答参数：	
+{
+	result：001成功,002验证码验证失败，003已有家长档案拥有手机号，并已将该用户的家长档案关联到这个家长档案上（也算成功），004该用户已拥有真实的家长档案
+	data:null
+}	
+3、查看家长档案（测试通过、张顺、2016-12-9 22:41:24）	
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/parents!queryFromApp
+请求参数：
+	UId:用户id
+	licence:执照
+应答参数：	
+{
+	result：001成功,002失败
+	data:{
+		......
+		ipId:家长id
+		ipName:家长姓名
+		ipBirthday:家长生日
+		ipAddress:地址
+		ipPhone:家长电话
+		ipSex:家长性别
+	}
+}	
+	
+//---------------------------------教师档案-----------------------------------	
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/teacher!querySchoolClass
+请求参数：
+	licence:执照
+	UId:用户id
+应答参数：	
+{
+	result：001成功,002该用户不是教师，003该用户没有绑定教师档案,004该用户档案信息异常进行查找
+	data:
+	[
+		{
+			scId:班级id
+			scName:班级名字
+			sgId:年级id
+			itId:班主任id（也就是自己的档案的id）
+			scCreateTime:创建时间（yy-MM-dd HH:mm:ss）
+			scState:状态：有效、无效
+						（只有为有效才是当前可用，无效表示是历史数据，目的是留下记录）
+						(这里我默认只查出有效的)
+		}
+	]
+}
+
