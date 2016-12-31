@@ -227,11 +227,7 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 			resp.setResult("003");
 			resp.setData(null);
 		}
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	

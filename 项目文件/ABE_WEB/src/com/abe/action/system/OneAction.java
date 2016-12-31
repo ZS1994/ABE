@@ -93,11 +93,7 @@ public class OneAction extends BaseAction implements iBaseAction{
 		String oldPass=ser.clearSpace(getRequest(), "oldPass");
 		String newPass=ser.clearSpace(getRequest(), "newPass");
 		RespCommon resp=signSer.updatePass(uid, oldPass, newPass);
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	
