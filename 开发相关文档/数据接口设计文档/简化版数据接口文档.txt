@@ -940,26 +940,56 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!createVacate
 	"data":[{"UId":家长的用户id
 		"VTime":请假条的创建时间
 		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-		"student":{学生信息
-					
-					}
-		"VResp":教师的批复信息(刚创建没有批复的为空)
-		"VContent":请假原因
-		"teacher":{教师信息
-					
-					}
 		"VId":请假条编号
 		"VDate":请假时间
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"isId":请假学生id
+		"student":{学生信息
+				"isClassLine":升级线
+				"parents":家长信息
+				"isSex":性别
+				"cardLogs":卡号
+				"isLeaveDate":离校日期
+				"isIntoDate":入校日期
+				"isNum":学号
+				"schoolClass":班级信息
+				"scores":成绩
+				"isState":状态
+				"isBirthday":生日
+				"isName":姓名
+				"scId":班级id
+				"isTeacherChildren":是否是教职工子弟
+				"isLocal":是否本地生
+				"isId":学生id		
+					}
+
+		"teacher":{教师信息
+				"itPhone":电话号码
+				"itSex":性别
+				"itId":教师id
+				"ssId":部门编号
+				"itAddress":住址
+				"itBirthday":生日
+				"itIntoDate":入职日期
+				"itState":状态
+				"schoolSection":部门信息
+				"itNum":教师工号
+				"itPost":职务
+				"itLeaveDate":离职日期
+				"itName":姓名	
+					}
+
 		"user":{//家长的用户登录信息（已将密码清空）
-			"UId":"271634032221266",
-			"UPass":"",
-			"trpId":"35",
-			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-			"UNote":"",
-			"UType":"1",
-			"UName":"张顺",
-			"UCreateTime":"2016-10-26 23:08:14",
-			"UNum":"qwe"},
+			"UId":用户id
+			"UPass":用户密码（空）
+			"trpId"：教师档案或者家长档案编号（根据用户类型判断）
+			"UPhotoPath":用户头像
+			"UNote":备注
+			"UType":用户类型
+			"UName":用户名称
+			"UCreateTime":用户创建时间
+			"UNum":用户账号},
 }
 
 
@@ -974,26 +1004,56 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findSingleVacate
 	"data":[{"UId":家长的用户id
 		"VTime":请假条的创建时间
 		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-		"student":{学生信息
-					
-					}
-		"VResp":教师的批复信息(刚创建没有批复的为空)
-		"VContent":请假原因
-		"teacher":{教师信息
-					
-					}
 		"VId":请假条编号
 		"VDate":请假时间
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"isId":请假学生id
+		"student":{学生信息
+				"isClassLine":升级线
+				"parents":家长信息
+				"isSex":性别
+				"cardLogs":卡号
+				"isLeaveDate":离校日期
+				"isIntoDate":入校日期
+				"isNum":学号
+				"schoolClass":班级信息
+				"scores":成绩
+				"isState":状态
+				"isBirthday":生日
+				"isName":姓名
+				"scId":班级id
+				"isTeacherChildren":是否是教职工子弟
+				"isLocal":是否本地生
+				"isId":学生id		
+					}
+
+		"teacher":{教师信息
+				"itPhone":电话号码
+				"itSex":性别
+				"itId":教师id
+				"ssId":部门编号
+				"itAddress":住址
+				"itBirthday":生日
+				"itIntoDate":入职日期
+				"itState":状态
+				"schoolSection":部门信息
+				"itNum":教师工号
+				"itPost":职务
+				"itLeaveDate":离职日期
+				"itName":姓名	
+					}
+
 		"user":{//家长的用户登录信息（已将密码清空）
-			"UId":"271634032221266",
-			"UPass":"",
-			"trpId":"35",
-			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-			"UNote":"",
-			"UType":"1",
-			"UName":"张顺",
-			"UCreateTime":"2016-10-26 23:08:14",
-			"UNum":"qwe"},
+			"UId":用户id
+			"UPass":用户密码（空）
+			"trpId"：教师档案或者家长档案编号（根据用户类型判断）
+			"UPhotoPath":用户头像
+			"UNote":备注
+			"UType":用户类型
+			"UName":用户名称
+			"UCreateTime":用户创建时间
+			"UNum":用户账号},
 }
 
 
@@ -1015,26 +1075,56 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!respsVacate
 	"data":[{"UId":家长的用户id
 		"VTime":请假条的创建时间
 		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-		"student":{学生信息
-					
-					}
-		"VResp":教师的批复信息(刚创建没有批复的为空)
-		"VContent":请假原因
-		"teacher":{教师信息
-					
-					}
 		"VId":请假条编号
 		"VDate":请假时间
-		"user":{//家长的用户登录信息（已将密码清空）
-			"UId":"271634032221266",
-			"UPass":"",
-			"trpId":"35",
-			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-			"UNote":"",
-			"UType":"1",
-			"UName":"张顺",
-			"UCreateTime":"2016-10-26 23:08:14",
-			"UNum":"qwe"},
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"isId":请假学生id
+		"student":{学生信息
+				"isClassLine":升级线
+				"parents":家长信息
+				"isSex":性别
+				"cardLogs":卡号
+				"isLeaveDate":离校日期
+				"isIntoDate":入校日期
+				"isNum":学号
+				"schoolClass":班级信息
+				"scores":成绩
+				"isState":状态
+				"isBirthday":生日
+				"isName":姓名
+				"scId":班级id
+				"isTeacherChildren":是否是教职工子弟
+				"isLocal":是否本地生
+				"isId":学生id	
+					}
+
+		"teacher":{教师信息
+				"itPhone":电话号码
+				"itSex":性别
+				"itId":教师id
+				"ssId":部门编号
+				"itAddress":住址
+				"itBirthday":生日
+				"itIntoDate":入职日期
+				"itState":状态
+				"schoolSection":部门信息
+				"itNum":教师工号
+				"itPost":职务
+				"itLeaveDate":离职日期
+				"itName":姓名	
+					}
+
+		"user":{//家长的用户信息（已将密码清空）
+			"UId":用户id
+			"UPass":用户密码（空）
+			"trpId"：教师档案或者家长档案编号（根据用户类型判断）
+			"UPhotoPath":用户头像
+			"UNote":备注
+			"UType":用户类型
+			"UName":用户名称
+			"UCreateTime":用户创建时间
+			"UNum":用户账号},
 }
 
 分页查看给该班主任/学生的请假条
@@ -1045,33 +1135,32 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findOwnerVacate
 	pageNo：当前页数
 	Size：每页展示请假条数量
 应答参数：
-{
+{121617080757562
+121617080757562
 	result：001成功，002页数为负，003每页数量为负，004/005当前用户（家长用户/教师用户）下没有请假条或页数超限
 		006用户不存在，007有用户但类型不是教师也不是家长
 	"data":[//一个请假条信息
 		{"UId":家长的用户id
 		"VTime":请假条的创建时间
 		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-		"student":{学生信息
-					
-					}
-		"VResp":教师的批复信息(刚创建没有批复的为空)
-		"VContent":请假原因
-		"teacher":{教师信息
-					
-					}
 		"VId":请假条编号
 		"VDate":请假时间
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"isId":请假学生id
+		"student":{}
+		"teacher":{}
+
 		"user":{//家长的用户登录信息（已将密码清空）
-			"UId":"271634032221266",
-			"UPass":"",
-			"trpId":"35",
-			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-			"UNote":"",
-			"UType":"1",
-			"UName":"张顺",
-			"UCreateTime":"2016-10-26 23:08:14",
-			"UNum":"qwe"},
+			"UId":用户id
+			"UPass":用户密码（空）
+			"trpId"：教师档案或者家长档案编号（根据用户类型判断）
+			"UPhotoPath":用户头像
+			"UNote":备注
+			"UType":用户类型
+			"UName":用户名称
+			"UCreateTime":用户创建时间
+			"UNum":用户账号},
 		}{一个请假条信息...}{一个请假条信息...}{一个请假条信息...}......]
 			
 }
@@ -1090,26 +1179,24 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/vacate!findAllVacate
 		{"UId":家长的用户id
 		"VTime":请假条的创建时间
 		"itId":教师的档案编号（接收该请假条的班主任APP端trpid（也是教师资料表的id编号））
-		"student":{学生信息
-					
-					}
-		"VResp":教师的批复信息(刚创建没有批复的为空)
-		"VContent":请假原因
-		"teacher":{教师信息
-					
-					}
 		"VId":请假条编号
 		"VDate":请假时间
+		"VResp":教师的批复信息(刚创建没有批复的为空)
+		"VContent":请假原因
+		"isId":请假学生id
+		"student":{}
+		"teacher":{}
+
 		"user":{//家长的用户登录信息（已将密码清空）
-			"UId":"271634032221266",
-			"UPass":"",
-			"trpId":"35",
-			"UPhotoPath":"http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/271634032221266.png",
-			"UNote":"",
-			"UType":"1",
-			"UName":"张顺",
-			"UCreateTime":"2016-10-26 23:08:14",
-			"UNum":"qwe"},
+			"UId":用户id
+			"UPass":用户密码（空）
+			"trpId"：教师档案或者家长档案编号（根据用户类型判断）
+			"UPhotoPath":用户头像
+			"UNote":备注
+			"UType":用户类型
+			"UName":用户名称
+			"UCreateTime":用户创建时间
+			"UNum":用户账号},
 		}{一个请假条信息...}{一个请假条信息...}{一个请假条信息...}......]
 			
 }
@@ -1291,9 +1378,9 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/news!findAllNewsOnByPage
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!insertBulletin
 请求参数：
 	licence:数字执照
-	公告标题：AiTitle
-	公告内容：AiContent
-	创建公告者：ItId
+	AiTitle：公告标题
+	AiContent：公告内容
+	ItId：创建公告者
 应答参数：
 {
 	result：001成功，002标题为空，003内容为空，004当前用户TrpId为空，
@@ -1313,9 +1400,9 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!insertBulletin
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!queryBulletinByItId
 请求参数：
 	licence:数字执照
-	当前页码，从1开始算：pageNo
-	每页展示数量：pageSize
-	创建公告者：ItId（不传该参数或传空值则返回所有公告）
+	pageNo：当前页码，从1开始算
+	pageSize：每页展示数量
+	ItId：创建公告者（不传该参数或传空值则返回所有公告）
 应答参数：
 {
 	result：001成功，002pageNo小于0，003pageSize小于0，004当前用户没有发布过公告
@@ -1347,7 +1434,7 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!queryBulletinByItId
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!findSingleBulletin
 请求参数：
 	licence:数字执照
-	公告编号：AiId
+	AiId：公告编号
 应答参数：
 {
 	result：001成功
@@ -1368,10 +1455,10 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/bulletin!findSingleBulletin
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!insertClassInform
 请求参数：
 	licence:数字执照
-	公告标题：CiTitle
-	公告内容：CiContent
-	班级编号：ScId
-	创建班级通知者TrpId：TrpId
+	CiTitle：公告标题
+	CiContent：公告内容
+	ScId：班级编号
+	TrpId：创建班级通知者TrpId
 应答参数：
 {
 	result：001成功，002标题为空，003内容为空，004当前用户TrpId为空，005班级编号为空
@@ -1481,9 +1568,9 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/classInform!findSingleClassIn
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!insertPersonInform
 请求参数：
 	licence:数字执照
-	通知标题：PiTitle
-	通知内容：PiContent
-	接收通知用户编号：UId
+	PiTitle：通知标题
+	PiContent：通知内容
+	UId：接收通知用户编号
 应答参数：
 {
 	result：001成功，002标题为空，003内容为空，004接收用户UId为空
@@ -1512,9 +1599,9 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!insertPersonInfo
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!queryPersonInformByUId
 请求参数：
 	licence:数字执照
-	当前页码，从1开始算：pageNo
-	每页展示数量：pageSize
-	用户编号：UId
+	pageNo：当前页码，从1开始算
+	pageSize：每页展示数量
+	UId：用户编号
 应答参数：
 {
 	result：001成功，002pageNo小于0，003pageSize小于0，004当前用户没有通知
@@ -1543,7 +1630,7 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!queryPersonInfor
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/personInform!findSinglePersonInform
 请求参数：
 	licence:数字执照
-	公告编号：PiId
+	PiId：公告编号
 应答参数：
 {
 	result：001成功
@@ -1590,7 +1677,7 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!insertReturn
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!findSingleReturn
 请求参数：
 	licence:数字执照
-	反馈id：RId
+	RId：反馈id
 应答参数：
 {
 	result：001成功，002RId为空
@@ -1606,8 +1693,8 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!findSingleReturn
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!updateReturn
 请求参数：
 	licence:数字执照
-	反馈id：RId
-	反馈状态：RStatus
+	RId：反馈id
+	RStatus：反馈状态
 应答参数：
 {
 	result：001成功，002反馈状态为空，003RId为空
@@ -1623,9 +1710,9 @@ http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!updateReturn
 http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/return!findAllReturnsByPage
 请求参数：
 	licence:数字执照
-	当前页码，从1开始算：PageNo
-	每页展示数量：PageSize
-	//反馈状态：RStatus（目前可以空传参，因为需求暂时没有根据状态分页查看）
+	PageNo：当前页码，从1开始算
+	PageSize：每页展示数量
+	//RStatus：反馈状态（目前可以空传参，因为需求暂时没有根据状态分页查看）
 应答参数：
 {
 	result：001成功，002pageNo小于0，003pageSize小于0，004当前没有查询到反馈
