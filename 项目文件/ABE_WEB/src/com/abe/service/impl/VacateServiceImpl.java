@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.abe.entity.Forum;
+import com.abe.entity.InfoStudent;
+import com.abe.entity.InfoTeacher;
 import com.abe.entity.Users;
 import com.abe.entity.Vacate;
 import com.abe.entity.other.RespRecipeAll;
@@ -52,7 +54,13 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 		vacate.setVTime(time);
 		vacate.setVResp("");
 		save(vacate);
-		
+		InfoStudent st = (InfoStudent) get(InfoStudent.class,isId);
+		InfoTeacher teacher = (InfoTeacher) get(InfoTeacher.class,itId);
+		Users user = (Users) get(Users.class,uId);
+		user.setUPass(null);
+		vacate.setStudent(st);
+		vacate.setTeacher(teacher);
+		vacate.setUser(user);
 		respVacate.setData(vacate);
 		respVacate.setResult("001");
 		}
@@ -67,6 +75,13 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 	public RespVacate findSingleVacate(String vId) {
 		
 		Vacate vacate = (Vacate) get(Vacate.class,vId);
+		InfoStudent st = (InfoStudent) get(InfoStudent.class,vacate.getIsId());
+		InfoTeacher teacher = (InfoTeacher) get(InfoTeacher.class,vacate.getItId());
+		Users user = (Users) get(Users.class,vacate.getUId());
+		user.setUPass(null);
+		vacate.setStudent(st);
+		vacate.setTeacher(teacher);
+		vacate.setUser(user);
 		RespVacate respVacate = new RespVacate("001",vacate);
 		return respVacate;
 	}
@@ -89,8 +104,13 @@ public class VacateServiceImpl extends BaseServiceImpl implements
 		vacate.setVResp(vResp);
 		vacate.setVTime(vTime);
 		update(vacate);
-		
-		respVacate.setData(vacate);
+		InfoStudent st = (InfoStudent) get(InfoStudent.class,isId);
+		InfoTeacher teacher = (InfoTeacher) get(InfoTeacher.class,itId);
+		Users user = (Users) get(Users.class,uId);
+		user.setUPass(null);
+		vacate.setStudent(st);
+		vacate.setTeacher(teacher);
+		vacate.setUser(user);
 		respVacate.setResult("001");
 		}
 		return respVacate;
