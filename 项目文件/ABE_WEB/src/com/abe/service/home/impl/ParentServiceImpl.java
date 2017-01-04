@@ -100,15 +100,26 @@ public class ParentServiceImpl extends BaseServiceImpl implements iParentService
 	
 	
 	@Override
-	public void saveCode(String uid,String mobile,String param) {
+	public boolean saveCode(String uid,String mobile,String param) {
 		if (uid!=null && mobile!=null && param!=null) {
 			List<NameValuePair> list=new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("mobile", mobile));
 			list.add(new BasicNameValuePair("param", param));
 			try {
+				System.out.println("1111111111111111111");
 				String result=HttpClientHelper.getInstance().doPost(URL, list);
+				System.out.println("2222222222222222");
 				JSONObject jsonObject=JSONObject.fromObject(result);
-				String isSucc=jsonObject.getString("success");
+				System.out.println("33333333333333333");
+				String isSucc=null;
+				try {
+					isSucc=jsonObject.getString("success");
+				} catch (Exception e) {
+					System.out.println("--出错了--");
+					return false;
+				}
+				System.out.println("isSucc:"+isSucc);
+				System.out.println("4444444444444444444");
 				if (isSucc!=null && isSucc.equals("true")) {
 					Code ctmp=(Code) get(Code.class, uid);
 					Date date=new Date();
@@ -125,11 +136,13 @@ public class ParentServiceImpl extends BaseServiceImpl implements iParentService
 						ctmp.setCNoTime(new Timestamp(calendar.getTime().getTime()));
 						update(ctmp);
 					}
+					return true;
 				}
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 		}
+		return false;
 	}
 
 

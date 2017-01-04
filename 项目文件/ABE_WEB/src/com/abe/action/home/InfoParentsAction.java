@@ -108,11 +108,7 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 		String CCode=ser.clearSpace(getRequest(), "CCode");
 		InfoParents p=new InfoParents(null, ipName, ipSex, ser.toDate(ipBirthday), ipPhone, ipAddress);
 		RespCommon resp=parentSer.addFromApp(UId, p, CCode);
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	
@@ -121,22 +117,14 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 		String ipPhone=ser.clearSpace(getRequest(), "ipPhone");
 		parentSer.saveCode(UId, ipPhone, (int)((Math.random()*9+1)*100000)+"");//发送6位随机数验证码
 		RespCommon resp=parentSer.getCode(UId);
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	
 	public String queryFromApp() {
 		String UId=ser.clearSpace(getRequest(), "UId");
 		RespCommon resp=parentSer.queryParent(UId);
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	

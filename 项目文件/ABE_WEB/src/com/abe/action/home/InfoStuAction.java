@@ -249,12 +249,7 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 			respstu.setResult("001");
 			respstu.setData(students);
 		}
-		try {
-			sendToApp(respstu, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error("分页查询所有学生发送json时错误，错误json："+respstu);
-		}
+		sendToApp(respstu, ser);
 		return null;
 	}
 	

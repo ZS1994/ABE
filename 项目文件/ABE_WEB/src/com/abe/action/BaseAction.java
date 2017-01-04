@@ -76,13 +76,18 @@ public class BaseAction extends ActionSupport{
 	 * @param ser
 	 * @throws IOException
 	 */
-	public void sendToApp(Object obj,iBaseService ser) throws IOException {
-		JSONObject json=null;
-		json=ser.objToJson(obj);
-		getPrintWriter().print(json);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+	public void sendToApp(Object obj,iBaseService ser) {
+		try {
+			JSONObject json=null;
+			json=ser.objToJson(obj);
+			getPrintWriter().print(json);
+			getPrintWriter().flush();
+			getPrintWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+	
 	
 	/**
 	 * 张顺 2016-11-12

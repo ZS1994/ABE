@@ -104,8 +104,7 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 				respTeacher.setData(respTeacher);
 			}
 		}
-		JSONObject json = ser.objToJson(respTeacher);
-		sendToApp(json,ser);
+		sendToApp(respTeacher,ser);
 		return null;
 	}
 	
@@ -124,6 +123,19 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	
+	/**
+	 * 张顺 2016-12-31
+	 * 查询关于自己的所有班级信息
+	 * @return
+	 */
+	public String querySchoolClass() {
+		String uid=ser.clearSpace(getRequest(), "UId");
+		RespCommon resp=teacherSer.querySchoolClass(uid);
+		sendToApp(resp, ser);
+		return null;
+	}
+	
 	
 	@Override
 	public void clearOptions() {

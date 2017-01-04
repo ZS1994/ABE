@@ -331,8 +331,14 @@ public class SignServiceImpl extends ParentServiceImpl implements iSignService{
 	}
 	@Override
 	public RespCommon queryCode(String phone) {
-		saveCode("admin", phone, (int)((Math.random()*9+1)*100000)+"");//发送6位随机数验证码
-		return getCode("admin");
+		//发送6位随机数验证码
+		if (saveCode("admin", phone, (int)((Math.random()*9+1)*100000)+"")) {
+			return getCode("admin");
+		}else {
+			RespCommon common=new RespCommon();
+			common.setResult("002");
+			return common;
+		}
 	}
 	
 	

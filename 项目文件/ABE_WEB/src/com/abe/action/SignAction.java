@@ -119,11 +119,7 @@ public class SignAction extends BaseAction implements iBaseAction{
 	public String queryCode() {
 		String phone=ser.clearSpace(getRequest(), "ipPhone");
 		RespCommon resp=signSer.queryCode(phone);
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	
