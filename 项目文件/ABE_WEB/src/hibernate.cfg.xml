@@ -10,7 +10,7 @@
 
 		<!--
 		-->
-			<property name="proxool.pool_alias">DBPool</property>
+			<property name="proxool.pool_alias">DBPool_ABE</property>
 			<property name="proxool.xml">proxool.xml</property>
 			<property name="connection.provider_class">
 			org.hibernate.connection.ProxoolConnectionProvider

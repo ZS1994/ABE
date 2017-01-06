@@ -706,7 +706,11 @@ URL:http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/class!queryFromApp
 		scId:班级id
 		scName:班级名字
 		sgId:年级id
-		itId:班主任id
+		itId:班主任档案id
+		scCreateTime:创建时间（yy-MM-dd HH:mm:ss）
+		scState:状态：有效、无效
+					（只有为有效才是当前可用，无效表示是历史数据，目的是留下记录）
+					(这里我默认只查出有效的)
 	}
 }
 
@@ -1784,7 +1788,7 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/parents!queryFromApp
 	licence:执照
 应答参数：	
 {
-	result：001成功,002失败
+	result：001成功,002失败	   
 	data:{
 		......
 		ipId:家长id
@@ -1797,13 +1801,14 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/parents!queryFromApp
 }	
 	
 //---------------------------------教师档案-----------------------------------	
+查看教师所管的班级信息，即查出哪些班级的班主任是这个教师
 URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/teacher!querySchoolClass
 请求参数：
 	licence:执照
 	UId:用户id
 应答参数：	
 {
-	result：001成功,002该用户不是教师，003该用户没有绑定教师档案,004该用户档案信息异常进行查找
+	result：001成功,002该用户不是教师，003该用户没有绑定教师档案,004该用户档案信息异常无法进行查找
 	data:
 	[
 		{
@@ -1817,5 +1822,31 @@ URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/teacher!querySchoolClas
 						(这里我默认只查出有效的)
 		}
 	]
+}
+
+通过教师账号编号（UId）查看教师档案信息（2017-1-6，张顺，测试通过）
+URL：http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/app/teacher!queryFromApp
+请求参数：
+	licence:执照
+	UId:用户id
+应答参数：	
+{
+	result：001成功,002该用户不是教师，003该用户没有绑定教师档案,
+			004该用户档案信息异常无法进行查找
+	data:
+	{
+		itId:教师档案id
+		itNum:教师工号
+		itName:教师名字
+		itSex:性别
+		itBirthday:生日
+		itPhone:手机号
+		itPost:职务
+		itIntoDate:入职日期
+		itLeaveDate:离职日期
+		itState:状态。正常在校/休假中/已离职/已退休
+		itAddress:住址
+		ssId:部门编号
+	}
 }
 

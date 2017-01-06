@@ -136,8 +136,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<br/>
 				状态：<br/>
 				<select name="teacher.itState">
-					<option value="入职">入职</option>
-					<option value="离职">离职</option>
+					<option value="正常在校">正常在校</option>
+					<option value="休假中">休假中</option>
+					<option value="已离职">已离职</option>
+					<option value="已退休">已退休</option>
 				</select><br/>
 				住址：<br/>
 				<input type="text" name="teacher.itAddress" style="width: 100%"/><br/>
@@ -175,9 +177,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input id="u_9" type="text" name="teacher.itLeaveDate" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;"/><br/>
 				<br/>
 				状态：<br/>
-				<select id="u_10" name="teacher.itState">
-					<option value="入职">入职</option>
-					<option value="离职">离职</option>
+				<select name="teacher.itState">
+					<option value="正常在校">正常在校</option>
+					<option value="休假中">休假中</option>
+					<option value="已离职">已离职</option>
+					<option value="已退休">已退休</option>
 				</select><br/>
 				住址：<br/>
 				<input id="u_11" type="text" name="teacher.itAddress" style="width: 100%"/><br/>

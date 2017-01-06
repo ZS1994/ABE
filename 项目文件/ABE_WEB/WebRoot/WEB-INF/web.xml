@@ -39,4 +39,9 @@
   	<session-timeout>480</session-timeout>
   </session-config>
   
+  <context-param>
+  	<param-name>webAppRootKey</param-name>
+	<param-value>abe.root</param-value>
+  </context-param>
+  
   </web-app>
