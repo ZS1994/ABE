@@ -84,25 +84,39 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	
 	/**
 	 * 卢江林 2016-11-22
-	 * app通过trpId查询教师资料
+	 * app通过UId查询教师资料
 	 */
 	public String queryFromApp()throws IOException{
-		logger.debug("-------进入queryFromAPP--------");
 		String uid = ser.clearSpace(getRequest(), "UId");
 		RespCommon respTeacher = new RespCommon();
-		if(uid==null){
-			respTeacher.setResult("003");
-			respTeacher.setData(null);
-		}else{
+		if(uid!=null){
 			Users user = (Users) ser.get(Users.class, uid);
 			if(user==null){
-				respTeacher.setResult("002");
+				respTeacher.setResult("2001");
 				respTeacher.setData(null);
-			}else if(user.getUType().equals("2")){
-				List<InfoTeacher> list = ser.find("from InfoTeacher where itId=?", new String[]{user.getTrpId()});
-				respTeacher.setResult("001");
-				respTeacher.setData(respTeacher);
+			}else{
+				if(user.getUType()!=null && user.getUType().equals("2")){
+					if (user.getTrpId()!=null) {
+						List<InfoTeacher> list = ser.find("from InfoTeacher where itId=?", new String[]{user.getTrpId()});
+						if (list.size()>0) {
+							respTeacher.setResult("001");
+							respTeacher.setData(list.get(0));
+						}else {
+							respTeacher.setResult("004");
+							respTeacher.setData(null);
+						}
+					}else {
+						respTeacher.setResult("003");
+						respTeacher.setData(null);
+					}
+				}else {
+					respTeacher.setResult("002");
+					respTeacher.setData(null);
+				}
 			}
+		}else {
+			respTeacher.setResult("2001");
+			respTeacher.setData(null);
 		}
 		sendToApp(respTeacher,ser);
 		return null;
@@ -113,9 +127,7 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 	 * 查询老师的个人信息资料
 	 * @param UId
 	 * @throws IOException 
-	 */
 	public String queryTeacherFromApp(String uId) throws IOException{
-		logger.debug("-------进入queryTeacherFromApp--------");
 		String respTeacher = teacherSer.queryTeacher(uId);
 		JSONObject jsonObject = ser.objToJson(respTeacher, "yyyy-MM-dd HH:mm:ss");
 		getPrintWriter().print(jsonObject);
@@ -123,6 +135,7 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 		getPrintWriter().close();
 		return null;
 	}
+	 */
 	
 	/**
 	 * 张顺 2016-12-31
@@ -174,7 +187,7 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 		}
 		StringBuffer hql=new StringBuffer("from InfoTeacher where 1=1 ");
 		if (id!=null) {
-			hql.append("and itId like '%"+id+"%'" );
+			hql.append("and itId like '%"+id+"%' ");
 		}
 		hql.append("order by itIntoDate desc ");
 		teachers=ser.query(hql.toString(), null, hql.toString(), page);
