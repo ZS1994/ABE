@@ -149,7 +149,7 @@ public class TeacherServiceImpl extends BaseServiceImpl implements iTeacherServi
 
 	@Override
 	public void initTeacher(InfoTeacher techer) {
-		if (techer!=null) {
+		if (techer!=null && techer.getSsId()!=null) {
 			SchoolSection ss=(SchoolSection) get(SchoolSection.class, techer.getSsId());
 			if (ss!=null) {
 				techer.setSchoolSection(ss);

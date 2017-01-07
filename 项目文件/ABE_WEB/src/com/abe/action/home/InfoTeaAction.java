@@ -191,10 +191,6 @@ public class InfoTeaAction extends BaseAction implements iBaseAction {
 		}
 		hql.append("order by itIntoDate desc ");
 		teachers=ser.query(hql.toString(), null, hql.toString(), page);
-//		for (int i = 0; i < teachers.size(); i++) {
-//			SchoolSection ss = (SchoolSection) ser.get(SchoolSection.class,teachers.get(i).getSsId());
-//			teachers.get(i).setSchoolSection(ss);
-//		}
 		teacherSer.initTeacher(teachers);//装填封装
 		//带上需要的信息过去
 		getRequest().setAttribute("ssals", teacherSer.getSsals());
