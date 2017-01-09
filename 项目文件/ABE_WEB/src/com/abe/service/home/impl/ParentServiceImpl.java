@@ -7,8 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import jxl.write.DateFormat;
-
 import net.sf.json.JSONObject;
 
 import org.apache.http.NameValuePair;
