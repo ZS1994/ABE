@@ -56,7 +56,11 @@ public class UsersServiceImpl extends BaseServiceImpl implements iUsersService{
 		return getToken(iUsersService.ACCESS_TOKEN);
 	}
 	
-	
+	/*
+	public static void main(String[] args) {
+		System.out.println(new UsersServiceImpl().getToken());
+	}
+	*/
 
 	@SuppressWarnings("static-access")
 	@Override
