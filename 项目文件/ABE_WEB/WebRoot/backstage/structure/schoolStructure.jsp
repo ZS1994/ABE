@@ -68,6 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					for ( var i = 0; i < jarr.length; i++) {
 						$("#pcs").append("<option value='"+jarr[i].pcId+"'>"+jarr[i].pcName+"</option>");
 					}
+					$("#pas").html("<option value=''>--请选择--</option>");
 				}
 			);
 		});

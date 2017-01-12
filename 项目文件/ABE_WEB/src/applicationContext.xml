@@ -168,6 +168,8 @@
 	<bean id="zs_interceptor_timeline_app" class="com.abe.interceptor.TimelineInterceptorApp">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="zs_interceptor_SCT" class="com.abe.interceptor.SCTInterceptor">
+	</bean>
 	
 	
 	<!-- ***************service层********************** -->

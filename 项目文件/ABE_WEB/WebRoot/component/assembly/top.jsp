@@ -37,18 +37,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			安贝儿
 		</span>
   		
+  		
   		<div id="tdTip" class="easyui-dialog" title="提示" style="width:400px;height:200px;display: none;"
 		    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
 		    <div id="dialog_content" style="word-wrap:break-word; width:300px;">
-		    
 		    </div>
-		    
 	    	<input type="button" value="复制到剪切板" style="position:absolute;bottom: 10px;left: 150px;"/>
-		    
 		</div>
   		
   		
 	    <jsp:include page="/component/assembly/token.jsp"></jsp:include>
+	    
+	    
+	    <div style="position: absolute;bottom:5px;right: 40px;">
+	    	<div style="text-align: left;">
+	    		登陆者:
+		    	<span style="color: red;">${user.UNum }</span>
+		    	<span style="color: black;">${user.UName }</span>
+	    	</div>
+	    	<div style="text-align: left;">
+		    	学校:
+		    	<span style="color: red;">${user.school.SName }</span>
+	    	</div>
+	    </div>
 	</div>
 </body>
 </html>

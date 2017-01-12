@@ -23,7 +23,13 @@ import org.apache.log4j.Logger;
 
 import com.abe.entity.Code;
 import com.abe.entity.InfoParents;
+import com.abe.entity.InfoTeacher;
 import com.abe.entity.Licence;
+import com.abe.entity.School;
+import com.abe.entity.SchoolClass;
+import com.abe.entity.SchoolGrade;
+import com.abe.entity.SchoolSection;
+import com.abe.entity.Timetables;
 import com.abe.entity.Users;
 import com.abe.entity.other.RespCommon;
 import com.abe.entity.other.RespSignIn;
@@ -57,6 +63,10 @@ public class SignServiceImpl extends ParentServiceImpl implements iSignService{
 	public String[] signIn(HttpSession session,String hint,Users user) {
 		final String HINT_NO_USER="用户不存在";//用户不存在
 		final String HINT_NO_PASS="密码错误";//密码错误
+		final String HINT_ERROR_TYPE="该用户类型不是教职工";
+		final String HINT_NO_INFO="该用户缺少档案信息";
+		final String HINT_ERROR_INFO="该用户档案错误";
+		final String HINT_ERROR_OTHER="其他错误，导致未找到该用户的学校";
 		final String result="index";
 		final String result_fail="login";
 		List list=find("from Users where UNum=?", new Object[]{user.getUNum()});
@@ -72,8 +82,67 @@ public class SignServiceImpl extends ParentServiceImpl implements iSignService{
 				hint=HINT_NO_PASS;
 				return new String[]{hint,result_fail};
 			}else {
-				session.setAttribute("user", u);
-				return new String[]{hint,result};
+				if (u.getUType()!=null && u.getUType().equals("2")) {
+					if (u.getTrpId()!=null) {
+						InfoTeacher infoTea=(InfoTeacher) get(InfoTeacher.class, u.getTrpId());
+						if (infoTea!=null) {
+							//2017-1-12，张顺，获取学校信息并保存
+							/*从三个方面来找教职工的学校：
+							 * 		1、如果是班级的班主任，那么该班级所属的学校即是。
+							 * 		2、如果是课程表的课程的授课老师，那么该课程所属的课程表，该课程表所属的班级，该班级所属的学校即是。
+							 * 		3、如果是部门的一员，那么该部门所属的学校即是。
+							 * */
+							boolean isFind=false;//是否已经找到的标志
+							School school=null;//先声明,待用
+							List<SchoolClass> scs=find("from SchoolClass where itId=?", new String[]{infoTea.getItId()});
+							if (isFind==false && scs.size()>0 && scs.get(0).getSgId()!=null) {
+								SchoolGrade sg=(SchoolGrade) get(SchoolGrade.class, scs.get(0).getSgId());
+								if (sg!=null && sg.getSId()!=null) {
+									school=(School) get(School.class, sg.getSId());
+									if (school!=null) 
+										isFind=true;
+								}
+							}
+							List<Timetables> tts=find("from Timetables where itId=?", new String[]{infoTea.getItId()});
+							if (isFind==false && tts.size()>0 && tts.get(0).getScId()!=null) {
+								SchoolClass sc=(SchoolClass) get(SchoolClass.class, tts.get(0).getScId());
+								if (sc!=null && sc.getSgId()!=null) {
+									SchoolGrade sg=(SchoolGrade) get(SchoolGrade.class, sc.getSgId());
+									if (sg!=null && sg.getSId()!=null) {
+										school=(School) get(School.class, sg.getSId());
+										if (school!=null) 
+											isFind=true;
+									}
+								}
+							}
+							if (isFind==false && infoTea.getSsId()!=null) {
+								SchoolSection sss=(SchoolSection) get(SchoolSection.class, infoTea.getSsId());
+								if (sss!=null && sss.getSId()!=null) {
+									school=(School) get(School.class, sss.getSId());
+									if (school!=null) 
+										isFind=true;
+								}
+							}
+							if (school!=null) {
+								u.setSchool(school);
+								session.setAttribute("user", u);
+								return new String[]{hint,result};
+							}else {
+								hint=HINT_ERROR_OTHER;
+								return new String[]{hint,result_fail};
+							}
+						}else {
+							hint=HINT_ERROR_INFO;
+							return new String[]{hint,result_fail};
+						}
+					}else {
+						hint=HINT_NO_INFO;
+						return new String[]{hint,result_fail};
+					}
+				}else {
+					hint=HINT_ERROR_TYPE;
+					return new String[]{hint,result_fail};
+				}
 			}
 		}
 	}
