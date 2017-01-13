@@ -16,7 +16,9 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 import org.apache.struts2.ServletActionContext;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
+import com.abe.entity.Users;
 import com.abe.service.iBaseService;
 import com.abe.tools.JsonDateValueProcessor;
 import com.opensymphony.xwork2.ActionSupport;
@@ -139,4 +141,12 @@ public class BaseAction extends ActionSupport{
 		}
 		return array;
 	}
+	
+	/*2017-1-12，张顺，以下方法是用于实现按照班级架构进行权限控制*/
+	public Users getUser() {
+		Users user=(Users) getSession().getAttribute("user");
+		return user;
+	}
+	
+	
 }

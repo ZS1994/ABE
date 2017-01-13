@@ -15,9 +15,9 @@
       </interceptor>
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
-          <interceptor-ref name="defaultStack" />  
           <interceptor-ref name="role_inter_app" />  
           <interceptor-ref name="timeline_inter_app" />  
+          <interceptor-ref name="defaultStack" />  
       </interceptor-stack>  
   </interceptors>
   <!-- ********登录************ -->
@@ -117,13 +117,16 @@
       </interceptor>
       <interceptor name="style_inter" class="zs_interceptor_style">
       </interceptor>
+      <interceptor name="SCT_inter" class="zs_interceptor_SCT">
+      </interceptor>
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
-          <interceptor-ref name="defaultStack" />  
+      	  <interceptor-ref name="SCT_inter" />
           <interceptor-ref name="role_inter" />
           <interceptor-ref name="token_inter" />    
           <interceptor-ref name="timeline_inter" />  
           <interceptor-ref name="style_inter" />  
+          <interceptor-ref name="defaultStack" />  
       </interceptor-stack>
   </interceptors>  
   <!-- 测试用 -->

@@ -54,6 +54,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div title="组织架构管理" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
   			<ul>
 	  			<li>
+	  				<a href="<%=path %>/web/schoolStructure!queryOfFenYe?cz=yes&selInd=2">区域管理</a>
+	  			</li>
+	  			<li>
 	  				<a href="<%=path %>/web/school!queryOfFenYe?cz=yes&selInd=2">学校管理</a>
 	  			</li>
 	  			<li>
@@ -61,9 +64,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			</li>
 	  			<li>
 	  				<a href="<%=path %>/web/class!queryOfFenYe?cz=yes&selInd=2">班级管理</a>
-	  			</li>
-	  			<li>
-	  				<a href="<%=path %>/web/schoolStructure!queryOfFenYe?cz=yes&selInd=2">班级架构</a>
 	  			</li>
 	  		</ul>
   		</div>
