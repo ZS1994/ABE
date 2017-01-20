@@ -97,7 +97,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			</li>
 	  		</ul>
   		</div>
-  		
+  		<div title="消息管理" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
+  			<ul>
+	  			<li>
+	  				<a href="<%=path %>/web/returns!queryOfFenYe?cz=yes&selInd=6">用户反馈</a>
+	  			</li>
+	  			<li>
+	  				<a href="#">个人通知</a>
+	  			</li>
+	  			<li>
+	  				<a href="#">班级通知</a>
+	  			</li>
+	  			<li>
+	  				<a href="#">公告</a>
+	  			</li>
+	  		</ul>
+  		</div>
   		
   	
   	</div>

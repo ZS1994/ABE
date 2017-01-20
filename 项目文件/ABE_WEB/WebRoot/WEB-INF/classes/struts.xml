@@ -185,6 +185,10 @@
   
   
   <!-- *******************消息中心*********************** -->
+  <action name="returns" class="lz_return">
+  	<interceptor-ref name="mydefault" />
+  	<result name="returns">/backstage/returns/returns.jsp</result>
+  </action>
   <!-- ******组织架构****** -->
   <action name="class" class="zs_school_class">	   
   	 <interceptor-ref name="mydefault" />

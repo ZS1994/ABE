@@ -72,11 +72,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td width="" align="center">${stu.isState }</td>
 					<td width="" align="center">${stu.schoolClass.scName }</td>
 					<td width="5%" align="center">
-						<a class="easyui-linkbutton" onclick="update('${stu.isId}','${stu.isNum}','${stu.isName}',
+						<a data-options="plain:true" class="easyui-linkbutton" onclick="update('${stu.isId}','${stu.isNum}','${stu.isName}',
 						'${stu.isSex}','<fmt:formatDate value="${stu.isBirthday }" pattern="yyyy-MM-dd" />','${stu.isLocal }',
 						'${stu.isTeacherChildren }','<fmt:formatDate value="${stu.isIntoDate }" pattern="yyyy-MM-dd" />',
 						'<fmt:formatDate value="${stu.isLeaveDate }" pattern="yyyy-MM-dd" />','${stu.isState }','${stu.scId }')">修改</a>
-						<a class="easyui-linkbutton" href="<%=path %>/web/student!delete?id=${stu.isId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						<a data-options="plain:true" class="easyui-linkbutton" href="<%=path %>/web/student!delete?id=${stu.isId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
 					</td>
 			    </tr>
 			    </c:forEach>

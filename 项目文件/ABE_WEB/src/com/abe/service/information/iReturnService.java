@@ -1,5 +1,8 @@
 package com.abe.service.information;
 
+import java.util.List;
+
+import com.abe.entity.Return;
 import com.abe.entity.other.RespReturn;
 import com.abe.entity.other.RespReturnAll;
 
@@ -24,4 +27,6 @@ public interface iReturnService {
 	 * 分页查看所有反馈
 	 */
 	public RespReturnAll findAllReturnsByPage(String pageNo,String pageSize,String rStatus);
+	public void initRet(List<Return> rets);
+	public void initRet(Return ret);
 }

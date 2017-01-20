@@ -37,9 +37,9 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	private iStudentService studentSer;
 	//-------------
 	private String result="student";
-	private Page page;
 	private InfoStudent student;
 	private List<InfoStudent> stus;
+	private Page page;
 	private String id;
 	private String cz;
 	
