@@ -103,8 +103,8 @@
 								<fmt:formatDate value="${news.NFinalTime }" pattern="yyyy-MM-dd" />
 							</td>
 							<td width="5%" align="center">
-								<a class="easyui-linkbutton" onclick="update('${news.NId}','${news.NTitle}','${news.NStatus}','<fmt:formatDate value="${news.NCreatTime }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${news.NFinalTime }" pattern="yyyy-MM-dd" />','${news.NContent}','${news.NIstop}','${news.NOrigin}','${news.NType}','${news.UId}')">修改</a>
-								<a class="easyui-linkbutton"
+								<a data-options="plain:true" class="easyui-linkbutton" onclick="update('${news.NId}','${news.NTitle}','${news.NStatus}','<fmt:formatDate value="${news.NCreatTime }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${news.NFinalTime }" pattern="yyyy-MM-dd" />','${news.NContent}','${news.NIstop}','${news.NOrigin}','${news.NType}','${news.UId}')">修改</a>
+								<a data-options="plain:true" class="easyui-linkbutton"
 									href="<%=path%>/web/news!delete?id=${news.NId}&token=${token}"
 									onclick="return confirm('确定删除吗?')">删除</a>
 							</td>

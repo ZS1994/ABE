@@ -7,6 +7,7 @@ import java.util.List;
 import com.abe.entity.AllInform;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.Return;
+import com.abe.entity.SchoolClass;
 import com.abe.entity.Users;
 import com.abe.entity.other.RespReturn;
 import com.abe.entity.other.RespReturnAll;
@@ -118,5 +119,26 @@ public class ReturnServiceImpl extends BaseServiceImpl implements
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = sdf.format(new Date());
 		return time;
+	}
+
+	@Override
+	public void initRet(List<Return> rets) {
+		if (rets!=null) {
+			for (int i = 0; i < rets.size(); i++) {
+				initRet(rets.get(i));
+			}
+		}
+	}
+
+	@Override
+	public void initRet(Return ret) {
+		//装填用户
+		if (ret!=null) {
+			Users user=(Users) get(Users.class, ret.getUId());
+			if (user!=null) {
+				user.setUPass(null);
+				ret.setUser(user);
+			}
+		}
 	}
 }

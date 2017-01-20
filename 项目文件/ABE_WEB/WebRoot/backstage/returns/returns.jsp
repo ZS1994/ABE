@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>家长档案管理</title>
+    <title>反馈管理</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -26,12 +26,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<jsp:include page="/component/assembly/left.jsp"></jsp:include>
 	<div class="right">
 		
-		<input type="button" value="新建" style="margin-top: 3px;" onclick="$('#add').window('open');"/>
-		
 		<div style="margin-bottom: 5px;padding: 5px;">
 	    	快速查询
 	    	<br/>
-	    	<form action="<%=path %>/web/parents!queryOfFenYe" method="post">
+	    	<form action="<%=path %>/web/returns!queryOfFenYe" method="post">
 	    		编号:<input name="id" type="text" value="${id }"/>
 	    		&nbsp;&nbsp;&nbsp;&nbsp;
 	    		<input type="submit" value="查询"/>
@@ -43,37 +41,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 <tr>
 				 	<th style="width: 40px;">序号</th>
 			    	<th width="130px">编号</th>
-			    	<th>姓名</th>
-			    	<th>性别</th>
-			    	<th>生日</th>
-			    	<th>手机</th>
-					<th>住址</th>
-					<th>操作</th>
+			    	<th>用户名</th>
+			    	<th>反馈内容</th>
+			    	<th>反馈状态</th>
+			    	<th>反馈时间</th>
+			    	<th>操作</th>
 			    </tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${parents}" var="p" varStatus="sta">
+				<c:forEach items="${rets}" var="ret" varStatus="reta">
 			    <tr>
-			    	<td>${(sta.index+1)+((page.pageOn-1)*page.size) }</td>
-					<td width="" align="center">${p.ipId }</td>
-					<td width="" align="center">${p.ipName }</td>
-					<td width="" align="center">${p.ipSex }</td>
-					<td width="" align="center"><fmt:formatDate value="${p.ipBirthday }" pattern="yyyy-MM-dd" /></td>
-					<td width="" align="center">${p.ipPhone }</td>
-					<td width="" align="center">${p.ipAddress}</td>
+			    	<td>${(reta.index+1)+((page.pageOn-1)*page.size) }</td>
+					<td width="" align="center">${ret.RId }</td>
+					<td width="" align="center">${ret.user.UName }</td>
+					<td width="" align="center" style="word-break:break-all">${ret.RContent }</td>
+					<td width="" align="center">${ret.RStatus }</td>
+					<td width="" align="center">${ret.RTime }</td>
 					<td width="5%" align="center">
-						<a data-options="plain:true" class="easyui-linkbutton" onclick="update('${p.ipId }','${p.ipName}','${p.ipSex }',
-						'<fmt:formatDate value="${p.ipBirthday}" pattern="yyyy-MM-dd" />','${p.ipPhone  }',
-						'${p.ipAddress}')">修改</a>
-						<a data-options="plain:true" class="easyui-linkbutton" href="<%=path %>/web/parents!delete?id=${p.ipId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						<a data-options="plain:true" class="easyui-linkbutton" href="<%=path %>/web/returns!delete?id=${ret.RId}&token=${token}" onclick="return confirm('确定删除吗?')">删除</a>
+						<a data-options="plain:true" class="easyui-linkbutton" href="#">发送个人消息</a>
 					</td>
 			    </tr>
 			    </c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="8">
-						<form id="f1" action="<%=path %>/web/parents!queryOfFenYe?id=${id}" method="post">
+					<td colspan="7">
+						<form id="f1" action="<%=path %>/web/returns!queryOfFenYe?id=${id}" method="post">
 						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 							<option value="10">10</option>
 							<option value="15">15</option>
@@ -100,49 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tfoot>
 		</table>
 		 
-		<div id="add" class="easyui-window" title="新建" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
-			<form action="<%=path %>/web/parents!add" method="post">
-			姓名<br/>
-			<input type="text" name="parent.ipName" style="width: 100%"/>
-			<br/>
-			性别<br/>
-				<input type="radio" name="parent.ipSex" value="男" checked="checked"/>男
-				<input type="radio" name="parent.ipSex" value="女"/>女
-			<br/>
-			生日<br/>
-			<input type="text" name="parent.ipBirthday" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;" ddf="yyyy-MM-dd"/><br/>
-			手机号<br/>
-			<input type="text" name="parent.ipPhone" style="width: 100%"/>
-			<br/>
-			住址<br/>
-			<input type="text" name="parent.ipAddress" style="width: 100%"/>
-			<br/>
-			<input type="submit" value="添加家长"/>
-		</form>
-		</div>
-		
-		<div id="upd" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;padding:10px;display: none;">
-			<form action="<%=path %>/web/parents!update" method="post">
-				编号：<br/>
-				<input id="u_1" type="text" name="parent.ipId" style="width: 100%" readonly="readonly"/><br/>
-				姓名：<br/>
-				<input id="u_2" name="parent.ipName" type="text" style="width: 100%" style="width: 100%;" /><br/>
-				性别：<br/>
-				男<input id="u_3_0" type="radio" name="parent.ipSex" value="男"/>
-				女<input id="u_3_1" type="radio" name="parent.ipSex" value="女"/><br/>
-				生日：<br/>
-				<input id="u_4" type="text" name="parent.ipBirthday" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width: 100%;"/><br/>
-				手机号<br/>
-				<input id="u_5"  type="text" name="parent.ipPhone" style="width: 100%"/>
-				<br/>
-				住址<br/>
-				<input id="u_6"  type="text" name="parent.ipAddress" style="width: 100%"/>
-				<br/>
-				
-				
-				<input type="submit" value="提交" onclick="return show_hint(['upd'])"/>
-			</form>
-		</div>
+
 	
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
@@ -183,14 +135,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return 1;
 		}
 	}
-	function update(u1,u2,u3,u4,u5,u6){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11){
 		$('#upd').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
-		$('#u_3_'+sexRadio(u3)).click();
-		$('#u_4').val(u4);
+		$('#u_3').val(u3);
+		$('#u_4_'+sexRadio(u4)).click();
 		$('#u_5').val(u5);
-		$('#u_6').val(u6);
+		$('#u_6_'+numRadio(u6)).click();
+		$('#u_7_'+numRadio(u7)).click();
+		$('#u_8').val(u8);
+		$('#u_9').val(u9);
+		$("#u_10 option[value='"+u10+"']").attr("selected",true);
+		$("#u_11 option[value='"+u11+"']").attr("selected",true);
 	}
 </script>
 </html>
