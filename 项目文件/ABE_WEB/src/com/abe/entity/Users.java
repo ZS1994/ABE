@@ -24,7 +24,7 @@ public class Users implements java.io.Serializable {
 	// Constructors
 	private PowerRole role;
 	private School school;
-	
+	private SchoolClass sc;
 	
 	
 	/** default constructor */
@@ -32,6 +32,12 @@ public class Users implements java.io.Serializable {
 	}
 	
 	
+	public SchoolClass getSc() {
+		return sc;
+	}
+	public void setSc(SchoolClass sc) {
+		this.sc = sc;
+	}
 	public School getSchool() {
 		return school;
 	}

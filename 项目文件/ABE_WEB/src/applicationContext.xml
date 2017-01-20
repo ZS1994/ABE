@@ -290,6 +290,7 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
+	
 	<!-- 配置事务属性 -->
 	<tx:advice id="txadvice" transaction-manager="transmanager">
 		<tx:attributes>

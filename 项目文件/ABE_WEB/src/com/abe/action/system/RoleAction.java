@@ -114,7 +114,9 @@ public class RoleAction extends BaseAction implements iBaseAction {
 	@Override
 	public String delete() {
 		clearSpace();
-		if (id!=null) {
+		//2017-1-14，张顺，不可删除自己所属的角色
+		PowerRole pr=getUser(ser).getRole();
+		if (id!=null && pr!=null && !pr.getRId().equals(id)) {
 			role=(PowerRole) ser.get(PowerRole.class, id);
 			if (role!=null) {
 				ser.delete(role);
@@ -132,6 +134,8 @@ public class RoleAction extends BaseAction implements iBaseAction {
 				//给时间轴系统传参
 				getRequest().setAttribute("obj", role);
 			}
+		}else {
+			logger.error("删除失败"+pr+";"+getUser(ser));
 		}
 		return gotoQuery();
 	}
@@ -143,7 +147,8 @@ public class RoleAction extends BaseAction implements iBaseAction {
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		StringBuffer hql=new StringBuffer("from PowerRole where 1=1 ");
+		StringBuffer hql=new StringBuffer("from PowerRole where SId='"+getUser(ser).getSchool().getSId()+"' " +
+					"or '"+getUser(ser).getRole().getRType()+"'='超级管理员' ");
 		if (id!=null) {
 			hql.append("and RId like '%"+id+"%'" );
 		}
@@ -159,7 +164,7 @@ public class RoleAction extends BaseAction implements iBaseAction {
 	@Override
 	public String gotoQuery() {
 		clearOptions();
-		String hql="from PowerRole order by RCreateTime desc";
+		String hql="from PowerRole where SId='"+getUser(ser).getSchool().getSId()+"' or '"+getUser(ser).getRole().getRType()+"'='超级管理员' order by RCreateTime desc";
 		roles=ser.query(hql, null, hql, page);
 		//带上前端显示所需信息
 		for (int i = 0; i < roles.size(); i++) {
@@ -171,7 +176,7 @@ public class RoleAction extends BaseAction implements iBaseAction {
 	
 	/**
 	 * 张顺 2016-12-26
-	 * 修改角色（权限组）
+	 * 修改角色
 	 */
 	@Override
 	public String update() {
@@ -248,6 +253,7 @@ public class RoleAction extends BaseAction implements iBaseAction {
 			role.setRId(NameOfDate.getNum());
 			role.setRCreateTime(new Timestamp(new Date().getTime()));
 			role.setUId(user.getUId());
+			role.setSId(getUser(ser).getSchool().getSId());
 			ser.save(role);
 			JSONArray array=JSONArray.fromObject(persJson);
 			for (int i = 0; i < array.size(); i++) {
@@ -274,9 +280,9 @@ public class RoleAction extends BaseAction implements iBaseAction {
 			list.add(tree);
 		}else {
 			if (id.equals("0")) {
-				roles=ser.find("from PowerRole where RParentIds='0'", null);
+				roles=ser.find("from PowerRole where RParentIds='0' and SId=? or ?='超级管理员' ", new String[]{getUser(ser).getSchool().getSId(),getUser(ser).getRole().getRName()});
 			}else {
-				roles=ser.find("from PowerRole where RParentIds like ?", new String[]{"%,"+id});
+				roles=ser.find("from PowerRole where RParentIds like ? and SId=? or ?='超级管理员' ", new String[]{"%,"+id,getUser(ser).getSchool().getSId(),getUser(ser).getRole().getRName()});
 			}
 			for (int i = 0; i < roles.size(); i++) {
 				HashMap<String, String> map=new HashMap<String, String>();

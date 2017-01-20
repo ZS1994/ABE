@@ -25,5 +25,11 @@
         <property name="UId" type="java.lang.String">
             <column name="u_id" />
         </property>
+        <property name="RType" type="java.lang.String">
+            <column name="r_type" />
+        </property>
+        <property name="SId" type="java.lang.String">
+            <column name="s_id" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -25,6 +25,7 @@ import com.abe.entity.Code;
 import com.abe.entity.InfoParents;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.Licence;
+import com.abe.entity.PowerRole;
 import com.abe.entity.School;
 import com.abe.entity.SchoolClass;
 import com.abe.entity.SchoolGrade;
@@ -86,17 +87,19 @@ public class SignServiceImpl extends ParentServiceImpl implements iSignService{
 					if (u.getTrpId()!=null) {
 						InfoTeacher infoTea=(InfoTeacher) get(InfoTeacher.class, u.getTrpId());
 						if (infoTea!=null) {
-							//2017-1-12，张顺，获取学校信息并保存
+							//2017-1-12，张顺，获取学校信息并保存,2017-1-13获取班级信息并保存
 							/*从三个方面来找教职工的学校：
 							 * 		1、如果是班级的班主任，那么该班级所属的学校即是。
 							 * 		2、如果是课程表的课程的授课老师，那么该课程所属的课程表，该课程表所属的班级，该班级所属的学校即是。
 							 * 		3、如果是部门的一员，那么该部门所属的学校即是。
 							 * */
 							boolean isFind=false;//是否已经找到的标志
+							boolean isFind2=false;//是否已经找到的标志2班级
 							School school=null;//先声明,待用
 							List<SchoolClass> scs=find("from SchoolClass where itId=?", new String[]{infoTea.getItId()});
-							if (isFind==false && scs.size()>0 && scs.get(0).getSgId()!=null) {
+							if (isFind==false && scs.size()>0 && scs.get(0).getSgId()!=null && isFind2==false) {
 								SchoolGrade sg=(SchoolGrade) get(SchoolGrade.class, scs.get(0).getSgId());
+								u.setSc(scs.get(0));
 								if (sg!=null && sg.getSId()!=null) {
 									school=(School) get(School.class, sg.getSId());
 									if (school!=null) 
@@ -106,8 +109,9 @@ public class SignServiceImpl extends ParentServiceImpl implements iSignService{
 							List<Timetables> tts=find("from Timetables where itId=?", new String[]{infoTea.getItId()});
 							if (isFind==false && tts.size()>0 && tts.get(0).getScId()!=null) {
 								SchoolClass sc=(SchoolClass) get(SchoolClass.class, tts.get(0).getScId());
-								if (sc!=null && sc.getSgId()!=null) {
+								if (sc!=null && sc.getSgId()!=null && isFind2==false) {
 									SchoolGrade sg=(SchoolGrade) get(SchoolGrade.class, sc.getSgId());
+									u.setSc(sc);
 									if (sg!=null && sg.getSId()!=null) {
 										school=(School) get(School.class, sg.getSId());
 										if (school!=null) 
@@ -125,6 +129,9 @@ public class SignServiceImpl extends ParentServiceImpl implements iSignService{
 							}
 							if (school!=null) {
 								u.setSchool(school);
+								//2017-1-14，张顺，获取并保存用户的角色
+								PowerRole role=(PowerRole) get(PowerRole.class, u.getRId());
+								u.setRole(role);
 								session.setAttribute("user", u);
 								return new String[]{hint,result};
 							}else {

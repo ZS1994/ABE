@@ -59,6 +59,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	学校:
 		    	<span style="color: red;">${user.school.SName }</span>
 	    	</div>
+	    	<div style="text-align: left;">
+		    	角色:
+		    	<span style="color: red;">${user.role.RName }</span>
+	    	</div>
+	    	<div style="text-align: left;">
+		    	班级:
+		    	<span style="color: red;">${user.sc.scName }</span>
+	    	</div>
+	    </div>
+	    
+	    <div style="position: absolute;right: 40px;top: 5px;">
+	    	<a href="<%=path %>/web/sign!gotoQuery">重新登录</a>
+	    	|
+	    	<a href="<%=path %>/index.jsp">返回</a>
 	    </div>
 	</div>
 </body>

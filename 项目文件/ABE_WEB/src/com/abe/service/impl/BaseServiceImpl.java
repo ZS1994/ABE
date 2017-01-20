@@ -46,6 +46,12 @@ public class BaseServiceImpl implements iBaseService{
 		return dao.get(c, id);
 	}
 	public List find(String hql,Object[] ss) {
+		if (ss!=null) {
+			//张顺，2017-1-14，把null换成空字符串以避免sql执行失败
+			for (int i = 0; i < ss.length; i++) {
+				ss[i]=ss[i]==null?"":ss[i];
+			}
+		}
 		return dao.find(hql,ss);
 	}
 	public void delete(Object obj) {

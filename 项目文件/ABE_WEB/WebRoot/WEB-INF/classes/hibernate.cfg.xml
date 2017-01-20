@@ -9,7 +9,6 @@
 	<session-factory>
 
 		<!--
-		-->
 			<property name="proxool.pool_alias">DBPool_ABE</property>
 			<property name="proxool.xml">proxool.xml</property>
 			<property name="connection.provider_class">
@@ -18,9 +17,9 @@
 			<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 			</property>
+		-->
 
 
-		<!-- 
 		<property name="myeclipse.connection.profile">
 			com.mysql.jdbc.Driver2
 		</property>
@@ -29,14 +28,21 @@
 		</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">123456</property>
-		<property name="connection.driver_class">
+		<!-- 
+			<property name="connection.driver_class">
 			com.mysql.jdbc.Driver
+			</property>
+		-->
+
+		<property name="connection.driver_class">
+			com.p6spy.engine.spy.P6SpyDriver
 		</property>
+
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 		</property>
+		<!-- 
 		-->
-
 
 
 

@@ -48,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th>头像路径</th>
 					<th style="width: 140px;">档案id</th>
 					<th>角色</th>
+					<th>学校</th>
 					<th style="width: 75px;">操作</th>
 				</tr>
 			</thead>
@@ -64,6 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${u.UPhotoPath }</td>
 					<td>${u.trpId }</td>
 					<td>${u.role.RName }</td>
+					<td>${u.school.SName }</td>
 					<td>
 						<a class="easyui-linkbutton" onclick="update('${u.UId}','${u.UNum}','${u.UName}','${u.UPass}','${u.trpId}','${u.RId}')" data-options="plain:true">修改</a>
 						<a class="easyui-linkbutton" href="<%=path %>/web/users!delete?id=${u.UId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
@@ -73,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="11">
+					<td colspan="12">
 						<form id="f1" action="<%=path %>/web/users!queryOfFenYe?id=${id}" method="post">
 						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 							<option value="10">10</option>

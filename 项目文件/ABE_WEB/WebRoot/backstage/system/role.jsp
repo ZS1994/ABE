@@ -45,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th>描述</th>
 					<th>创建时间</th>
 					<th>创建人</th>
+					<th>类型</th>
 					<th style="width: 75px;">操作</th>
 				</tr>
 			</thead>
@@ -57,6 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${r.RDesc }</td>
 					<td>${r.RCreateTime }</td>
 					<td>${r.user.UName }</td>
+					<td>${r.RType }</td>
 					<td>
 						<a class="easyui-linkbutton" onclick="update('${r.RId }','${r.RName }','${r.RDesc }')" data-options="plain:true">修改</a>
 						<a class="easyui-linkbutton" href="<%=path %>/web/role!delete?id=${r.RId}&token=${token}" onclick="return confirm('确定删除吗?')" data-options="plain:true">删除</a>
@@ -66,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="7">
+					<td colspan="8">
 						<form id="f1" action="<%=path %>/web/role!queryOfFenYe?id=${id}" method="post">
 						<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 							<option value="10">10</option>
@@ -110,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<ul id="tree_ul_a_ids" class="easyui-tree" data-options="animate:true,lines:true">
         				</ul>
 					</div>
-					<input type="text" name="role.RParentIds" id="ids_json"/>
+					<input type="hidden" name="role.RParentIds" id="ids_json"/>
 				</div>
 				<div>
 					权限:<br/>
@@ -119,6 +121,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         				</ul>
 					</div>
 					<input id="pers_json" type="hidden" name="pers_json"/>
+				</div>
+				<div>
+					类型:<br/>
+					<select name="role.RType">
+						<optgroup label="管理员">
+							<option value="超级管理员">超级管理员</option>
+							<option value="学校管理员">学校管理员</option>
+						</optgroup>
+						<optgroup label="普通">
+							<option value="普通">普通</option>
+						</optgroup>
+ 					</select>
 				</div>
 				<input type="submit" value="添加用户" onclick="return show_hint(['add'])"/>
 			</form>

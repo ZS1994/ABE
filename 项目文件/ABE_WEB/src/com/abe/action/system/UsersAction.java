@@ -98,7 +98,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 	@Override
 	public String delete() {
 		clearSpace();
-		if (id!=null) {
+		if (id!=null && !id.equals(getUser(ser).getUId())) {
 			user=(Users) ser.get(Users.class, id);
 			if (user!=null) {
 				ser.delete(user);
@@ -124,10 +124,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 		hql.append("order by UCreateTime desc ");
 		users=ser.query(hql.toString(), null, hql.toString(), page);
 		for (int i = 0; i < users.size(); i++) {
-			if (users.get(i).getRId()!=null) {
-				PowerRole role=(PowerRole) ser.get(PowerRole.class, users.get(i).getRId());
-				users.get(i).setRole(role);
-			}
+			initUsers(ser, users.get(i));
 		}
 		return result;
 	}
@@ -143,10 +140,7 @@ public class UsersAction extends BaseAction implements iBaseAction {
 		String hql="from Users order by UCreateTime desc";
 		users=ser.query(hql, null, hql, page);
 		for (int i = 0; i < users.size(); i++) {
-			if (users.get(i).getRId()!=null) {
-				PowerRole role=(PowerRole) ser.get(PowerRole.class, users.get(i).getRId());
-				users.get(i).setRole(role);
-			}
+			initUsers(ser, users.get(i));
 		}
 		return result;
 	}

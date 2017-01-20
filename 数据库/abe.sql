@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : zhangshun
+Source Server         : zs
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : abe
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-01-03 10:08:57
+Date: 2017-01-20 17:16:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,8 +32,6 @@ CREATE TABLE `all_inform` (
 -- ----------------------------
 -- Records of all_inform
 -- ----------------------------
-INSERT INTO `all_inform` VALUES ('1', '老江湖的价值', '130904467975589', '扯了这么多，我想说的是，技术能力和阅历，随着程序员年龄和工作经验的增加，其重要性和价值将超越知识、技术本身。这是我们必须意识到的，这也是老江湖的价值所在。', '已发布', '2016-12-27 12:12:30.0');
-INSERT INTO `all_inform` VALUES ('2', '企业的分类', '130904467975589', '外包型公司，通过承接别的企业的部分或全部软件业务来发展。这导致了业务不稳定，编程语言、技术框架等技术方面也不稳定。', '已发布', '2016-12-27 12:12:30.0');
 
 -- ----------------------------
 -- Table structure for `card`
@@ -52,7 +50,8 @@ CREATE TABLE `card` (
 -- ----------------------------
 -- Records of card
 -- ----------------------------
-INSERT INTO `card` VALUES ('0154791586', '1', '131230197602955', '131106520147201', '2016-12-27 19:37:41', '已发卡');
+INSERT INTO `card` VALUES ('', '1', '121629582332762', '121617080757562', null, '已发卡');
+INSERT INTO `card` VALUES ('1231231232312', '1', '121629582332762', '121617080757562', '2016-12-19 19:54:47', '已发卡');
 
 -- ----------------------------
 -- Table structure for `card_log`
@@ -69,11 +68,6 @@ CREATE TABLE `card_log` (
 -- ----------------------------
 -- Records of card_log
 -- ----------------------------
-INSERT INTO `card_log` VALUES ('1612271370', '0154791586', '2016-12-27 19:41:48', '上车');
-INSERT INTO `card_log` VALUES ('1612274624', '0154791586', '2016-12-27 19:41:46', '上车');
-INSERT INTO `card_log` VALUES ('1612276823', '0154791586', '2016-12-27 19:41:47', '上车');
-INSERT INTO `card_log` VALUES ('1612277356', '0154791586', '2016-12-27 19:39:39', '上车');
-INSERT INTO `card_log` VALUES ('1612279850', '0154791586', '2016-12-27 19:41:47', '上车');
 
 -- ----------------------------
 -- Table structure for `ceshi`
@@ -107,7 +101,6 @@ CREATE TABLE `class_inform` (
 -- ----------------------------
 -- Records of class_inform
 -- ----------------------------
-INSERT INTO `class_inform` VALUES ('1612313655', '明天家长会u', '131106520147201', '明天加战', '131109104493487', '已发布', '2016-12-31 23:42:30');
 
 -- ----------------------------
 -- Table structure for `code`
@@ -125,9 +118,8 @@ CREATE TABLE `code` (
 -- ----------------------------
 -- Records of code
 -- ----------------------------
-INSERT INTO `code` VALUES ('130904467975589', '18307211633', '862595', '2016-12-15 16:23:31', '2016-12-15 16:33:31');
-INSERT INTO `code` VALUES ('212235023123815', '18307211633', '531361', '2016-12-22 10:40:19', '2016-12-22 10:50:19');
-INSERT INTO `code` VALUES ('admin', '18307211633', '422614', '2016-12-22 10:34:57', '2016-12-22 10:44:57');
+INSERT INTO `code` VALUES ('121634531947973', '15817383353', '833524', '2016-12-12 16:45:24', '2016-12-12 16:55:24');
+INSERT INTO `code` VALUES ('admin', '18307211633', '152567', '2016-12-21 20:29:51', '2016-12-21 20:39:51');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -142,7 +134,9 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('131102143658222', '语文');
+INSERT INTO `course` VALUES ('131048219119868', '语文');
+INSERT INTO `course` VALUES ('131048252282289', '数学');
+INSERT INTO `course` VALUES ('1701123996', '&quot;体育&quot;&lt;br/&gt;&quot;&quot;你好');
 
 -- ----------------------------
 -- Table structure for `forum`
@@ -160,22 +154,6 @@ CREATE TABLE `forum` (
 -- ----------------------------
 -- Records of forum
 -- ----------------------------
-INSERT INTO `forum` VALUES ('241232484992355', 'lala', '0', '2016-12-24 12:32:48', '212235023123815');
-INSERT INTO `forum` VALUES ('261618077288521', 'aa', '0', '2016-12-26 16:18:07', '212235023123815');
-INSERT INTO `forum` VALUES ('261618115659240', '33', '0', '2016-12-26 16:18:11', '212235023123815');
-INSERT INTO `forum` VALUES ('261618157939624', '44', '0', '2016-12-26 16:18:15', '212235023123815');
-INSERT INTO `forum` VALUES ('261618193346075', '55', '0', '2016-12-26 16:18:19', '212235023123815');
-INSERT INTO `forum` VALUES ('261618221895245', '66', '0', '2016-12-26 16:18:22', '212235023123815');
-INSERT INTO `forum` VALUES ('261618255591846', '77', '0', '2016-12-26 16:18:25', '212235023123815');
-INSERT INTO `forum` VALUES ('261618309875582', '88', '0', '2016-12-26 16:18:30', '212235023123815');
-INSERT INTO `forum` VALUES ('261618349033545', '99', '0', '2016-12-26 16:18:34', '212235023123815');
-INSERT INTO `forum` VALUES ('261618378367627', '10', '0', '2016-12-26 16:18:37', '212235023123815');
-INSERT INTO `forum` VALUES ('261618401134634', '11', '0', '2016-12-26 16:18:40', '212235023123815');
-INSERT INTO `forum` VALUES ('261618434053352', '12', '0', '2016-12-26 16:18:43', '212235023123815');
-INSERT INTO `forum` VALUES ('261619000819441', '13', '0', '2016-12-26 16:19:00', '212235023123815');
-INSERT INTO `forum` VALUES ('261619030612803', '14', '0', '2016-12-26 16:19:03', '212235023123815');
-INSERT INTO `forum` VALUES ('261619054017584', '15', '0', '2016-12-26 16:19:05', '212235023123815');
-INSERT INTO `forum` VALUES ('261619080223471', '16', '1', '2016-12-26 16:19:08', '212235023123815');
 
 -- ----------------------------
 -- Table structure for `forum_comment`
@@ -193,11 +171,6 @@ CREATE TABLE `forum_comment` (
 -- ----------------------------
 -- Records of forum_comment
 -- ----------------------------
-INSERT INTO `forum_comment` VALUES ('1612294713', 'zheshi1', '2016-12-29 17:28:54', '212235023123815', '261619080223471');
-INSERT INTO `forum_comment` VALUES ('1612307897', '123456', '2016-12-30 21:49:32', '212235023123815', '261619080223471');
-INSERT INTO `forum_comment` VALUES ('1701011427', '搞什么啊', '2017-01-01 10:13:38', '131107321846506', '261619080223471');
-INSERT INTO `forum_comment` VALUES ('241249437629248', 'ce', '2016-12-24 12:49:43', '212235023123815', '241232484992355');
-INSERT INTO `forum_comment` VALUES ('241249564602492', 'faafa', '2016-12-24 12:49:56', '212235023123815', '241232484992355');
 
 -- ----------------------------
 -- Table structure for `forum_like`
@@ -213,7 +186,6 @@ CREATE TABLE `forum_like` (
 -- ----------------------------
 -- Records of forum_like
 -- ----------------------------
-INSERT INTO `forum_like` VALUES ('1701015311', '261619080223471', '131107321846506');
 
 -- ----------------------------
 -- Table structure for `hx_group`
@@ -232,6 +204,7 @@ CREATE TABLE `hx_group` (
 -- ----------------------------
 -- Records of hx_group
 -- ----------------------------
+INSERT INTO `hx_group` VALUES ('274733559288168976', '1班2016年12月', '121454061227706', '1班2016年12月。系统默认自动创建。', '2016-12-12 16:25:31', 'native');
 
 -- ----------------------------
 -- Table structure for `info_parents`
@@ -250,8 +223,8 @@ CREATE TABLE `info_parents` (
 -- ----------------------------
 -- Records of info_parents
 -- ----------------------------
-INSERT INTO `info_parents` VALUES ('131232059508893', '张萍依', '女', '1995-06-21', '18307211633', '龙坑');
-INSERT INTO `info_parents` VALUES ('212235022502632', null, null, null, '13265737301', null);
+INSERT INTO `info_parents` VALUES ('121631303308559', '黄福华', '男', '1998-02-13', '15817383353', '福田');
+INSERT INTO `info_parents` VALUES ('212030046888631', null, null, null, '18307211633', null);
 
 -- ----------------------------
 -- Table structure for `info_student`
@@ -277,7 +250,9 @@ CREATE TABLE `info_student` (
 -- ----------------------------
 -- Records of info_student
 -- ----------------------------
-INSERT INTO `info_student` VALUES ('131230197602955', '201601001', '小美', '女', '2015-01-06', '1', '0', '2016-09-24', null, '正在校学生', '131109104493487', null);
+INSERT INTO `info_student` VALUES ('121629582332762', '2016010001', '小美', '女', '2015-01-01', '1', '0', '2016-09-01', '2016-09-01', '正常就读', '121625317338152', null);
+INSERT INTO `info_student` VALUES ('151049180533419', '2016010002', '小天', '男', null, '0', '0', null, null, '已退学', '121625317338152', null);
+INSERT INTO `info_student` VALUES ('1701148276', '2016010101', '徐福', '男', '2014-01-08', '1', '0', '2017-01-14', null, '正常就读', '1701141614', null);
 
 -- ----------------------------
 -- Table structure for `info_teacher`
@@ -303,7 +278,8 @@ CREATE TABLE `info_teacher` (
 -- ----------------------------
 -- Records of info_teacher
 -- ----------------------------
-INSERT INTO `info_teacher` VALUES ('131106520147201', '201602001', '李淑芳', '女', '1995-06-13', '18307211633', '授课老师', '2016-06-16', null, '在职', '龙坑', '');
+INSERT INTO `info_teacher` VALUES ('121617080757562', '2016020001', '李淑芳', '女', '1996-06-12', '18681543873', '授课老师', '2016-12-12', null, '正常在校', '龙坑', null);
+INSERT INTO `info_teacher` VALUES ('1701075088', '201602', '李小薇', '女', '1992-01-07', '18307211633', '授课老师', '2017-01-07', null, '正常在校', '广水', null);
 
 -- ----------------------------
 -- Table structure for `licence`
@@ -321,11 +297,10 @@ CREATE TABLE `licence` (
 -- ----------------------------
 -- Records of licence
 -- ----------------------------
-INSERT INTO `licence` VALUES ('130903487494281', 'w37Rv91RHCox++dmMl1jwg==', '127.0.0.1', '2016-12-13 09:17:02', '2016-12-13 10:46:18');
-INSERT INTO `licence` VALUES ('130904467975589', '18112', '172.16.1.241', '2016-12-31 17:55:47', '2016-12-31 18:56:14');
-INSERT INTO `licence` VALUES ('130907379769695', '17565', '172.16.1.241', '2016-12-22 10:14:03', '2016-12-22 11:21:17');
-INSERT INTO `licence` VALUES ('131107321846506', '17393', '172.16.1.241', '2017-01-01 09:51:21', '2017-01-01 11:38:33');
-INSERT INTO `licence` VALUES ('212235023123815', '17990', '172.16.1.241', '2016-12-31 23:46:29', '2017-01-01 00:46:38');
+INSERT INTO `licence` VALUES ('121454061227706', 'Anv3xUwcl0YDy+dtfGxlvg==', '127.0.0.1', '2016-12-12 16:21:32', '2016-12-12 17:21:32');
+INSERT INTO `licence` VALUES ('121634531947973', 'roTI3mPcywd9T5Cs4Xpkog==', '127.0.0.1', '2016-12-12 16:42:27', '2016-12-12 17:45:54');
+INSERT INTO `licence` VALUES ('131006370239645', 'CPJ26Ja1ms+ZZyYCIXZAqg==', '127.0.0.1', '2016-12-13 10:14:24', '2016-12-13 11:14:39');
+INSERT INTO `licence` VALUES ('271634032221266', '17610', '127.0.0.1', '2017-01-06 16:12:45', '2017-01-06 17:18:15');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -350,8 +325,8 @@ CREATE TABLE `news` (
 -- ----------------------------
 -- Records of news
 -- ----------------------------
-INSERT INTO `news` VALUES ('1612277433', '儒家经典《大学》', '<p>\r\n\r\n<span style=\"color: rgb(54, 46, 43); font-family: &quot; microsoft yahei&quot;; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;\" data-fr-verified=\"true\">所以，早在几千年前，我们的儒家经典《大学》就预料到了将来会有程序员这种人群，对他们的生活做出了概括性的预言：“苟日新，日日新，又日新”。</span>\r\n\r\n<br></p>', null, null, '请输入...', '新闻', '2016-12-27 16:08:35', '2016-12-27 16:08:35', '0', '130904467975589', '1');
-INSERT INTO `news` VALUES ('1612278463', '《天龙八部》', '<p>\r\n\r\n<span style=\"color: rgb(54, 46, 43); font-family: &quot; microsoft yahei&quot;; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;\" data-fr-verified=\"true\">《天龙八部》中的神仙姐姐王语嫣，很多少年看了都很喜欢。从IT的角度看，她实际上就是一个掌握了很多知识、技术的字典型程序员，但不会实际开发。</span>\r\n\r\n<br></p>', null, null, '请输入...', '新闻', '2016-12-27 16:09:50', '2016-12-27 16:09:50', '0', '130904467975589', '1');
+INSERT INTO `news` VALUES ('201538456445059', '好好好', '<p>啊实打实大大啊实打实大声道的萨达是的撒的打算的11111111111111</p>', null, null, '请输入...', '生活', '2016-12-20 00:00:00', '2016-12-20 17:03:34', '0', '1', '1');
+INSERT INTO `news` VALUES ('201703570213957', '的点点滴滴', '<p>啊实打实大声道的</p>', null, null, '阿萨德', '生活', '2016-12-20 00:00:00', '2016-12-20 17:04:11', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for `person_inform`
@@ -370,8 +345,6 @@ CREATE TABLE `person_inform` (
 -- ----------------------------
 -- Records of person_inform
 -- ----------------------------
-INSERT INTO `person_inform` VALUES ('1', '老江湖的价值', '扯了这么多，我想说的是，技术能力和阅历，随着程序员年龄和工作经验的增加，其重要性和价值将超越知识、技术本身。这是我们必须意识到的，这也是老江湖的价值所在。', '130904467975589', '已发布', '2016-12-27 12:12:30.0');
-INSERT INTO `person_inform` VALUES ('2', '企业的分类', '外包型公司，通过承接别的企业的部分或全部软件业务来发展。这导致了业务不稳定，编程语言、技术框架等技术方面也不稳定。', '130904467975589', '已发布', '2016-12-27 12:12:30.0');
 
 -- ----------------------------
 -- Table structure for `place_area`
@@ -419,6 +392,7 @@ CREATE TABLE `place_province` (
 -- Records of place_province
 -- ----------------------------
 INSERT INTO `place_province` VALUES ('1', '广东');
+INSERT INTO `place_province` VALUES ('2', '湖北');
 
 -- ----------------------------
 -- Table structure for `power_permission`
@@ -449,13 +423,17 @@ CREATE TABLE `power_role` (
   `r_parent_ids` varchar(255) DEFAULT NULL,
   `r_create_time` datetime DEFAULT NULL,
   `u_id` varchar(255) DEFAULT NULL,
+  `r_type` varchar(255) DEFAULT NULL,
+  `s_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`r_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of power_role
 -- ----------------------------
-INSERT INTO `power_role` VALUES ('1612274121', '超级管理员', '又有所有权限', '0', '2016-12-27 12:12:30', '130904467975589');
+INSERT INTO `power_role` VALUES ('1701148497', '超级管理员', '全部的权限', '0', '2017-01-14 17:35:06', '121454061227706', '超级管理员', '121450439752915');
+INSERT INTO `power_role` VALUES ('1701202326', '校长办公室', '管理各部门运作', '0', '2017-01-20 16:56:10', '1701204598', '学校管理员', '1701146144');
+INSERT INTO `power_role` VALUES ('1701206296', '行政部', '普通', '0,1701202326', '2017-01-20 16:58:59', '1701204598', '普通', '1701146144');
 
 -- ----------------------------
 -- Table structure for `power_role_permission`
@@ -471,10 +449,15 @@ CREATE TABLE `power_role_permission` (
 -- ----------------------------
 -- Records of power_role_permission
 -- ----------------------------
-INSERT INTO `power_role_permission` VALUES ('1612271500', '1612274121', '2');
-INSERT INTO `power_role_permission` VALUES ('1612272585', '1612274121', '4');
-INSERT INTO `power_role_permission` VALUES ('1612277512', '1612274121', '3');
-INSERT INTO `power_role_permission` VALUES ('1612278949', '1612274121', '1');
+INSERT INTO `power_role_permission` VALUES ('1701143871', '1701148497', '2');
+INSERT INTO `power_role_permission` VALUES ('1701146060', '1701148497', '4');
+INSERT INTO `power_role_permission` VALUES ('1701146097', '1701148497', '3');
+INSERT INTO `power_role_permission` VALUES ('1701148492', '1701148497', '1');
+INSERT INTO `power_role_permission` VALUES ('1701203911', '1701202326', '3');
+INSERT INTO `power_role_permission` VALUES ('1701204932', '1701202326', '4');
+INSERT INTO `power_role_permission` VALUES ('1701204989', '1701202326', '1');
+INSERT INTO `power_role_permission` VALUES ('1701205531', '1701202326', '2');
+INSERT INTO `power_role_permission` VALUES ('1701207729', '1701206296', '4');
 
 -- ----------------------------
 -- Table structure for `recipe`
@@ -532,7 +515,8 @@ CREATE TABLE `school` (
 -- ----------------------------
 -- Records of school
 -- ----------------------------
-INSERT INTO `school` VALUES ('131105025965483', '深圳市第二幼儿园', '深圳市福田区通心岭同心路9号', '1');
+INSERT INTO `school` VALUES ('121450439752915', '深圳市第二幼儿园', '深圳市福田区通心岭同心路9号', '1');
+INSERT INTO `school` VALUES ('1701146144', '阳光幼儿园', '福明看守所', '1');
 
 -- ----------------------------
 -- Table structure for `school_class`
@@ -551,7 +535,8 @@ CREATE TABLE `school_class` (
 -- ----------------------------
 -- Records of school_class
 -- ----------------------------
-INSERT INTO `school_class` VALUES ('131109104493487', '1班', '131105203177247', '131106520147201', '2016-12-13 11:09:10', '有效');
+INSERT INTO `school_class` VALUES ('121625317338152', '1班', '121451107531942', '121617080757562', '2016-12-12 16:25:31', '有效');
+INSERT INTO `school_class` VALUES ('1701141614', '1班', '1701143372', '1701075088', '2017-01-14 13:41:35', '有效');
 
 -- ----------------------------
 -- Table structure for `school_grade`
@@ -567,7 +552,9 @@ CREATE TABLE `school_grade` (
 -- ----------------------------
 -- Records of school_grade
 -- ----------------------------
-INSERT INTO `school_grade` VALUES ('131105203177247', '1年级', '131105025965483');
+INSERT INTO `school_grade` VALUES ('121451107531942', '1年级', '121450439752915');
+INSERT INTO `school_grade` VALUES ('121451250157260', '2年级', '121450439752915');
+INSERT INTO `school_grade` VALUES ('1701143372', '1年级', '1701146144');
 
 -- ----------------------------
 -- Table structure for `school_section`
@@ -617,8 +604,7 @@ CREATE TABLE `student_parent_rel` (
 -- ----------------------------
 -- Records of student_parent_rel
 -- ----------------------------
-INSERT INTO `student_parent_rel` VALUES ('151624302612422', '131230197602955', '131232059508893', '妈妈');
-INSERT INTO `student_parent_rel` VALUES ('221040591864498', '131230197602955', '212235022502632', '爸爸');
+INSERT INTO `student_parent_rel` VALUES ('121717088049855', '121629582332762', '121631303308559', '父女');
 
 -- ----------------------------
 -- Table structure for `timetables`
@@ -639,7 +625,7 @@ CREATE TABLE `timetables` (
 -- ----------------------------
 -- Records of timetables
 -- ----------------------------
-INSERT INTO `timetables` VALUES ('131110186686403', '131102143658222', '131109104493487', '131106520147201', '10:30:00', '11:00:00', '1', '1');
+INSERT INTO `timetables` VALUES ('131049001449070', '131048219119868', '121625317338152', '121617080757562', '10:30:00', '11:00:00', '1', '1');
 
 -- ----------------------------
 -- Table structure for `users`
@@ -657,19 +643,19 @@ CREATE TABLE `users` (
   `trp_id` varchar(255) DEFAULT NULL,
   `r_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`u_id`),
-  UNIQUE KEY `u_num` (`u_num`) USING BTREE
+  UNIQUE KEY `u_num` (`u_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('130903487494281', '13265737301', 'jack', '123456', '1', '2016-12-13 09:03:48', null, null, null, null);
-INSERT INTO `users` VALUES ('130904467975589', 'test', 'test', '123', '1', '2016-12-13 09:04:46', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/130904467975589/21105917366.png', null, null, '1612274121');
-INSERT INTO `users` VALUES ('130907379769695', 'test001', 'chang', '123', '1', '2016-12-13 09:07:37', null, null, null, null);
-INSERT INTO `users` VALUES ('131107321846506', 'lsf', '小李', '123', '2', '2016-12-13 11:07:48', null, null, '131106520147201', null);
-INSERT INTO `users` VALUES ('131233468047161', 'zpy', '平移', '123', '1', '2016-12-13 12:33:46', null, null, '131232059508893', null);
-INSERT INTO `users` VALUES ('1612318856', 'pake', '帕克', '123', '2', '2016-12-31 18:29:52', null, null, '212235022502632', '1612274121');
-INSERT INTO `users` VALUES ('212235023123815', 'test002', 'chang', '123', '1', '2016-12-21 22:35:02', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/212235023123815/22102733661.png', null, '212235022502632', null);
+INSERT INTO `users` VALUES ('1', 'yd-7111', '张顺', '123456', '1', null, null, null, '', '1612278984');
+INSERT INTO `users` VALUES ('121454061227706', 'lsf', '李老师', '123', '2', '2016-12-12 14:54:06', null, null, '121617080757562', '1701148497');
+INSERT INTO `users` VALUES ('121634531947973', 'hxs', '黄先生', '123', '1', '2016-12-12 16:34:53', null, null, '121631303308559', null);
+INSERT INTO `users` VALUES ('131006370239645', 'sljr', '山岭巨人', '123', '1', '2016-12-13 10:06:36', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/131006370239645/13101439834.png', null, '', null);
+INSERT INTO `users` VALUES ('1701204598', 'lxw', '小李', '123', '2', '2017-01-20 16:52:56', null, null, '1701075088', '1701202326');
+INSERT INTO `users` VALUES ('212030047403656', '00123', '提阿尼头', '123', '1', '2016-12-21 20:30:04', null, null, '212030046888631', null);
+INSERT INTO `users` VALUES ('271634032221266', 'qwe', '张顺1', '123', '1', '2016-10-26 23:08:14', 'http://zhangshun-zs1994.oicp.net:15202/ABE_WEB/photo/271634032221266/13101330046.png', null, '1', '1612278984');
 
 -- ----------------------------
 -- Table structure for `vacate`
@@ -690,6 +676,3 @@ CREATE TABLE `vacate` (
 -- ----------------------------
 -- Records of vacate
 -- ----------------------------
-INSERT INTO `vacate` VALUES ('1612296778', '131230197602955', '212235023123815', '131106520147201', '大大', '2016-12-29  上午', '2016-12-29 14:49:35', '');
-INSERT INTO `vacate` VALUES ('1612298054', '131230197602955', '212235023123815', '131106520147201', '病假', '2016-12-29  全天', '2016-12-29 14:44:44', '');
-INSERT INTO `vacate` VALUES ('1612299385', '131230197602955', '212235023123815', '131106520147201', 'yes nice bus math', '2016-12-29  上午', '2016-12-29 14:57:04', '');

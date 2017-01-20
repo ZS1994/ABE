@@ -119,10 +119,12 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
 				}else {
 					response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error1.jsp");
 					result=null;
+					return result;
 				}
 			}else {
 				response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error1.jsp");
 				result=null;
+				return result;
 			}
 		}else{ 
 			if (actionName.equals("users")) {//用户管理
