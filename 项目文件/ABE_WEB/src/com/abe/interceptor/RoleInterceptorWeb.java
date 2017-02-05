@@ -13,6 +13,9 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.abe.entity.PowerRole;
+import com.abe.entity.PowerRolePermission;
+import com.abe.entity.Users;
 import com.abe.service.iBaseService;
 import com.abe.tools.Constant;
 import com.opensymphony.xwork2.ActionContext;
@@ -31,13 +34,17 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	ActionInvocation acin;
 	iBaseService ser;
 	HttpServletRequest request;
 	HttpServletResponse response;
 	Map session;
 	String path;
 	String reqPamrs;
-	Object user;
+	Users user;
+	PowerRole role;
+	String actionName;
+	String methodName;
 	private static final String PRO_NAME="/"+Constant.ABE_WEB_NAME+"/web";
 	private Logger logger=Logger.getLogger(RoleInterceptorWeb.class);
 	
@@ -51,6 +58,7 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
 	}
 
 	private void allInit(ActionInvocation arg0) throws UnsupportedEncodingException {
+		acin=arg0;
 		// 取得请求相关的ActionContext实例  
 		request = ServletActionContext.getRequest();
 		response = ServletActionContext.getResponse();
@@ -64,30 +72,39 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
         path = request.getRequestURI();//url
         reqPamrs = request.getQueryString();//后面的参数
         //获取登录者信息
-        user =session.get("user"); 
+        user =(Users) session.get("user");
+        if (user!=null && user.getRId()!=null) {
+        	List<PowerRole> list=ser.find("from PowerRole where RId=?", new String[]{user.getRId()});
+			if (list.size()>0) {
+				role=list.get(0);
+			}
+		}
+        //获取action的名字
+        actionName = arg0.getProxy().getActionName();
+        //获取action的方法名字
+        methodName = arg0.getProxy().getMethod();
 	}
 	
 	/**
 	 * 权限判断方法
-	 * @param arg0
-	 * @param r
-	 * @param pid
-	 * @return
-	 * @throws Exception
 	 */
-	/*
-	private String roleControl(ActionInvocation arg0,Role r,String pid) throws Exception {
-		List<RolePermission> rps=ser.find("from RolePermission where RId=? and PId=?", new String[]{r.getRId(),pid});
-		if(rps.size()>0){
-			close();
-			return arg0.invoke();
+	private String roleControl(String pid) throws Exception {
+		if (role!=null) {
+			List<PowerRolePermission> rps=ser.find("from PowerRolePermission where RId=? and PId=?", new String[]{role.getRId(),pid});
+			if(rps.size()>0){
+				close();
+				return acin.invoke();
+			}else {
+				response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error2.jsp");
+				close();
+				return null;
+			}
 		}else {
-			response.sendRedirect("error2.jsp");
+			response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error2.jsp");
 			close();
 			return null;
 		}
 	}
-	*/
 	
 	@Override
 	public String intercept(ActionInvocation arg0) throws Exception {
@@ -95,34 +112,39 @@ public class RoleInterceptorWeb extends AbstractInterceptor{
 		//以下是权限控制的核心代码
 		String result=null;
 		if (user==null) {//例外列表
-			if ( 
-					(PRO_NAME+"/sign!signIn").equals(path)||
-					(PRO_NAME+"/sign!gotoQuery").equals(path)||
-					(PRO_NAME+"/sign!queryOfFenYe").equals(path)
-			) {
-				result=arg0.invoke();
+			if (actionName.equals("sign")){
+				if (methodName.equals("queryOfFenYe") || methodName.equals("gotoQuery") || methodName.equals("signIn")) {
+					result=arg0.invoke();
+					return result;
+				}else {
+					response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error1.jsp");
+					result=null;
+					return result;
+				}
 			}else {
 				response.sendRedirect("/"+Constant.ABE_WEB_NAME+"/component/error1.jsp");
 				result=null;
+				return result;
 			}
 		}else{ 
-			/*
-			Users u=(Users)user;
-			Role r=u.getR();
-			
-			if ((PRO_NAME+"/fbd_asdl!queryOfFenyeAsdl").equals(path)) {//硬件组-ASDL-分页
-				return roleControl(arg0, r, "1");
-			}else if ((PRO_NAME+"/fbd_asdl!deleteAsdl").equals(path)) {//硬件组-ASDL-删除
-				return roleControl(arg0, r, "3");
-			}else if ((PRO_NAME+"/fbd_asdl!addAsdl").equals(path)) {//硬件组-ASDL-添加
-				return roleControl(arg0, r, "2");
-			}else if ((PRO_NAME+"/fbd_asdl!updateAsdl").equals(path)) {//硬件组-ASDL-修改
-				return roleControl(arg0, r, "4");
+			if (actionName.equals("users")) {//用户管理
+				if (methodName.equals("queryOfFenYe") || methodName.equals("gotoQuery")) {
+					return roleControl("4");
+				}else if (methodName.equals("add")) {
+					return roleControl("1");
+				}else if (methodName.equals("delete")) {
+					return roleControl("2");
+				}else if (methodName.equals("update")) {
+					return roleControl("3");
+				}
 			}
-			*/
-			result=arg0.invoke();
+			
+			/* -----在这里补全----- */
+			
 		}
 		close(); 
+		/*这里暂时把没有补全的内容直接让其通行*/
+		result=arg0.invoke();
 		return result; 
 	}
 	

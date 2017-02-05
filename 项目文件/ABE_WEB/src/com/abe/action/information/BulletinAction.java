@@ -7,8 +7,8 @@ import net.sf.json.JSONObject;
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.AllInform;
-import com.abe.entity.app.RespBulletin;
-import com.abe.entity.app.RespBulletinAll;
+import com.abe.entity.other.RespBulletin;
+import com.abe.entity.other.RespBulletinAll;
 import com.abe.service.iBaseService;
 import com.abe.service.information.iBulletinService;
 import com.opensymphony.xwork2.ActionContext;
@@ -47,39 +47,27 @@ public class BulletinAction extends BaseAction implements iBaseAction {
 	public String insertBulletin() throws IOException {
 		String aiTitle = (String) getRequest().getParameter("AiTitle");
 		String aiContent = (String) getRequest().getParameter("AiContent");
-		String itId = (String) getRequest().getParameter("TrpId");
+		String itId = (String) getRequest().getParameter("ItId");
 		RespBulletin respBulletin = bulletinSer.insertBulletin(aiTitle,
 				aiContent, itId);
-		JSONObject jsonObject = ser.objToJson(respBulletin,
-				"yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respBulletin, ser);
 		return null;
 	}
 
 	public String queryBulletinByItId() throws IOException {
 		String pageNo = (String) getRequest().getParameter("pageNo");
 		String pageSize = (String) getRequest().getParameter("pageSize");
-		String itId = (String) getRequest().getParameter("TrpId");
+		String itId = (String) getRequest().getParameter("ItId");
 		RespBulletinAll respBulletinAll = bulletinSer.queryBulletinByItId(
 				pageNo, pageSize, itId);
-		JSONObject jsonObject = ser.objToJson(respBulletinAll,
-				"yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respBulletinAll, ser);
 		return null;
 	}
 
 	public String findSingleBulletin() throws IOException {
 		String aiId = (String) getRequest().getParameter("AiId");
 		RespBulletin respBulletin = bulletinSer.findSingleBulletinById(aiId);
-		JSONObject jsonObject = ser.objToJson(respBulletin,
-				"yyyy-MM-dd HH:mm:ss");
-		getPrintWriter().print(jsonObject);
-		getPrintWriter().flush();
-		getPrintWriter().close();
+		sendToApp(respBulletin, ser);
 		return null;
 	}
 

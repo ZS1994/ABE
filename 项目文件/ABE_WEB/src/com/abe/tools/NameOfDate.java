@@ -3,6 +3,8 @@ package com.abe.tools;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.sun.xml.internal.bind.v2.runtime.Name;
+
 /**
  * 通过日期生成名字类（目的是不重复）
  * @author 张顺
@@ -21,6 +23,9 @@ public class NameOfDate {
 	 * @return
 	 */
 	public static String getNum() {
-		return getFileName()+(int)(Math.random()*9000+1000);
+		String dateString=new SimpleDateFormat("yyMMdd").format(new Date());
+		return dateString+(int)(Math.random()*9000+1000);
 	}
+	
+	
 }

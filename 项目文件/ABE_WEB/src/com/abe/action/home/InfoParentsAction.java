@@ -21,9 +21,9 @@ import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
 import com.abe.entity.StudentParentRel;
 import com.abe.entity.Users;
-import com.abe.entity.app.ReqObject;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespStudent;
+import com.abe.entity.other.ReqObject;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespStudent;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iParentService;
 import com.abe.service.home.iStudentService;
@@ -108,11 +108,7 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 		String CCode=ser.clearSpace(getRequest(), "CCode");
 		InfoParents p=new InfoParents(null, ipName, ipSex, ser.toDate(ipBirthday), ipPhone, ipAddress);
 		RespCommon resp=parentSer.addFromApp(UId, p, CCode);
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	
@@ -121,30 +117,24 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 		String ipPhone=ser.clearSpace(getRequest(), "ipPhone");
 		parentSer.saveCode(UId, ipPhone, (int)((Math.random()*9+1)*100000)+"");//发送6位随机数验证码
 		RespCommon resp=parentSer.getCode(UId);
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	
 	public String queryFromApp() {
 		String UId=ser.clearSpace(getRequest(), "UId");
 		RespCommon resp=parentSer.queryParent(UId);
-		try {
-			sendToApp(resp, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sendToApp(resp, ser);
 		return null;
 	}
 	
 	@Override
 	public String add() {
 		clearSpace();
-		parent.setIpId(NameOfDate.getNum());
-		ser.save(parent);
+		if (parent!=null) {
+			parent.setIpId(NameOfDate.getNum());
+			ser.save(parent);
+		}
 		return gotoQuery();
 	}
 
@@ -182,7 +172,13 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 	public String gotoQuery() {
 		clearSpace();
 		clearOptions();
-		parents=ser.find("from InfoParents order by ipName desc", null);
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
+			page=new Page(1, 0, 10);
+		}
+		String hql="from InfoParents order by ipName desc";
+		parents=ser.query(hql, null, hql, page);
 		return result;
 	}
 
@@ -192,14 +188,13 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 10);
 		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
-		StringBuffer hql=new StringBuffer("from InfoParents ");
+		StringBuffer hql=new StringBuffer("from InfoParents where 1=1");
 		if (id!=null) {
-			hql.append(" where ipId='%"+id+"%' ");
+			hql.append(" and ipId  like '%"+id+"%' ");
 		}
 		hql.append("order by ipName desc");
 		parents=ser.query(hql.toString(), null, hql.toString(), page);
@@ -209,8 +204,10 @@ public class InfoParentsAction extends BaseAction implements iBaseAction{
 	@Override
 	public String update() {
 		clearSpace();
-		// TODO Auto-generated method stub
-		return null;
+		if(parent != null){
+			ser.update(parent);
+		}
+		return gotoQuery();
 	}
 
 }

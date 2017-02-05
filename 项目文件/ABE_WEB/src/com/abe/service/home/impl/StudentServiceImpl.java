@@ -18,9 +18,9 @@ import com.abe.entity.SchoolClass;
 import com.abe.entity.SchoolGrade;
 import com.abe.entity.StudentParentRel;
 import com.abe.entity.Users;
-import com.abe.entity.app.ReqObject;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespStudent;
+import com.abe.entity.other.ReqObject;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespStudent;
 import com.abe.service.home.iStudentService;
 import com.abe.service.hx.iChatgroupService;
 import com.abe.service.impl.BaseServiceImpl;
@@ -107,6 +107,9 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 					if (user!=null && co!=null && code.equals(co.getCCode()) &&
 							uid.equals(co.getUId()) && date.before(co.getCNoTime())) {//验证码验证通过
 						respStudent=addRel(ipId, isId, spRelation);
+						if ("001".equals(respStudent.getResult())) {
+							respStudent.setData(stu);
+						}
 					}else {
 						respStudent.setResult("005");
 						respStudent.setData(null);
@@ -192,6 +195,28 @@ public class StudentServiceImpl extends BaseServiceImpl implements iStudentServi
 	@Override
 	public List<InfoStudent> getAllStu() {
 		return find("from InfoStudent", null);
+	}
+	@Override
+	public List getScals() {
+		return find("from SchoolClass", null);
+	}
+	@Override
+	public void initStu(InfoStudent stu) {
+		//装填班级
+		if (stu!=null) {
+			SchoolClass sc=(SchoolClass) get(SchoolClass.class, stu.getScId());
+			if (sc!=null) {
+				stu.setSchoolClass(sc);
+			}
+		}
+	}
+	@Override
+	public void initStu(List<InfoStudent> stus) {
+		if (stus!=null) {
+			for (int i = 0; i < stus.size(); i++) {
+				initStu(stus.get(i));
+			}
+		}
 	}
 	
 

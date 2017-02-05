@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.abe.entity.AllInform;
 import com.abe.entity.InfoTeacher;
-import com.abe.entity.app.RespBulletin;
-import com.abe.entity.app.RespBulletinAll;
+import com.abe.entity.other.RespBulletin;
+import com.abe.entity.other.RespBulletinAll;
 import com.abe.service.impl.BaseServiceImpl;
 import com.abe.service.information.iBulletinService;
 import com.abe.tools.NameOfDate;
@@ -65,11 +65,17 @@ public class BulletinServiceImpl extends BaseServiceImpl implements
 			respBulletinAll.setData(null);
 		} else {
 			Page page = new Page(pano, 0, size);
+			List<AllInform> list;
+			if(itId == null || "".equals(itId)){
+				String hql = "from AllInform order by aiTime desc";
+				list = query(hql,null,hql,page);
+			}else{
 			String hql1 = "from AllInform where itId = ? order by aiTime desc";
 			String hql2 = "from AllInform where itId = '" + itId
 					+ "' order by aiTime desc";
-			List<AllInform> list = query(hql1, new String[] { itId }, hql2,
+			list = query(hql1, new String[] { itId }, hql2,
 					page);
+			}
 			for (int i = 0; i < list.size(); i++) {
 				InfoTeacher teacher = (InfoTeacher) get(InfoTeacher.class, list
 						.get(i).getItId());

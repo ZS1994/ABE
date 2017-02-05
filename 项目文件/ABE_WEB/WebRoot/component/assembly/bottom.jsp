@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
 
   </head>
   
@@ -24,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
 	<div class="bottom" style="background-color: #D8D8D8;">
   	
-  	
+  		<jsp:include page="/component/hintModal.jsp"/>
 	</div>
   
 </body>

@@ -6,7 +6,7 @@ import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
 import com.abe.entity.PlaceCity;
 import com.abe.entity.PlaceProvince;
-import com.abe.entity.app.RespCity;
+import com.abe.entity.other.RespCity;
 import com.abe.service.iBaseService;
 import com.abe.service.information.iCityService;
 import com.abe.tools.NameOfDate;

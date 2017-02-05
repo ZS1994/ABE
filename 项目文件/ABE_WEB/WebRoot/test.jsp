@@ -105,7 +105,11 @@ URL：http://localhost:8080/ABE_WEB/app/<input id="urltmp" type="text"/>(写后�
 <input type="button" value="打卡" onclick="$('#urltmp').val('attendance!addFromApp');"/>
 <input type="button" value="查看考勤信息" onclick="$('#urltmp').val('attendance!queryOfUid');"/>
 <input type="button" value="创建环信群组" onclick="$('#urltmp').val('test!createGroupHx');"/>
+<div>--教师档案-->>
+<input type="button" value="查看教师相关的班级信息" onclick="$('#urltmp').val('teacher!querySchoolClass');"/>
+<input type="button" value="通过uid查看教师档案信息" onclick="$('#urltmp').val('teacher!queryFromApp');"/>
 
+</div>
 <br/>
 <input type="button" value="添加参数" onclick="addBody()" style="background-color: rgba(230, 255, 0, 0.33);"/>
 <script type="text/javascript">

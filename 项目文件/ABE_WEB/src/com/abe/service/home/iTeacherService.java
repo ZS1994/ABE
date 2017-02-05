@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.abe.entity.InfoStudent;
 import com.abe.entity.InfoTeacher;
-import com.abe.entity.app.RespTeacher;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespTeacher;
 
 
 public interface iTeacherService{
@@ -47,6 +49,16 @@ public interface iTeacherService{
 	 * 卢江林
 	 */
 	public InfoTeacher addTeacherInfor(InfoTeacher teacher);
+	/*
+	 * 填装部门信息
+	 */
+	public List getSsals();
+	public void initTeacher(InfoTeacher techer);
+	public void initTeacher(List<InfoTeacher> techers);
 	
-
+	
+	/**张顺
+	 * 查询有关这个教师的班级
+	 */
+	public RespCommon querySchoolClass(String uid);
 }

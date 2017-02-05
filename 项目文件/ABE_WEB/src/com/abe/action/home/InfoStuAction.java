@@ -14,8 +14,8 @@ import com.abe.entity.InfoParents;
 import com.abe.entity.InfoStudent;
 import com.abe.entity.StudentParentRel;
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespStudent;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespStudent;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iStudentService;
 import com.abe.tools.NameOfDate;
@@ -37,15 +37,21 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	private iStudentService studentSer;
 	//-------------
 	private String result="student";
-	private String result_fail="";
-	private Page page;
 	private InfoStudent student;
 	private List<InfoStudent> stus;
+	private Page page;
 	private String id;
+	private String cz;
 	
 	private Logger logger=Logger.getLogger(InfoStuAction.class);
 	
-
+	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	public iStudentService getStudentSer() {
 		return studentSer;
 	}
@@ -96,8 +102,9 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	@Override
 	public String add() {
 		logger.debug("-------进入后台添加学生---------");
-		student.setIsId(NameOfDate.getNum());
+		clearSpace();
 		if(student!=null){
+			student.setIsId(NameOfDate.getNum());
 			ser.save(student);
 		}
 		return gotoQuery();
@@ -105,19 +112,10 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public void clearOptions() {
-		if (page!=null) {
-			page=null;
-		}
-		if (student!=null) {
-			student=null;
-		}
-		if (stus!=null) {
-			stus=null;
-		}
-		if (id!=null) {
-			id=null;
-		}
-		
+		stus=null;
+		student=null;
+		id=null;
+		cz=null;
 	}
 
 	@Override
@@ -125,11 +123,14 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 		if (id!=null) {
 			id=id.trim();
 		}
+		if (cz!=null) {
+			cz=cz.trim();
+		}
 	}
 
 	@Override
 	public String delete() {
-		String id=ser.clearSpace(getRequest(), "id");
+		clearSpace();
 		if (id!=null) {
 			student=(InfoStudent) ser.get(InfoStudent.class, id);
 			if (student!=null) {
@@ -142,7 +143,16 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 	@Override
 	public String gotoQuery() {
 		clearOptions();
-		stus=ser.find("from InfoStudent order by isNum desc", null);
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+		String hql="from InfoStudent order by isNum desc";
+		stus=ser.query(hql, null, hql, page);
+		studentSer.initStu(stus);//装填封装
+		//带上需要的信息过去
+		getRequest().setAttribute("scals", studentSer.getScals());
 		return result;
 	}
 
@@ -190,15 +200,25 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 				respStudent.setResult("002");
 				respStudent.setData(null);
 			}else if (user.getUType().equals("1")) {
-				InfoParents parent=(InfoParents) ser.get(InfoParents.class, user.getTrpId());
-				List<StudentParentRel> rels=ser.find("from StudentParentRel where ipId=?", new String[]{parent.getIpId()});
-				List<InfoStudent> list=new ArrayList<InfoStudent>();
-				for (int i = 0; i < rels.size(); i++) {
-					InfoStudent student=studentSer.getFromId(rels.get(i).getIsId());
-					list.add(student);
+				if (user.getTrpId()!=null) {
+					InfoParents parent=(InfoParents) ser.get(InfoParents.class, user.getTrpId());
+					if (parent!=null) {
+						List<StudentParentRel> rels=ser.find("from StudentParentRel where ipId=?", new String[]{parent.getIpId()});
+						List<InfoStudent> list=new ArrayList<InfoStudent>();
+						for (int i = 0; i < rels.size(); i++) {
+							InfoStudent student=studentSer.getFromId(rels.get(i).getIsId());
+							list.add(student);
+						}
+						respStudent.setResult("001");
+						respStudent.setData(list);
+					}else {
+						respStudent.setResult("2001");
+						respStudent.setData(null);
+					}
+				}else {
+					respStudent.setResult("2001");
+					respStudent.setData(null);
 				}
-				respStudent.setResult("001");
-				respStudent.setData(list);
 			}else {
 				respStudent.setResult("004");
 				respStudent.setData(null);
@@ -208,6 +228,7 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 		sendToApp(json, ser);
 		return null;
 	}
+	
 	
 	/**张顺 2016-11-29
 	 * 分页查询所有学生
@@ -228,39 +249,41 @@ public class InfoStuAction extends BaseAction implements iBaseAction{
 			respstu.setResult("001");
 			respstu.setData(students);
 		}
-		try {
-			sendToApp(respstu, ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error("分页查询所有学生发送json时错误，错误json："+respstu);
-		}
+		sendToApp(respstu, ser);
 		return null;
 	}
 	
 	@Override
 	public String queryOfFenYe() {
-		String cz=getRequest().getParameter("cz");
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
-		if (cz!=null && cz.equals("yes")) {
-			clearOptions();
-			page=new Page(1, 0, 10);
-		}
-		clearSpace();
-		StringBuffer hql=new StringBuffer("from InfoStudent ");
+		StringBuffer hql=new StringBuffer("from InfoStudent where 1=1 ");
 		if (id!=null) {
-			hql.append(" where isId like '%"+id+"%' ");
+			hql.append("and isId like '%"+id+"%' ");
 		}
 		hql.append("order by isNum desc");
 		stus=ser.query(hql.toString(), null, hql.toString(), page);
+		studentSer.initStu(stus);//装填封装
+		//带上需要的信息过去
+		getRequest().setAttribute("scals", studentSer.getScals());
 		return result;
 	}
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (student!=null) {
+//			InfoStudent stutmp=(InfoStudent) ser.get(InfoStudent.class, student.getIsId());
+//			student.setIsIntoDate(stutmp.getIsIntoDate());
+//			student.setIsNum(stutmp.getIsNum());
+			ser.update(student);
+		}
+		return gotoQuery();
 	}
 
 }

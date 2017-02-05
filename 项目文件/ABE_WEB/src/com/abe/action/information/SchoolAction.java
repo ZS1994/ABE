@@ -11,7 +11,7 @@ import com.abe.entity.InfoTeacher;
 import com.abe.entity.PlaceArea;
 import com.abe.entity.School;
 import com.abe.entity.SchoolGrade;
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.information.iSchoolService;
 import com.abe.tools.NameOfDate;
@@ -34,9 +34,9 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 	private List<School> schools;
 	private School sch;
 	private Page page;
-	String result="school";
-	String id;
-	String cz;
+	private String result="school";
+	private String id;
+	private String cz;
 	
 	
 	public String getCz() {
@@ -120,9 +120,11 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 	
 	@Override
 	public String add() {
-		sch.setSId(NameOfDate.getNum());
-		ser.save(sch);
-		clearOptions();
+		clearSpace();
+		if (sch!=null) {
+			sch.setSId(NameOfDate.getNum());
+			ser.save(sch);
+		}
 		return gotoQuery();
 	}
 
@@ -132,7 +134,6 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 		schools=null;
 		id=null;
 		cz=null;
-		page=null;
 	}
 
 	@Override
@@ -147,17 +148,27 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (id!=null) {
+			sch=(School) ser.get(School.class, id);
+			ser.delete(sch);
+		}
+		return gotoQuery();
 	}
 
 	@Override
 	public String gotoQuery() {
+		clearSpace();
 		clearOptions();
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
+			page=new Page(1, 0, 10);
+			
+		}
 		String hql="from School order by SId desc";
-		String ss[]={};
-		String hql2="from School order by SId desc";
-		schools=ser.query(hql, ss, hql2, page);
+		List<School> ls =ser.query(hql, null, hql, page);
+		schools = schoolSer.allFullName(ls);
 		return result;
 	}
 
@@ -192,17 +203,17 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 10);
 		}
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}
-		StringBuffer hql=new StringBuffer("from School ");
+		StringBuffer hql=new StringBuffer("from School where 1=1 ");
 		if (id!=null) {
-			hql.append(" where SId like '%"+id+"%' ");
+			hql.append("and SId like '%"+id+"%' ");
 		}
 		hql.append("order by SId desc");
-		schools=ser.query(hql.toString(), null, hql.toString(), page);
+		List<School> ls=ser.query(hql.toString(), null, hql.toString(), page);
+		schools = schoolSer.allFullName(ls);
 		for(int i = 0 ; i< schools.size(); i++){
 			PlaceArea p = (PlaceArea) ser.get(PlaceArea.class,schools.get(i).getPaId());
 			schools.get(i).setPlaceArea(p);
@@ -248,8 +259,11 @@ public class SchoolAction extends BaseAction implements iBaseAction{
 	}
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (sch!=null) {
+			ser.update(sch);
+		}
+		return gotoQuery();
 	}
 
 }

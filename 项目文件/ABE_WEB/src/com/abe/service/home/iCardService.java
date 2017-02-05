@@ -6,6 +6,8 @@ package com.abe.service.home;
 import java.util.List;
 
 import com.abe.entity.Card;
+import com.abe.entity.InfoStudent;
+import com.abe.entity.InfoTeacher;
 
 /**
  * @author 张顺
@@ -42,5 +44,10 @@ public interface iCardService {
 	 * @return Card
 	 */
 	public Card queryOfId(String CId);
+	
+	/*不用多说，获取所需信息*/
+	public List<InfoStudent> getStus();
+	
+	public List<InfoTeacher> getTeas();
 	
 }

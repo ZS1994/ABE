@@ -1,14 +1,16 @@
 package com.abe.service.home.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import com.abe.entity.News;
+import com.abe.entity.SchoolClass;
 import com.abe.entity.Users;
 import com.abe.entity.Vacate;
-import com.abe.entity.app.RespNews;
-import com.abe.entity.app.RespNewsAll;
+import com.abe.entity.other.RespNews;
+import com.abe.entity.other.RespNewsAll;
 import com.abe.service.home.iNewsService;
 import com.abe.service.impl.BaseServiceImpl;
 import com.abe.tools.NameOfDate;
@@ -97,13 +99,20 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 		respNews.setResult("008");
 	} else{
 	String time = getTime();
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	Date datmp=new Date();
+	try {
+		datmp=sdf.parse(time);
+	} catch (ParseException e1) {
+		e1.printStackTrace();
+	}
 	NameOfDate nameOfData = new NameOfDate();
 	String nId = nameOfData.getNum();
 	
 	news.setNId(nId);
 	news.setNContent(NContent);
-	news.setNCreatTime(time);
-	news.setNFinalTime(time);
+	news.setNCreatTime(datmp);
+	news.setNFinalTime(datmp);
 	news.setNImgs(NImgs);
 	news.setNIstop(NIstop);
 	news.setNOrigin(NOrigin);
@@ -160,22 +169,29 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 			respNews.setData(null);
 			respNews.setResult("008");
 		} else{	
-		news.setNId(NId);
-		news.setNContent(NContent);
-		news.setNCreatTime(NCreatTime);
-		news.setNFinalTime(NFinalTime);
-		news.setNImgs(NImgs);
-		news.setNIstop(NIstop);
-		news.setNOrigin(NOrigin);
-		news.setNUrl(NUrl);
-		news.setUId(UId);
-		news.setNStatus(NStatus);
-		news.setNTitle(NTitle);
-		news.setNType(NType);
-		save(news);
-		
-		respNews.setData(news);
-		respNews.setResult("001");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			Date datmp=new Date();
+			try {
+				datmp=sdf.parse(NCreatTime);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			news.setNId(NId);
+			news.setNContent(NContent);
+			news.setNCreatTime(datmp);
+			news.setNFinalTime(datmp);
+			news.setNImgs(NImgs);
+			news.setNIstop(NIstop);
+			news.setNOrigin(NOrigin);
+			news.setNUrl(NUrl);
+			news.setUId(UId);
+			news.setNStatus(NStatus);
+			news.setNTitle(NTitle);
+			news.setNType(NType);
+			save(news);
+			
+			respNews.setData(news);
+			respNews.setResult("001");
 		}
 		return respNews;
 	}
@@ -196,20 +212,20 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 			respNewsAll.setData(null);
 		}else if((NStatus!=null||!"".equals(NStatus))&&"1".equals(NStatus)){
 			Page page=new Page(pano, 0, size);
-		String hql1="from News where NStatus = "+NStatus+" order by NFinalTime desc ";
-		List<News> list = query(hql1, null, hql1, page);
-		for (int i = 0; i < list.size(); i++) {
-			Users user=(Users) get(Users.class, list.get(i).getUId());
-			user.setUPass(null);
-			list.get(i).setUser(user);
-		}
-		if (list.size()>0){
-			respNewsAll.setData(list);
-			respNewsAll.setResult("001");
-		}else {
-			respNewsAll.setData(null);
-			respNewsAll.setResult("004");
-		}
+			String hql1="from News where NStatus = "+NStatus+" order by NFinalTime desc ";
+			List<News> list = query(hql1, null, hql1, page);
+			for (int i = 0; i < list.size(); i++) {
+				Users user=(Users) get(Users.class, list.get(i).getUId());
+				user.setUPass(null);
+				list.get(i).setUser(user);
+			}
+			if (list.size()>0){
+				respNewsAll.setData(list);
+				respNewsAll.setResult("001");
+			}else {
+				respNewsAll.setData(null);
+				respNewsAll.setResult("004");
+			}
 		}else {
 			respNewsAll.setData(null);
 			respNewsAll.setResult("005");
@@ -220,5 +236,38 @@ public class NewsServiceImpl extends BaseServiceImpl implements iNewsService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = sdf.format(new Date());
 		return time;
+	}
+
+
+
+	@Override
+	public List getUserals() {
+		
+		return find("from Users", null);
+	}
+
+
+
+	@Override
+	public void initNews(News news) {
+		//装填创建者用户
+		if (news!=null) {
+			Users users=(Users) get(Users.class, news.getUId());
+			if (users!=null) {
+				news.setUser(users);
+			}
+		}
+	}
+
+
+
+	@Override
+	public void initNews(List<News> newslist) {
+		if (newslist!=null) {
+			for (int i = 0; i < newslist.size(); i++) {
+				initNews(newslist.get(i));
+			}
+		}
+		
 	}
 }

@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoStudent;
-import com.abe.entity.app.ReqObject;
-import com.abe.entity.app.RespStudent;
+import com.abe.entity.other.ReqObject;
+import com.abe.entity.other.RespStudent;
 
 public interface iStudentService {
 	
@@ -48,6 +48,17 @@ public interface iStudentService {
 	 * @return
 	 */
 	public List<InfoStudent> getAllStu();
+	
+	/*以下是得到各种数据.张顺，2016-12-15*/
+	public List getScals();
+	
+	/**2016-12-15
+	 * 张顺 装填学生封装
+	 * @param stu
+	 */
+	public void initStu(InfoStudent stu);
+	
+	public void initStu(List<InfoStudent> stus);
 	
 	
 }

@@ -2,33 +2,51 @@ package com.abe.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
+import com.abe.entity.Code;
+import com.abe.entity.InfoParents;
+import com.abe.entity.InfoTeacher;
 import com.abe.entity.Licence;
+import com.abe.entity.PowerRole;
+import com.abe.entity.School;
+import com.abe.entity.SchoolClass;
+import com.abe.entity.SchoolGrade;
+import com.abe.entity.SchoolSection;
+import com.abe.entity.Timetables;
 import com.abe.entity.Users;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespSignIn;
-import com.abe.entity.app.RespUpdateUser;
-import com.abe.entity.app.RespUploadPhoto;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespSignIn;
+import com.abe.entity.other.RespUpdateUser;
+import com.abe.entity.other.RespUploadPhoto;
 import com.abe.service.iSignService;
+import com.abe.service.home.impl.ParentServiceImpl;
 import com.abe.service.hx.iUsersService;
 import com.abe.tools.Base64;
 import com.abe.tools.Constant;
+import com.abe.tools.HttpClientHelper;
 import com.abe.tools.MachineCode;
 import com.abe.tools.NameOfDate;
 import com.abe.tools.TokenProccessor;
 
-public class SignServiceImpl extends BaseServiceImpl implements iSignService{
+public class SignServiceImpl extends ParentServiceImpl implements iSignService{
 	
 	private Logger logger=Logger.getLogger(SignServiceImpl.class);
 	private iUsersService usersSer;
@@ -46,6 +64,10 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	public String[] signIn(HttpSession session,String hint,Users user) {
 		final String HINT_NO_USER="用户不存在";//用户不存在
 		final String HINT_NO_PASS="密码错误";//密码错误
+		final String HINT_ERROR_TYPE="该用户类型不是教职工";
+		final String HINT_NO_INFO="该用户缺少档案信息";
+		final String HINT_ERROR_INFO="该用户档案错误";
+		final String HINT_ERROR_OTHER="其他错误，导致未找到该用户的学校";
 		final String result="index";
 		final String result_fail="login";
 		List list=find("from Users where UNum=?", new Object[]{user.getUNum()});
@@ -61,8 +83,73 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 				hint=HINT_NO_PASS;
 				return new String[]{hint,result_fail};
 			}else {
-				session.setAttribute("user", u);
-				return new String[]{hint,result};
+				if (u.getUType()!=null && u.getUType().equals("2")) {
+					if (u.getTrpId()!=null) {
+						InfoTeacher infoTea=(InfoTeacher) get(InfoTeacher.class, u.getTrpId());
+						if (infoTea!=null) {
+							//2017-1-12，张顺，获取学校信息并保存,2017-1-13获取班级信息并保存
+							/*从三个方面来找教职工的学校：
+							 * 		1、如果是班级的班主任，那么该班级所属的学校即是。
+							 * 		2、如果是课程表的课程的授课老师，那么该课程所属的课程表，该课程表所属的班级，该班级所属的学校即是。
+							 * 		3、如果是部门的一员，那么该部门所属的学校即是。
+							 * */
+							boolean isFind=false;//是否已经找到的标志
+							boolean isFind2=false;//是否已经找到的标志2班级
+							School school=null;//先声明,待用
+							List<SchoolClass> scs=find("from SchoolClass where itId=?", new String[]{infoTea.getItId()});
+							if (isFind==false && scs.size()>0 && scs.get(0).getSgId()!=null && isFind2==false) {
+								SchoolGrade sg=(SchoolGrade) get(SchoolGrade.class, scs.get(0).getSgId());
+								u.setSc(scs.get(0));
+								if (sg!=null && sg.getSId()!=null) {
+									school=(School) get(School.class, sg.getSId());
+									if (school!=null) 
+										isFind=true;
+								}
+							}
+							List<Timetables> tts=find("from Timetables where itId=?", new String[]{infoTea.getItId()});
+							if (isFind==false && tts.size()>0 && tts.get(0).getScId()!=null) {
+								SchoolClass sc=(SchoolClass) get(SchoolClass.class, tts.get(0).getScId());
+								if (sc!=null && sc.getSgId()!=null && isFind2==false) {
+									SchoolGrade sg=(SchoolGrade) get(SchoolGrade.class, sc.getSgId());
+									u.setSc(sc);
+									if (sg!=null && sg.getSId()!=null) {
+										school=(School) get(School.class, sg.getSId());
+										if (school!=null) 
+											isFind=true;
+									}
+								}
+							}
+							if (isFind==false && infoTea.getSsId()!=null) {
+								SchoolSection sss=(SchoolSection) get(SchoolSection.class, infoTea.getSsId());
+								if (sss!=null && sss.getSId()!=null) {
+									school=(School) get(School.class, sss.getSId());
+									if (school!=null) 
+										isFind=true;
+								}
+							}
+							if (school!=null) {
+								u.setSchool(school);
+								//2017-1-14，张顺，获取并保存用户的角色
+								PowerRole role=(PowerRole) get(PowerRole.class, u.getRId());
+								u.setRole(role);
+								session.setAttribute("user", u);
+								return new String[]{hint,result};
+							}else {
+								hint=HINT_ERROR_OTHER;
+								return new String[]{hint,result_fail};
+							}
+						}else {
+							hint=HINT_ERROR_INFO;
+							return new String[]{hint,result_fail};
+						}
+					}else {
+						hint=HINT_NO_INFO;
+						return new String[]{hint,result_fail};
+					}
+				}else {
+					hint=HINT_ERROR_TYPE;
+					return new String[]{hint,result_fail};
+				}
 			}
 		}
 	}
@@ -109,7 +196,7 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 			}else {
 				respSignIn.setResult("001");
 				u.setUPass(null);//去掉密码信息
-				String ip=MachineCode.getIpAddr(request);
+				String ip=MachineCode.getIpAdd(request);
 				String licence=TokenProccessor.getInstance().makeToken();
 				Date dateStart=new Date();
 				Date dateEnd=getEndDate(dateStart);
@@ -185,6 +272,8 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 					user.setUPhotoPath(uPhotoPath);
 //					logger.debug(uPhotoPath);
 					update(user);
+//					Users stmp=(Users) get(Users.class, user.getUId());
+//					logger.debug(stmp);
 					uploadPhoto=new RespUploadPhoto("001", user);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -204,34 +293,36 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 	 * @return
 	 */
 	@Override
-	public RespSignIn signUpFromApp(String uNum, String uPass, String uName,
-			String uType) {
-		final String HINT_EXISTS_USER = "002";//用户名已存在
-		final String HINT_SUCCESS_USER = "001";//注册成功
-		RespSignIn respSignIn = new RespSignIn();
-		Timestamp time = new Timestamp(new Date().getTime());
-		Users users = new Users();
-		NameOfDate nameOfData = new NameOfDate();
+	public RespSignIn signUpFromApp(String uNum,String uPass,String uName,String ipPhone,String code) {
 		List list=find("from Users where UNum=?", new Object[]{uNum});
 		if(list.size()>0){
-			respSignIn.setResult(HINT_EXISTS_USER);
+			return new RespSignIn("002", null);
 		}else {
-			users.setUCreateTime(time);
-			users.setUName(uName);
-			users.setUNum(uNum);
-			users.setUPass(uPass);
-			users.setUType(uType);
-			users.setUId(nameOfData.getNum());
-			save(users);
-			respSignIn.setResult(HINT_SUCCESS_USER);
-			respSignIn.setData(users);
-			//在环信系统中注册
-			String token=usersSer.getToken(iUsersService.ACCESS_TOKEN);
-			String result=usersSer.addUser(users.getUId(), users.getUPass(), token);
-			logger.debug("环信注册返回结果："+result);
+			String ipId=NameOfDate.getNum();
+			//开始验证
+			Code co=(Code) get(Code.class, "admin");
+			if (co!=null && code.equals(co.getCCode()) &&
+					"admin".equals(co.getUId()) && new Date().before(co.getCNoTime())) {//验证码验证通过
+				List<InfoParents> li=find("from InfoParents where ipPhone=?", new String[]{ipPhone});
+				if (li!=null && li.size()==0) {//唯一性验证通过
+					//1、保存档案
+					InfoParents p=new InfoParents(ipId, null, null, null, ipPhone, null);
+					save(p);
+					//2、保存账号
+					Users user=new Users(NameOfDate.getNum(), uNum, uName, uPass, "1", new Timestamp(new Date().getTime()), null, null, ipId,null);
+					save(user);
+					//在环信系统中注册
+					String token=usersSer.getToken(iUsersService.ACCESS_TOKEN);
+					String result=usersSer.addUser(user.getUId(), user.getUPass(), token);
+					logger.debug("环信注册返回结果："+result);
+					return new RespSignIn("001", user);
+				}else {
+					return new RespSignIn("004", null);
+				}
+			}else {
+				return new RespSignIn("003", null);
+			}
 		}
-//		System.out.println(respSignIn.toString());
-		return respSignIn;
 	}
 	/**
 	 * 修改个人资料
@@ -251,34 +342,51 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		RespUpdateUser updateUser= new RespUpdateUser();
 		if (list.size()>0) {
 			u=(Users) list.get(0);
-		
-		updateUser.setData(u);
-		updateUser.setResult("001");
+			u.setUPass(null);
+			updateUser.setResult("001");
+			updateUser.setData(u);
 		}else{
 			updateUser.setResult("002");
 		}
 		return updateUser;
 	}
 	
-	public RespUpdateUser updateUser2(String UName,String UPass,String UType,Timestamp UCreateTime,
-			String UPhotoPath,String UNote,String UNum,String UId,String trpId){
-		Users u = new Users();
-		RespUpdateUser updateUser=null;
-		u.setUName(UName);
-		u.setUPass(UPass);
-		u.setUPhotoPath(UPhotoPath);
-		u.setUNote(UNote);
-		u.setUType(UType);
-		u.setUCreateTime(UCreateTime);
-		u.setTrpId(trpId);
-		u.setUNum(UNum);
-		u.setUId(UId);
-		update(u);
-		updateUser = new RespUpdateUser(null, u); 
-		updateUser.setData(u);
-		updateUser.setResult("001");
-		return updateUser;
+	public RespUpdateUser updateUser2(String UId,String UName){
+		if (UId!=null && UName!=null) {
+			Users u = (Users) get(Users.class, UId);
+			if (u!=null) {
+				if (UName!=null)u.setUName(UName);
+				update(u);
+				RespUpdateUser updateUser = new RespUpdateUser(); 
+				updateUser.setResult("001");
+				updateUser.setData(u);
+				return updateUser;
+			}
+		}else {
+			return new RespUpdateUser("002", null);
+		}
+		return null;
 	}
+	
+	public RespCommon updatePass(String uid,String oldpass,String newpass) {
+		if (uid!=null && oldpass!=null && newpass!=null) {
+			Users user=(Users) get(Users.class, uid);
+			if (user!=null && user.getUPass()!=null && oldpass.equals(user.getUPass())) {//验证通过:原密码是对的
+				user.setUPass(newpass);
+				update(user);
+				RespCommon resp=new RespCommon();
+				resp.setResult("001");
+				resp.setData(null);
+				return resp;
+			}
+		}
+		RespCommon common=new RespCommon();
+		common.setResult("002");
+		common.setData(null);
+		return common;
+	} 
+	
+	
 	 /**
      *查询个人信息资料
      * 卢江林
@@ -297,6 +405,17 @@ public class SignServiceImpl extends BaseServiceImpl implements iSignService{
 		}
 		return userInfor;
 	}
-
-
+	@Override
+	public RespCommon queryCode(String phone) {
+		//发送6位随机数验证码
+		if (saveCode("admin", phone, (int)((Math.random()*9+1)*100000)+"")) {
+			return getCode("admin");
+		}else {
+			RespCommon common=new RespCommon();
+			common.setResult("002");
+			return common;
+		}
+	}
+	
+	
 }

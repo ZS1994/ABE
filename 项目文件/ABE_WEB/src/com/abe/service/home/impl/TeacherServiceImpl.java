@@ -6,7 +6,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.abe.entity.InfoTeacher;
-import com.abe.entity.app.RespTeacher;
+import com.abe.entity.SchoolClass;
+import com.abe.entity.SchoolSection;
+import com.abe.entity.Users;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespTeacher;
 import com.abe.service.home.iTeacherService;
 import com.abe.service.impl.BaseServiceImpl;
 
@@ -142,6 +146,68 @@ public class TeacherServiceImpl extends BaseServiceImpl implements iTeacherServi
 		
 		return teacher;
 	}
+
+	@Override
+	public void initTeacher(InfoTeacher techer) {
+		if (techer!=null && techer.getSsId()!=null) {
+			SchoolSection ss=(SchoolSection) get(SchoolSection.class, techer.getSsId());
+			if (ss!=null) {
+				techer.setSchoolSection(ss);
+			}
+		}
+		
+	}
+	@Override
+	public void initTeacher(List<InfoTeacher> techers) {
+		if (techers!=null) {
+			for (int i = 0; i < techers.size(); i++) {
+				initTeacher(techers.get(i));
+			}
+		}
+		
+	}
+
+	@Override
+	public List getSsals() {
+		return find("from SchoolSection", null);
+	}
+
+	@Override
+	public RespCommon querySchoolClass(String uid) {
+		RespCommon resp=new RespCommon();
+		if (uid!=null) {
+			Users user=(Users) get(Users.class, uid);
+			if (user!=null) {
+				if (user.getUType()!=null && user.getUType().equals("2")) {
+					if (user.getTrpId()!=null) {
+						InfoTeacher teacher=(InfoTeacher) get(InfoTeacher.class, user.getTrpId());
+						if (teacher!=null) {
+							List<SchoolClass> scs=find("from SchoolClass where itId=? and scState='有效' order by scCreateTime ", new String[]{teacher.getItId()});
+							resp.setResult("001");
+							resp.setData(scs);
+							return resp;
+						}else {
+							resp.setResult("004");
+							resp.setData(null);
+							return resp;
+						}
+					}else {
+						resp.setResult("003");
+						resp.setData(null);
+						return resp;
+					}
+				}else {
+					resp.setResult("002");
+					resp.setData(null);
+					return resp;
+				}
+			}
+		}
+		resp.setResult("2001");
+		resp.setData(null);
+		return resp;
+	}
+
 
 
 }

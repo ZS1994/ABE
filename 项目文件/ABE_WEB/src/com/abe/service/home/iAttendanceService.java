@@ -47,4 +47,11 @@ public interface iAttendanceService{
 	 * @适用范围  适用于app对接
 	 */
 	public List queryOfUid(String UId);
+	
+	
+	/**张顺 2016-12-16
+	 * 获取持卡人姓名
+	 */
+	public String getSrtName(String CId);
+	
 }

@@ -8,8 +8,8 @@ import net.sf.json.JSONObject;
 
 import com.abe.action.BaseAction;
 import com.abe.action.iBaseAction;
-import com.abe.entity.app.RespCity;
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCity;
+import com.abe.entity.other.RespCommon;
 import com.abe.service.iBaseService;
 import com.abe.service.hx.iMessageService;
 
@@ -52,21 +52,16 @@ public class MsgAction extends BaseAction implements iBaseAction{
 		String from=ser.clearSpace(getRequest(), "from");
 		String msg=ser.clearSpace(getRequest(), "msg");
 		String result=msgSer.sengMsgOne(target, from, msg);
-		try {
-			JSONObject jsonObj=ser.objToJson(result);
-			String iSucc=(String) jsonObj.getJSONObject("data").get(target);
-			if (iSucc.equals("success")) {
-				respResult.setResult("001");
-				respResult.setData(null);
-			}else {
-				respResult.setResult("002");
-				respResult.setData(null);
-			}
-			sendToApp(respResult,ser);
-		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error("发送消息失败-->"+target+"对"+from+"说："+msg);
+		JSONObject jsonObj=ser.objToJson(result);
+		String iSucc=(String) jsonObj.getJSONObject("data").get(target);
+		if (iSucc.equals("success")) {
+			respResult.setResult("001");
+			respResult.setData(null);
+		}else {
+			respResult.setResult("002");
+			respResult.setData(null);
 		}
+		sendToApp(respResult,ser);
 		return null;
 	}
 	

@@ -1,7 +1,7 @@
 package com.abe.service.information;
 
-import com.abe.entity.app.RespBulletin;
-import com.abe.entity.app.RespBulletinAll;
+import com.abe.entity.other.RespBulletin;
+import com.abe.entity.other.RespBulletinAll;
 
 /*
  * 公告

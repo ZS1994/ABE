@@ -1,5 +1,7 @@
 package com.abe.entity;
 
+import java.util.Date;
+
 /**
  * News entity. @author MyEclipse Persistence Tools
  */
@@ -15,8 +17,8 @@ public class News implements java.io.Serializable {
 	private String NUrl;
 	private String NOrigin;
 	private String NType;
-	private String NCreatTime;
-	private String NFinalTime;
+	private Date NCreatTime;
+	private Date NFinalTime;
 	private String NIstop;
 	private String UId;
 	private String NStatus;
@@ -44,8 +46,8 @@ public class News implements java.io.Serializable {
 
 	/** full constructor */
 	public News(String NId, String NTitle, String NContent, String NImgs,
-			String NUrl, String NOrigin, String NType, String NCreatTime,
-			String NFinalTime, String NIstop, String UId, String NStatus) {
+			String NUrl, String NOrigin, String NType, Date NCreatTime,
+			Date NFinalTime, String NIstop, String UId, String NStatus) {
 		this.NId = NId;
 		this.NTitle = NTitle;
 		this.NContent = NContent;
@@ -118,19 +120,19 @@ public class News implements java.io.Serializable {
 		this.NType = NType;
 	}
 
-	public String getNCreatTime() {
+	public Date getNCreatTime() {
 		return this.NCreatTime;
 	}
 
-	public void setNCreatTime(String NCreatTime) {
+	public void setNCreatTime(Date NCreatTime) {
 		this.NCreatTime = NCreatTime;
 	}
 
-	public String getNFinalTime() {
+	public Date getNFinalTime() {
 		return this.NFinalTime;
 	}
 
-	public void setNFinalTime(String NFinalTime) {
+	public void setNFinalTime(Date NFinalTime) {
 		this.NFinalTime = NFinalTime;
 	}
 

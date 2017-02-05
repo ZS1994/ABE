@@ -1,13 +1,17 @@
-package com.abe.action;
+ package com.abe.action;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
+import com.abe.entity.InfoStudent;
+import com.abe.entity.PowerRole;
+import com.abe.entity.School;
 import com.abe.entity.Users;
 import com.abe.service.iBaseService;
 import com.abe.service.hx.iChatgroupService;
@@ -25,7 +29,7 @@ public class TestAction extends BaseAction{
 	private iChatgroupService groupSer;
 	private iUsersService userSer;
 	private Logger logger=Logger.getLogger(TestAction.class);
-	
+	  
 	
 	public iUsersService getUserSer() {
 		return userSer;
@@ -123,6 +127,25 @@ public class TestAction extends BaseAction{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	public String initHql() {
+		Users user=getUser(ser);
+
+		String hql="from InfoStudent as stu " +
+				"where " +
+				"((select SId from SchoolGrade where sgId =(select sgId from SchoolClass where scId=stu.scId))=? and (select RName from PowerRole where RId=(select RId from Users where UId=?))='校长办公室') " +
+				"or " +
+				"((select RName from PowerRole where RId=(select RId from Users where UId=?))!='校长办公室' and stu.scId=?)";
+		List<InfoStudent> stus=ser.find(hql, new Object[]{user.getSchool().getSId(),user.getUId(),user.getUId(),user.getSc().getScId()});
+		
+		/*
+		 *hql执行成功了，明天来看2017-1-13，张顺 
+		 */
+		
+		JSONArray array=JSONArray.fromObject(stus);
+		System.out.println(array);
 		return null;
 	}
 }

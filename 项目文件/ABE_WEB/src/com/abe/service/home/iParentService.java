@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.abe.entity.Code;
 import com.abe.entity.InfoParents;
-import com.abe.entity.app.RespCommon;
+import com.abe.entity.other.RespCommon;
 
 public interface iParentService {
 	
@@ -31,7 +31,7 @@ public interface iParentService {
 	/**
 	 * 保存验证码
 	 */
-	public void saveCode(String uid,String mobile,String param);
+	public boolean saveCode(String uid,String mobile,String param);
 	
 	
 	public RespCommon queryParent(String uid);

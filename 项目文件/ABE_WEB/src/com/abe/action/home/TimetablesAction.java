@@ -18,8 +18,8 @@ import com.abe.entity.Course;
 import com.abe.entity.InfoTeacher;
 import com.abe.entity.SchoolClass;
 import com.abe.entity.Timetables;
-import com.abe.entity.app.RespCommon;
-import com.abe.entity.app.RespTimetables;
+import com.abe.entity.other.RespCommon;
+import com.abe.entity.other.RespTimetables;
 import com.abe.service.iBaseService;
 import com.abe.service.home.iTimetablesService;
 import com.abe.tools.JsonDateValueProcessor;
@@ -37,18 +37,39 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Logger log=Logger.getLogger(TimetablesAction.class);
 	private iBaseService ser;
 	private iTimetablesService timetablesSer;
-	private Logger log=Logger.getLogger(TimetablesAction.class);
-	
 	private Page page;
 	private Course course;
 	private Timetables timetables;
+	private List<List<Timetables>> tts;
 	private String result="timetablesManager";
-
+	private String id;
+	private String cz;
+	
+	
 	//---------------------------------------------------
 	public Page getPage() {
 		return page;
+	}
+	public List<List<Timetables>> getTts() {
+		return tts;
+	}
+	public void setTts(List<List<Timetables>> tts) {
+		this.tts = tts;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
 	}
 	public void setPage(Page page) {
 		this.page = page;
@@ -95,29 +116,57 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 		}
 		timetables.setTId(NameOfDate.getNum());
 		ser.save(timetables);
-		return null;
+		return gotoQuery();
 	}
 
 	@Override
 	public void clearOptions() {
-		// TODO Auto-generated method stub
-		
+		cz=null;
+		id=null;
+		course=null;
+		timetables=null;
+		tts=null;
 	}
 
 	@Override
 	public void clearSpace() {
-		// TODO Auto-generated method stub
-		
+		cz=cz!=null?cz.trim():null;
+		id=id!=null?id.trim():null;
 	}
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		if (id!=null) {
+			timetables=(Timetables) ser.get(Timetables.class, id);
+			if (timetables!=null) {
+				ser.delete(timetables);
+			}
+		}
+		return gotoQuery();
 	}
 
 	@Override
 	public String gotoQuery() {
+		clearOptions();
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
+			page=new Page(1, 0, 1);
+		}
+		StringBuffer hql=new StringBuffer("from SchoolClass");
+		List<SchoolClass> list=ser.query(hql.toString(), null, hql.toString(), page);
+		tts=new ArrayList<List<Timetables>>();
+		for (int i = 0; i < list.size(); i++) {
+			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, list.get(i).getScId());
+			if (schoolClass!=null) {
+				tts=timetablesSer.getAllOfWeek(list.get(i).getScId());
+			}
+		}
+		//带上教师和科目信息
+		getRequest().setAttribute("teas", timetablesSer.getTeachers());
+		getRequest().setAttribute("cous", timetablesSer.getCourses());
+		getRequest().setAttribute("scas", timetablesSer.getSclass());
 		return result;
 	} 
 
@@ -149,25 +198,93 @@ public class TimetablesAction extends BaseAction implements iBaseAction{
 		return null;
 	}
 	
+	/**
+	 * 张顺 2016-12-12
+	 * 查看一天的课程表
+	 * @return
+	 */
+	public String queryDateFromApp(){
+		RespCommon resp=new RespCommon();
+		String scId=ser.clearSpace(getRequest(), "scId");
+		String week=ser.clearSpace(getRequest(), "TWeek");
+		if (scId!=null && week!=null) {
+			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, scId);
+			if (schoolClass==null) {
+				resp.setResult("002");
+				resp.setData(null);
+			}else {
+				int w=Integer.valueOf(week);
+				if (w>=1 && w<=7) {
+					List<List<Timetables>> list=timetablesSer.getDateOfWeek(scId, w);
+					resp.setResult("001");
+					resp.setData(list);
+				}else {
+					resp.setResult("004");
+					resp.setData(null);
+				}
+			}
+		}else {
+			resp.setResult("003");
+			resp.setData(null);
+		}
+		sendToApp(resp, ser);
+		return null;
+	}
 	
 	@Override
 	public String queryOfFenYe() {
-		String scId=ser.clearSpace(getRequest(), "scId");
-		List<List<Timetables>> list=null;
-		if (scId!=null) {
-			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, scId);
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
+		if (page==null) {
+			page=new Page(1, 0, 1);
+		}
+		StringBuffer hql=new StringBuffer("from SchoolClass where 1=1 ");
+		if (id!=null) {
+			hql.append("and scId like '%"+id+"%'" );
+		}
+		hql.append("");
+		List<SchoolClass> list=ser.query(hql.toString(), null, hql.toString(), page);
+		tts=new ArrayList<List<Timetables>>();
+		for (int i = 0; i < list.size(); i++) {
+			SchoolClass schoolClass=(SchoolClass) ser.get(SchoolClass.class, list.get(i).getScId());
 			if (schoolClass!=null) {
-				list=timetablesSer.getAllOfWeek(scId);
+				tts=timetablesSer.getAllOfWeek(list.get(i).getScId());
 			}
 		}
-		getRequest().setAttribute("ttlist", list);
+		//带上教师和科目信息
+		getRequest().setAttribute("teas", timetablesSer.getTeachers());
+		getRequest().setAttribute("cous", timetablesSer.getCourses());
+		getRequest().setAttribute("scas", timetablesSer.getSclass());
 		return result;
 	}
 
 	@Override
 	public String update() {
-		// TODO Auto-generated method stub
-		return null;
+		clearSpace();
+		//装载Time字段
+		String stime=ser.clearSpace(getRequest(), "time1");
+		String etime=ser.clearSpace(getRequest(), "time2");
+		if (timetables!=null) {
+			if (stime!=null) {
+				String ss[]=stime.split(":");
+				timetables.setTStartTime(new Time(Integer.valueOf(ss[0]), Integer.valueOf(ss[1]), 0));
+			}
+			if (etime!=null) {
+				String ss[]=etime.split(":");
+				timetables.setTEndTime(new Time(Integer.valueOf(ss[0]), Integer.valueOf(ss[1]), 0));
+			}
+			List<Timetables> list=ser.find("from Timetables where scId=? and TWeek=? and TOrder=?", new Object[]{timetables.getScId(),timetables.getTWeek(),timetables.getTOrder()});
+			if (list.size()>0) {
+				timetables.setTId(list.get(0).getTId());
+				ser.update(timetables);
+			}else {
+				timetables.setTId(NameOfDate.getNum());
+				ser.save(timetables);
+			}
+		}
+		return gotoQuery();
 	}
 
 }

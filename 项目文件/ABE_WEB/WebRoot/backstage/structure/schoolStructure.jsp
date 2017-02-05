@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>学生管理</title>
+    <title>学校班级架构</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -21,40 +21,82 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/assembly.css">
   </head>
- 
   
 <body>
 	
 	<br><jsp:include page="/component/assembly/top.jsp"></jsp:include>
 	<jsp:include page="/component/assembly/left.jsp"></jsp:include>
 	<div class="right">
-		<input type="text" value="省" /><input type="text" value="市" /><input type="text" value="区" name="paId"/><br/>
-        <span><a href="#" target="right">该区部下的学校班级架构</a></span>
-        <ul class="easyui-tree" data-options="animate:true,lines:true">
-     	<c:forEach items="${schools}" var="s">
-                <li><span><a href="<%=path %>/web/school!queryOfFenYe?cz=no&id=${s.SId }">${s.SName }</a></span>
-  	         	<ul>
-  	         	<c:forEach items="${s.grade}" var="g">
- 			 		<li><span><a href="<%=path %>/web/grade!queryOfFenYe?cz=no&id=${g.sgId }" >${g.sgName }</a></span>
-      	     		<ul>
-      	     		<c:forEach items="${g.sclass}" var="c">
-     		 			<li><span><a href="<%=path %>/web/class!queryOfFenYe?cz=no&id=${c.scId}">${c.scName }</a></span>
-     		 				<ul>
-	       	     		<c:forEach items="${c.student}" var="student">
-	      		 			<li><span><a href="#" target="right">${student.isName }</a></span></li>
-	       	     		</c:forEach>
-	       	     		</ul>
-     		 			</li>
-      	     		</c:forEach>
-      	     		</ul>
- 			 		</li>
-  	         	</c:forEach>
-  	         	</ul>
-                </li>
-     	</c:forEach>
-        </ul>
+		
+		
+		<select id="pps">
+			<option value="">--请选择--</option>	
+			<c:forEach items="${pps}" var="p">
+			<option value="${p.ppId }">${p.ppName }</option>	
+			</c:forEach>
+		</select>
+		省
+		<select id="pcs">
+			<option value="">--请选择--</option>	
+		</select>
+		市
+		<select id="pas">
+			<option value="">--请选择--</option>	
+		</select>
+		区
+		
+		<p>温馨提示：双击可查看详情。</p>
+		
+        <div id="sch_content">
+        	<ul id="tree_ul" class="easyui-tree" data-options="animate:true,lines:true">
+        	</ul>
+        </div>
+        
 	</div>
 	<jsp:include page="/component/assembly/bottom.jsp"></jsp:include>
 	
 </body>
+<script type="text/javascript">
+	$(function(){
+		$("#pps").change(function(){
+			$.post(
+				"<%=path %>/web/schoolStructure!queryPc",
+				{"ppId":$(this).val()},
+				function(data){
+					var jarr=$.parseJSON(data);
+					$("#pcs").html("<option value=''>--请选择--</option>");
+					for ( var i = 0; i < jarr.length; i++) {
+						$("#pcs").append("<option value='"+jarr[i].pcId+"'>"+jarr[i].pcName+"</option>");
+					}
+					$("#pas").html("<option value=''>--请选择--</option>");
+				}
+			);
+		});
+		$("#pcs").change(function(){
+			$.post(
+				"<%=path %>/web/schoolStructure!queryPa",
+				{"pcId":$(this).val()},
+				function(data){
+					var jarr=$.parseJSON(data);
+					var str="";
+					$("#pas").html("<option value=''>--请选择--</option>");
+					for ( var i = 0; i < jarr.length; i++) {
+						$("#pas").append("<option value="+jarr[i].paId+">"+jarr[i].paName+"</option>");
+					}
+				}
+			);
+		});
+		$("#pas").change(function(){
+			$('#tree_ul').tree({
+			    url:"<%=path %>/web/schoolStructure!querySch?paId="+$(this).val(),
+			    formatter:function(node){
+					return node.text;
+				},
+				onDblClick: function(node){
+					window.location.href="<%=path%>"+node.attributes.path;
+				}
+			});
+		});
+	});
+</script>
 </html>

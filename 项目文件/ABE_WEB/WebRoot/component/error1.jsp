@@ -28,14 +28,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   	
   <body>
-  	<div style="font-size:30px;">错误代码：691</div>
- 	<div style="margin:100px auto;width:1000px;height:600px;">
- 		<img src="<%=path %>/FRAMEWORK/image/man_error.png" style="display:block; width:320px;height:350px;float:left;">
- 		<img src="<%=path %>/FRAMEWORK/image/option_error.png" style="display:block; width:480px;height:160px;float:left;">
- 		<span style="display:block; width:680px;height:160px;float:left;font-size:45px;font-family:宋体;font-weight:900;">您当前未登录账号，请先登录!</span>
- 		<a href="<%=path %>/web/sign!gotoQuery" target="_parent" style="display:block; width:300px;height:80px;float:left;margin-left:80px;background:url(<%=path %>/FRAMEWORK/image/btn_error.png);">
- 			<span style="font-size:40px;color:black;margin:17px 100px;display:block;">登&nbsp;&nbsp;录</span>
- 		</a>
- 	</div>
+  	<h1>错误代码：619</h1>
+	<p>
+		您还没有登录，请先登录。
+	</p>
+	<a href="<%=path %>/web/sign!gotoQuery">跳转登录</a>
    </body>
 </html>

@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.abe.entity.PersonInform;
 import com.abe.entity.Users;
-import com.abe.entity.app.RespPersonInform;
-import com.abe.entity.app.RespPersonInformAll;
+import com.abe.entity.other.RespPersonInform;
+import com.abe.entity.other.RespPersonInformAll;
 import com.abe.service.home.iPersonInformService;
 import com.abe.service.impl.BaseServiceImpl;
 import com.abe.tools.NameOfDate;
